@@ -1,18 +1,18 @@
 # project-rule
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Claude Code Plugin](https://img.shields.io/badge/Claude_Code-Plugin-blueviolet)](https://github.com/Rytass/ClaudeCodeMarketplace)
+
 Full-stack project architecture convention plugin for Claude Code.
 
 Covers NestJS dual-layer modules, Next.js App Router, TypeORM, GraphQL Code-First, Mezzanine UI, Casbin RBAC, Nx monorepo, and Quadrats editor. Provides scaffolding tools and pattern auditing capabilities.
 
 ## Installation
 
-Add this plugin to Claude Code:
-
 ```bash
-claude plugin add /path/to/ProjectRule
+claude plugin marketplace add Rytass/ClaudeCodeMarketplace
+claude plugin install project-rule@rytass-claude-code --scope user
 ```
-
-Or add the plugin path in Claude Code settings.
 
 ## Skills
 
@@ -151,8 +151,8 @@ Standardized output format templates for consistent reports from agents and comm
 Provides a project-level configuration template. Copy it to the target project to customize plugin behavior.
 
 ```bash
-# Copy the config template to your project
-cp /path/to/ProjectRule/docs/project-rule.local.md .claude/project-rule.local.md
+# Copy the config template to your project (run from the plugin directory)
+cp docs/project-rule.local.md /your-project/.claude/project-rule.local.md
 ```
 
 Configuration includes: project topology, directory paths, audit rule overrides, and scaffolding preferences.
@@ -161,7 +161,8 @@ Configuration includes: project topology, directory paths, audit rule overrides,
 
 ```bash
 # 1. Install the plugin
-claude plugin add /path/to/ProjectRule
+claude plugin marketplace add Rytass/ClaudeCodeMarketplace
+claude plugin install project-rule@rytass-claude-code --scope user
 
 # 2. Initialize a new project
 /init-project --topology=monorepo
