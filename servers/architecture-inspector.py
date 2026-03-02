@@ -637,6 +637,9 @@ def _handle_request(message: dict[str, object]) -> Optional[dict[str, object]]:
     if request_id is None:
         return None
 
+    if method == "ping":
+        return _make_response(request_id, {})
+
     if method == "initialize":
         return _make_response(request_id, {
             "protocolVersion": PROTOCOL_VERSION,
