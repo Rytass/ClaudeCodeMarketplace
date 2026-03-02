@@ -1,6 +1,6 @@
 {
   "architecture-inspector": {
     "command": "bash",
-    "args": ["-c", "python3 \"${CLAUDE_PLUGIN_ROOT}/servers/architecture-inspector.py\""]
+    "args": ["-c", "exec python3 \"${CLAUDE_PLUGIN_ROOT}/servers/architecture-inspector.py\""]
   }
 }
