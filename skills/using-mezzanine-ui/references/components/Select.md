@@ -1,0 +1,328 @@
+# Select Component
+
+> **Category**: Data Entry
+>
+> **Storybook**: `Data Entry/Select`
+>
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Select) · Verified v2 source (2026-02-13)
+
+Dropdown select component supporting single-select and multi-select modes. Internally uses the Dropdown component to render the option list.
+
+## Import
+
+```tsx
+import {
+  Select,
+  SelectControlContext,
+  SelectTrigger,
+  SelectTriggerTags,
+} from '@mezzanine-ui/react';
+
+import type {
+  SelectProps,
+  SelectTriggerInputProps,
+  SelectTriggerProps,
+  SelectTriggerTagsProps,
+  SelectValue,
+  SelectControl,
+} from '@mezzanine-ui/react';
+
+// The following types are not exported from the main entry; import from sub-path
+import type {
+  SelectTriggerBaseProps,
+  SelectTriggerSingleProps,
+  SelectTriggerMultipleProps,
+  SelectTriggerComponentProps,
+} from '@mezzanine-ui/react/Select';
+```
+
+> **Note**: Select no longer exports the `Option` component. Options are provided via the `options` prop in `DropdownOption[]` format.
+
+---
+
+## Select Props
+
+### Common Props (SelectBaseProps)
+
+Extends `SelectTriggerProps`, which includes trigger-related properties.
+
+| Property           | Type                                                                                     | Default     | Description                            |
+| ------------------ | ---------------------------------------------------------------------------------------- | ----------- | -------------------------------------- |
+| `clearable`        | `boolean`                                                                                | `false`     | Whether clearable                      |
+| `disabled`         | `boolean`                                                                                | `false`     | Whether disabled (inheritable from FormControlContext) |
+| `dropdownZIndex`   | `number \| string`                                                                       | -           | Dropdown z-index                       |
+| `error`            | `boolean`                                                                                | `false`     | Whether in error state (auto when severity='error') |
+| `fullWidth`        | `boolean`                                                                                | `false`     | Whether full width (inheritable from FormControlContext) |
+| `globalPortal`     | `boolean`                                                                                | `true`      | Whether to enable Portal               |
+| `inputProps`       | `Omit<SelectTriggerInputProps, 'onBlur' \| 'onChange' \| 'onFocus' \| 'placeholder' \| 'role' \| 'value' \| 'aria-controls' \| 'aria-expanded' \| 'aria-owns'>` | - | Props passed to input |
+| `inputRef`         | `Ref<HTMLInputElement>`                                                                  | -           | Input element ref                      |
+| `menuMaxHeight`    | `number \| string`                                                                       | -           | Menu max height                        |
+| `onBlur`           | `() => void`                                                                             | -           | Blur event                             |
+| `onClear`          | `(e: MouseEvent) => void`                                                                | -           | Clear event                            |
+| `onFocus`          | `() => void`                                                                             | -           | Focus event                            |
+| `onScroll`         | `(computed: { scrollTop: number; maxScrollTop: number }, target: HTMLDivElement) => void` | -           | Menu scroll event                      |
+| `options`          | `DropdownOption[]`                                                                       | -           | Option list (supports tree structure)  |
+| `placeholder`      | `string`                                                                                 | `''`        | Placeholder text                       |
+| `prefix`           | `ReactNode`                                                                              | -           | Prefix content                         |
+| `readOnly`         | `boolean`                                                                                | `false`     | Whether read-only                      |
+| `renderValue`      | `(values) => string`                                                                     | -           | Custom value rendering                 |
+| `required`         | `boolean`                                                                                | `false`     | Whether required (inheritable from FormControlContext) |
+| `size`             | `SelectInputSize`                                                                        | -           | Input size                             |
+| `suffixActionIcon` | `ReactElement<IconProps, typeof Icon>`                                                   | -           | Suffix action icon                     |
+| `type`             | `DropdownType`                                                                           | `'default'` | Dropdown type                          |
+
+### Single Select Mode (mode: 'single')
+
+| Property       | Type                                        | Default    | Description        |
+| -------------- | ------------------------------------------- | ---------- | ------------------ |
+| `mode`         | `'single'`                                  | `'single'` | Single select mode |
+| `defaultValue` | `SelectValue`                               | -          | Default value      |
+| `value`        | `SelectValue \| null`                       | -          | Controlled value   |
+| `onChange`     | `(newOption: SelectValue \| null) => void`  | -          | Change event       |
+| `renderValue`  | `(value: SelectValue \| null) => string`    | -          | Custom display     |
+
+### Multi Select Mode (mode: 'multiple')
+
+| Property       | Type                                   | Default | Description              |
+| -------------- | -------------------------------------- | ------- | ------------------------ |
+| `mode`         | `'multiple'`                           | -       | Multi select (required)  |
+| `defaultValue` | `SelectValue[]`                        | -       | Default value            |
+| `value`        | `SelectValue[]`                        | -       | Controlled value         |
+| `onChange`     | `(newOptions: SelectValue[]) => void`  | -       | Change event             |
+| `renderValue`  | `(values: SelectValue[]) => string`    | -       | Custom display           |
+
+---
+
+## SelectValue and SelectControl Types
+
+```tsx
+interface SelectValue<T = string> {
+  id: T;
+  name: string;
+}
+
+interface SelectControl<T = string> {
+  value: SelectValue<T>[] | SelectValue<T> | null;
+  onChange: (
+    v: SelectValue<T> | null,
+  ) => SelectValue<T>[] | SelectValue<T> | null;
+}
+```
+
+---
+
+## DropdownOption Type
+
+```tsx
+interface DropdownOption {
+  id: string;
+  name: string;
+  showCheckbox?: boolean;
+  showUnderline?: boolean;
+  icon?: IconDefinition;
+  validate?: DropdownItemValidate;
+  checkSite?: DropdownCheckPosition;
+  children?: DropdownOption[];  // For tree structure
+  shortcutKeys?: Array<string | number>;
+  shortcutText?: string;
+}
+```
+
+---
+
+## Usage Examples
+
+### Basic Single Select
+
+```tsx
+import { Select } from '@mezzanine-ui/react';
+
+function BasicSelect() {
+  const [value, setValue] = useState<SelectValue | null>(null);
+
+  const options = [
+    { id: '1', name: 'Option 1' },
+    { id: '2', name: 'Option 2' },
+    { id: '3', name: 'Option 3' },
+  ];
+
+  return (
+    <Select
+      options={options}
+      placeholder="Please select"
+      value={value}
+      onChange={setValue}
+    />
+  );
+}
+```
+
+### Multi Select Mode
+
+```tsx
+function MultiSelect() {
+  const [values, setValues] = useState<SelectValue[]>([]);
+
+  const options = [
+    { id: 'a', name: 'Apple' },
+    { id: 'b', name: 'Banana' },
+    { id: 'c', name: 'Cherry' },
+  ];
+
+  return (
+    <Select
+      mode="multiple"
+      options={options}
+      placeholder="Select multiple"
+      value={values}
+      onChange={setValues}
+      clearable
+    />
+  );
+}
+```
+
+### Clearable
+
+```tsx
+<Select
+  options={options}
+  placeholder="Clearable select"
+  value={value}
+  onChange={setValue}
+  clearable
+/>
+```
+
+### Custom Display Value
+
+```tsx
+<Select
+  options={options}
+  value={value}
+  onChange={setValue}
+  renderValue={(val) => val ? `Selected: ${val.name}` : 'Please select'}
+/>
+```
+
+### With Prefix Icon
+
+```tsx
+import { UserIcon } from '@mezzanine-ui/icons';
+import { Icon } from '@mezzanine-ui/react';
+
+<Select
+  options={options}
+  prefix={<Icon icon={UserIcon} />}
+  placeholder="Select user"
+  value={value}
+  onChange={setValue}
+/>
+```
+
+### Error State
+
+```tsx
+<Select
+  options={options}
+  error
+  placeholder="Required field"
+  value={value}
+  onChange={setValue}
+/>
+```
+
+### Infinite Scroll Loading
+
+```tsx
+<Select
+  options={options}
+  placeholder="Scroll to load more"
+  value={value}
+  onChange={setValue}
+  onScroll={({ scrollTop, maxScrollTop }) => {
+    if (scrollTop >= maxScrollTop - 10) {
+      loadMoreOptions();
+    }
+  }}
+/>
+```
+
+### Tree Structure Options (multi-select mode)
+
+```tsx
+const treeOptions = [
+  {
+    id: 'fruit',
+    name: 'Fruit',
+    children: [
+      { id: 'apple', name: 'Apple' },
+      { id: 'banana', name: 'Banana' },
+    ],
+  },
+  {
+    id: 'vegetable',
+    name: 'Vegetable',
+    children: [
+      { id: 'carrot', name: 'Carrot' },
+    ],
+  },
+];
+
+<Select
+  mode="multiple"
+  options={treeOptions}
+  value={values}
+  onChange={setValues}
+/>
+```
+
+---
+
+## Other Exports
+
+| Export Name              | Description                            |
+| ----------------------- | -------------------------------------- |
+| `SelectControlContext`  | Select control context (`SelectControl \| undefined`) |
+| `SelectTrigger`         | Select trigger component (internal)    |
+| `SelectTriggerTags`     | Multi-select tag display (internal)    |
+
+### SelectTriggerTagsProps
+
+| Property                    | Type                                          | Description              |
+| --------------------------- | --------------------------------------------- | ------------------------ |
+| `disabled`                  | `boolean`                                     | Whether disabled         |
+| `inputProps`                | `Omit<NativeElementPropsWithoutKeyAndRef<'input'>, ...>` | Input props (excluding autoComplete, children, defaultValue, etc.) |
+| `inputRef`                  | `Ref<HTMLInputElement>`                       | Input ref                |
+| `onTagClose`                | `(target: SelectValue) => void`               | Tag close callback       |
+| `overflowStrategy`         | `'counter' \| 'wrap'`                         | **Required**, overflow strategy |
+| `readOnly`                  | `boolean`                                     | Whether read-only        |
+| `required`                  | `boolean`                                     | Whether required         |
+| `searchText`                | `string`                                      | Search text              |
+| `showTextInputAfterTags`    | `boolean`                                     | Show input after tags    |
+| `size`                      | `TagSize`                                     | Tag size                 |
+| `value`                     | `SelectValue[]`                               | Selected values array    |
+
+---
+
+## Figma Mapping
+
+| Figma Variant               | React Props                          |
+| --------------------------- | ------------------------------------ |
+| `Select / Single`           | `<Select mode="single">`            |
+| `Select / Multiple`         | `<Select mode="multiple">`          |
+| `Select / Disabled`         | `<Select disabled>`                 |
+| `Select / Error`            | `<Select error>`                    |
+| `Select / Clearable`        | `<Select clearable>`               |
+| `Select / With Prefix`      | `<Select prefix={...}>`            |
+
+---
+
+## Best Practices
+
+1. **Use options prop**: Provide options via `DropdownOption[]`
+2. **Meaningful placeholder**: Clearly describe the expected selection
+3. **Use clearable appropriately**: Allow users to deselect
+4. **Consider Tag display for multi-select**: Multi-select displays selected items as Tags
+5. **Pair with FormField**: Provide labels and error messages
+6. **Use onScroll for large option sets**: Implement infinite scroll loading

@@ -1,0 +1,626 @@
+{
+  "meta": {
+    "generatedAt": "2026-02-14",
+    "sourceVersion": "1.0.0-beta.7",
+    "description": "Complete import paths index for Mezzanine UI v2 packages"
+  },
+  "packages": {
+    "@mezzanine-ui/react": {
+      "mainExports": {
+        "_comment": "All items exported from packages/react/src/index.ts via `import { X } from '@mezzanine-ui/react'`",
+        "utils": {
+          "arrayMove": { "source": "./utils/array-move" },
+          "composeRefs": { "source": "./utils/composeRefs" },
+          "cx": { "source": "./utils/cx" },
+          "formatNumberWithCommas": { "source": "./utils/format-number-with-commas" },
+          "general": { "source": "./utils/general" },
+          "getCssVariableValue": { "source": "./utils/get-css-variable-value" },
+          "getScrollbarWidth": { "source": "./utils/get-scrollbar-width" },
+          "getElement": { "source": "./utils/getElement" },
+          "jsxTypes": { "source": "./utils/jsx-types" },
+          "parseNumberWithCommas": { "source": "./utils/parse-number-with-commas" }
+        },
+        "hooks": {
+          "useClickAway": { "source": "./hooks/useClickAway" },
+          "useComposeRefs": { "source": "./hooks/useComposeRefs" },
+          "useDocumentEscapeKeyDown": { "source": "./hooks/useDocumentEscapeKeyDown" },
+          "useDocumentEvents": { "source": "./hooks/useDocumentEvents" },
+          "useDocumentTabKeyDown": { "source": "./hooks/useDocumentTabKeyDown" },
+          "useIsomorphicLayoutEffect": { "source": "./hooks/useIsomorphicLayoutEffect" },
+          "useLastCallback": { "source": "./hooks/useLastCallback" },
+          "useLastValue": { "source": "./hooks/useLastValue" },
+          "usePreviousValue": { "source": "./hooks/usePreviousValue" },
+          "useScrollLock": { "source": "./hooks/useScrollLock" },
+          "useTopStack": { "source": "./hooks/useTopStack" },
+          "useWindowWidth": { "source": "./hooks/useWindowWidth" },
+          "useDelayMouseEnterLeave": { "source": "./Tooltip/useDelayMouseEnterLeave" }
+        },
+        "formHooks": {
+          "useAutoCompleteValueControl": { "source": "./Form/useAutoCompleteValueControl" },
+          "useCheckboxControlValue": { "source": "./Form/useCheckboxControlValue" },
+          "useControlValueState": { "source": "./Form/useControlValueState" },
+          "useCustomControlValue": { "source": "./Form/useCustomControlValue" },
+          "useInputControlValue": { "source": "./Form/useInputControlValue" },
+          "useInputWithClearControlValue": { "source": "./Form/useInputWithClearControlValue" },
+          "useRadioControlValue": { "source": "./Form/useRadioControlValue" },
+          "useSelectValueControl": { "source": "./Form/useSelectValueControl" },
+          "useSwitchControlValue": { "source": "./Form/useSwitchControlValue" }
+        },
+        "components": {
+          "Button": { "source": "./Button", "exportType": "default" },
+          "ButtonGroup": { "source": "./Button", "exportType": "named" },
+          "Cropper": { "source": "./Cropper", "exportType": "default" },
+          "Icon": { "source": "./Icon", "exportType": "default" },
+          "Separator": { "source": "./Separator", "exportType": "default" },
+          "Typography": { "source": "./Typography", "exportType": "default" },
+          "Breadcrumb": { "source": "./Breadcrumb", "exportType": "default" },
+          "Drawer": { "source": "./Drawer", "exportType": "default" },
+          "Navigation": { "source": "./Navigation", "exportType": "default" },
+          "NavigationFooter": { "source": "./Navigation", "exportType": "named" },
+          "NavigationHeader": { "source": "./Navigation", "exportType": "named" },
+          "NavigationIconButton": { "source": "./Navigation", "exportType": "named" },
+          "NavigationOption": { "source": "./Navigation", "exportType": "named" },
+          "NavigationOptionCategory": { "source": "./Navigation", "exportType": "named" },
+          "NavigationUserMenu": { "source": "./Navigation", "exportType": "named" },
+          "PageFooter": { "source": "./PageFooter", "exportType": "default" },
+          "PageHeader": { "source": "./PageHeader", "exportType": "default" },
+          "Step": { "source": "./Stepper", "exportType": "named" },
+          "Stepper": { "source": "./Stepper", "exportType": "default" },
+          "useStepper": { "source": "./Stepper", "exportType": "named" },
+          "Tab": { "source": "./Tab", "exportType": "default" },
+          "TabItem": { "source": "./Tab", "exportType": "named" },
+          "Accordion": { "source": "./Accordion", "exportType": "default" },
+          "AccordionActions": { "source": "./Accordion", "exportType": "named" },
+          "AccordionContent": { "source": "./Accordion", "exportType": "named" },
+          "AccordionGroup": { "source": "./Accordion", "exportType": "named" },
+          "AccordionTitle": { "source": "./Accordion", "exportType": "named" },
+          "Badge": { "source": "./Badge", "exportType": "default" },
+          "BadgeContainer": { "source": "./Badge", "exportType": "named" },
+          "BaseCard": { "source": "./Card", "exportType": "named", "originalName": "BaseCardGeneric" },
+          "BaseCardSkeleton": { "source": "./Card", "exportType": "named" },
+          "CardGroup": { "source": "./Card", "exportType": "named" },
+          "FourThumbnailCard": { "source": "./Card", "exportType": "named", "originalName": "FourThumbnailCardGeneric" },
+          "FourThumbnailCardSkeleton": { "source": "./Card", "exportType": "named" },
+          "QuickActionCard": { "source": "./Card", "exportType": "named", "originalName": "QuickActionCardGeneric" },
+          "QuickActionCardSkeleton": { "source": "./Card", "exportType": "named" },
+          "SingleThumbnailCard": { "source": "./Card", "exportType": "named", "originalName": "SingleThumbnailCardGeneric" },
+          "SingleThumbnailCardSkeleton": { "source": "./Card", "exportType": "named" },
+          "Thumbnail": { "source": "./Card", "exportType": "named", "originalName": "ThumbnailGeneric" },
+          "Description": { "source": "./Description", "exportType": "named" },
+          "DescriptionContent": { "source": "./Description", "exportType": "named" },
+          "DescriptionGroup": { "source": "./Description", "exportType": "named" },
+          "DescriptionTitle": { "source": "./Description", "exportType": "named" },
+          "Empty": { "source": "./Empty", "exportType": "default" },
+          "OverflowCounterTag": { "source": "./OverflowTooltip", "exportType": "named" },
+          "Pagination": { "source": "./Pagination", "exportType": "default" },
+          "PaginationItem": { "source": "./Pagination", "exportType": "named" },
+          "PaginationJumper": { "source": "./Pagination", "exportType": "named" },
+          "PaginationPageSize": { "source": "./Pagination", "exportType": "named" },
+          "usePagination": { "source": "./Pagination", "exportType": "named" },
+          "Section": { "source": "./Section", "exportType": "default" },
+          "Table": { "source": "./Table", "exportType": "default" },
+          "TableContext": { "source": "./Table", "exportType": "named" },
+          "TableDataContext": { "source": "./Table", "exportType": "named" },
+          "TableSuperContext": { "source": "./Table", "exportType": "named" },
+          "getCellAlignClass": { "source": "./Table", "exportType": "named" },
+          "getRowKey": { "source": "./Table", "exportType": "named" },
+          "useTableContext": { "source": "./Table", "exportType": "named" },
+          "useTableDataContext": { "source": "./Table", "exportType": "named" },
+          "useTableDataSource": { "source": "./Table", "exportType": "named" },
+          "useTableRowSelection": { "source": "./Table", "exportType": "named" },
+          "useTableSuperContext": { "source": "./Table", "exportType": "named" },
+          "Tag": { "source": "./Tag", "exportType": "default" },
+          "TagGroup": { "source": "./Tag", "exportType": "named" },
+          "Tooltip": { "source": "./Tooltip", "exportType": "default" },
+          "AutoComplete": { "source": "./AutoComplete", "exportType": "default" },
+          "CheckAll": { "source": "./Checkbox", "exportType": "named" },
+          "Checkbox": { "source": "./Checkbox", "exportType": "default" },
+          "CheckboxGroup": { "source": "./Checkbox", "exportType": "named" },
+          "DatePicker": { "source": "./DatePicker", "exportType": "default" },
+          "DatePickerCalendar": { "source": "./DatePicker", "exportType": "named" },
+          "DateRangePicker": { "source": "./DateRangePicker", "exportType": "default" },
+          "DateRangePickerCalendar": { "source": "./DateRangePicker", "exportType": "named" },
+          "useDateRangeCalendarControls": { "source": "./DateRangePicker", "exportType": "named" },
+          "useDateRangePickerValue": { "source": "./DateRangePicker", "exportType": "named" },
+          "DateTimePicker": { "source": "./DateTimePicker", "exportType": "default" },
+          "DateTimeRangePicker": { "source": "./DateTimeRangePicker", "exportType": "named" },
+          "Filter": { "source": "./FilterArea", "exportType": "named" },
+          "FilterArea": { "source": "./FilterArea", "exportType": "named" },
+          "FilterLine": { "source": "./FilterArea", "exportType": "named" },
+          "FormControlContext": { "source": "./Form", "exportType": "named" },
+          "FormField": { "source": "./Form", "exportType": "named" },
+          "FormHintText": { "source": "./Form", "exportType": "named" },
+          "FormLabel": { "source": "./Form", "exportType": "named" },
+          "Input": { "source": "./Input", "exportType": "default" },
+          "MultipleDatePicker": { "source": "./MultipleDatePicker", "exportType": "default" },
+          "MultipleDatePickerTrigger": { "source": "./MultipleDatePicker", "exportType": "named" },
+          "useMultipleDatePickerValue": { "source": "./MultipleDatePicker", "exportType": "named" },
+          "PickerTrigger": { "source": "./Picker", "exportType": "named" },
+          "RangePickerTrigger": { "source": "./Picker", "exportType": "named" },
+          "usePickerDocumentEventClose": { "source": "./Picker", "exportType": "named" },
+          "usePickerValue": { "source": "./Picker", "exportType": "named" },
+          "useTabKeyClose": { "source": "./Picker", "exportType": "named" },
+          "Radio": { "source": "./Radio", "exportType": "default" },
+          "RadioGroup": { "source": "./Radio", "exportType": "named" },
+          "Select": { "source": "./Select", "exportType": "default" },
+          "SelectControlContext": { "source": "./Select", "exportType": "named" },
+          "SelectTrigger": { "source": "./Select", "exportType": "named" },
+          "SelectTriggerTags": { "source": "./Select", "exportType": "named" },
+          "Selection": { "source": "./Selection", "exportType": "default" },
+          "Slider": { "source": "./Slider", "exportType": "default" },
+          "useSlider": { "source": "./Slider", "exportType": "named" },
+          "Textarea": { "source": "./Textarea", "exportType": "default" },
+          "TextField": { "source": "./TextField", "exportType": "default" },
+          "TimePicker": { "source": "./TimePicker", "exportType": "default" },
+          "TimePickerPanel": { "source": "./TimePicker", "exportType": "named" },
+          "TimeRangePicker": { "source": "./TimeRangePicker", "exportType": "default" },
+          "useTimeRangePickerValue": { "source": "./TimeRangePicker", "exportType": "named" },
+          "Switch": { "source": "./Toggle", "exportType": "default", "note": "Source directory is Toggle/, but exported as Switch" },
+          "Upload": { "source": "./Upload", "exportType": "named" },
+          "UploadItem": { "source": "./Upload", "exportType": "named" },
+          "UploadPictureCard": { "source": "./Upload", "exportType": "named" },
+          "Uploader": { "source": "./Upload", "exportType": "named" },
+          "Message": { "source": "./Message", "exportType": "default" },
+          "Modal": { "source": "./Modal", "exportType": "default" },
+          "ModalBodyForVerification": { "source": "./Modal", "exportType": "named" },
+          "ModalFooter": { "source": "./Modal", "exportType": "named" },
+          "ModalHeader": { "source": "./Modal", "exportType": "named" },
+          "useModalContainer": { "source": "./Modal", "exportType": "named" },
+          "NotificationCenter": { "source": "./NotificationCenter", "exportType": "default" },
+          "Progress": { "source": "./Progress", "exportType": "default" },
+          "Skeleton": { "source": "./Skeleton", "exportType": "default" },
+          "Spin": { "source": "./Spin", "exportType": "default" },
+          "InlineMessage": { "source": "./InlineMessage", "exportType": "default" },
+          "InlineMessageGroup": { "source": "./InlineMessage", "exportType": "named" },
+          "ResultState": { "source": "./ResultState", "exportType": "default" },
+          "AlertBanner": { "source": "./AlertBanner", "exportType": "default" },
+          "Anchor": { "source": "./Anchor", "exportType": "default" },
+          "AnchorGroup": { "source": "./Anchor", "exportType": "named" },
+          "Backdrop": { "source": "./Backdrop", "exportType": "default" },
+          "FloatingButton": { "source": "./FloatingButton", "exportType": "default" },
+          "Calendar": { "source": "./Calendar", "exportType": "default" },
+          "CalendarCell": { "source": "./Calendar", "exportType": "named" },
+          "CalendarConfigProvider": { "source": "./Calendar", "exportType": "named" },
+          "CalendarContext": { "source": "./Calendar", "exportType": "named" },
+          "CalendarControls": { "source": "./Calendar", "exportType": "named" },
+          "CalendarDayOfWeek": { "source": "./Calendar", "exportType": "named" },
+          "CalendarDays": { "source": "./Calendar", "exportType": "named" },
+          "CalendarHalfYears": { "source": "./Calendar", "exportType": "named" },
+          "CalendarMonths": { "source": "./Calendar", "exportType": "named" },
+          "CalendarQuarters": { "source": "./Calendar", "exportType": "named" },
+          "CalendarWeeks": { "source": "./Calendar", "exportType": "named" },
+          "CalendarYears": { "source": "./Calendar", "exportType": "named" },
+          "RangeCalendar": { "source": "./Calendar", "exportType": "named" },
+          "useCalendarContext": { "source": "./Calendar", "exportType": "named" },
+          "useCalendarControlModifiers": { "source": "./Calendar", "exportType": "named" },
+          "useCalendarControls": { "source": "./Calendar", "exportType": "named" },
+          "useCalendarModeStack": { "source": "./Calendar", "exportType": "named" },
+          "useRangeCalendarControls": { "source": "./Calendar", "exportType": "named" },
+          "Popper": { "source": "./Popper", "exportType": "default" },
+          "Portal": { "source": "./Portal", "exportType": "default" },
+          "TimePanel": { "source": "./TimePanel", "exportType": "default" },
+          "TimePanelAction": { "source": "./TimePanel", "exportType": "named" },
+          "TimePanelColumn": { "source": "./TimePanel", "exportType": "named" },
+          "Collapse": { "source": "./Transition", "exportType": "named" },
+          "Fade": { "source": "./Transition", "exportType": "named" },
+          "Rotate": { "source": "./Transition", "exportType": "named" },
+          "Scale": { "source": "./Transition", "exportType": "named" },
+          "Slide": { "source": "./Transition", "exportType": "named" },
+          "Transition": { "source": "./Transition", "exportType": "default" },
+          "Translate": { "source": "./Transition", "exportType": "named" },
+          "Dropdown": { "source": "./Dropdown", "exportType": "default" },
+          "DropdownAction": { "source": "./Dropdown/DropdownAction", "exportType": "default" },
+          "DropdownItem": { "source": "./Dropdown/DropdownItem", "exportType": "default" },
+          "DropdownItemCard": { "source": "./Dropdown/DropdownItemCard", "exportType": "default" },
+          "DropdownStatus": { "source": "./Dropdown/DropdownStatus", "exportType": "default" }
+        },
+        "types": {
+          "_comment": "Types exported from main index.ts. Use: import type { X } from '@mezzanine-ui/react'",
+          "fromButton": ["ButtonComponent", "ButtonGroupChild", "ButtonGroupOrientation", "ButtonGroupProps", "ButtonProps", "ButtonPropsBase", "ButtonSize", "ButtonVariant"],
+          "fromCropper": ["CropperComponent", "CropperProps", "CropperPropsBase", "CropperSize"],
+          "fromIcon": ["IconColor", "IconProps"],
+          "fromSeparator": ["SeparatorProps"],
+          "fromTypography": ["TypographyAlign", "TypographyColor", "TypographyComponent", "TypographyDisplay", "TypographyProps", "TypographySemanticType"],
+          "fromBreadcrumb": ["BreadcrumbItemProps", "BreadcrumbProps"],
+          "fromDrawer": ["DrawerPlacement", "DrawerProps"],
+          "fromNavigation": ["NavigationChild", "NavigationChildren", "NavigationFooterProps", "NavigationHeaderProps", "NavigationIconButtonProps", "NavigationOptionCategoryProps", "NavigationOptionProps", "NavigationProps", "NavigationUserMenuProps"],
+          "fromPageFooter": ["PageFooterProps"],
+          "fromPageHeader": ["PageHeaderProps"],
+          "fromStepper": ["StepProps", "StepperProps"],
+          "fromTab": ["TabItemProps", "TabProps", "TabsChild"],
+          "fromAccordion": ["AccordionActionsProps", "AccordionContentProps", "AccordionGroupProps", "AccordionProps", "AccordionTitleProps"],
+          "fromBadge": ["BadgeProps"],
+          "fromCard": ["BaseCardActionProps", "BaseCardActionVariant", "BaseCardComponent", "BaseCardComponentProps", "BaseCardDefaultProps", "BaseCardOverflowProps", "BaseCardProps", "BaseCardPropsCommon", "BaseCardSkeletonProps", "BaseCardToggleProps", "BaseCardType", "CardGroupLoadingType", "CardGroupProps", "FourThumbnailCardActionProps", "FourThumbnailCardComponent", "FourThumbnailCardComponentProps", "FourThumbnailCardDefaultProps", "FourThumbnailCardOverflowProps", "FourThumbnailCardProps", "FourThumbnailCardPropsCommon", "FourThumbnailCardSkeletonProps", "FourThumbnailCardType", "QuickActionCardComponent", "QuickActionCardComponentProps", "QuickActionCardMode", "QuickActionCardProps", "QuickActionCardPropsCommon", "QuickActionCardSkeletonProps", "QuickActionCardWithIconProps", "QuickActionCardWithTitleProps", "SingleThumbnailCardActionProps", "SingleThumbnailCardComponent", "SingleThumbnailCardComponentProps", "SingleThumbnailCardDefaultProps", "SingleThumbnailCardOverflowProps", "SingleThumbnailCardProps", "SingleThumbnailCardPropsCommon", "SingleThumbnailCardSkeletonProps", "SingleThumbnailCardType", "ThumbnailCardInfoProps", "ThumbnailComponent", "ThumbnailComponentProps", "ThumbnailPropsBase"],
+          "fromDescription": ["DescriptionContentProps", "DescriptionGroupProps", "DescriptionProps", "DescriptionTitleProps"],
+          "fromEmpty": ["EmptyProps"],
+          "fromOverflowTooltip": ["OverflowCounterTagProps"],
+          "fromPagination": ["PaginationItemProps", "PaginationItemType", "PaginationJumperProps", "PaginationPageSizeProps", "PaginationProps"],
+          "fromSection": ["SectionProps"],
+          "fromTable": ["ColumnAlign", "FixedType", "HighlightMode", "SortOrder", "TableActionItem", "TableActions", "TableActionsBase", "TableActionsWithMinWidth", "TableBaseProps", "TableBulkActions", "TableBulkGeneralAction", "TableBulkOverflowAction", "TableCollectable", "TableColumn", "TableColumnBase", "TableColumnBaseWithMinWidthRequired", "TableColumnTitleMenu", "TableColumnWithDataIndex", "TableColumnWithDataIndexAndMinWidth", "TableColumnWithMinWidth", "TableColumnWithRender", "TableColumnWithRenderAndMinWidth", "TableContextValue", "TableDataContextValue", "TableDataSource", "TableDataSourceWithId", "TableDataSourceWithKey", "TableDraggable", "TableDraggableOnlyProps", "TableExpandable", "TableExpansionState", "TableNoDragOrPinProps", "TableNonResizableProps", "TableNonVirtualizedProps", "TablePinnableOnlyProps", "TableProps", "TableRecord", "TableResizableProps", "TableResizedColumnState", "TableRowSelection", "TableRowSelectionBase", "TableRowSelectionCheckbox", "TableRowSelectionRadio", "TableScroll", "TableSelectionMode", "TableSelectionState", "TableSize", "TableSortingState", "TableToggleable", "TableTransitionState", "TableVirtualizedProps", "UpdateDataSourceOptions", "UseTableDataSourceOptions"],
+          "fromTag": ["TagGroupProps", "TagProps", "TagSize"],
+          "fromTooltip": ["TooltipProps"],
+          "fromAutoComplete": ["AutoCompleteBaseProps", "AutoCompleteMultipleProps", "AutoCompleteProps", "AutoCompleteSingleProps"],
+          "fromCheckbox": ["CheckAllProps", "CheckboxGroupChangeEvent", "CheckboxGroupChangeEventTarget", "CheckboxGroupLayout", "CheckboxGroupOption", "CheckboxGroupProps", "CheckboxProps"],
+          "fromDatePicker": ["DatePickerCalendarProps", "DatePickerProps"],
+          "fromDateRangePicker": ["DateRangePickerCalendarProps", "DateRangePickerProps", "UseDateRangePickerValueProps"],
+          "fromDateTimePicker": ["DateTimePickerProps"],
+          "fromDateTimeRangePicker": ["DateTimeRangePickerProps", "DateTimeRangePickerValue"],
+          "fromFilterArea": ["FilterAreaProps", "FilterLineProps", "FilterProps"],
+          "fromForm": ["FormControl", "FormFieldProps", "FormHintTextProps", "FormLabelProps"],
+          "fromInput": ["ActionInputProps", "BaseInputProps", "ClearableInput", "CurrencyInputProps", "InputBaseProps", "InputProps", "InputSize", "InputStrength", "NumberInput", "NumberInputProps", "PasswordInputProps", "SearchInputProps", "SelectInputProps", "WithAffixInputProps", "WithPasswordStrengthIndicator"],
+          "fromMultipleDatePicker": ["MultipleDatePickerDateValue", "MultipleDatePickerProps", "MultipleDatePickerTriggerProps", "UseMultipleDatePickerValueProps", "UseMultipleDatePickerValueReturn"],
+          "fromPicker": ["PickerTriggerProps", "RangePickerTriggerProps", "UsePickerDocumentEventCloseProps", "UsePickerValueProps"],
+          "fromRadio": ["RadioGroupOrientation", "RadioGroupProps", "RadioProps", "RadioSize"],
+          "fromSelect": ["SelectControl", "SelectProps", "SelectTriggerInputProps", "SelectTriggerProps", "SelectTriggerTagsProps", "SelectValue"],
+          "fromSelection": ["SelectionProps", "SelectionPropsBase"],
+          "fromSlider": ["RangeSliderProps", "RangeSliderValue", "SingleSliderProps", "SingleSliderValue", "SliderBaseProps", "SliderComponentProps", "SliderProps", "SliderRect", "SliderValue", "UseRangeSliderProps", "UseSingleSliderProps", "UseSliderCommonProps", "UseSliderProps", "UseSliderResult"],
+          "fromTextarea": ["TextareaProps"],
+          "fromTextField": ["TextFieldAffixProps", "TextFieldBaseProps", "TextFieldInteractiveStateProps", "TextFieldPaddingInfo", "TextFieldProps", "TextFieldSize"],
+          "fromTimePicker": ["TimePickerPanelProps", "TimePickerProps"],
+          "fromTimeRangePicker": ["TimeRangePickerProps", "TimeRangePickerValue", "UseTimeRangePickerValueProps"],
+          "fromToggle": {
+            "_comment": "Exported with renamed types: ToggleProps as SwitchProps, ToggleSize as SwitchSize",
+            "types": ["SwitchProps", "SwitchSize"]
+          },
+          "fromUpload": ["UploadFile", "UploadItemProps", "UploadPictureCardProps", "UploadProps", "UploaderProps"],
+          "fromMessage": ["MessageData", "MessageSeverity", "MessageType"],
+          "fromModal": ["ModalBodyForVerificationProps", "ModalFooterProps", "ModalHeaderProps", "ModalProps", "ModalSize", "ModalStatusType"],
+          "fromNotificationCenter": ["NotificationData", "NotificationSeverity"],
+          "fromProgress": ["ProgressProps", "ProgressStatus", "ProgressStatuses", "ProgressType"],
+          "fromSkeleton": ["SkeletonProps"],
+          "fromSpin": ["SpinProps"],
+          "fromInlineMessage": ["InlineMessageGroupItem", "InlineMessageGroupProps", "InlineMessageProps"],
+          "fromResultState": ["ResultStateActions", "ResultStateProps"],
+          "fromAlertBanner": ["AlertBannerProps"],
+          "fromAnchor": ["AnchorGroupProps", "AnchorProps"],
+          "fromBackdrop": ["BackdropProps"],
+          "fromFloatingButton": ["FloatingButtonProps"],
+          "fromCalendar": ["CalendarCellProps", "CalendarConfigProviderProps", "CalendarConfigs", "CalendarControlModifier", "CalendarControlsProps", "CalendarDayOfWeekProps", "CalendarDaysProps", "CalendarHalfYearsProps", "CalendarMonthsProps", "CalendarProps", "CalendarQuartersProps", "CalendarWeeksProps", "CalendarYearsProps", "RangeCalendarProps", "UseCalendarControlModifiersResult"],
+          "fromNotifier": ["NotifierConfig", "NotifierData", "RenderNotifier", "Notifier"],
+          "fromPopper": ["PopperController", "PopperPlacement", "PopperPositionStrategy", "PopperProps"],
+          "fromPortal": ["PortalProps"],
+          "fromTimePanel": ["TimePanelActionProps", "TimePanelColumnProps", "TimePanelProps"],
+          "fromTransition": ["CollapseProps", "FadeProps", "RotateProps", "ScaleProps", "SlideProps", "TransitionProps", "TranslateFrom", "TranslateProps"],
+          "fromDropdown": ["DropdownProps"],
+          "fromDropdownAction": ["DropdownActionProps"],
+          "fromDropdownItem": ["DropdownItemProps"],
+          "fromDropdownItemCard": ["DropdownItemCardProps"],
+          "fromDropdownStatus": ["DropdownStatusProps"],
+          "fromCoreDropdown": ["DropdownCheckPosition", "DropdownInputPosition", "DropdownItemLevel", "DropdownItemSharedProps", "DropdownItemValidate", "DropdownMode", "DropdownOption", "DropdownOptionFlat", "DropdownOptionGrouped", "DropdownOptionTree", "DropdownOptionsByType", "DropdownStatusType", "DropdownType"]
+        }
+      },
+      "subpathExports": {
+        "@mezzanine-ui/react/Calendar": {
+          "_comment": "Items in Calendar/index.ts but NOT in main index.ts. Access via: import { X } from '@mezzanine-ui/react/Calendar'",
+          "exclusiveExports": [
+            "CalendarConfigProviderDayjs",
+            "CalendarConfigProviderDayjsProps",
+            "CalendarConfigProviderMoment",
+            "CalendarConfigProviderMomentProps",
+            "CalendarConfigProviderLuxon",
+            "CalendarConfigProviderLuxonProps",
+            "CalendarLocale"
+          ],
+          "sharedWithMain": [
+            "Calendar", "CalendarCell", "CalendarConfigProvider", "CalendarContext",
+            "CalendarControls", "CalendarDayOfWeek", "CalendarDays",
+            "CalendarHalfYears", "CalendarMonths", "CalendarQuarters",
+            "CalendarWeeks", "CalendarYears", "RangeCalendar",
+            "useCalendarContext", "useCalendarControlModifiers",
+            "useCalendarControls", "useCalendarModeStack", "useRangeCalendarControls"
+          ],
+          "sourceFile": "packages/react/src/Calendar/index.ts",
+          "note": "CalendarConfigProviderDayjs/Moment/Luxon are convenience wrappers that pre-configure CalendarConfigProvider with the respective date library's CalendarMethods"
+        }
+      }
+    },
+    "@mezzanine-ui/core": {
+      "subpathExports": {
+        "_comment": "Core package uses directory-based subpath exports (no exports field in package.json). Each directory under src/ is a subpath.",
+        "@mezzanine-ui/core/calendarMethodsDayjs": {
+          "defaultExport": "CalendarMethodsDayjs",
+          "sourceFile": "packages/core/src/calendarMethodsDayjs/index.ts",
+          "description": "Dayjs implementation of CalendarMethods interface. Default export.",
+          "peerDependency": "dayjs"
+        },
+        "@mezzanine-ui/core/calendarMethodsMoment": {
+          "defaultExport": "CalendarMethodsMoment",
+          "sourceFile": "packages/core/src/calendarMethodsMoment/index.ts",
+          "description": "Moment.js implementation of CalendarMethods interface. Default export.",
+          "peerDependency": "moment"
+        },
+        "@mezzanine-ui/core/calendarMethodsLuxon": {
+          "defaultExport": "CalendarMethodsLuxon",
+          "sourceFile": "packages/core/src/calendarMethodsLuxon/index.ts",
+          "description": "Luxon implementation of CalendarMethods interface. Default export.",
+          "peerDependency": "luxon"
+        },
+        "@mezzanine-ui/core/calendar": {
+          "namedExports": [
+            "CalendarMethods (type)",
+            "CalendarMode (type)",
+            "DateType (type)",
+            "CalendarLocale (enum)",
+            "CalendarLocaleValue (type)",
+            "calendarPrefix",
+            "calendarMainPrefix",
+            "calendarBoardPrefix",
+            "calendarWeekPrefix",
+            "calendarDaysGridPrefix",
+            "calendarRowPrefix",
+            "calendarCellPrefix",
+            "calendarButtonPrefix",
+            "calendarTwelveGridPrefix",
+            "calendarControlsPrefix",
+            "calendarFooterControlPrefix",
+            "calendarFooterActionsPrefix",
+            "calendarQuickSelectPrefix",
+            "calendarClasses",
+            "calendarYearsBase",
+            "calendarYearModuler",
+            "calendarMonths",
+            "calendarQuarters",
+            "calendarQuarterYearsCount",
+            "calendarHalfYears",
+            "calendarHalfYearYearsCount",
+            "getYearRange",
+            "getCalendarYearRange",
+            "ISO_WEEK_LOCALES",
+            "isISOWeekLocale",
+            "getDefaultModeFormat"
+          ],
+          "sourceFile": "packages/core/src/calendar/index.ts"
+        },
+        "@mezzanine-ui/core/dropdown": {
+          "namedExports": [
+            "DropdownCheckPosition (type)",
+            "DropdownInputPosition (type)",
+            "DropdownItemLevel (type)",
+            "DropdownItemSharedProps (type)",
+            "DropdownItemValidate (type)",
+            "DropdownMode (type)",
+            "DropdownOption (type)",
+            "DropdownOptionFlat (type)",
+            "DropdownOptionGrouped (type)",
+            "DropdownOptionTree (type)",
+            "DropdownOptionsByType (type)",
+            "DropdownStatus (type)",
+            "DropdownType (type)"
+          ],
+          "sourceFile": "packages/core/src/dropdown/index.ts",
+          "note": "Re-exported through @mezzanine-ui/react main index with DropdownStatus renamed to DropdownStatusType"
+        }
+      }
+    },
+    "@mezzanine-ui/system": {
+      "subpathExports": {
+        "_comment": "System package has no main index.ts. Each sub-module is a subpath export.",
+        "@mezzanine-ui/system/palette": {
+          "namedExports": {
+            "types": [
+              "MainColor", "GradualMainColor", "StatefulMainColor", "MainContrastTextColor",
+              "TextColor", "ActionForegroundColor", "ActionBackgroundColor", "ActionColor", "Color",
+              "SemanticContext", "LayerTone",
+              "BackgroundTone", "TextTone", "IconTone", "BorderTone", "SeparatorTone",
+              "OverlayTone", "SurfaceTone", "ShadowTone",
+              "SemanticTone", "SemanticToneMap", "SemanticToneFor",
+              "SemanticColor", "ColorMode"
+            ],
+            "values": ["(re-exported from constants.ts)"]
+          },
+          "sourceFile": "packages/system/src/palette/index.ts"
+        },
+        "@mezzanine-ui/system/spacing": {
+          "namedExports": {
+            "types": [
+              "SpacingScale", "SpacingPrimitives", "SpacingContext", "SpacingMode",
+              "SizeCategory", "PaddingCategory",
+              "ElementTone", "ContainerTone", "GapTone",
+              "HorizontalPaddingTone", "VerticalPaddingTone",
+              "SpacingToneMap", "SpacingToneFor", "SpacingCategoryToneFor",
+              "SemanticSpacing"
+            ],
+            "values": ["(re-exported from constants.ts)"]
+          },
+          "sourceFile": "packages/system/src/spacing/index.ts"
+        },
+        "@mezzanine-ui/system/typography": {
+          "namedExports": {
+            "types": [
+              "TypographyPrimitiveFontFamily", "TypographyPrimitiveFontWeight",
+              "TypographyPrimitiveFontSize", "TypographyPrimitiveLineHeight",
+              "TypographyPrimitiveLetterSpacing", "TypographySemanticType",
+              "TypographySemanticProp"
+            ],
+            "values": [
+              "typographyPrimitivePrefix",
+              "typographySemanticPrefix",
+              "(re-exported from constants.ts)"
+            ]
+          },
+          "sourceFile": "packages/system/src/typography/index.ts"
+        },
+        "@mezzanine-ui/system/size": {
+          "sourceFile": "packages/system/src/size/index.ts",
+          "reExports": "./size"
+        },
+        "@mezzanine-ui/system/severity": {
+          "sourceFile": "packages/system/src/severity/index.ts",
+          "reExports": "./severity"
+        },
+        "@mezzanine-ui/system/orientation": {
+          "sourceFile": "packages/system/src/orientation/index.ts",
+          "reExports": "./orientation"
+        },
+        "@mezzanine-ui/system/css": {
+          "sourceFile": "packages/system/src/css/index.ts",
+          "namedExports": ["CSS types", "toCssVar"]
+        },
+        "@mezzanine-ui/system/motion": {
+          "sourceFile": "packages/system/src/motion/index.ts",
+          "namedExports": ["duration", "easing"]
+        },
+        "@mezzanine-ui/system/effect": {
+          "sourceFile": "packages/system/src/effect/index.ts",
+          "namedExports": ["constants", "typings"]
+        },
+        "@mezzanine-ui/system/radius": {
+          "sourceFile": "packages/system/src/radius/index.ts",
+          "namedExports": ["RadiusSize (type)", "RadiusConfig (type)", "radiusPrefix", "defaultRadius", "radiusSizes", "isValidRadiusSize", "getRadiusVarName", "getRadiusVar"]
+        }
+      }
+    },
+    "@mezzanine-ui/icons": {
+      "mainExports": {
+        "_comment": "All icons exported from packages/icons/src/index.ts via `import { XIcon } from '@mezzanine-ui/icons'`",
+        "types": ["IconDefinition"],
+        "systemIcons": [
+          "MenuIcon", "MenuOpenIcon", "MenuCloseIcon", "SearchIcon", "SearchHistoryIcon",
+          "UserIcon", "SlashIcon", "FolderIcon", "FolderOpenIcon", "FolderMoveIcon",
+          "FolderAddIcon", "CalendarIcon", "CalendarTimeIcon", "ClockIcon",
+          "CurrencyDollarIcon", "PercentIcon", "LightIcon", "DarkIcon",
+          "NotificationIcon", "NotificationUnreadIcon", "SiderIcon", "HomeIcon",
+          "SpinnerIcon", "LoginIcon", "LogoutIcon", "SystemIcon"
+        ],
+        "arrowIcons": [
+          "LongTailArrowRightIcon", "LongTailArrowLeftIcon", "LongTailArrowUpIcon", "LongTailArrowDownIcon",
+          "ShortTailArrowRightIcon", "ShortTailArrowLeftIcon", "ShortTailArrowUpIcon", "ShortTailArrowDownIcon",
+          "CaretRightIcon", "CaretLeftIcon", "CaretUpIcon", "CaretDownIcon",
+          "CaretUpFlatIcon", "CaretDownFlatIcon", "CaretVerticalIcon",
+          "ChevronRightIcon", "ChevronLeftIcon", "ChevronUpIcon", "ChevronDownIcon", "ChevronVerticalIcon",
+          "DoubleChevronRightIcon", "DoubleChevronLeftIcon",
+          "SwitchVerticalIcon", "SwitchHorizontalIcon",
+          "ReverseLeftIcon", "ReverseRightIcon"
+        ],
+        "controlsIcons": [
+          "CloseIcon", "TrashIcon", "SettingIcon", "FilterIcon", "ResetIcon",
+          "RefreshCcwIcon", "RefreshCwIcon", "EyeIcon", "EyeInvisibleIcon",
+          "PlusIcon", "MinusIcon", "CheckedIcon",
+          "DotVerticalIcon", "DotHorizontalIcon", "DotGridIcon",
+          "DotDragVerticalIcon", "DotDragHorizontalIcon",
+          "ZoomInIcon", "ZoomOutIcon", "PinIcon", "PinFilledIcon",
+          "MaximizeIcon", "MinimizeIcon", "ResizeHandleIcon",
+          "LockIcon", "UnlockIcon"
+        ],
+        "alertIcons": [
+          "CheckedFilledIcon", "CheckedOutlineIcon",
+          "ErrorFilledIcon", "ErrorOutlineIcon",
+          "WarningFilledIcon", "WarningOutlineIcon",
+          "InfoFilledIcon", "InfoOutlineIcon",
+          "DangerousFilledIcon", "DangerousOutlineIcon",
+          "QuestionFilledIcon", "QuestionOutlineIcon"
+        ],
+        "contentIcons": [
+          "DownloadIcon", "UploadIcon", "FileIcon", "FileSearchIcon", "FileAttachmentIcon",
+          "EditIcon", "CopyIcon", "LinkIcon", "ShareIcon", "LinkExternalIcon",
+          "GalleryIcon", "ListIcon", "AlignLeftIcon", "AlignRightIcon",
+          "StarOutlineIcon", "StarFilledIcon",
+          "BookmarkOutlineIcon", "BookmarkFilledIcon", "BookmarkAddIcon", "BookmarkRemoveIcon", "BookmarkAddedIcon",
+          "ImageIcon", "BoxIcon", "CodeIcon", "MailIcon", "MailUnreadIcon"
+        ],
+        "stepperIcons": [
+          "Item0Icon", "Item1Icon", "Item2Icon", "Item3Icon", "Item4Icon",
+          "Item5Icon", "Item6Icon", "Item7Icon", "Item8Icon", "Item9Icon"
+        ]
+      }
+    }
+  },
+  "internalComponents": {
+    "_comment": "These components exist in the source but are NOT exported from the main index.ts. Do NOT import them directly.",
+    "list": ["Scrollbar", "ClearActions", "ContentHeader"],
+    "details": {
+      "Scrollbar": {
+        "location": "packages/core/src/scrollbar/",
+        "reason": "Internal scrollbar wrapper, used by Table and other scrollable components"
+      },
+      "ClearActions": {
+        "location": "packages/core/src/clear-actions/",
+        "reason": "Internal clear button component used by Input and Select"
+      },
+      "ContentHeader": {
+        "location": "packages/core/src/content-header/",
+        "reason": "Internal header component"
+      }
+    }
+  },
+  "commonErrors": {
+    "CalendarMethodsDayjs": {
+      "correctImport": "import CalendarMethodsDayjs from '@mezzanine-ui/core/calendarMethodsDayjs';",
+      "correctPath": "@mezzanine-ui/core/calendarMethodsDayjs",
+      "exportType": "default",
+      "incorrectPaths": [
+        "@mezzanine-ui/react/Calendar",
+        "@mezzanine-ui/react",
+        "@mezzanine-ui/core/calendar",
+        "@mezzanine-ui/core/Calendar",
+        "@mezzanine-ui/core/calendar/CalendarMethodsDayjs",
+        "@mezzanine-ui/core"
+      ],
+      "note": "This is a default export from @mezzanine-ui/core/calendarMethodsDayjs. The path is case-sensitive: 'calendarMethodsDayjs' not 'CalendarMethodsDayjs'."
+    },
+    "CalendarMethodsMoment": {
+      "correctImport": "import CalendarMethodsMoment from '@mezzanine-ui/core/calendarMethodsMoment';",
+      "correctPath": "@mezzanine-ui/core/calendarMethodsMoment",
+      "exportType": "default",
+      "incorrectPaths": [
+        "@mezzanine-ui/react",
+        "@mezzanine-ui/core"
+      ]
+    },
+    "CalendarMethodsLuxon": {
+      "correctImport": "import CalendarMethodsLuxon from '@mezzanine-ui/core/calendarMethodsLuxon';",
+      "correctPath": "@mezzanine-ui/core/calendarMethodsLuxon",
+      "exportType": "default",
+      "incorrectPaths": [
+        "@mezzanine-ui/react",
+        "@mezzanine-ui/core"
+      ]
+    },
+    "CalendarConfigProviderDayjs": {
+      "correctImport": "import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';",
+      "correctPath": "@mezzanine-ui/react/Calendar",
+      "exportType": "named (as default from sub-module, named from Calendar/index.ts)",
+      "incorrectPaths": [
+        "@mezzanine-ui/react"
+      ],
+      "note": "NOT available from the main @mezzanine-ui/react entry point. Must use the Calendar subpath."
+    },
+    "CalendarConfigProviderMoment": {
+      "correctImport": "import { CalendarConfigProviderMoment } from '@mezzanine-ui/react/Calendar';",
+      "correctPath": "@mezzanine-ui/react/Calendar",
+      "incorrectPaths": ["@mezzanine-ui/react"]
+    },
+    "CalendarConfigProviderLuxon": {
+      "correctImport": "import { CalendarConfigProviderLuxon } from '@mezzanine-ui/react/Calendar';",
+      "correctPath": "@mezzanine-ui/react/Calendar",
+      "incorrectPaths": ["@mezzanine-ui/react"]
+    },
+    "Switch_vs_Toggle": {
+      "correctImport": "import { Switch } from '@mezzanine-ui/react';",
+      "note": "The source directory is 'Toggle/' but the exported name is 'Switch'. Type exports are also renamed: ToggleProps → SwitchProps, ToggleSize → SwitchSize.",
+      "incorrectPaths": ["@mezzanine-ui/react/Toggle", "@mezzanine-ui/react/Switch"]
+    },
+    "CalendarLocale_enum": {
+      "correctImport": "import { CalendarLocale } from '@mezzanine-ui/core/calendar';",
+      "alternativeImport": "import { CalendarLocale } from '@mezzanine-ui/react/Calendar';",
+      "note": "CalendarLocale enum is available from both @mezzanine-ui/core/calendar and @mezzanine-ui/react/Calendar (via CalendarContext re-export)."
+    },
+    "DropdownTypes": {
+      "correctImport": "import type { DropdownOption, DropdownMode } from '@mezzanine-ui/react';",
+      "alternativeImport": "import type { DropdownOption, DropdownMode } from '@mezzanine-ui/core/dropdown';",
+      "note": "Dropdown types from @mezzanine-ui/core/dropdown are re-exported through the main @mezzanine-ui/react entry. DropdownStatus type is renamed to DropdownStatusType in the re-export."
+    },
+    "Notifier": {
+      "correctImport": "import type { Notifier, NotifierConfig, NotifierData, RenderNotifier } from '@mezzanine-ui/react';",
+      "note": "Notifier types/utilities are exported via `export * from './Notifier'` in the main index. Available directly from @mezzanine-ui/react."
+    },
+    "Card_Generic_Suffix": {
+      "note": "Card components use Generic suffix internally but are renamed on export: BaseCardGeneric → BaseCard, FourThumbnailCardGeneric → FourThumbnailCard, QuickActionCardGeneric → QuickActionCard, SingleThumbnailCardGeneric → SingleThumbnailCard, ThumbnailGeneric → Thumbnail. Always use the renamed (shorter) names when importing."
+    }
+  },
+  "packageNotes": {
+    "noExportsField": "None of the packages use the 'exports' field in package.json. Subpath imports work via directory-based resolution (each directory has its own index.ts/index.js).",
+    "buildSystem": "All packages use a custom build script (scripts/build.js) that compiles TypeScript to individual directories.",
+    "version": "All source packages are at 1.0.0-beta.7 (dist may contain older 0.15.3 builds)."
+  }
+}

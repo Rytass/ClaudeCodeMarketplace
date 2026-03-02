@@ -1,0 +1,120 @@
+{
+  "version": "v2",
+  "lastUpdated": "2026-02-14T00:10:00Z",
+  "source": "packages/system/src typings + DESIGN_TOKENS.md",
+  "colors": {
+    "primitives": {
+      "categories": ["brand", "red", "yellow", "green", "blue", "gray", "white-base", "black-base", "brand-base"],
+      "scales": [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950],
+      "cssFormat": "--mzn-color-primitive-{category}-{scale}"
+    },
+    "semantic": {
+      "contexts": ["layer", "background", "text", "icon", "border", "separator", "overlay", "surface", "shadow"],
+      "cssFormat": "--mzn-color-{context}-{tone}",
+      "tones": {
+        "layer": ["01", "02", "03"],
+        "background": [
+          "base", "menu", "inverse", "fixed-dark",
+          "neutral-ghost", "neutral-faint", "neutral-subtle", "neutral", "neutral-strong", "neutral-solid",
+          "brand-ghost", "brand-faint", "brand-subtle", "brand-light", "brand", "brand-strong", "brand-solid",
+          "error-ghost", "error-faint", "error-subtle", "error-light", "error", "error-strong", "error-solid",
+          "warning-ghost", "warning-faint", "warning",
+          "success-ghost", "success-faint", "success",
+          "info-ghost", "info-faint", "info"
+        ],
+        "text": [
+          "fixed-light",
+          "neutral-faint", "neutral-light", "neutral", "neutral-strong", "neutral-solid",
+          "brand", "brand-strong", "brand-solid",
+          "error", "error-strong", "error-solid",
+          "warning", "warning-strong",
+          "success",
+          "info", "info-strong"
+        ],
+        "icon": [
+          "fixed-light",
+          "neutral-faint", "neutral-light", "neutral", "neutral-strong", "neutral-bold", "neutral-solid",
+          "brand", "brand-strong", "brand-solid",
+          "error", "error-strong", "error-solid",
+          "warning", "warning-strong",
+          "success", "success-strong",
+          "info", "info-strong"
+        ],
+        "border": [
+          "fixed-light", "fixed-light-alpha",
+          "neutral-faint", "neutral-light", "neutral", "neutral-strong",
+          "brand",
+          "error-subtle", "error",
+          "warning-subtle", "warning"
+        ],
+        "separator": ["neutral-faint", "neutral-light", "neutral", "brand"],
+        "overlay": ["strong", "default", "subtle"],
+        "surface": ["solid", "strong", "subtle", "ghost"],
+        "shadow": ["dark", "dark-light", "dark-faint", "dark-ghost", "light-faint", "brand"]
+      }
+    }
+  },
+  "spacing": {
+    "primitiveScales": [0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 52, 56, 60, 64, 80, 160, 240, 320, 360, 400, 480, 560, 640, 720, 960, 1140],
+    "modes": ["default", "compact"],
+    "contexts": ["size", "gap", "padding"],
+    "cssFormat": "--mzn-spacing-{context}-{category}-{tone}",
+    "tones": {
+      "element": [
+        "hairline", "tiny", "tight", "compact", "slim", "narrow",
+        "base", "base-fixed", "gentle", "relaxed", "airy", "roomy",
+        "loose", "extra-wide", "extra-wide-condense", "expansive", "extra", "max"
+      ],
+      "container": [
+        "collapsed", "tiny", "tight", "slim", "narrow", "compact",
+        "standard", "balanced", "broad", "wide", "expanded", "max"
+      ],
+      "gap": [
+        "none", "micro", "tiny", "tight", "compact",
+        "base", "base-fixed", "comfortable", "roomy", "spacious",
+        "relaxed", "airy", "generous", "breath", "wide"
+      ],
+      "horizontal-padding": [
+        "none", "micro", "tiny", "tiny-fixed", "tight", "tight-fixed",
+        "base", "base-fixed", "calm", "comfort", "comfort-fixed",
+        "roomy", "spacious", "relaxed", "airy", "breath", "wide", "max"
+      ],
+      "vertical-padding": [
+        "none", "micro", "tiny", "tight", "base",
+        "calm", "comfort", "roomy", "spacious", "generous", "relaxed"
+      ]
+    }
+  },
+  "typography": {
+    "primitiveFontFamilies": ["pingfang-tc", "noto-sans-tc", "sf-mono"],
+    "primitiveFontWeights": ["regular", "medium", "semibold"],
+    "primitiveFontSizes": [24, 18, 16, 14, 12, 10],
+    "semanticTypes": [
+      "h1", "h2", "h3",
+      "body", "body-highlight", "body-mono", "body-mono-highlight",
+      "text-link-body", "text-link-caption",
+      "caption", "caption-highlight",
+      "annotation", "annotation-highlight",
+      "button", "button-highlight",
+      "input", "input-mono",
+      "label-primary", "label-primary-highlight", "label-secondary"
+    ],
+    "semanticProps": ["font-family", "font-size", "font-weight", "line-height", "letter-spacing"],
+    "cssFormat": "--mzn-typography-{type}-{prop}"
+  },
+  "radius": {
+    "tones": {
+      "none": "0",
+      "xs": "2px",
+      "sm": "4px",
+      "base": "6px",
+      "md": "8px",
+      "lg": "12px",
+      "xl": "16px",
+      "full": "9999px"
+    },
+    "cssFormat": "--mzn-radius-{tone}"
+  },
+  "colorMode": ["light", "dark"],
+  "spacingMode": ["default", "compact"]
+}

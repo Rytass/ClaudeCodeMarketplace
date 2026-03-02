@@ -1,0 +1,396 @@
+{
+  "palette": {
+    "LayerTone": {
+      "countTS": 3,
+      "countSCSS": 3,
+      "valuesTS": ["01", "02", "03"],
+      "valuesSCSS": ["01", "02", "03"],
+      "diff": []
+    },
+    "BackgroundTone": {
+      "countTS": 33,
+      "countSCSS": 35,
+      "valuesTS": [
+        "base", "menu", "inverse", "fixed-dark",
+        "neutral-ghost", "neutral-faint", "neutral-subtle", "neutral", "neutral-strong", "neutral-solid",
+        "brand-ghost", "brand-faint", "brand-subtle", "brand-light", "brand", "brand-strong", "brand-solid",
+        "error-ghost", "error-faint", "error-subtle", "error-light", "error", "error-strong", "error-solid",
+        "warning-ghost", "warning-faint", "warning",
+        "success-ghost", "success-faint", "success",
+        "info-ghost", "info-faint", "info"
+      ],
+      "valuesSCSS": [
+        "base", "menu", "inverse", "fixed-dark", "fixed-solid",
+        "neutral-ghost", "neutral-faint", "neutral-subtle", "neutral-light", "neutral", "neutral-strong", "neutral-solid",
+        "brand-ghost", "brand-faint", "brand-subtle", "brand-light", "brand", "brand-strong", "brand-solid",
+        "error-ghost", "error-faint", "error-subtle", "error-light", "error", "error-strong", "error-solid",
+        "warning-ghost", "warning-faint", "warning",
+        "success-ghost", "success-faint", "success",
+        "info-ghost", "info-faint", "info"
+      ],
+      "diff": {
+        "onlyInSCSS": ["fixed-solid", "neutral-light"],
+        "onlyInTS": []
+      }
+    },
+    "TextTone": {
+      "countTS": 17,
+      "countSCSS": 17,
+      "valuesTS": [
+        "fixed-light",
+        "neutral-faint", "neutral-light", "neutral", "neutral-strong", "neutral-solid",
+        "brand", "brand-strong", "brand-solid",
+        "error", "error-strong", "error-solid",
+        "warning", "warning-strong",
+        "success",
+        "info", "info-strong"
+      ],
+      "valuesSCSS": [
+        "fixed-light",
+        "neutral-faint", "neutral-light", "neutral", "neutral-strong", "neutral-solid",
+        "brand", "brand-strong", "brand-solid",
+        "error", "error-strong", "error-solid",
+        "warning", "warning-strong",
+        "success",
+        "info", "info-strong"
+      ],
+      "diff": []
+    },
+    "IconTone": {
+      "countTS": 19,
+      "countSCSS": 19,
+      "valuesTS": [
+        "fixed-light",
+        "neutral-faint", "neutral-light", "neutral", "neutral-strong", "neutral-bold", "neutral-solid",
+        "brand", "brand-strong", "brand-solid",
+        "error", "error-strong", "error-solid",
+        "warning", "warning-strong",
+        "success", "success-strong",
+        "info", "info-strong"
+      ],
+      "valuesSCSS": [
+        "fixed-light",
+        "neutral-faint", "neutral-light", "neutral", "neutral-strong", "neutral-bold", "neutral-solid",
+        "brand", "brand-strong", "brand-solid",
+        "error", "error-strong", "error-solid",
+        "warning", "warning-strong",
+        "success", "success-strong",
+        "info", "info-strong"
+      ],
+      "diff": []
+    },
+    "BorderTone": {
+      "countTS": 11,
+      "countSCSS": 15,
+      "valuesTS": [
+        "fixed-light", "fixed-light-alpha",
+        "neutral-faint", "neutral-light", "neutral", "neutral-strong",
+        "brand",
+        "error-subtle", "error",
+        "warning-subtle", "warning"
+      ],
+      "valuesSCSS": [
+        "ghost", "fixed-light", "fixed-light-alpha", "invisible", "neutral-ghost",
+        "neutral-faint", "neutral-light", "neutral", "neutral-strong",
+        "brand",
+        "error-subtle", "error",
+        "warning-subtle", "warning"
+      ],
+      "diff": {
+        "onlyInSCSS": ["ghost", "invisible", "neutral-ghost"],
+        "onlyInTS": []
+      }
+    },
+    "SeparatorTone": {
+      "countTS": 4,
+      "countSCSS": 5,
+      "valuesTS": ["neutral-faint", "neutral-light", "neutral", "brand"],
+      "valuesSCSS": ["ghost", "neutral-faint", "neutral-light", "neutral", "brand"],
+      "diff": {
+        "onlyInSCSS": ["ghost"],
+        "onlyInTS": []
+      }
+    },
+    "ScrollbarTone": {
+      "countTS": null,
+      "countSCSS": 3,
+      "valuesTS": [],
+      "valuesSCSS": ["neutral-light", "neutral", "strong"],
+      "diff": {
+        "note": "scrollbar context exists only in SCSS, not in TS typings"
+      }
+    },
+    "OverlayTone": {
+      "countTS": 3,
+      "countSCSS": 3,
+      "valuesTS": ["strong", "default", "subtle"],
+      "valuesSCSS": ["strong", "default", "subtle"],
+      "diff": []
+    },
+    "SurfaceTone": {
+      "countTS": 4,
+      "countSCSS": 4,
+      "valuesTS": ["solid", "strong", "subtle", "ghost"],
+      "valuesSCSS": ["solid", "strong", "subtle", "ghost"],
+      "diff": []
+    },
+    "ShadowTone": {
+      "countTS": 6,
+      "countSCSS": 6,
+      "valuesTS": ["dark", "dark-light", "dark-faint", "dark-ghost", "light-faint", "brand"],
+      "valuesSCSS": ["dark", "dark-light", "dark-faint", "dark-ghost", "light-faint", "brand"],
+      "diff": []
+    }
+  },
+  "spacing": {
+    "ElementTone": {
+      "countTS": 18,
+      "countSCSS_toneList": 19,
+      "countSCSS_semanticMap": 27,
+      "valuesTS": [
+        "hairline", "tiny", "tight", "compact", "slim", "narrow",
+        "base", "base-fixed", "gentle", "relaxed", "airy", "roomy",
+        "loose", "extra-wide", "extra-wide-condense", "expansive", "extra", "max"
+      ],
+      "valuesSCSS_toneList": [
+        "hairline", "micro", "tiny", "tight", "compact", "slim", "narrow",
+        "base", "base-fixed", "gentle", "relaxed", "airy", "roomy",
+        "loose", "extra-wide", "extra-wide-condense", "expansive", "extra", "max"
+      ],
+      "valuesSCSS_semanticMap": [
+        "hairline", "micro", "tiny", "tight", "compact", "slim", "narrow",
+        "base", "base-fixed", "gentle", "gentle-fixed", "relaxed", "airy", "airy-fixed",
+        "roomy", "loose", "loose-fixed", "extra-wide", "extra-wide-condense",
+        "wide-expanded", "expansive", "extra", "ultra-fixed", "max", "xwide"
+      ],
+      "diff": {
+        "onlyInSCSS_toneList": ["micro"],
+        "onlyInTS": [],
+        "onlyInSCSS_semanticMap": ["micro", "gentle-fixed", "airy-fixed", "loose-fixed", "wide-expanded", "ultra-fixed", "xwide"],
+        "note": "SCSS $semantic-spacings map has 27 element tones (includes extra entries not in $element-tones list or TS type)"
+      }
+    },
+    "ContainerTone": {
+      "countTS": 12,
+      "countSCSS_toneList": 24,
+      "countSCSS_semanticMap": 24,
+      "valuesTS": [
+        "collapsed", "tiny", "tight", "slim", "narrow", "compact",
+        "standard", "balanced", "broad", "wide", "expanded", "max"
+      ],
+      "valuesSCSS_toneList": [
+        "atomic", "minimal", "micro", "minimized", "collapsed", "reduced", "condensed", "compressed",
+        "concentrate-fixed", "tightened", "tiny", "medium", "small", "snug",
+        "tight", "slim", "narrow", "compact", "standard", "balanced",
+        "broad", "wide", "expanded", "max", "xwide"
+      ],
+      "valuesSCSS_semanticMap": [
+        "atomic", "minimal", "micro", "minimized", "collapsed", "reduced", "condensed", "compressed",
+        "concentrate-fixed", "tightened", "tiny", "medium", "small", "snug",
+        "tight", "slim", "narrow", "compact", "standard", "balanced",
+        "broad", "wide", "expanded", "max", "xwide"
+      ],
+      "diff": {
+        "onlyInSCSS": [
+          "atomic", "minimal", "micro", "minimized", "reduced", "condensed", "compressed",
+          "concentrate-fixed", "tightened", "medium", "small", "snug", "xwide"
+        ],
+        "onlyInTS": [],
+        "note": "SCSS has 13 extra container tones not in TS type"
+      }
+    },
+    "GapTone": {
+      "countTS": 15,
+      "countSCSS_toneList": null,
+      "countSCSS_semanticMap": 12,
+      "valuesTS": [
+        "none", "micro", "tiny", "tight", "compact", "base", "base-fixed",
+        "comfortable", "roomy", "spacious", "relaxed", "airy", "generous", "breath", "wide"
+      ],
+      "valuesSCSS_semanticMap": [
+        "none", "tiny", "tight", "tight-fixed", "slim", "base",
+        "calm", "comfort", "roomy", "spacious", "relaxed", "loose"
+      ],
+      "diff": {
+        "onlyInTS": ["micro", "compact", "base-fixed", "comfortable", "airy", "generous", "breath", "wide"],
+        "onlyInSCSS": ["tight-fixed", "slim", "calm", "comfort", "loose"],
+        "note": "Gap tones differ significantly between TS and SCSS. TS has 15, SCSS semantic map has 12."
+      }
+    },
+    "HorizontalPaddingTone": {
+      "countTS": 18,
+      "countSCSS_toneList": 21,
+      "countSCSS_semanticMap": 21,
+      "valuesTS": [
+        "none", "micro", "tiny", "tiny-fixed", "tight", "tight-fixed",
+        "base", "base-fixed", "calm", "comfort", "comfort-fixed",
+        "roomy", "spacious", "relaxed", "airy", "breath", "wide", "max"
+      ],
+      "valuesSCSS_toneList": [
+        "none", "micro", "tiny", "tiny-fixed", "tight", "tight-fixed",
+        "base", "base-fixed", "calm", "comfort", "comfort-fixed",
+        "roomy", "spacious", "open", "relaxed", "airy", "breath",
+        "loose", "wide", "max", "ultra", "xultra"
+      ],
+      "valuesSCSS_semanticMap": [
+        "none", "micro", "tiny", "tiny-fixed", "tight", "tight-fixed",
+        "base", "base-fixed", "cozy", "comfort", "comfort-fixed",
+        "roomy", "spacious", "open", "relaxed", "airy", "breath",
+        "loose", "wide", "max", "ultra", "xultra"
+      ],
+      "diff": {
+        "onlyInTS": ["calm"],
+        "onlyInSCSS_toneList": ["open", "loose", "ultra", "xultra"],
+        "onlyInSCSS_semanticMap": ["cozy", "open", "loose", "ultra", "xultra"],
+        "note": "SCSS tone list has 'calm' but semantic map has 'cozy' instead. TS type has 'calm'."
+      }
+    },
+    "VerticalPaddingTone": {
+      "countTS": 11,
+      "countSCSS_toneList": 18,
+      "countSCSS_semanticMap": 18,
+      "valuesTS": [
+        "none", "micro", "tiny", "tight", "base", "calm",
+        "comfort", "roomy", "spacious", "generous", "relaxed"
+      ],
+      "valuesSCSS_toneList": [
+        "none", "micro", "tiny", "tight", "tight-fixed",
+        "base", "base-fixed", "calm", "comfort",
+        "roomy", "spacious", "generous", "relaxed",
+        "airy", "breath", "loose", "wide", "max", "ultra"
+      ],
+      "valuesSCSS_semanticMap": [
+        "none", "micro", "tiny", "tight", "tight-fixed",
+        "base", "base-fixed", "calm", "comfort",
+        "roomy", "spacious", "generous", "relaxed",
+        "airy", "breath", "loose", "wide", "max", "ultra"
+      ],
+      "diff": {
+        "onlyInTS": [],
+        "onlyInSCSS": ["tight-fixed", "base-fixed", "airy", "breath", "loose", "wide", "max", "ultra"],
+        "note": "SCSS has 7 extra vertical padding tones not in TS type"
+      }
+    }
+  },
+  "typography": {
+    "TypographySemanticType": {
+      "countTS": 20,
+      "countSCSS": 21,
+      "valuesTS": [
+        "h1", "h2", "h3",
+        "body", "body-highlight", "body-mono", "body-mono-highlight",
+        "text-link-body", "text-link-caption",
+        "caption", "caption-highlight",
+        "annotation", "annotation-highlight",
+        "button", "button-highlight",
+        "input", "input-mono",
+        "label-primary", "label-primary-highlight", "label-secondary"
+      ],
+      "valuesSCSS": [
+        "h1", "h2", "h3",
+        "body", "body-highlight", "body-mono", "body-mono-highlight",
+        "text-link-body", "text-link-caption",
+        "caption", "caption-mono", "caption-highlight",
+        "annotation", "annotation-highlight",
+        "button", "button-highlight",
+        "input", "input-mono",
+        "label-primary", "label-primary-highlight", "label-secondary"
+      ],
+      "diff": {
+        "onlyInSCSS": ["caption-mono"],
+        "onlyInTS": [],
+        "note": "SCSS has caption-mono which is not in TS typings"
+      }
+    },
+    "TypographyPrimitiveFontFamily": {
+      "countTS": 3,
+      "countSCSS": 3,
+      "valuesTS": ["pingfang-tc", "noto-sans-tc", "sf-mono"],
+      "valuesSCSS": ["pingfangtc", "notosans", "sfmono"],
+      "diff": {
+        "note": "Naming convention differs: TS uses kebab-case (pingfang-tc), SCSS uses concatenated (pingfangtc)"
+      }
+    },
+    "TypographyPrimitiveFontWeight": {
+      "countTS": 3,
+      "countSCSS": 3,
+      "valuesTS": ["regular", "medium", "semibold"],
+      "valuesSCSS": ["regular", "medium", "semibold"],
+      "diff": []
+    },
+    "TypographyPrimitiveFontSize": {
+      "countTS": 6,
+      "countSCSS": 6,
+      "valuesTS": [24, 18, 16, 14, 12, 10],
+      "valuesSCSS": [24, 18, 16, 14, 12, 10],
+      "diff": []
+    },
+    "TypographyPrimitiveLineHeight": {
+      "countTS": 7,
+      "countSCSS": 7,
+      "valuesTS": ["h1", "h2", "h3", "body", "caption", "annotation", "functional"],
+      "valuesSCSS": ["h1", "h2", "h3", "body", "caption", "annotation", "functional"],
+      "diff": []
+    },
+    "TypographyPrimitiveLetterSpacing": {
+      "countTS": 1,
+      "countSCSS": 1,
+      "valuesTS": [0],
+      "valuesSCSS": [0],
+      "diff": []
+    }
+  },
+  "primitives": {
+    "colorCategories": {
+      "countSCSS": 9,
+      "valuesSCSS": ["brand", "red", "yellow", "green", "blue", "gray", "white-base", "black-base", "brand-base"]
+    },
+    "colorScales": {
+      "countSCSS": 12,
+      "valuesSCSS": [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950],
+      "note": "Standard numeric scales for brand/red/yellow/green/blue/gray. white-base and black-base use alpha-based naming."
+    },
+    "spacingScalesTS": {
+      "count": 32,
+      "values": [0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 52, 56, 60, 64, 80, 160, 240, 320, 360, 400, 480, 560, 640, 720, 960, 1140]
+    },
+    "spacingScalesSCSS": {
+      "count": 59,
+      "values": [0, 1, 2, 3, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 26, 28, 30, 32, 36, 38, 40, 44, 48, 52, 56, 60, 64, 68, 70, 72, 76, 80, 88, 92, 96, 100, 120, 140, 160, 240, 320, 360, 400, 480, 560, 640, 720, 960, 1140, 1280],
+      "note": "SCSS has many more spacing primitive scales than TS (59 vs 32)"
+    }
+  },
+  "meta": {
+    "generatedAt": "2026-02-14",
+    "sourceFiles": {
+      "typescriptPalette": "packages/system/src/palette/typings.ts",
+      "typescriptSpacing": "packages/system/src/spacing/typings.ts",
+      "typescriptTypography": "packages/system/src/typography/typings.ts",
+      "scssPaletteSemantic": "packages/system/src/palette/_semantic.scss",
+      "scssPalettePrimitives": "packages/system/src/palette/_primitives.scss",
+      "scssSpacingSemantic": "packages/system/src/spacing/_semantic.scss",
+      "scssSpacingPrimitives": "packages/system/src/spacing/_primitives.scss",
+      "scssTypographySemantic": "packages/system/src/typography/_semantic.scss",
+      "scssTypographyPrimitives": "packages/system/src/typography/_primitives.scss"
+    },
+    "summary": {
+      "palette": {
+        "contextsInTS": 9,
+        "contextsInSCSS": 10,
+        "scssOnlyContexts": ["scrollbar"],
+        "totalTonesTS": 100,
+        "totalTonesSCSS": 110
+      },
+      "spacing": {
+        "totalTonesTS": 74,
+        "totalTonesSCSS_semanticMap": 102,
+        "note": "SCSS defines significantly more spacing tones than TS types, especially for container and padding"
+      },
+      "typography": {
+        "semanticTypesTS": 20,
+        "semanticTypesSCSS": 21,
+        "scssOnlyTypes": ["caption-mono"]
+      }
+    }
+  }
+}

@@ -1,0 +1,314 @@
+---
+name: using-mezzanine-ui
+description: Mezzanine-UI design system development guide (v2). All frontend development MUST prefer this design system. Use when building UI interfaces or React components, using @mezzanine-ui/* packages, looking up design specs and component usage, reviewing Figma designs, or implementing form/table/modal/navigation UI patterns.
+---
+
+# Mezzanine-UI Design System (v2)
+
+**Core principle: All frontend development MUST prefer the Mezzanine-UI design system.**
+
+> Currently v2 Release Candidate, npm version `1.x` series
+
+### Version Mapping
+
+| Design Docs / Storybook | npm Version | Git Branch | Status                 |
+| ----------------------- | ----------- | ---------- | ---------------------- |
+| v1 (Legacy)             | `0.x`       | main       | Deprecated             |
+| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.0)       |
+
+> This document is based on **v2** (npm `1.x` series).
+>
+> Check latest version: `npm view @mezzanine-ui/react versions` or see [GitHub Releases](https://github.com/Mezzanine-UI/mezzanine/releases)
+
+## Resource Overview
+
+| Type               | Resource                                                         | Purpose                |
+| ------------------ | ---------------------------------------------------------------- | ---------------------- |
+| **Figma Components** | [Component File](https://www.figma.com/design/gjGdP49GQZzOeQf0bNOFlt) | Referenceable design components |
+| **Figma Docs**     | [Documentation](https://www.figma.com/design/VgnrTeu6oOSE0giftMw1Oy) | Design specs & guidelines |
+| **Frontend Package** | [GitHub](https://github.com/Mezzanine-UI/mezzanine)           | React component source |
+| **Doc Site**       | [Storybook](https://storybook.mezzanine-ui.org)                 | Component examples & API |
+
+---
+
+## Quick Start
+
+### Installation
+
+```bash
+yarn add @mezzanine-ui/core @mezzanine-ui/react @mezzanine-ui/system @mezzanine-ui/icons
+```
+
+### Style Setup
+
+Create `main.scss`:
+
+```scss
+@use '~@mezzanine-ui/system' as mzn-system;
+@use '~@mezzanine-ui/core' as mzn-core;
+
+// Set design system variables
+:root {
+  @include mzn-system.palette-variables(light);
+  @include mzn-system.common-variables(default);
+}
+
+// Dark mode
+[data-theme='dark'] {
+  @include mzn-system.palette-variables(dark);
+}
+
+// Compact mode
+[data-density='compact'] {
+  @include mzn-system.common-variables(compact);
+}
+
+// Load component styles
+@include mzn-core.styles();
+```
+
+### Basic Usage
+
+```tsx
+import './main.scss';
+import { Button, Typography } from '@mezzanine-ui/react';
+import { PlusIcon } from '@mezzanine-ui/icons';
+
+function App() {
+  return (
+    <div>
+      <Typography variant="h1">Welcome to Mezzanine UI</Typography>
+      <Button variant="base-primary" size="main">
+        <PlusIcon />
+        Click Me
+      </Button>
+    </div>
+  );
+}
+```
+
+---
+
+## Package Architecture
+
+| Package                 | Description                          |
+| ----------------------- | ------------------------------------ |
+| `@mezzanine-ui/system`  | Design tokens (colors, spacing, fonts, etc.) |
+| `@mezzanine-ui/core`    | CSS styles and class definitions     |
+| `@mezzanine-ui/react`   | React components                     |
+| `@mezzanine-ui/icons`   | Icon library                         |
+
+---
+
+## Component Categories
+
+> Categories below are based on `packages/react/src/index.ts` exports. See individual component reference files for detailed API.
+
+### General
+
+Foundational visual elements that serve as building blocks for other components.
+
+| Component     | Description    | Reference                                            |
+| ------------- | -------------- | ---------------------------------------------------- |
+| `Button`      | Button         | [Button.md](references/components/Button.md)         |
+| `ButtonGroup` | Button group   | [Button.md](references/components/Button.md)         |
+| `Cropper`     | Crop tool      | [Cropper.md](references/components/Cropper.md)       |
+| `Icon`        | Icon           | [Icon.md](references/components/Icon.md)             |
+| `Separator`   | Divider line   | [Separator.md](references/components/Separator.md)   |
+| `Typography`  | Typography     | [Typography.md](references/components/Typography.md) |
+
+### Navigation
+
+Components for navigating between and within pages.
+
+| Component    | Description     | Reference                                            |
+| ------------ | --------------- | ---------------------------------------------------- |
+| `Breadcrumb` | Breadcrumb      | [Breadcrumb.md](references/components/Breadcrumb.md) |
+| `Drawer`     | Drawer          | [Drawer.md](references/components/Drawer.md)         |
+| `Navigation` | Side navigation | [Navigation.md](references/components/Navigation.md) |
+| `PageFooter` | Page footer     | [PageFooter.md](references/components/PageFooter.md) |
+| `PageHeader` | Page header     | [PageHeader.md](references/components/PageHeader.md) |
+| `Stepper`    | Step indicator  | [Stepper.md](references/components/Stepper.md)       |
+| `Tab`        | Tab             | [Tab.md](references/components/Tab.md)               |
+
+### Data Display
+
+Data presentation and visualization components.
+
+| Component           | Description       | Reference                                                      |
+| ------------------- | ----------------- | -------------------------------------------------------------- |
+| `Accordion`         | Accordion         | [Accordion.md](references/components/Accordion.md)             |
+| `Badge`             | Badge             | [Badge.md](references/components/Badge.md)                     |
+| `Card`              | Card              | [Card.md](references/components/Card.md)                       |
+| `Description`       | Description list  | [Description.md](references/components/Description.md)         |
+| `Empty`             | Empty state       | [Empty.md](references/components/Empty.md)                     |
+| `OverflowCounterTag`| Overflow counter  | [OverflowTooltip.md](references/components/OverflowTooltip.md) |
+| `Pagination`        | Pagination        | [Pagination.md](references/components/Pagination.md)           |
+| `Section`           | Section           | [Section.md](references/components/Section.md)                 |
+| `Table`             | Table             | [Table.md](references/components/Table.md)                     |
+| `Tag`               | Tag               | [Tag.md](references/components/Tag.md)                         |
+| `Tooltip`           | Tooltip           | [Tooltip.md](references/components/Tooltip.md)                 |
+
+### Data Entry
+
+Form and user input components.
+
+| Component             | Description          | Reference                                                              |
+| --------------------- | -------------------- | ---------------------------------------------------------------------- |
+| `AutoComplete`        | Autocomplete         | [AutoComplete.md](references/components/AutoComplete.md)               |
+| `Checkbox`            | Checkbox             | [Checkbox.md](references/components/Checkbox.md)                       |
+| `DatePicker`          | Date picker          | [DatePicker.md](references/components/DatePicker.md)                   |
+| `DateRangePicker`     | Date range picker    | [DateRangePicker.md](references/components/DateRangePicker.md)         |
+| `DateTimePicker`      | Date time picker     | [DateTimePicker.md](references/components/DateTimePicker.md)           |
+| `DateTimeRangePicker` | Date time range      | [DateTimeRangePicker.md](references/components/DateTimeRangePicker.md) |
+| `FilterArea`          | Filter area          | [FilterArea.md](references/components/FilterArea.md)                   |
+| `Form`                | Form                 | [Form.md](references/components/Form.md)                               |
+| `FormGroup` *(sub-path only)* | Form field group | [Form.md](references/components/Form.md)                           |
+| `Input`               | Input                | [Input.md](references/components/Input.md)                             |
+| `MultipleDatePicker`  | Multiple date picker | [MultipleDatePicker.md](references/components/MultipleDatePicker.md)   |
+| `Picker`              | Picker base          | [Picker.md](references/components/Picker.md)                           |
+| `Radio`               | Radio button         | [Radio.md](references/components/Radio.md)                             |
+| `Select`              | Select dropdown      | [Select.md](references/components/Select.md)                           |
+| `Selection`           | Selection            | [Selection.md](references/components/Selection.md)                     |
+| `Slider`              | Slider               | [Slider.md](references/components/Slider.md)                           |
+| `Switch`              | Switch toggle        | [Switch.md](references/components/Switch.md)                           |
+| `Textarea`            | Textarea             | [Textarea.md](references/components/Textarea.md)                       |
+| `TextField`           | Text field           | [TextField.md](references/components/TextField.md)                     |
+| `TimePicker`          | Time picker          | [TimePicker.md](references/components/TimePicker.md)                   |
+| `TimeRangePicker`     | Time range picker    | [TimeRangePicker.md](references/components/TimeRangePicker.md)         |
+| `Upload`              | Upload               | [Upload.md](references/components/Upload.md)                           |
+
+### Feedback
+
+User action feedback and system status display.
+
+| Component            | Description          | Reference                                                            |
+| -------------------- | -------------------- | -------------------------------------------------------------------- |
+| `InlineMessage`      | Inline message       | [InlineMessage.md](references/components/InlineMessage.md)           |
+| `Message`            | Message toast        | [Message.md](references/components/Message.md)                       |
+| `Modal`              | Modal dialog         | [Modal.md](references/components/Modal.md)                           |
+| `NotificationCenter` | Notification center  | [NotificationCenter.md](references/components/NotificationCenter.md) |
+| `Progress`           | Progress bar         | [Progress.md](references/components/Progress.md)                     |
+| `ResultState`        | Result state         | [ResultState.md](references/components/ResultState.md)               |
+| `Skeleton`           | Skeleton loader      | [Skeleton.md](references/components/Skeleton.md)                     |
+| `Spin`               | Loading spinner      | [Spin.md](references/components/Spin.md)                             |
+
+### Layout
+
+Full-page layout components.
+
+| Component | Description                | Reference                                          |
+| --------- | -------------------------- | -------------------------------------------------- |
+| `Layout`  | Full-page layout + sidebar | [Layout.md](references/components/Layout.md)       |
+
+### Others
+
+Auxiliary components.
+
+| Component        | Description       | Reference                                                    |
+| ---------------- | ----------------- | ------------------------------------------------------------ |
+| `AlertBanner`    | Alert banner      | [AlertBanner.md](references/components/AlertBanner.md)       |
+| `Anchor`         | Anchor navigation | [Anchor.md](references/components/Anchor.md)                 |
+| `Backdrop`       | Backdrop overlay  | [Backdrop.md](references/components/Backdrop.md)             |
+| `FloatingButton` | Floating button   | [FloatingButton.md](references/components/FloatingButton.md) |
+
+### Utility
+
+Utility components and transition animations.
+
+| Component    | Description          | Reference                                            |
+| ------------ | -------------------- | ---------------------------------------------------- |
+| `Calendar`   | Calendar             | [Calendar.md](references/components/Calendar.md)     |
+| `Collapse`   | Collapse animation   | [Transition.md](references/components/Transition.md) |
+| `Fade`       | Fade animation       | [Transition.md](references/components/Transition.md) |
+| `Notifier`   | Notifier             | [Notifier.md](references/components/Notifier.md)     |
+| `Popper`     | Popper positioning   | [Popper.md](references/components/Popper.md)         |
+| `Portal`     | Portal               | [Portal.md](references/components/Portal.md)         |
+| `Rotate`     | Rotate animation     | [Transition.md](references/components/Transition.md) |
+| `Scale`      | Scale animation      | [Transition.md](references/components/Transition.md) |
+| `Slide`      | Slide animation      | [Transition.md](references/components/Transition.md) |
+| `TimePanel`  | Time panel           | [TimePanel.md](references/components/TimePanel.md)   |
+| `Transition` | Transition base      | [Transition.md](references/components/Transition.md) |
+| `Translate`  | Translate animation  | [Transition.md](references/components/Transition.md) |
+
+### Internal
+
+Internal components, not typically used directly but available for advanced customization.
+
+| Component        | Description            | Export                      | Reference                                                    |
+| ---------------- | ---------------------- | --------------------------- | ------------------------------------------------------------ |
+| `ClearActions`   | Clear/close button     | sub-path only               | [ClearActions.md](references/components/ClearActions.md)     |
+| `ContentHeader`  | Content section header | sub-path only               | [ContentHeader.md](references/components/ContentHeader.md)   |
+| `Dropdown`       | Dropdown container     | `@mezzanine-ui/react`       | [Dropdown.md](references/components/Dropdown.md)             |
+| `Scrollbar`      | Custom scrollbar       | sub-path only               | [Scrollbar.md](references/components/Scrollbar.md)           |
+
+---
+
+## Design Token System
+
+v2 uses a **Primitives + Semantic** two-layer architecture.
+
+See [references/DESIGN_TOKENS.md](references/DESIGN_TOKENS.md) for detailed design tokens.
+
+### Quick Reference
+
+**Color usage**:
+```scss
+color: var(--mzn-color-text-brand);
+background-color: var(--mzn-color-background-base);
+border-color: var(--mzn-color-border-neutral);
+```
+
+**Spacing usage**:
+```scss
+padding: var(--mzn-spacing-padding-horizontal-base);
+gap: var(--mzn-spacing-gap-base);
+```
+
+---
+
+## Icon Usage
+
+Icons are organized in `@mezzanine-ui/icons`.
+
+See [references/ICONS.md](references/ICONS.md) for the complete icon list.
+
+### Quick Example
+
+```tsx
+import { Icon } from '@mezzanine-ui/react';
+import { PlusIcon, SearchIcon } from '@mezzanine-ui/icons';
+
+<Icon icon={PlusIcon} />
+<Icon icon={SearchIcon} size={24} />
+```
+
+---
+
+## Theme Switching
+
+### Light/Dark Mode
+
+```tsx
+// Switch theme
+document.documentElement.setAttribute('data-theme', 'dark');
+```
+
+### Default/Compact Density
+
+```tsx
+// Switch density
+document.documentElement.setAttribute('data-density', 'compact');
+```
+
+---
+
+## Related Documentation
+
+| Document                                    | Description                    |
+| ------------------------------------------- | ------------------------------ |
+| [references/DESIGN_TOKENS.md](references/DESIGN_TOKENS.md)   | Detailed design token definitions |
+| [references/ICONS.md](references/ICONS.md)                   | Complete icon list             |
+| [references/PATTERNS.md](references/PATTERNS.md)             | Common usage pattern examples  |
+| [references/FIGMA_MAPPING.md](references/FIGMA_MAPPING.md)   | Figma node mapping table       |
+| [references/components/](references/components/)             | Detailed API docs per component |
