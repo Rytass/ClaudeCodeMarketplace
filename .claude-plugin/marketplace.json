@@ -1,0 +1,13 @@
+{
+  "name": "rytass-claude-code",
+  "owner": {
+    "name": "Chia Yu Pai"
+  },
+  "plugins": [
+    {
+      "name": "project-rule",
+      "source": "./",
+      "description": "Full-stack project architecture convention plugin for Claude Code."
+    }
+  ]
+}
