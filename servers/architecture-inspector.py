@@ -128,40 +128,62 @@ def _should_exclude(path: Path) -> bool:
 
 
 def _read_message() -> Optional[dict[str, object]]:
-    """Read a JSON-RPC message from stdin (Content-Length header framing)."""
-    headers: dict[str, str] = {}
+    """Read a JSON-RPC message from stdin.
 
+    Supports both newline-delimited JSON (Claude Code) and
+    Content-Length header framing (standard MCP stdio transport).
+    """
     while True:
         line = sys.stdin.buffer.readline()
 
         if not line:
             return None
 
-        line_str = line.decode("utf-8").rstrip("\r\n")
+        line_str = line.decode("utf-8").strip()
 
-        if line_str == "":
-            break
+        if not line_str:
+            continue
+
+        if line_str.startswith("{"):
+            return json.loads(line_str)
+
+        # Content-Length header framing fallback
+        headers: dict[str, str] = {}
 
         if ":" in line_str:
             key, value = line_str.split(":", 1)
             headers[key.strip()] = value.strip()
 
-    content_length_str = headers.get("Content-Length")
+        while True:
+            header_line = sys.stdin.buffer.readline()
 
-    if content_length_str is None:
-        return None
+            if not header_line:
+                return None
 
-    content_length = int(content_length_str)
-    body = sys.stdin.buffer.read(content_length)
+            header_str = header_line.decode("utf-8").rstrip("\r\n")
 
-    return json.loads(body.decode("utf-8"))
+            if header_str == "":
+                break
+
+            if ":" in header_str:
+                key, value = header_str.split(":", 1)
+                headers[key.strip()] = value.strip()
+
+        content_length_str = headers.get("Content-Length")
+
+        if content_length_str is None:
+            return None
+
+        content_length = int(content_length_str)
+        body = sys.stdin.buffer.read(content_length)
+
+        return json.loads(body.decode("utf-8"))
 
 
 def _write_message(message: dict[str, object]) -> None:
-    """Write a JSON-RPC message to stdout (Content-Length header framing)."""
+    """Write a JSON-RPC message to stdout as newline-delimited JSON."""
     body = json.dumps(message).encode("utf-8")
-    header = f"Content-Length: {len(body)}\r\n\r\n".encode("utf-8")
-    sys.stdout.buffer.write(header + body)
+    sys.stdout.buffer.write(body + b"\n")
     sys.stdout.buffer.flush()
 
 
