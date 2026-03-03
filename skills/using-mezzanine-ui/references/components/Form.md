@@ -47,6 +47,7 @@ An integrated form field component including label, input area, hint text, etc.
 | `disabled`               | `boolean`                  | `false`                       | Whether disabled                           |
 | `fullWidth`              | `boolean`                  | `false`                       | Whether full width                         |
 | `severity`               | `SeverityWithInfo`         | `'info'`                      | Severity level                             |
+| `showHintTextIcon`       | `boolean`                  | `true`                        | Whether to display the hint text icon      |
 | `hintText`               | `string`                   | -                             | Hint text                                  |
 | `hintTextIcon`           | `IconDefinition`           | -                             | Hint text icon                             |
 | `counter`                | `string`                   | -                             | Counter text                               |
@@ -211,6 +212,27 @@ import { QuestionOutlineIcon } from '@mezzanine-ui/icons';
 </FormField>
 ```
 
+### Hide Hint Text Icon
+
+```tsx
+<FormField
+  name="note"
+  label="Note"
+  layout="vertical"
+  hintText="This hint has no icon"
+  showHintTextIcon={false}
+>
+  <Input placeholder="Enter note" />
+</FormField>
+
+// Standalone FormHintText without icon
+<FormHintText
+  hintText="Plain hint text"
+  severity="info"
+  showHintTextIcon={false}
+/>
+```
+
 ### Complete Form Example
 
 ```tsx
@@ -330,6 +352,7 @@ A standalone hint text component (underlying element is `<span>`).
 | `hintText`     | `string`                                          | -        | Hint text                                 |
 | `hintTextIcon` | `IconDefinition`                                  | -        | Custom icon (priority over severity default icon) |
 | `severity`     | `'success' \| 'warning' \| 'error' \| 'info'`    | `'info'` | Severity level                            |
+| `showHintTextIcon` | `boolean`                                     | `true`   | Whether to display the hint text icon     |
 
 ```tsx
 import { FormHintText } from '@mezzanine-ui/react';
