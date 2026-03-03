@@ -275,6 +275,14 @@ const handleUpload = async (uploadFiles: File[]) => {
 
 ---
 
+## UploadPictureCard Enhancements
+
+- **Single-file hover replace mode**: In single-file mode, hovering over the uploaded image shows a "Replace" overlay, allowing the user to replace the file directly
+- **Conditional zoom/download buttons**: Zoom and download action buttons are now conditionally rendered based on whether the corresponding callbacks (`onZoomIn`, `onDownload`) are provided
+- **Keyboard interaction support (a11y)**: UploadPictureCard now supports keyboard navigation and interaction for improved accessibility
+
+---
+
 ## Figma Mapping
 
 | Figma Variant                | React Props                              |
