@@ -43,11 +43,27 @@ import type { BadgeProps } from '@mezzanine-ui/react';
 | `count-brand`    | Brand color bg | Brand-related count      |
 | `count-info`     | Info blue bg   | General info count       |
 
+### Text Variants
+
+| Variant         | Description    | Usage                    |
+| --------------- | -------------- | ------------------------ |
+| `text-success`  | Success text   | Inline text status       |
+| `text-error`    | Error text     | Inline error indicator   |
+| `text-warning`  | Warning text   | Inline warning           |
+| `text-info`     | Info text      | Inline info              |
+| `text-inactive` | Inactive text  | Inline inactive          |
+
 ---
 
 ## Badge Props
 
-Badge props are divided into three mutually exclusive structures based on `variant` type:
+Badge props are divided into mutually exclusive structures based on `variant` type.
+
+### Common Props
+
+| Property | Type            | Default  | Description                    |
+| -------- | --------------- | -------- | ------------------------------ |
+| `size`   | `BadgeTextSize` | `'main'` | Badge size, `'main'` or `'sub'` |
 
 ### Count Badge (`variant: BadgeCountVariant`)
 
@@ -123,6 +139,20 @@ import { NotificationIcon } from '@mezzanine-ui/icons';
 // Displays "99+"
 ```
 
+### Text Badge
+
+```tsx
+// Text variant badges (inline status indicators)
+<Badge variant="text-success" text="Active" />
+<Badge variant="text-error" text="Failed" />
+<Badge variant="text-warning" text="Pending" />
+<Badge variant="text-info" text="Processing" />
+<Badge variant="text-inactive" text="Disabled" />
+
+// Sub size
+<Badge variant="text-success" text="Active" size="sub" />
+```
+
 ### Status List
 
 ```tsx
@@ -185,6 +215,11 @@ When `count` is 0, count variant badges are automatically hidden.
 | `Badge / Count Inverse`      | `variant="count-inverse"`                |
 | `Badge / Count Brand`        | `variant="count-brand"`                  |
 | `Badge / Count Info`         | `variant="count-info"`                   |
+| `Badge / Text Success`       | `variant="text-success"`                 |
+| `Badge / Text Error`         | `variant="text-error"`                   |
+| `Badge / Text Warning`       | `variant="text-warning"`                 |
+| `Badge / Text Info`          | `variant="text-info"`                    |
+| `Badge / Text Inactive`      | `variant="text-inactive"`                |
 
 ---
 
@@ -206,7 +241,16 @@ type BadgeCountVariant =
   | 'count-brand'
   | 'count-info';
 
-type BadgeVariant = BadgeDotVariant | BadgeCountVariant;
+type BadgeTextVariant =
+  | 'text-success'
+  | 'text-error'
+  | 'text-warning'
+  | 'text-info'
+  | 'text-inactive';
+
+type BadgeTextSize = 'main' | 'sub';
+
+type BadgeVariant = BadgeDotVariant | BadgeCountVariant | BadgeTextVariant;
 
 // BadgeVariantProps is a discriminated union
 type BadgeVariantProps = BadgeCountProps | BadgeDotWithTextProps | BadgeDotProps;
