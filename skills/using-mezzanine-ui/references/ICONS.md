@@ -53,6 +53,7 @@ General system function icons.
 | Spinner                 | `SpinnerIcon`          | Loading            |
 | Login                   | `LoginIcon`            | Login              |
 | Logout                  | `LogoutIcon`           | Logout             |
+| Save                    | `SaveIcon`             | Save               |
 | System                  | `SystemIcon`           | System             |
 
 ---
@@ -179,7 +180,10 @@ Content operation icons.
 | Mail            | `MailIcon`          | Mail               |
 | Mail Unread     | `MailUnreadIcon`    | Unread mail        |
 | Box             | `BoxIcon`           | Box                |
+| Camera          | `CameraIcon`        | Camera             |
+| Camera Add      | `CameraAddIcon`     | Add camera/photo   |
 | Code            | `CodeIcon`          | Code               |
+| NFC             | `NfcIcon`           | NFC                |
 
 ---
 
