@@ -9,10 +9,73 @@ Covers NestJS dual-layer modules, Next.js App Router, TypeORM, GraphQL Code-Firs
 
 ## Installation
 
+### Add Marketplace
+
 ```bash
-claude plugin marketplace add Rytass/ClaudeCodeMarketplace
-claude plugin install project-rule@rytass-claude-code --scope user
+/plugin marketplace add Rytass/ClaudeCodeMarketplace
 ```
+
+This registers the marketplace catalog only — no plugins are installed yet.
+
+### Install Plugin
+
+```bash
+/plugin install project-rule@rytass-claude-code
+```
+
+You can also install via the interactive UI: run `/plugin` → **Discover** tab → select the plugin → choose scope.
+
+#### Installation Scopes
+
+| Scope       | Command                                                              | Effect                                                                  |
+| ----------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **User**    | `/plugin install project-rule@rytass-claude-code`                    | Available across all projects (default)                                 |
+| **Project** | `/plugin install project-rule@rytass-claude-code --scope project`    | Current repo only; stored in `.claude/settings.json` for team sharing   |
+| **Local**   | Select "Local" scope via `/plugin` interactive UI                    | Current repo + current user only                                        |
+
+## Update
+
+### Update Marketplace Catalog
+
+```bash
+/plugin marketplace update rytass-claude-code
+```
+
+### Update Installed Plugin
+
+Via the interactive UI: `/plugin` → **Marketplaces** tab → select the marketplace → Update.
+
+Or reinstall manually:
+
+```bash
+/plugin uninstall project-rule@rytass-claude-code
+/plugin install project-rule@rytass-claude-code
+```
+
+## Auto-Update
+
+Claude Code checks for plugin updates on startup. The official Anthropic marketplace has auto-update enabled by default, but **third-party marketplaces (including this plugin) require manual opt-in**.
+
+**Enable auto-update:** `/plugin` → **Marketplaces** tab → select the marketplace → **Enable auto-update**
+
+### Environment Variables
+
+| Variable                                                     | Effect                                                          |
+| ------------------------------------------------------------ | --------------------------------------------------------------- |
+| `DISABLE_AUTOUPDATER`                                        | Disables all auto-updates (Claude Code + plugins)               |
+| `FORCE_AUTOUPDATE_PLUGINS=true` + `DISABLE_AUTOUPDATER`      | Disables Claude Code auto-update but keeps plugin auto-update   |
+
+## Uninstall
+
+```bash
+# Remove the plugin
+/plugin uninstall project-rule@rytass-claude-code
+
+# Remove the marketplace (also removes all plugins installed from it)
+/plugin marketplace remove rytass-claude-code
+```
+
+You can also manage installed plugins via `/plugin` → **Installed** tab (disable / remove).
 
 ## Skills
 
@@ -161,8 +224,8 @@ Configuration includes: project topology, directory paths, audit rule overrides,
 
 ```bash
 # 1. Install the plugin
-claude plugin marketplace add Rytass/ClaudeCodeMarketplace
-claude plugin install project-rule@rytass-claude-code --scope user
+/plugin marketplace add Rytass/ClaudeCodeMarketplace
+/plugin install project-rule@rytass-claude-code
 
 # 2. Initialize a new project
 /init-project --topology=monorepo
