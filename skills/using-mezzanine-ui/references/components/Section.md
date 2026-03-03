@@ -168,9 +168,25 @@ Passing non-matching components will output a console warning, e.g.:
 
 ---
 
+## Content Area minHeight
+
+Section's content area now supports `minHeight` to maintain consistent layout height. This is applied as a CSS style on the content area.
+
+```tsx
+<Section
+  contentHeader={<ContentHeader title="Dashboard" />}
+  style={{ '--section-content-min-height': '400px' } as React.CSSProperties}
+>
+  <div>Content with consistent minimum height</div>
+</Section>
+```
+
+---
+
 ## Best Practices
 
 1. **Use designated components**: `contentHeader`, `filterArea`, `tab` only accept their corresponding Mezzanine components; do not pass custom components.
 2. **Automatic size adjustment**: Section automatically sets `contentHeader` and `filterArea` to `size="sub"`; no manual specification needed.
 3. **Structural consistency**: Use the Section composition pattern consistently across pages to ensure uniform layout and spacing.
 4. **Body content in children**: Place tables, lists, and other main data content in `children`; let Section manage the block layout.
+5. **Consistent height**: Use `minHeight` on the content area when you need consistent section heights across a page.
