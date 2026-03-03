@@ -36,7 +36,26 @@ Extends `DistributiveOmit<DescriptionTitleProps, 'className' | 'children'>`, so 
 | `children`    | `ReactElement`                 | -              | Content element (see supported types below) |
 | `className`   | `string`                       | -              | Custom class name                        |
 | `orientation` | `DescriptionOrientation`       | `'horizontal'` | Layout direction                         |
+| `size`        | `DescriptionSize`              | `'main'`       | Default size for child content           |
 | `title`       | `string`                       | -              | Required, title text                     |
+
+---
+
+### Size Propagation
+
+The `size` prop on `Description` sets the default size for its child `DescriptionContent`. A child's own `size` prop takes precedence over the parent's `size`.
+
+```tsx
+// All children default to 'sub' size
+<Description title="Name" size="sub">
+  <DescriptionContent>John Doe</DescriptionContent>
+</Description>
+
+// Child overrides parent size
+<Description title="Name" size="sub">
+  <DescriptionContent size="main">John Doe</DescriptionContent>
+</Description>
+```
 
 ---
 
