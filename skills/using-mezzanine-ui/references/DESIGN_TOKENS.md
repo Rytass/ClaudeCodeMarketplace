@@ -320,6 +320,7 @@ v2 uses a semantic spacing system supporting default/compact densities.
 | `gentle`              | 20px    | 18px    |
 | `relaxed`             | 24px    | 20px    |
 | `airy`                | 28px    | 24px    |
+| `space-280`           | 28px    | 28px    |
 | `roomy`               | 32px    | 28px    |
 | `loose`               | 36px    | 32px    |
 | `extra-wide`          | 40px    | 36px    |
@@ -345,6 +346,7 @@ v2 uses a semantic spacing system supporting default/compact densities.
 | `broad`     | 560px   | Broad            |
 | `wide`      | 640px   | Wide             |
 | `expanded`  | 720px   | Expanded         |
+| `slender`   | -       | Slender          |
 | `max`       | 960px   | Maximum          |
 
 ### Gap
@@ -433,7 +435,7 @@ v2 uses a semantic spacing system supporting default/compact densities.
 
 ### Semantic Typography Types
 
-20 semantic typography types:
+21 semantic typography types:
 
 | Type                      | Font Size | Font Weight | Description              |
 | ------------------------- | --------- | ----------- | ------------------------ |
@@ -453,6 +455,7 @@ v2 uses a semantic spacing system supporting default/compact densities.
 | `button`                  | 14px      | regular     | Button text              |
 | `button-highlight`        | 14px      | medium      | Highlighted button text  |
 | `input`                   | 14px      | regular     | Input text               |
+| `input-highlight`         | 14px      | medium      | Highlighted input text   |
 | `input-mono`              | 14px      | regular     | Monospace input text     |
 | `label-primary`           | 14px      | regular     | Primary label            |
 | `label-primary-highlight` | 14px      | medium      | Highlighted primary label|
