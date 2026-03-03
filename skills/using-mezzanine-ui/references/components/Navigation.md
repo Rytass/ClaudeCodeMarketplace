@@ -75,6 +75,7 @@ type NavigationOptionChildren = NavigationOptionChild | NavigationOptionChild[];
 | `filter`          | `boolean`                         | -       | Whether to show search   |
 | `onCollapseChange`| `(collapsed: boolean) => void`    | -       | Collapse change event    |
 | `onOptionClick`   | `(activePath?: string[]) => void` | -       | Option click event       |
+| `optionsAnchorComponent` | `React.ElementType`          | -       | Custom component for rendering options with href (e.g. `<Link>` from react-router-dom) |
 
 ---
 
@@ -91,6 +92,7 @@ type NavigationOptionChildren = NavigationOptionChild | NavigationOptionChild[];
 | `icon`           | `IconDefinition`                                              | -            | Icon                                      |
 | `id`             | `string`                                                      | -            | Unique identifier                         |
 | `title`          | `string`                                                      | (required)   | Display title                             |
+| `anchorComponent`| `React.ElementType`                                           | -            | Custom anchor component, should support `href` and `onClick` |
 | `onTriggerClick` | `(path: string[], currentKey: string, href?: string) => void` | -            | Option trigger click event                |
 
 ---
@@ -148,6 +150,7 @@ type NavigationOptionChildren = NavigationOptionChild | NavigationOptionChild[];
 | `className` | `string`       | -           | Custom className     |
 | `imgSrc`    | `string`       | -           | User avatar URL      |
 | `onClick`   | `() => void`   | -           | Click event          |
+| `collapsedPlacement` | `DropdownProps['placement']` | -           | Dropdown position when navigation is collapsed |
 | `placement` | `string`       | `'top-end'` | Dropdown position (inherited) |
 
 ---
@@ -256,6 +259,42 @@ function CollapsibleNavigation() {
 </Navigation>
 ```
 
+### Custom Anchor (SPA Router Integration)
+
+```tsx
+import { Link } from 'react-router-dom';
+import {
+  Navigation,
+  NavigationOption,
+  NavigationHeader,
+} from '@mezzanine-ui/react';
+import { HomeIcon, UserIcon, SettingIcon } from '@mezzanine-ui/icons';
+
+function SpaNavigation() {
+  const [activePath, setActivePath] = useState<string[]>(['home']);
+
+  return (
+    <Navigation
+      activatedPath={activePath}
+      onOptionClick={setActivePath}
+      optionsAnchorComponent={Link}
+    >
+      <NavigationHeader title="My App" />
+      <NavigationOption icon={HomeIcon} title="Home" href="/home" />
+      <NavigationOption icon={UserIcon} title="Users" href="/users" />
+      <NavigationOption
+        icon={SettingIcon}
+        title="Settings"
+        href="/settings"
+        anchorComponent={Link}
+      />
+    </Navigation>
+  );
+}
+```
+
+> **Note**: `optionsAnchorComponent` sets the default anchor for all options. Individual options can override with `anchorComponent`. The custom component should support `href` and `onClick` props.
+
 ### With User Menu
 
 ```tsx
@@ -295,10 +334,20 @@ import { SettingIcon, HelpIcon } from '@mezzanine-ui/icons';
 
 ---
 
+## RC1 Enhancements
+
+- **Auto-activate nav option**: Automatically highlights the navigation option matching the current path
+- **Username overflow handling**: Long usernames are automatically truncated with Tooltip
+- **UserMenu overflow handling**: UserMenu supports scrolling when content overflows
+- **Text fade transition**: Smooth text fade-in/fade-out animation during sidebar collapse/expand
+- **Bug fixes**: `collapsedPlacement` and UserMenu tooltip positioning corrections; open/active state text and background color token fixes; minimum width constraint fixes
+
+---
+
 ## Best Practices
 
 1. **Provide icons**: Every main option should have an icon for identification
 2. **Limit nesting levels**: Recommend at most 3 levels of nesting
 3. **Use categories**: Group related options with `NavigationOptionCategory`
 4. **Collapsed mode icons**: Only icons are shown when collapsed; ensure icons are recognizable
-5. **Integrate with Router**: Use `href` or `onClick` with router navigation
+5. **Integrate with Router**: Use `optionsAnchorComponent` or per-option `anchorComponent` with SPA router components (e.g. react-router's `Link`)
