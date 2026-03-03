@@ -370,7 +370,13 @@
     ]
   },
   "Badge": {
-    "props": {},
+    "props": {
+      "size": {
+        "type": "'main' | 'sub'",
+        "required": false,
+        "default": "'main'"
+      }
+    },
     "sourceFile": "packages/react/src/Badge/typings.ts",
     "propsType": "Omit<\n  NativeElementPropsWithoutKeyAndRef<'span'>,\n  'children'\n> &\n  BadgeVariantProps",
     "subComponents": {
@@ -2226,6 +2232,11 @@
         "required": false,
         "default": "'horizontal'"
       },
+      "size": {
+        "type": "DescriptionSize",
+        "required": false,
+        "default": "'main'"
+      },
       "title": {
         "type": "string",
         "required": true
@@ -3168,6 +3179,11 @@
             "type": "SeverityWithInfo",
             "required": false,
             "default": "'info'"
+          },
+          "showHintTextIcon": {
+            "type": "boolean",
+            "required": false,
+            "default": "true"
           }
         },
         "extends": [
@@ -3188,6 +3204,11 @@
           "severity": {
             "type": "keyof typeof formHintIcons | undefined",
             "required": false
+          },
+          "showHintTextIcon": {
+            "type": "boolean",
+            "required": false,
+            "default": "true"
           }
         },
         "sourceFile": "packages/react/src/Form/FormHintText.tsx"
@@ -4057,6 +4078,10 @@
       "onOptionClick": {
         "type": "(activePath?: string[]) => void",
         "required": false
+      },
+      "optionsAnchorComponent": {
+        "type": "React.ElementType",
+        "required": false
       }
     },
     "sourceFile": "packages/react/src/Navigation/Navigation.tsx",
@@ -4109,6 +4134,10 @@
         "props": {
           "active": {
             "type": "boolean",
+            "required": false
+          },
+          "anchorComponent": {
+            "type": "React.ElementType",
             "required": false
           },
           "children": {
@@ -4182,6 +4211,10 @@
           },
           "className": {
             "type": "string",
+            "required": false
+          },
+          "collapsedPlacement": {
+            "type": "DropdownProps['placement']",
             "required": false
           },
           "imgSrc": {

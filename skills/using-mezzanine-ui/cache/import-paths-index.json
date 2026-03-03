@@ -1,7 +1,7 @@
 {
   "meta": {
     "generatedAt": "2026-02-14",
-    "sourceVersion": "1.0.0-beta.7",
+    "sourceVersion": "1.0.0-rc.1",
     "description": "Complete import paths index for Mezzanine UI v2 packages"
   },
   "packages": {
@@ -480,7 +480,7 @@
           "FolderAddIcon", "CalendarIcon", "CalendarTimeIcon", "ClockIcon",
           "CurrencyDollarIcon", "PercentIcon", "LightIcon", "DarkIcon",
           "NotificationIcon", "NotificationUnreadIcon", "SiderIcon", "HomeIcon",
-          "SpinnerIcon", "LoginIcon", "LogoutIcon", "SystemIcon"
+          "SaveIcon", "SpinnerIcon", "LoginIcon", "LogoutIcon", "SystemIcon"
         ],
         "arrowIcons": [
           "LongTailArrowRightIcon", "LongTailArrowLeftIcon", "LongTailArrowUpIcon", "LongTailArrowDownIcon",
@@ -516,7 +516,7 @@
           "GalleryIcon", "ListIcon", "AlignLeftIcon", "AlignRightIcon",
           "StarOutlineIcon", "StarFilledIcon",
           "BookmarkOutlineIcon", "BookmarkFilledIcon", "BookmarkAddIcon", "BookmarkRemoveIcon", "BookmarkAddedIcon",
-          "ImageIcon", "BoxIcon", "CodeIcon", "MailIcon", "MailUnreadIcon"
+          "ImageIcon", "BoxIcon", "CameraIcon", "CameraAddIcon", "CodeIcon", "MailIcon", "MailUnreadIcon", "NfcIcon"
         ],
         "stepperIcons": [
           "Item0Icon", "Item1Icon", "Item2Icon", "Item3Icon", "Item4Icon",
@@ -621,6 +621,6 @@
   "packageNotes": {
     "noExportsField": "None of the packages use the 'exports' field in package.json. Subpath imports work via directory-based resolution (each directory has its own index.ts/index.js).",
     "buildSystem": "All packages use a custom build script (scripts/build.js) that compiles TypeScript to individual directories.",
-    "version": "All source packages are at 1.0.0-beta.7 (dist may contain older 0.15.3 builds)."
+    "version": "All source packages are at 1.0.0-rc.1."
   }
 }
