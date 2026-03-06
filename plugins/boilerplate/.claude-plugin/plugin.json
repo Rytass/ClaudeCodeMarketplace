@@ -1,0 +1,11 @@
+{
+  "name": "boilerplate",
+  "description": "Full-stack project bootstrapper. Generates Nx monorepo with Next.js + GraphQL and deployment-specific API (GKE with NestJS, Cloudflare Workers with Hono, or Supabase Edge Functions).",
+  "version": "0.1.0",
+  "license": "MIT",
+  "keywords": ["boilerplate", "scaffolding", "nx-monorepo", "nextjs", "graphql", "nestjs", "gke", "cloudflare-workers", "hono", "supabase"],
+  "author": {
+    "name": "Chia Yu Pai",
+    "email": "fantasyatelier@gmail.com"
+  }
+}

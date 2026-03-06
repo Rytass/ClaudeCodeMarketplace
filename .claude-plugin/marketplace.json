@@ -8,6 +8,11 @@
       "name": "project-rule",
       "source": "./",
       "description": "Full-stack project architecture convention plugin for Claude Code."
+    },
+    {
+      "name": "boilerplate",
+      "source": "./plugins/boilerplate",
+      "description": "Full-stack project bootstrapper. Generates Nx monorepo with Next.js + GraphQL and deployment-specific API (GKE with NestJS, Cloudflare Workers with Hono, or Supabase Edge Functions)."
     }
   ]
 }
