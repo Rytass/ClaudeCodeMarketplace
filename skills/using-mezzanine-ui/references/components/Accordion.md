@@ -104,10 +104,11 @@ Groups multiple `Accordion` components together, uniformly passing `size` to eac
 
 Extends `NativeElementPropsWithoutKeyAndRef<'div'>`.
 
-| Property   | Type               | Default  | Description                                  |
-| ---------- | ------------------ | -------- | -------------------------------------------- |
-| `children` | `ReactNode`        | -        | Children (should contain multiple `Accordion`) |
-| `size`     | `'main' \| 'sub'` | `'main'` | Uniform size for all Accordions in the group |
+| Property    | Type               | Default  | Description                                  |
+| ----------- | ------------------ | -------- | -------------------------------------------- |
+| `children`  | `ReactNode`        | -        | Children (should contain multiple `Accordion`) |
+| `exclusive` | `boolean`          | `false`  | If true, only one accordion can be expanded at a time (mutex mode) |
+| `size`      | `'main' \| 'sub'` | `'main'` | Uniform size for all Accordions in the group |
 
 ---
 
@@ -243,33 +244,26 @@ function AccordionWithActions() {
 
 ### Exclusive Accordion
 
+Using the `exclusive` prop on `AccordionGroup` enables mutex mode where only one accordion can be expanded at a time:
+
 ```tsx
-import { useState } from 'react';
 import { Accordion, AccordionGroup } from '@mezzanine-ui/react';
 
 function ExclusiveAccordion() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
-
-  const items = [
-    { title: 'Item 1', content: 'Content 1' },
-    { title: 'Item 2', content: 'Content 2' },
-    { title: 'Item 3', content: 'Content 3' },
-  ];
-
   return (
-    <AccordionGroup>
-      {items.map((item, index) => (
-        <Accordion
-          key={index}
-          title={item.title}
-          expanded={expandedIndex === index}
-          onChange={(isExpanded) => {
-            setExpandedIndex(isExpanded ? index : null);
-          }}
-        >
-          <p>{item.content}</p>
-        </Accordion>
-      ))}
+    <AccordionGroup exclusive>
+      <Accordion title="付款方式">
+        目前支援信用卡、Line Pay、Apple Pay 等多種付款方式，
+        您可以在結帳時選擇最方便的付款選項。
+      </Accordion>
+      <Accordion title="運送政策">
+        訂單成立後 1-3 個工作天內出貨，全台宅配約 1-2 天送達。
+        滿 $1,000 享免運優惠，未滿則需支付 $80 運費。
+      </Accordion>
+      <Accordion title="退換貨須知">
+        商品到貨後 7 天內可申請退換貨，請保持商品完整包裝。
+        如有瑕疵或寄送錯誤，我們將負擔來回運費。
+      </Accordion>
     </AccordionGroup>
   );
 }
