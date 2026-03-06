@@ -90,6 +90,7 @@ Extends `DropdownItemSharedProps`.
 | `emptyIcon`               | `IconDefinition`                                                           | -           | Empty state icon                                                                |
 | `loadingPosition`         | `DropdownLoadingPosition`                                                  | `'full'`    | Loading position: `'full'` / `'bottom'` (append loading)                        |
 | `showDropdownActions`     | `boolean`                                                                  | `false`     | Whether to show action button bar                                               |
+| `toggleCheckedOnClick`    | `boolean`                                                                  | -           | Whether clicking an option row should toggle checked state in multiple mode     |
 | `actionCancelText`        | `string`                                                                   | -           | Cancel button text                                                              |
 | `actionConfirmText`       | `string`                                                                   | -           | Confirm button text                                                             |
 | `actionClearText`         | `string`                                                                   | -           | Clear button text                                                               |
@@ -492,6 +493,12 @@ function InfiniteScrollDropdown() {
   );
 }
 ```
+
+---
+
+## Behavior Notes
+
+- **Empty status with `loadingPosition='bottom'` (fixed in RC3)**: Previously, when `loadingPosition='bottom'` was set and `status='empty'`, the empty status did not display correctly. Since RC3, the empty status always renders as full-area regardless of `loadingPosition`, ensuring it is visible even when `loadingPosition='bottom'` is configured.
 
 ---
 

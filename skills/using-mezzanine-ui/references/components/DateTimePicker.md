@@ -221,6 +221,12 @@ DateTimePicker consists of two independent input fields and panels:
 
 ---
 
+## Behavior Notes
+
+- **Suffix overlay when clearable (since RC3)**: When `clearable` is true, the clear icon overlays the calendar-time suffix icon using PickerTriggerWithSeparator's `hideSuffixWhenClearable` pattern. The suffix icon is hidden while the clear button is visible.
+
+---
+
 ## Best Practices
 
 1. **Context required**: Must be wrapped in CalendarContext.Provider

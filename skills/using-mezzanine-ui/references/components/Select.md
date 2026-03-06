@@ -287,6 +287,16 @@ const treeOptions = [
 | `SelectTrigger`         | Select trigger component (internal)    |
 | `SelectTriggerTags`     | Multi-select tag display (internal)    |
 
+### SelectTriggerBaseProps — Notable Props
+
+| Property            | Type      | Default | Description                                                     |
+| ------------------- | --------- | ------- | --------------------------------------------------------------- |
+| `isForceClearable`  | `boolean` | `false` | Force show clearable icon regardless of value state (since RC3) |
+
+> `SelectTriggerBaseProps` extends `TextFieldProps` (with omissions) and contains shared trigger configuration. The `isForceClearable` prop bypasses the default clearable logic (which requires `mode='multiple'` with selected values) and always shows the clear button. Useful for multi-select scenarios where the clear button should remain visible.
+
+---
+
 ### SelectTriggerTagsProps
 
 | Property                    | Type                                          | Description              |

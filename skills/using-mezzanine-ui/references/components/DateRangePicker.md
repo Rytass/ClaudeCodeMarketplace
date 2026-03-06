@@ -228,6 +228,12 @@ function BasicExample() {
 
 ---
 
+## Behavior Notes
+
+- **Suffix overlay when clearable (since RC3)**: When `clearable` is true, the clear icon overlays the calendar suffix icon using RangePickerTrigger's `hideSuffixWhenClearable` pattern. The calendar icon is hidden while the clear button is visible.
+
+---
+
 ## Best Practices
 
 1. **Context required**: Must be wrapped in CalendarContext.Provider

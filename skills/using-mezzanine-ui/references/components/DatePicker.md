@@ -59,13 +59,12 @@ import type { DatePickerProps, DatePickerCalendarProps } from '@mezzanine-ui/rea
 | Property        | Type                                  | Default | Description            |
 | --------------- | ------------------------------------- | ------- | ---------------------- |
 | `className`     | `string`                              | -       | CSS class              |
-| `clearable`     | `boolean`                             | -       | Whether clearable      |
+| `clearable`     | `boolean`                             | `true`  | Whether clearable      |
 | `disabled`      | `boolean`                             | `false` | Whether disabled       |
 | `error`         | `boolean`                             | `false` | Whether in error state |
 | `errorMessages` | `FormattedInputProps['errorMessages']` | -      | Error messages         |
 | `fullWidth`     | `boolean`                             | `false` | Whether full width     |
 | `inputProps`    | `Omit<NativeInputProps, ...>`         | -       | Props passed to input  |
-| `inputRef`      | `RefObject<HTMLInputElement \| null>` | -       | Input element ref      |
 | `placeholder`   | `string`                              | -       | Placeholder text       |
 | `prefix`        | `ReactNode`                           | -       | Prefix                 |
 | `readOnly`      | `boolean`                             | `false` | Whether read-only      |
@@ -257,6 +256,12 @@ function BasicDatePicker() {
 | `DatePicker / Week`          | `<DatePicker mode="week">`               |
 | `DatePicker / Disabled`      | `<DatePicker disabled>`                  |
 | `DatePicker / Error`         | `<DatePicker error>`                     |
+
+---
+
+## Behavior Notes
+
+- **Suffix overlay when clearable (since RC3)**: When `clearable` is true, the clear icon overlays the calendar suffix icon using TextField's `hideSuffixWhenClearable` pattern. This means the calendar icon is hidden while the clear button is visible, providing a cleaner UX.
 
 ---
 
