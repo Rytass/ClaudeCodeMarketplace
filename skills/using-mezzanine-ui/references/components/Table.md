@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Table`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Table) | Verification date: 2026-02-13
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Table) | Verification date: 2026-03-06
 
 High-performance data table component supporting virtual scrolling, column resizing, fixed columns, row selection, sorting, expandable rows, drag-and-drop reordering, pinning, toggleable columns, collectable columns, and more.
 
@@ -31,7 +31,7 @@ import type {
 ```
 
 > Note: The following types are re-exported from `@mezzanine-ui/core/table` and available from `@mezzanine-ui/react`:
-> `getCellAlignClass`, `getRowKey`, `ColumnAlign`, `FixedType`, `HighlightMode`, `SortOrder`, `TableSize`, `TableBulkActions`, `TableColumnTitleMenu`, etc.
+> `getCellAlignClass`, `getRowKey`, `ColumnAlign`, `FixedType`, `HighlightMode`, `SortOrder`, `TableRowState`, `TableSize`, `TableBulkActions`, `TableColumnTitleMenu`, etc.
 > `TABLE_ACTIONS_KEY` is only available from the `@mezzanine-ui/react/Table` sub-path.
 > `TablePinnable` must be imported from `@mezzanine-ui/core/table` or `@mezzanine-ui/react/Table`.
 
@@ -67,6 +67,7 @@ import type {
 | `resizable`             | `boolean`                                   | `false`  | Whether columns are resizable |
 | `rowHeightPreset`       | `'base' \| 'condensed' \| 'detailed' \| 'roomy'` | `'base'` | Row height preset    |
 | `rowSelection`          | `TableRowSelection<T>`                      | -        | Row selection config       |
+| `rowState`              | `TableRowState \| ((rowData: T) => TableRowState \| undefined)` | -  | Row-level semantic styling |
 | `scroll`                | `TableScroll`                               | -        | Scroll config              |
 | `showHeader`            | `boolean`                                   | `true`   | Whether to show header     |
 | `size`                  | `'main' \| 'sub'`                           | `'main'` | Table size                 |
@@ -602,6 +603,24 @@ function AnimatedTable() {
   );
 }
 ```
+
+### With Row State
+
+```tsx
+<Table<DataType>
+  columns={columns}
+  dataSource={data}
+  rowState={(record) => {
+    if (record.age >= 42) return 'deleted';
+    if (record.age >= 33) return 'disabled';
+    if (record.age < 25) return 'added';
+
+    return undefined;
+  }}
+/>
+```
+
+> `TableRowState` type: `'added' | 'deleted' | 'disabled'`. Applies semantic background color styling per row. Accepts a static state string or a function receiving the row data.
 
 ### With Bulk Actions
 
