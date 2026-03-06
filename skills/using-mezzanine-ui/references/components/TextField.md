@@ -35,6 +35,8 @@ import type {
 | `active`    | `boolean`                                                   | `false`  | TextFieldBaseProps            | Whether active state   |
 | `children`  | `ReactNode \| ((paddingInfo: TextFieldPaddingInfo) => ReactNode)` | **required** | TextFieldBaseProps      | Content or function    |
 | `clearable` | `boolean`                                                   | `false`  | TextFieldBaseProps            | Whether clearable      |
+| `forceShowClearable` | `boolean`                                          | `false`  | TextFieldBaseProps            | Force clear button visibility (ignore value check) |
+| `hideSuffixWhenClearable` | `boolean`                                     | `false`  | TextFieldBaseProps            | Hide suffix and overlay clear icon at suffix position |
 | `error`     | `boolean`                                                   | `false`  | TextFieldBaseProps            | Error state            |
 | `fullWidth` | `boolean`                                                   | `true`   | TextFieldBaseProps            | Whether full width     |
 | `onClear`   | `MouseEventHandler`                                         | -        | TextFieldBaseProps            | Clear button callback  |
@@ -176,6 +178,24 @@ import { Icon } from '@mezzanine-ui/react';
 </TextField>
 ```
 
+### Suffix Overlay Clear (hideSuffixWhenClearable)
+
+```tsx
+import { CalendarIcon } from '@mezzanine-ui/icons';
+import { Icon, TextField } from '@mezzanine-ui/react';
+
+<TextField
+  clearable
+  hideSuffixWhenClearable
+  onClear={() => setValue('')}
+  suffix={<Icon icon={CalendarIcon} />}
+>
+  <input type="text" value={value} onChange={handleChange} />
+</TextField>
+```
+
+When the user hovers/focuses and a value exists, the clear icon replaces the calendar icon at the same position.
+
 ---
 
 ## Relationship with Input Component
@@ -215,6 +235,17 @@ The clear button (clearable) is visible when:
 2. A value exists
 3. Any of the following: hovered **or** typing **or** focused
 
+### Suffix Overlay Mode (`hideSuffixWhenClearable`)
+
+When `hideSuffixWhenClearable` is `true`, the clear icon **overlays the suffix position** instead of being placed separately:
+
+- The standalone clear icon is **not rendered** (no separate `ClearActions`).
+- The suffix container gets the `mzn-text-field__suffix--overlay` class.
+- Inside the suffix container, the original suffix content is wrapped in `mzn-text-field__suffix-content`, and a `ClearActions` is placed alongside it.
+- When the clear button should be visible (`clearable` + has value + hover/focus/typing), the `mzn-text-field--clearing` class is added to the host, which can be used to hide the suffix content and show the clear icon via CSS.
+
+This pattern is useful when suffix and clear icon should share the same space (e.g., DatePicker calendar icon / clear icon toggle).
+
 ---
 
 ## Figma Mapping
@@ -231,6 +262,7 @@ The clear button (clearable) is visible when:
 | `TextField / With Prefix`  | `prefix` has value                       |
 | `TextField / With Suffix`  | `suffix` has value                       |
 | `TextField / Clearable`    | `clearable`                              |
+| `TextField / Clearable Overlay` | `clearable` + `hideSuffixWhenClearable` |
 | `TextField / Main`         | `size="main"` (default)                  |
 | `TextField / Sub`          | `size="sub"`                             |
 
