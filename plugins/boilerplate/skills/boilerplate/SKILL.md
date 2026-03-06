@@ -1,3 +1,8 @@
+---
+name: boilerplate
+description: Interactively guide full-stack project bootstrapping with deployment target selection. Use when creating a new project with Nx monorepo + Next.js + GraphQL. Trigger when user says init project, create project, new project, bootstrap, scaffold project.
+---
+
 # Boilerplate Skill Reference
 
 This is the index for the boilerplate project generator. It supports 3 deployment targets, each with a distinct API framework, database strategy, and hosting model — all sharing a common Nx monorepo foundation.
