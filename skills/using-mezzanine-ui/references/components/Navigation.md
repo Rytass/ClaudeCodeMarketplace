@@ -72,6 +72,7 @@ type NavigationOptionChildren = NavigationOptionChild | NavigationOptionChild[];
 | `activatedPath`   | `string[]`                        | -       | Current activated path   |
 | `children`        | `NavigationChildren`              | -       | Children                 |
 | `collapsed`       | `boolean`                         | `false` | Whether collapsed        |
+| `exactActivatedMatch` | `boolean`                     | `false` | When true, href must match the current pathname exactly to be activated; when false, any href that is a prefix of the current pathname will be activated |
 | `filter`          | `boolean`                         | -       | Whether to show search   |
 | `onCollapseChange`| `(collapsed: boolean) => void`    | -       | Collapse change event    |
 | `onOptionClick`   | `(activePath?: string[]) => void` | -       | Option click event       |
