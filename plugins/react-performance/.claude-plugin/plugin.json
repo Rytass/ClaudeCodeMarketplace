@@ -1,0 +1,11 @@
+{
+  "name": "react-performance",
+  "description": "React and Next.js performance optimization rules from Vercel Engineering. 47 actionable rules covering re-renders, async patterns, bundle size, JS optimization, server components, and client-side performance.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "keywords": ["react", "nextjs", "performance", "optimization", "vercel"],
+  "author": {
+    "name": "Chia Yu Pai",
+    "email": "fantasyatelier@gmail.com"
+  }
+}
