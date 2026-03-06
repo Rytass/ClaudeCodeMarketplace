@@ -56,7 +56,7 @@ type TypographyComponent =
 
 ---
 
-## TypographySemanticType (20 types total)
+## TypographySemanticType (21 types total)
 
 ### Headings
 
@@ -99,6 +99,7 @@ type TypographyComponent =
 | `button-highlight`         | 14px      | 500         | Emphasized button text |
 | `input`                    | 14px      | 400         | Input text             |
 | `input-mono`               | 14px      | 400         | Monospace input        |
+| `input-highlight`          | 14px      | 500         | Emphasized input text  |
 | `label-primary`            | 14px      | 400         | Primary label          |
 | `label-primary-highlight`  | 14px      | 500         | Emphasized primary label |
 | `label-secondary`          | 12px      | 400         | Secondary label        |
