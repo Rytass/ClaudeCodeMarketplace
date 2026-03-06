@@ -69,7 +69,7 @@ Extends `NotifierData` (`children`, `onClose`, `duration`) and `NotificationConf
 | `timeStampLocale`            | `string`                                | `'zh-TW'`         | Timestamp locale                            |
 | `title`                      | `string`                                | -                 | Notification title                          |
 | `type`                       | `NotificationType`                      | `'notification'`  | Notification type: `'notification'` / `'drawer'` |
-| `viewAllButtonText`          | `string`                                | `'View More'`     | View all button text                        |
+| `viewAllButtonText`          | `string`                                | `'查看更多'`       | View all button text                        |
 
 ---
 
@@ -235,12 +235,12 @@ Notification list drawer component that displays notifications in a Drawer forma
 | `title`                          | `string`                                 | -                          | Drawer title                                   |
 | `open`                           | `boolean`                                | -                          | Whether open                                   |
 | `onClose`                        | `() => void`                             | -                          | Close callback                                 |
-| `todayLabel`                     | `string`                                 | `'Today'`                  | Today group label                              |
-| `yesterdayLabel`                  | `string`                                 | `'Yesterday'`              | Yesterday group label                          |
-| `past7DaysLabel`                 | `string`                                 | `'Past 7 Days'`            | Past 7 days group label                        |
-| `earlierLabel`                   | `string`                                 | `'Earlier'`                | Earlier group label                            |
+| `todayLabel`                     | `string`                                 | `'今天'`                   | Today group label                              |
+| `yesterdayLabel`                  | `string`                                 | `'昨天'`                   | Yesterday group label                          |
+| `past7DaysLabel`                 | `string`                                 | `'過去七天'`               | Past 7 days group label                        |
+| `earlierLabel`                   | `string`                                 | `'更早'`                   | Earlier group label                            |
 | `emptyNotificationIcon`          | `IconDefinition`                         | `NotificationIcon`         | Empty notification icon                        |
-| `emptyNotificationTitle`         | `string`                                 | `'No new notifications'`   | Empty notification text                        |
+| `emptyNotificationTitle`         | `string`                                 | `'目前沒有新的通知'`       | Empty notification text                        |
 | `controlBarShow`                 | `boolean`                                | -                          | Whether to show control bar                    |
 | `controlBarDefaultValue`         | `string`                                 | -                          | Control bar default value                      |
 | `controlBarValue`                | `string`                                 | -                          | Control bar controlled value                   |

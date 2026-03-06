@@ -88,7 +88,7 @@ import type { DrawerProps, DrawerPlacement } from '@mezzanine-ui/react';
 | `controlBarReadRadioLabel`        | `string`                                | -            | Control bar "Read" label       |
 | `controlBarUnreadRadioLabel`      | `string`                                | -            | Control bar "Unread" label     |
 | `controlBarShowUnreadButton`      | `boolean`                               | `false`      | Whether to show unread button  |
-| `controlBarCustomButtonLabel`     | `string`                                | `'Mark All Read'` | Custom button text             |
+| `controlBarCustomButtonLabel`     | `string`                                | `'全部已讀'`      | Custom button text             |
 | `controlBarOnCustomButtonClick`   | `VoidFunction`                          | -            | Custom button click handler    |
 | `controlBarOnRadioChange`         | `ChangeEventHandler<HTMLInputElement>`  | -            | Radio change event handler     |
 | `controlBarDefaultValue`          | `string`                                | -            | Default radio value            |

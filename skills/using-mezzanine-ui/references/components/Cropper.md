@@ -108,9 +108,9 @@ type CropperElementProps<C extends CropperElementComponent = 'canvas'> =
 | `onClose`                 | `() => void`                                                      | -              | Triggered when Modal closes (inherited from ModalProps) |
 | `showModalFooter`         | `boolean`                                                         | `true`         | Whether to show footer button bar              |
 | `showModalHeader`         | `boolean`                                                         | `true`         | Whether to show header bar                     |
-| `title`                   | `string`                                                          | `'Image Crop'` | Modal title text                               |
-| `confirmText`             | `string`                                                          | `'Confirm'`    | Confirm button text                            |
-| `cancelText`              | `string`                                                          | `'Cancel'`     | Cancel button text                             |
+| `title`                   | `string`                                                          | `'圖片裁切'`   | Modal title text                               |
+| `confirmText`             | `string`                                                          | `'確認'`       | Confirm button text                            |
+| `cancelText`              | `string`                                                          | `'取消'`       | Cancel button text                             |
 | `size`                    | `ModalSize`                                                       | `'wide'`       | Modal size                                     |
 
 ---
