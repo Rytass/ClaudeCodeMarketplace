@@ -1,4 +1,9 @@
 {
+  "_meta": {
+    "generatedAt": "2026-03-06",
+    "version": "1.0.0-rc.3",
+    "description": "Component props API index for Mezzanine UI v2 packages"
+  },
   "Accordion": {
     "props": {
       "children": {
@@ -68,6 +73,11 @@
       },
       "AccordionGroupProps": {
         "props": {
+          "exclusive": {
+            "type": "boolean",
+            "required": false,
+            "default": "false"
+          },
           "size": {
             "type": "'main' | 'sub'",
             "required": false,
@@ -330,6 +340,132 @@
         },
         "sourceFile": "packages/react/src/AutoComplete/AutoComplete.tsx"
       }
+    }
+  },
+  "Cascader": {
+    "props": {
+      "className": {
+        "type": "string",
+        "required": false
+      },
+      "clearable": {
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      "defaultValue": {
+        "type": "CascaderOption[]",
+        "required": false
+      },
+      "disabled": {
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      "dropdownZIndex": {
+        "type": "number | string",
+        "required": false
+      },
+      "error": {
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      "fullWidth": {
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      "globalPortal": {
+        "type": "boolean",
+        "required": false,
+        "default": "true"
+      },
+      "menuMaxHeight": {
+        "type": "number | string",
+        "required": false
+      },
+      "onBlur": {
+        "type": "() => void",
+        "required": false
+      },
+      "onChange": {
+        "type": "(value: CascaderOption[]) => void",
+        "required": false
+      },
+      "onFocus": {
+        "type": "() => void",
+        "required": false
+      },
+      "options": {
+        "type": "CascaderOption[]",
+        "required": true
+      },
+      "placeholder": {
+        "type": "string",
+        "required": false,
+        "default": "''"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      "required": {
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      "size": {
+        "type": "CascaderSize",
+        "required": false,
+        "default": "'main'"
+      },
+      "value": {
+        "type": "CascaderOption[]",
+        "required": false
+      }
+    },
+    "sourceFile": "packages/react/src/Cascader/Cascader.tsx",
+    "subComponents": {
+      "CascaderPanelProps": {
+        "props": {
+          "activeId": {
+            "type": "string",
+            "required": false
+          },
+          "focusedId": {
+            "type": "string",
+            "required": false
+          },
+          "maxHeight": {
+            "type": "number | string",
+            "required": false
+          },
+          "onSelect": {
+            "type": "(option: CascaderOption, isLeaf: boolean) => void",
+            "required": true
+          },
+          "options": {
+            "type": "CascaderOption[]",
+            "required": true
+          },
+          "selectedId": {
+            "type": "string",
+            "required": false
+          }
+        },
+        "sourceFile": "packages/react/src/Cascader/CascaderPanel.tsx"
+      }
+    },
+    "typeDefs": {
+      "CascaderOption": {
+        "id": "string",
+        "name": "string",
+        "disabled": "boolean (optional)",
+        "children": "CascaderOption[] (optional)"
+      },
+      "CascaderSize": "'main' | 'sub'"
     }
   },
   "Backdrop": {
@@ -2577,6 +2713,10 @@
         "type": "boolean",
         "required": false
       },
+      "toggleCheckedOnClick": {
+        "type": "boolean",
+        "required": false
+      },
       "type": {
         "type": "DropdownType",
         "required": false
@@ -4079,6 +4219,11 @@
         "type": "(activePath?: string[]) => void",
         "required": false
       },
+      "exactActivatedMatch": {
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
       "optionsAnchorComponent": {
         "type": "React.ElementType",
         "required": false
@@ -5476,6 +5621,11 @@
             "type": "boolean",
             "required": false
           },
+          "isForceClearable": {
+            "type": "boolean",
+            "required": false,
+            "default": "false"
+          },
           "innerRef": {
             "type": "Ref<HTMLDivElement>",
             "required": false
@@ -6170,6 +6320,10 @@
             "type": "TableRowSelection<T>",
             "required": false
           },
+          "rowState": {
+            "type": "TableRowState | ((rowData: T) => TableRowState | undefined)",
+            "required": false
+          },
           "separatorAtRowIndexes": {
             "type": "number[]",
             "required": false
@@ -6379,10 +6533,20 @@
             "required": false,
             "default": "false"
           },
+          "forceShowClearable": {
+            "type": "boolean",
+            "required": false,
+            "default": "false"
+          },
           "fullWidth": {
             "type": "boolean",
             "required": false,
             "default": "true"
+          },
+          "hideSuffixWhenClearable": {
+            "type": "boolean",
+            "required": false,
+            "default": "false"
           },
           "onClear": {
             "type": "MouseEventHandler",
@@ -7300,6 +7464,93 @@
       }
     }
   },
+  "Layout": {
+    "props": {
+      "children": {
+        "type": "React.ReactNode",
+        "required": false
+      },
+      "contentWrapperClassName": {
+        "type": "string",
+        "required": false
+      },
+      "navigationClassName": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "sourceFile": "packages/react/src/Layout/Layout.tsx",
+    "extends": [
+      "NativeElementPropsWithoutKeyAndRef<'div'>"
+    ],
+    "note": "Sub-components accessible as Layout.LeftPanel, Layout.Main, Layout.RightPanel. Children are automatically re-ordered into the correct DOM sequence.",
+    "subComponents": {
+      "LayoutLeftPanelProps": {
+        "props": {
+          "children": {
+            "type": "React.ReactNode",
+            "required": false
+          },
+          "className": {
+            "type": "string",
+            "required": false
+          },
+          "defaultWidth": {
+            "type": "number",
+            "required": false,
+            "default": "320"
+          },
+          "onWidthChange": {
+            "type": "(width: number) => void",
+            "required": false
+          },
+          "open": {
+            "type": "boolean",
+            "required": false,
+            "default": "false"
+          },
+          "scrollbarProps": {
+            "type": "Omit<ScrollbarProps, 'children'>",
+            "required": false
+          }
+        },
+        "sourceFile": "packages/react/src/Layout/LayoutLeftPanel.tsx",
+        "note": "Resizable left side panel. Minimum width: 240px. Renders as null when open=false."
+      },
+      "LayoutRightPanelProps": {
+        "props": {
+          "children": {
+            "type": "React.ReactNode",
+            "required": false
+          },
+          "className": {
+            "type": "string",
+            "required": false
+          },
+          "defaultWidth": {
+            "type": "number",
+            "required": false,
+            "default": "320"
+          },
+          "onWidthChange": {
+            "type": "(width: number) => void",
+            "required": false
+          },
+          "open": {
+            "type": "boolean",
+            "required": false,
+            "default": "false"
+          },
+          "scrollbarProps": {
+            "type": "Omit<ScrollbarProps, 'children'>",
+            "required": false
+          }
+        },
+        "sourceFile": "packages/react/src/Layout/LayoutRightPanel.tsx",
+        "note": "Resizable right side panel. Minimum width: 240px. Renders as null when open=false."
+      }
+    }
+  },
   "__coreTypes": {
     "ButtonVariant": "| 'base-primary'\n  | 'base-secondary'\n  | 'base-tertiary'\n  | 'base-ghost'\n  | 'base-dashed'\n  | 'base-text-link'\n  | 'destructive-primary'\n  | 'destructive-secondary'\n  | 'destructive-ghost'\n  | 'destructive-text-link'\n  | 'inverse'\n  | 'inverse-ghost'",
     "ButtonSize": "GeneralSize",
@@ -7365,6 +7616,7 @@
     "CalendarLocaleValue": "CalendarLocale | `${CalendarLocale}`",
     "AlertBannerSeverity": "'info' | 'warning' | 'error'",
     "NotificationSeverity": "SeverityWithInfo",
-    "NotificationType": "'notification' | 'drawer'"
+    "NotificationType": "'notification' | 'drawer'",
+    "CascaderSize": "'main' | 'sub'"
   }
 }

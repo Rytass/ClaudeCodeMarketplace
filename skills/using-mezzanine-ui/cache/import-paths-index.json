@@ -1,7 +1,7 @@
 {
   "meta": {
-    "generatedAt": "2026-02-14",
-    "sourceVersion": "1.0.0-rc.1",
+    "generatedAt": "2026-03-06",
+    "sourceVersion": "1.0.0-rc.3",
     "description": "Complete import paths index for Mezzanine UI v2 packages"
   },
   "packages": {
@@ -113,6 +113,8 @@
           "TagGroup": { "source": "./Tag", "exportType": "named" },
           "Tooltip": { "source": "./Tooltip", "exportType": "default" },
           "AutoComplete": { "source": "./AutoComplete", "exportType": "default" },
+          "Cascader": { "source": "./Cascader", "exportType": "default" },
+          "CascaderPanel": { "source": "./Cascader", "exportType": "named" },
           "CheckAll": { "source": "./Checkbox", "exportType": "named" },
           "Checkbox": { "source": "./Checkbox", "exportType": "default" },
           "CheckboxGroup": { "source": "./Checkbox", "exportType": "named" },
@@ -166,6 +168,7 @@
           "ModalFooter": { "source": "./Modal", "exportType": "named" },
           "ModalHeader": { "source": "./Modal", "exportType": "named" },
           "useModalContainer": { "source": "./Modal", "exportType": "named" },
+          "createNotifier": { "source": "./Notifier", "exportType": "named" },
           "NotificationCenter": { "source": "./NotificationCenter", "exportType": "default" },
           "Progress": { "source": "./Progress", "exportType": "default" },
           "Skeleton": { "source": "./Skeleton", "exportType": "default" },
@@ -212,7 +215,11 @@
           "DropdownAction": { "source": "./Dropdown/DropdownAction", "exportType": "default" },
           "DropdownItem": { "source": "./Dropdown/DropdownItem", "exportType": "default" },
           "DropdownItemCard": { "source": "./Dropdown/DropdownItemCard", "exportType": "default" },
-          "DropdownStatus": { "source": "./Dropdown/DropdownStatus", "exportType": "default" }
+          "DropdownStatus": { "source": "./Dropdown/DropdownStatus", "exportType": "default" },
+          "Layout": { "source": "./Layout", "exportType": "default" },
+          "LayoutLeftPanel": { "source": "./Layout", "exportType": "named" },
+          "LayoutMain": { "source": "./Layout", "exportType": "named" },
+          "LayoutRightPanel": { "source": "./Layout", "exportType": "named" }
         },
         "types": {
           "_comment": "Types exported from main index.ts. Use: import type { X } from '@mezzanine-ui/react'",
@@ -240,6 +247,7 @@
           "fromTag": ["TagGroupProps", "TagProps", "TagSize"],
           "fromTooltip": ["TooltipProps"],
           "fromAutoComplete": ["AutoCompleteBaseProps", "AutoCompleteMultipleProps", "AutoCompleteProps", "AutoCompleteSingleProps"],
+          "fromCascader": ["CascaderOption", "CascaderPanelProps", "CascaderProps", "CascaderSize"],
           "fromCheckbox": ["CheckAllProps", "CheckboxGroupChangeEvent", "CheckboxGroupChangeEventTarget", "CheckboxGroupLayout", "CheckboxGroupOption", "CheckboxGroupProps", "CheckboxProps"],
           "fromDatePicker": ["DatePickerCalendarProps", "DatePickerProps"],
           "fromDateRangePicker": ["DateRangePickerCalendarProps", "DateRangePickerProps", "UseDateRangePickerValueProps"],
@@ -276,11 +284,12 @@
           "fromBackdrop": ["BackdropProps"],
           "fromFloatingButton": ["FloatingButtonProps"],
           "fromCalendar": ["CalendarCellProps", "CalendarConfigProviderProps", "CalendarConfigs", "CalendarControlModifier", "CalendarControlsProps", "CalendarDayOfWeekProps", "CalendarDaysProps", "CalendarHalfYearsProps", "CalendarMonthsProps", "CalendarProps", "CalendarQuartersProps", "CalendarWeeksProps", "CalendarYearsProps", "RangeCalendarProps", "UseCalendarControlModifiersResult"],
-          "fromNotifier": ["NotifierConfig", "NotifierData", "RenderNotifier", "Notifier"],
+          "fromNotifier": ["CreateNotifierProps", "NotifierConfig", "NotifierData", "RenderNotifier", "Notifier"],
           "fromPopper": ["PopperController", "PopperPlacement", "PopperPositionStrategy", "PopperProps"],
           "fromPortal": ["PortalProps"],
           "fromTimePanel": ["TimePanelActionProps", "TimePanelColumnProps", "TimePanelProps"],
           "fromTransition": ["CollapseProps", "FadeProps", "RotateProps", "ScaleProps", "SlideProps", "TransitionProps", "TranslateFrom", "TranslateProps"],
+          "fromLayout": ["LayoutHostProps", "LayoutLeftPanelProps", "LayoutMainProps", "LayoutProps", "LayoutRightPanelProps"],
           "fromDropdown": ["DropdownProps"],
           "fromDropdownAction": ["DropdownActionProps"],
           "fromDropdownItem": ["DropdownItemProps"],
@@ -530,15 +539,15 @@
     "list": ["Scrollbar", "ClearActions", "ContentHeader"],
     "details": {
       "Scrollbar": {
-        "location": "packages/core/src/scrollbar/",
+        "location": "packages/react/src/Scrollbar/",
         "reason": "Internal scrollbar wrapper, used by Table and other scrollable components"
       },
       "ClearActions": {
-        "location": "packages/core/src/clear-actions/",
+        "location": "packages/react/src/ClearActions/",
         "reason": "Internal clear button component used by Input and Select"
       },
       "ContentHeader": {
-        "location": "packages/core/src/content-header/",
+        "location": "packages/react/src/ContentHeader/",
         "reason": "Internal header component"
       }
     }
@@ -621,6 +630,6 @@
   "packageNotes": {
     "noExportsField": "None of the packages use the 'exports' field in package.json. Subpath imports work via directory-based resolution (each directory has its own index.ts/index.js).",
     "buildSystem": "All packages use a custom build script (scripts/build.js) that compiles TypeScript to individual directories.",
-    "version": "All source packages are at 1.0.0-rc.1."
+    "version": "All source packages are at 1.0.0-rc.3."
   }
 }
