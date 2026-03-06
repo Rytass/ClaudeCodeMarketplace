@@ -59,12 +59,6 @@ import type { BadgeProps } from '@mezzanine-ui/react';
 
 Badge props are divided into mutually exclusive structures based on `variant` type.
 
-### Common Props
-
-| Property | Type            | Default  | Description                    |
-| -------- | --------------- | -------- | ------------------------------ |
-| `size`   | `BadgeTextSize` | `'main'` | Badge size, `'main'` or `'sub'` |
-
 ### Count Badge (`variant: BadgeCountVariant`)
 
 | Property        | Type                | Default | Description                    |
@@ -73,14 +67,15 @@ Badge props are divided into mutually exclusive structures based on `variant` ty
 | `count`         | `number`            | -       | Required, number to display    |
 | `overflowCount` | `number`            | -       | Shows `99+` when exceeded      |
 
-> Count badge does not support `children` and `text`.
+> Count badge does not support `children`, `text`, and `size`.
 
 ### Dot Badge with Text (`variant: BadgeDotVariant`)
 
-| Property  | Type              | Default | Description                      |
-| --------- | ----------------- | ------- | -------------------------------- |
-| `variant` | `BadgeDotVariant` | -       | Required, dot variant            |
-| `text`    | `string`          | -       | Text next to the dot (optional)  |
+| Property  | Type              | Default  | Description                      |
+| --------- | ----------------- | -------- | -------------------------------- |
+| `variant` | `BadgeDotVariant` | -        | Required, dot variant            |
+| `text`    | `string`          | -        | Text next to the dot (optional)  |
+| `size`    | `BadgeTextSize`   | `'main'` | Size of the dot and text         |
 
 > Dot badge with text does not support `children`.
 
@@ -91,7 +86,17 @@ Badge props are divided into mutually exclusive structures based on `variant` ty
 | `variant`  | `BadgeDotVariant` | -       | Required, dot variant                  |
 | `children` | `ReactNode`       | -       | Children, dot appears at top-right     |
 
-> Dot badge with children does not support `text`.
+> Dot badge with children does not support `text` and `size`.
+
+### Text Badge (`variant: BadgeTextVariant`)
+
+| Property  | Type               | Default | Description                    |
+| --------- | ------------------ | ------- | ------------------------------ |
+| `variant` | `BadgeTextVariant` | -       | Required, text variant         |
+| `text`    | `string`           | -       | Required, text to display      |
+| `size`    | `BadgeTextSize`    | -       | Size of the text               |
+
+> Text badge does not support `children`, `count`, and `overflowCount`.
 
 ---
 
@@ -253,7 +258,7 @@ type BadgeTextSize = 'main' | 'sub';
 type BadgeVariant = BadgeDotVariant | BadgeCountVariant | BadgeTextVariant;
 
 // BadgeVariantProps is a discriminated union
-type BadgeVariantProps = BadgeCountProps | BadgeDotWithTextProps | BadgeDotProps;
+type BadgeVariantProps = BadgeCountProps | BadgeDotWithTextProps | BadgeDotProps | BadgeTextProps;
 
 // BadgeCountProps
 interface BadgeCountProps {
@@ -261,6 +266,7 @@ interface BadgeCountProps {
   count: number;
   overflowCount?: number;
   children?: never;
+  size?: never;
   text?: never;
 }
 
@@ -268,16 +274,28 @@ interface BadgeCountProps {
 interface BadgeDotWithTextProps {
   variant: BadgeDotVariant;
   text?: string;
+  size?: BadgeTextSize;
   children?: never;
   count?: never;
   overflowCount?: never;
 }
 
-// BadgeDotProps
+// BadgeDotProps (with children)
 interface BadgeDotProps {
   variant: BadgeDotVariant;
   children?: ReactNode;
+  size?: never;
   text?: never;
+  count?: never;
+  overflowCount?: never;
+}
+
+// BadgeTextProps
+interface BadgeTextProps {
+  variant: BadgeTextVariant;
+  text: string;
+  size?: BadgeTextSize;
+  children?: never;
   count?: never;
   overflowCount?: never;
 }
