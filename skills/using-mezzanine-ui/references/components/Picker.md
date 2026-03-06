@@ -11,6 +11,23 @@ Internal shared Picker base components and Hooks, used by picker components such
 ## Import
 
 ```tsx
+// Main path (recommended for most use cases)
+import {
+  PickerTrigger,
+  RangePickerTrigger,
+  usePickerDocumentEventClose,
+  usePickerValue,
+  useTabKeyClose,
+} from '@mezzanine-ui/react';
+
+import type {
+  PickerTriggerProps,
+  RangePickerTriggerProps,
+  UsePickerDocumentEventCloseProps,
+  UsePickerValueProps,
+} from '@mezzanine-ui/react';
+
+// Sub-path import (also available)
 import {
   PickerTrigger,
   RangePickerTrigger,
@@ -18,16 +35,9 @@ import {
   usePickerValue,
   useTabKeyClose,
 } from '@mezzanine-ui/react/Picker';
-
-import type {
-  PickerTriggerProps,
-  RangePickerTriggerProps,
-  UsePickerDocumentEventCloseProps,
-  UsePickerValueProps,
-} from '@mezzanine-ui/react/Picker';
 ```
 
-> This module also exports lower-level components and utilities such as `FormattedInput`, `PickerTriggerWithSeparator`, `usePickerInputValue`, `useDateInputFormatter`, `MaskFormat`, etc.
+> The above components and hooks are exported from **both** the main `@mezzanine-ui/react` entry and the `@mezzanine-ui/react/Picker` sub-path. The sub-path additionally exports lower-level utilities such as `FormattedInput`, `PickerTriggerWithSeparator`, `usePickerInputValue`, `useDateInputFormatter`, `MaskFormat`, etc.
 
 ---
 
