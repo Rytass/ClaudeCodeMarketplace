@@ -1,6 +1,6 @@
 ---
-name: init-project
-description: "Interactively guide new project initialization and launch the initializer agent. Use when starting a new project, setting up a repo, or bootstrapping a codebase. Trigger when user says init project, create project, new project, start project, bootstrap."
+name: scaffold-project
+description: "Interactively guide new project initialization and launch the initializer agent. Use when starting a new project, setting up a repo, or bootstrapping a codebase. Trigger when user says scaffold project, init project, create project, new project, start project, bootstrap."
 argument-hint: "[--topology=monorepo|standalone]"
 ---
 
@@ -32,8 +32,8 @@ Parse the user-provided arguments: `{{ args }}`
 ## Example Usage
 
 ```
-/init-project
-/init-project my-project
-/init-project --topology=monorepo
-/init-project my-project --topology=standalone
+/scaffold-project
+/scaffold-project my-project
+/scaffold-project --topology=monorepo
+/scaffold-project my-project --topology=standalone
 ```
