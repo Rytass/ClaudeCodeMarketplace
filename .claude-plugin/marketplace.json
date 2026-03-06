@@ -6,13 +6,18 @@
   "plugins": [
     {
       "name": "project-rule",
-      "source": "./",
+      "source": "./plugins/project-rule",
       "description": "Full-stack project architecture convention plugin for Claude Code."
+    },
+    {
+      "name": "react-performance",
+      "source": "./plugins/react-performance",
+      "description": "React and Next.js performance optimization rules from Vercel Engineering."
     },
     {
       "name": "boilerplate",
       "source": "./plugins/boilerplate",
-      "description": "Full-stack project bootstrapper. Generates Nx monorepo with Next.js + GraphQL and deployment-specific API (GKE with NestJS, Cloudflare Workers with Hono, or Supabase Edge Functions)."
+      "description": "Full-stack project bootstrapper with deployment-specific API."
     }
   ]
 }
