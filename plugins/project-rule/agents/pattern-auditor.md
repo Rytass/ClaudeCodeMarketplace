@@ -2,7 +2,10 @@
 name: pattern-auditor
 model: sonnet
 description: "Read-only audit agent. Checks code against established patterns: DataLoader on ResolveField, permission decorators, Entity-as-ObjectType, Symbol injection, pagination DTOs, naming conventions."
-tools: Read, Grep, Glob
+tools:
+  - Read
+  - Grep
+  - Glob
 ---
 
 # Pattern Auditor Agent
