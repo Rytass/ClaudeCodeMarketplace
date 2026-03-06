@@ -40,7 +40,7 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `clearSearchText`            | `boolean`                                              | `true`                 | Whether to clear search text on blur     |
 | `createSeparators`           | `string[]`                                             | `[',', '+', '\n']`     | Separator characters for creating options |
 | `createActionText`           | `(text: string) => string`                             | -                      | Custom create button text function       |
-| `createActionTextTemplate`   | `string`                                               | `'Create "{text}"'`    | Create button text template              |
+| `createActionTextTemplate`   | `string`                                               | `'建立 "{text}"'`      | Create button text template              |
 | `disabledOptionsFilter`      | `boolean`                                              | `false`                | Disable built-in filtering               |
 | `dropdownZIndex`             | `number \| string`                                     | -                      | Dropdown z-index                         |
 | `emptyText`                  | `string`                                               | -                      | Empty result hint text                   |
@@ -65,7 +65,7 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `popperOptions`              | `PopperProps['options']`                               | -                      | Popper options                           |
 | `required`                   | `boolean`                                              | `false`                | Whether required                         |
 | `searchDebounceTime`         | `number`                                               | `300`                  | Search debounce time (ms)                |
-| `searchTextControlRef`       | `RefObject<{ setSearchText: Dispatch<SetStateAction<string>> } \| undefined>` | - | Ref for external search text control |
+| `searchTextControlRef`       | `RefObject<{ reset: () => void; setSearchText: Dispatch<SetStateAction<string>> } \| undefined>` | - | Ref for external search text control |
 | `trimOnCreate`               | `boolean`                                              | `true`                 | Whether to trim whitespace on create     |
 
 > Also inherits `SelectTriggerProps` (excluding `active`, `clearable`, `forceHideSuffixActionIcon`, `mode`, `onClick`, `onKeyDown`, `onChange`, `renderValue`, `inputProps`, `suffixActionIcon`, `value`), including `className`, `disabled`, `error`, `fullWidth`, `inputRef`, `onClear`, `prefix`, `size`, etc.
@@ -232,6 +232,52 @@ function CustomFilterAutoComplete() {
       onSearch={handleSearch}
       placeholder="Search..."
     />
+  );
+}
+```
+
+### SearchTextControlRef
+
+The `searchTextControlRef` provides imperative control over the search text:
+- `setSearchText('')` — clears input text only, leaving selected values and dropdown state unchanged.
+- `reset()` — fully resets: clears search text, cancels pending searches, and re-triggers an empty search to restore options.
+
+```tsx
+import { AutoComplete, Button } from '@mezzanine-ui/react';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
+
+type SearchTextControlRef = {
+  reset: () => void;
+  setSearchText: Dispatch<SetStateAction<string>>;
+};
+
+function SubmitWithReset() {
+  const [value, setValue] = useState<SelectValue[]>([]);
+  const [submitted, setSubmitted] = useState<SelectValue[]>([]);
+  const controlRef = useRef<SearchTextControlRef | undefined>(undefined);
+
+  const handleSubmit = () => {
+    if (!value.length) return;
+    setSubmitted((prev) => [...prev, ...value]);
+    setValue([]);
+    controlRef.current?.reset();
+  };
+
+  return (
+    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+      <AutoComplete
+        fullWidth
+        mode="multiple"
+        onChange={setValue}
+        options={originOptions}
+        placeholder="選取項目後送出"
+        searchTextControlRef={controlRef}
+        value={value}
+      />
+      <Button disabled={!value.length} onClick={handleSubmit}>
+        送出
+      </Button>
+    </div>
   );
 }
 ```
