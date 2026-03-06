@@ -137,15 +137,15 @@ const anchors = [
 
 ## Nesting Levels
 
-Anchor supports up to 3 levels of nesting:
+Anchor supports up to 3 levels of nesting, with a maximum of 3 items per level:
 
 ```
 ├── Level 1 (main anchor)
-│   ├── Level 2 (sub anchor)
-│   │   └── Level 3 (grandchild anchor)
+│   ├── Level 2 (sub anchor, max 3 items)
+│   │   └── Level 3 (grandchild anchor, max 3 items)
 ```
 
-Structures beyond 3 levels are ignored.
+Structures beyond 3 levels are ignored. Sub-anchors exceeding 3 per level are silently truncated.
 
 ---
 
