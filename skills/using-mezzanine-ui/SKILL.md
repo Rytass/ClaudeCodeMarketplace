@@ -14,7 +14,7 @@ description: Mezzanine-UI design system development guide (v2). All frontend dev
 | Design Docs / Storybook | npm Version | Git Branch | Status                 |
 | ----------------------- | ----------- | ---------- | ---------------------- |
 | v1 (Legacy)             | `0.x`       | main       | Deprecated             |
-| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.1)       |
+| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.3)       |
 
 > This document is based on **v2** (npm `1.x` series).
 >
@@ -156,6 +156,7 @@ Form and user input components.
 | Component             | Description          | Reference                                                              |
 | --------------------- | -------------------- | ---------------------------------------------------------------------- |
 | `AutoComplete`        | Autocomplete         | [AutoComplete.md](references/components/AutoComplete.md)               |
+| `Cascader`            | Cascader             | [Cascader.md](references/components/Cascader.md)                       |
 | `Checkbox`            | Checkbox             | [Checkbox.md](references/components/Checkbox.md)                       |
 | `DatePicker`          | Date picker          | [DatePicker.md](references/components/DatePicker.md)                   |
 | `DateRangePicker`     | Date range picker    | [DateRangePicker.md](references/components/DateRangePicker.md)         |
