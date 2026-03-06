@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Form`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Form) · Verified v2 source (2026-02-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Form) · Verified v2 source (2026-03-06)
 
 Form-related components including field containers, labels, hint text, and more.
 
@@ -467,7 +467,8 @@ import type { FormGroupProps } from '@mezzanine-ui/react/Form';
 ### Usage Example
 
 ```tsx
-import { FormGroup, FormField, Input, Select } from '@mezzanine-ui/react';
+import { FormField, Input, Select } from '@mezzanine-ui/react';
+import { FormGroup } from '@mezzanine-ui/react/Form';
 
 function UserInfoForm() {
   return (

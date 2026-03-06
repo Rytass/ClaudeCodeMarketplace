@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Checkbox`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Checkbox) · Verified v2 source (2026-02-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Checkbox) · Verified v2 source (2026-03-06)
 
 A checkbox component supporting standalone or group usage, with multiple modes.
 

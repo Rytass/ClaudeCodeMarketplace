@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Pagination`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Pagination) | Verified: 2026-02-13
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Pagination) | Verified: 2026-03-06
 
 Pagination component for paginated navigation of long data lists.
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/MultipleDatePicker`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/MultipleDatePicker) · Verified v2 source (2026-02-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/MultipleDatePicker) · Verified v2 source (2026-03-06)
 
 A multiple date picker that allows selecting multiple dates from a calendar, displaying selected dates as Tags. Requires manual confirmation before triggering onChange. Must be used with `CalendarContext`.
 
@@ -42,7 +42,7 @@ import type {
 | `disableOnDoublePrev`  | `boolean`                                   | -              | Disable double arrow prev            |
 | `disableOnNext`        | `boolean`                                   | -              | Disable next                         |
 | `disableOnPrev`        | `boolean`                                   | -              | Disable prev                         |
-| `displayMonthLocale`   | `object`                                    | -              | Month display localization           |
+| `displayMonthLocale`   | `string`                                    | -              | Month display localization           |
 | `error`                | `boolean`                                   | `false`        | Error state                          |
 | `format`               | `string`                                    | `'YYYY-MM-DD'` | Date tag display format              |
 | `fullWidth`            | `boolean`                                   | `false`        | Whether full width                   |

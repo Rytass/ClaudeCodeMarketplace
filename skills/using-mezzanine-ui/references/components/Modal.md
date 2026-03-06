@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Modal`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Modal) | Verified: 2026-02-13
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Modal) | Verified: 2026-03-06
 
 A dialog component for scenarios requiring user attention or action.
 
@@ -55,6 +55,7 @@ Extends `ModalContainerProps` (excluding `children`) with partial `ModalHeaderPr
 | `disableCloseOnEscapeKeyDown`    | `boolean`         | `false`      | Disable close on ESC key         |
 | `disablePortal`                  | `boolean`         | `false`      | Disable Portal rendering         |
 | `onBackdropClick`                | `() => void`      | -            | Backdrop click callback          |
+| `backdropClassName`              | `string`          | -            | Custom class name for the modal backdrop container |
 | `fullScreen`                     | `boolean`         | `false`      | Whether full screen              |
 | `loading`                        | `boolean`         | `false`      | Whether loading                  |
 | `modalStatusType`                | `ModalStatusType` | `'info'`     | Status icon type                 |
@@ -378,8 +379,8 @@ Verification code input component for `modalType="verification"` scenarios.
 | `onComplete`   | `(value: string) => void`  | -                | Input complete callback|
 | `onResend`     | `() => void`               | -                | Resend callback        |
 | `readOnly`     | `boolean`                  | `false`          | Whether read-only      |
-| `resendPrompt` | `string`                   | `"Didn't receive the code?"` | Resend prompt text   |
-| `resendText`   | `string`                   | `'Click to resend'`          | Resend link text     |
+| `resendPrompt` | `string`                   | `'收不到驗證碼？'`    | Resend prompt text   |
+| `resendText`   | `string`                   | `'點此重新寄送'`      | Resend link text     |
 | `value`        | `string`                   | `''`             | Current value          |
 
 Extends `NativeElementPropsWithoutKeyAndRef<'div'>`.

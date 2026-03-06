@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Slider`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Slider) · Verified v2 source (2026-02-13)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Slider) · Verified v2 source (2026-03-06)
 
 Slider component for selecting values within a numeric range. Supports single value and range modes.
 

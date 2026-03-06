@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Input`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Input) · Verified v2 source (2026-02-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Input) · Verified v2 source (2026-03-06)
 
 A versatile input component supporting multiple variants for different use cases.
 
@@ -298,7 +298,7 @@ Extends all native div attributes from `NativeElementPropsWithoutKeyAndRef<'div'
 | -------------------- | ---------------------------------------------------- | ---------------- | -------------------------- |
 | `strength`           | `InputStrength` (`'weak' \| 'medium' \| 'strong'`)  | `'weak'`         | Password strength          |
 | `strengthText`       | `string`                                             | -                | Strength description text  |
-| `strengthTextPrefix` | `string`                                             | `'Password Strength: '` | Strength text prefix       |
+| `strengthTextPrefix` | `string`                                             | `'密碼強度：'`          | Strength text prefix       |
 | `hintTexts`          | `Array<{ severity: FormHintTextProps['severity']; hint: string }>` | -  | Hint text array (with severity and text) |
 
 ---
