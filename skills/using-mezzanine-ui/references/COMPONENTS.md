@@ -212,6 +212,12 @@ import { HomeIcon, SettingIcon } from '@mezzanine-ui/icons';
 </Navigation>
 ```
 
+**Notable Props (RC3)**
+
+| Prop                   | Type      | Default | Description                              |
+| ---------------------- | --------- | ------- | ---------------------------------------- |
+| `exactActivatedMatch`  | `boolean` | `false` | Strict pathname matching for active state |
+
 ---
 
 ### Tab
@@ -316,6 +322,12 @@ const data = [
 
 <Table columns={columns} dataSource={data} />
 ```
+
+**Notable Props (RC3)**
+
+| Prop       | Type                                                                  | Default | Description                                          |
+| ---------- | --------------------------------------------------------------------- | ------- | ---------------------------------------------------- |
+| `rowState` | `TableRowState \| ((rowData: T) => TableRowState \| undefined)` | -       | Row-level semantic styling: `'added'` \| `'deleted'` \| `'disabled'` |
 
 ---
 
@@ -439,6 +451,12 @@ import {
     <AccordionContent>Content 2</AccordionContent>
   </Accordion>
 </AccordionGroup>
+
+// Exclusive mode (RC3) — only one accordion open at a time
+<AccordionGroup exclusive>
+  <Accordion title="Item 1">Content 1</Accordion>
+  <Accordion title="Item 2">Content 2</Accordion>
+</AccordionGroup>
 ```
 
 ---
@@ -549,6 +567,12 @@ import { Input, TextField } from '@mezzanine-ui/react';
 <TextField prefix={<SearchIcon />} placeholder="Search" />
 ```
 
+**Notable Props (RC3)**
+
+| Prop                       | Type      | Default | Description                                                       |
+| -------------------------- | --------- | ------- | ----------------------------------------------------------------- |
+| `hideSuffixWhenClearable`  | `boolean` | `false` | When true, clear icon overlays the suffix position when clearable |
+
 ---
 
 ### Select
@@ -568,6 +592,12 @@ const [value, setValue] = useState<SelectValue | null>(null);
 
 <Select placeholder="Please select" value={value} onChange={setValue} options={options} />
 ```
+
+**Notable Props (RC3)**
+
+| Prop               | Type      | Default | Description                                               |
+| ------------------ | --------- | ------- | --------------------------------------------------------- |
+| `isForceClearable` | `boolean` | `false` | Force clear button display in multi-select mode (on SelectTrigger) |
 
 ---
 
@@ -627,6 +657,40 @@ const options = [
   options={options}
   value={values}
   onChange={setValues}
+/>
+```
+
+**RC3 Enhancement**: `searchTextControlRef` now exposes a `reset()` method for clearing the search text programmatically.
+
+---
+
+### Cascader
+
+Hierarchical dropdown selector for multi-level option trees. Users drill down through nested columns; the selected value is an ordered array of `CascaderOption` objects from root to leaf. Supports controlled/uncontrolled modes, keyboard navigation, clearable state, and two sizes (`main` / `sub`).
+
+See [Cascader component reference](./components/Cascader.md) for full API, props tables, size variants, keyboard interactions, and `CascaderPanel` advanced usage.
+
+```tsx
+import { Cascader } from '@mezzanine-ui/react';
+import type { CascaderOption } from '@mezzanine-ui/react';
+
+const options: CascaderOption[] = [
+  {
+    id: 'north',
+    name: '北部',
+    children: [
+      { id: 'taipei', name: '台北市' },
+      { id: 'newtaipei', name: '新北市' },
+    ],
+  },
+];
+
+<Cascader
+  fullWidth
+  options={options}
+  placeholder="選擇地區 / 縣市"
+  value={value}
+  onChange={setValue}
 />
 ```
 
