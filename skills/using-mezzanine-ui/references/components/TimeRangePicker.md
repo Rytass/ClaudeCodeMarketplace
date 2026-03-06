@@ -55,7 +55,7 @@ import TimeRangePicker, {
 | `hideSecond`  | `boolean`    | -       | Hide seconds             |
 | `hourStep`    | `number`     | -       | Hour interval            |
 | `minuteStep`  | `number`     | -       | Minute interval          |
-| `popperProps` | `PopperProps` | -      | Popper positioning props |
+| `popperProps` | `Omit<InputTriggerPopperProps, 'anchor' \| 'children' \| 'fadeProps' \| 'open'>` | - | Popper positioning props |
 | `secondStep`  | `number`     | -       | Second interval          |
 
 ### Inherited from RangePickerTriggerProps
