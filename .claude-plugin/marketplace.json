@@ -18,6 +18,11 @@
       "name": "boilerplate",
       "source": "./plugins/boilerplate",
       "description": "Full-stack project bootstrapper with deployment-specific API."
+    },
+    {
+      "name": "google-workspace-cli",
+      "source": "./plugins/google-workspace-cli",
+      "description": "Google Workspace CLI operations via gws, GAM, and clasp. Gmail, Drive, Calendar, Sheets, Docs, Chat, Meet, Tasks, Forms, Admin."
     }
   ]
 }
