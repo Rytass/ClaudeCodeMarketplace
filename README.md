@@ -38,6 +38,7 @@ You can also install via the interactive UI: run `/plugin` → **Discover** tab 
 | [`project-rule`](./plugins/project-rule)          | Full-stack project architecture conventions. NestJS, Next.js, TypeORM, GraphQL, Mezzanine UI, Casbin RBAC, Nx monorepo, scaffolding tools, pattern auditing. |
 | [`react-performance`](./plugins/react-performance)| React and Next.js performance optimization rules from Vercel Engineering. 47 actionable rules.       |
 | [`boilerplate`](./plugins/boilerplate)            | Full-stack project bootstrapper with deployment-specific API (GKE, Cloudflare Workers, Supabase).    |
+| [`google-workspace-cli`](./plugins/google-workspace-cli) | Google Workspace CLI operations via gws, GAM, and clasp. Gmail, Drive, Calendar, Sheets, Docs, Chat, Meet, Tasks, Forms, Admin with full onboarding. |
 
 ## Update
 
