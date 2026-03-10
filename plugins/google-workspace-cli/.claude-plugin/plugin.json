@@ -1,0 +1,27 @@
+{
+  "name": "google-workspace-cli",
+  "description": "Google Workspace CLI operations via gws, GAM, and clasp. Gmail, Drive, Calendar, Sheets, Docs, Chat, Meet, Tasks, Forms, Admin. Full onboarding for first-time setup, authentication, and all CLI-driven workflows.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "keywords": [
+    "google-workspace",
+    "gws",
+    "gmail",
+    "google-drive",
+    "google-calendar",
+    "google-sheets",
+    "google-docs",
+    "google-chat",
+    "google-meet",
+    "google-forms",
+    "google-tasks",
+    "google-admin",
+    "gam",
+    "clasp",
+    "apps-script"
+  ],
+  "author": {
+    "name": "Chia Yu Pai",
+    "email": "fantasyatelier@gmail.com"
+  }
+}
