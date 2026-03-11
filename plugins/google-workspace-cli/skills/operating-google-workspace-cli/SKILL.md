@@ -1,6 +1,6 @@
 ---
 name: operating-google-workspace-cli
-description: Operate Google Workspace services from the command line. Gmail send search read, Drive upload download share, Calendar events agenda, Sheets read write append, Docs create edit, Chat messages spaces, Meet create, Tasks manage, Forms create, Admin users groups reports. Use gws CLI, GAM, or clasp. Trigger when user says google workspace, gmail, drive, calendar, sheets, docs, chat, meet, tasks, forms, admin, gws, send email, upload file, create event, read spreadsheet, apps script.
+description: Operate Google Workspace services from the command line. Gmail send search read, Drive upload download share, Calendar events agenda, Sheets read write append, Docs create edit, Chat messages spaces, Meet create, Tasks manage, Forms create, Admin users groups reports. Use gws CLI, GAM, or clasp. Trigger when user says google workspace, gmail, drive, calendar, sheets, docs, chat, meet, tasks, forms, admin, gws, send email, upload file, create event, read spreadsheet, apps script. docs.google.com, sheets.google.com, slides.google.com, drive.google.com, mail.google.com, calendar.google.com, meet.google.com, chat.google.com, script.google.com, admin.google.com, spreadsheets/d/, document/d/, presentation/d/, forms/d/, file/d/, Google Workspace URL, google sheet link, google doc link.
 ---
 
 # Google Workspace CLI — Skill Reference
@@ -69,6 +69,37 @@ command -v gws && gws auth status
 4. **If not authenticated** — run `gws auth login` with required scopes
 5. **Execute operation** — refer to the appropriate service file above
 6. **Handle errors** — see TROUBLESHOOTING.md for common issues
+
+## URL Pattern Handling
+
+When a user provides a Google Workspace URL, extract the file/resource ID and map it to the appropriate `gws` command. **Always prefer `gws` CLI over browser automation** — only use Chrome tools when the user explicitly requests visual/browser interaction.
+
+| URL Pattern                               | Service | gws Command                                                          |
+| ----------------------------------------- | ------- | -------------------------------------------------------------------- |
+| `docs.google.com/spreadsheets/d/{ID}/...` | Sheets  | `gws sheets spreadsheets values get --params '{"spreadsheetId":…}'`  |
+| `docs.google.com/document/d/{ID}/...`     | Docs    | `gws docs documents get --params '{"documentId":…}'`                 |
+| `docs.google.com/presentation/d/{ID}/...` | Slides  | `gws slides presentations get --params '{"presentationId":…}'`       |
+| `docs.google.com/forms/d/{ID}/...`        | Forms   | `gws forms forms get --params '{"formId":…}'`                        |
+| `drive.google.com/file/d/{ID}/...`        | Drive   | `gws drive files get --params '{"fileId":…}'`                        |
+| `drive.google.com/drive/folders/{ID}`     | Drive   | `gws drive files list --params '{"q":"…parents…","pageSize":100}'`   |
+
+### URL → ID Extraction
+
+Extract the ID from the URL path segment between `/d/` and the next `/` (or end of path):
+
+```
+https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/edit#gid=0
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                         spreadsheetId = 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms
+```
+
+For folder URLs, the ID follows `/folders/`:
+
+```
+https://drive.google.com/drive/folders/1abc2def3ghi
+                                        ^^^^^^^^^^^^^
+                                        folderId = 1abc2def3ghi
+```
 
 ## Common Operations Quick Reference
 
