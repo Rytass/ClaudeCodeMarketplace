@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/TimePicker`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimePicker)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimePicker) | Verified v2 rc.5: 2026-03-13
 
 Time picker for selecting time. Must be used with `CalendarContext`.
 
@@ -157,6 +157,23 @@ function ControlledTimePicker() {
   secondStep={60}
   onChange={handleChange}
 />
+```
+
+### Keyboard Input (rc.5)
+
+In rc.5, keyboard input commits immediately and typed values show as pending preview:
+
+```tsx
+<TimePicker
+  format="HH:mm"
+  hideSecond
+  onChange={handleChange}
+/>
+
+// User can directly type in the input field:
+// - Typing "1430" shows as pending preview (14:30)
+// - Pressing Enter/Tab commits the value
+// - Clicking outside confirms the value
 ```
 
 ---

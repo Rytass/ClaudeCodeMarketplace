@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/PageHeader`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/PageHeader)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/PageHeader) | Verified: 2026-03-13
 
 Page header component for displaying page-level navigation and titles. Contains breadcrumb and content header.
 
@@ -168,10 +168,51 @@ import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 
 ---
 
-## Best Practices
+## Best Practices (最佳實踐)
 
-1. **Must have ContentHeader**: PageHeader must contain a ContentHeader
-2. **Breadcrumb is optional**: Breadcrumb is optional, but recommended when there is navigation hierarchy
-3. **Size auto-set**: ContentHeader's size is automatically set to main
-4. **Semantic**: Renders as a `<header>` element
-5. **Responsive**: Consider hiding some elements on small screens
+### 場景推薦 (Scenario Recommendations)
+
+| 場景 | 推薦做法 | 相關元件 |
+| --- | --- | --- |
+| 多層級導航 | 包含 `Breadcrumb` 顯示當前位置 | `Breadcrumb` |
+| 簡單頁面 | 僅使用 `ContentHeader` 無需面包屑 | `ContentHeader` |
+| 返回功能 | 在 `ContentHeader` 設定 `onBackClick` | `onBackClick` |
+| 搜尋和篩選 | 使用 `ContentHeader` 的 `filter` 屬性 | `filter` |
+| 頁面操作按鈕 | 在 `ContentHeader` children 放置操作按鈕 | `children` |
+| 描述信息 | 使用 `ContentHeader` 的 `description` 屬性 | `description` |
+| 響應式設計 | 在小螢幕上隱藏冗餘元素 | Media queries |
+
+### 常見錯誤 (Common Mistakes)
+
+1. **缺少 ContentHeader**
+   - ❌ 誤：`<PageHeader><Breadcrumb ... /></PageHeader>` 只有面包屑
+   - ✅ 正確：必須包含 `ContentHeader`，面包屑是可選的
+   - 範例：至少要有 `<ContentHeader title="..." />`
+
+2. **多層 Breadcrumb**
+   - ❌ 誤：包含多個 `Breadcrumb` 組件
+   - ✅ 正確：最多只能有一個 `Breadcrumb`
+   - 影響：多個會導致重複或覆蓋
+
+3. **自訂 ContentHeader size**
+   - ❌ 誤：手動設定 `<ContentHeader size="sub" />`
+   - ✅ 正確：不設定 `size`，自動為 `main`
+   - 影響：確保一致的視覺層級
+
+4. **未結構化導航**
+   - ❌ 誤：深層導航不使用面包屑
+   - ✅ 正確：超過 2 層導航結構建議使用面包屑
+   - 範例：`Home > Products > Category > Item` 需面包屑
+
+5. **按鈕位置混亂**
+   - ❌ 誤：操作按鈕放在 `Breadcrumb` 下方
+   - ✅ 正確：操作按鈕放在 `ContentHeader` children
+   - 範例：`<ContentHeader><Button /></ContentHeader>`
+
+### 核心建議 (Core Recommendations)
+
+1. **必須包含 ContentHeader**：PageHeader 必須包含一個 `ContentHeader`
+2. **面包屑可選**：面包屑可選，但導航層級多時推薦使用
+3. **大小自動設定**：`ContentHeader` 的大小自動設為 main
+4. **語義化**：正確使用 `<header>` 標籤提升可訪問性
+5. **響應式考量**：考慮在小螢幕上隱藏某些元素

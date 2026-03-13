@@ -4,7 +4,9 @@
 >
 > **Storybook**: `Data Display/Section`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Section) | Verification date: 2026-02-13
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Section) · Verified v2 source (2026-03-13)
+>
+> **Migration Note (rc.4)**: Module resolution fix changed barrel file extension from `.tsx` → `.ts`. No API changes.
 
 Section container component for composing `ContentHeader`, `FilterArea`, `Tab`, and other sub-components to build structured page sections. The passed `contentHeader` and `filterArea` automatically receive `size="sub"`.
 
@@ -182,6 +184,26 @@ Section's content area now supports `minHeight` to maintain consistent layout he
 ```
 
 ---
+
+## Scenario-Oriented Best Practices
+
+### 場景推薦
+
+| 使用場景 | 建議做法 | 原因 |
+| -------- | -------- | ---- |
+| 內容區配備標題和操作 | 使用 `contentHeader` 搭配 `children` | ContentHeader 提供標題、搜尋、操作按鈕等，Section 自動調整尺寸 |
+| 多條件篩選 | 使用 `filterArea` 放置過濾控制項 | FilterArea 佔據專用區域，隔離篩選邏輯，內容獨立更新 |
+| 分頁籤式檢視 | 使用 `tab` 切換不同資料集合 | Tab 改變時 children 內容更新，Section 保持結構穩定 |
+| 完整的列表頁面 | 組合 contentHeader、filterArea、tab、children | 按順序組合可建立標準的資料管理頁面 |
+| 需要最小高度保持版面穩定 | 使用 CSS custom property `--section-content-min-height` | 避免內容少時頁面塌陷 |
+
+### 常見錯誤
+
+- **傳入非指定元件到 contentHeader/filterArea/tab**：Section 會在控制台警告並可能行為異常。應傳入正確的 Mezzanine 元件
+- **嘗試在 contentHeader 中手動設置 `size="main"`**：Section 會自動覆寫為 `size="sub"`，手動設置無效
+- **在 filterArea 內放置非篩選相關內容**：FilterArea 語義上應該只包含篩選條件，其他內容應放在 children
+- **期望 tab 改變時 contentHeader 也更新**：ContentHeader 位置固定在頂部，改變 tab 不會影響它。若需聯動，應在 children 處理
+- **嵌套多層 Section**：雖然技術上可行但會導致複雜的嵌套層級。應扁平化結構或改用其他容器
 
 ## Best Practices
 

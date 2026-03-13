@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Portal`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Portal)
+> **Source Verification**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Portal) · Verified v2 source (2026-03-13)
 
 A portal component that renders children to a different location in the DOM. Used by Modal, Drawer, Tooltip, and other components that need to escape the parent DOM structure.
 
@@ -171,6 +171,25 @@ The following components use Portal internally:
 Portal is a purely functional component with no corresponding visual element in Figma.
 
 ---
+
+## Scenario-Oriented Best Practices
+
+### 場景推薦
+
+| 使用場景 | 建議做法 | 原因 |
+| -------- | -------- | ---- |
+| Modal、Drawer、Tooltip 等內部使用 | 使用預設 Portal 層級 | 高階元件已配置正確的 Portal 和 z-index 層級 |
+| 全局告警或最高優先級彈窗 | 使用 `layer="alert"` | Alert 層級 z-index 最高，確保顯示在所有內容上方 |
+| 渲染到指定容器 | 使用 `container` prop 搭配 RefObject | 精確控制 Portal 目標位置 |
+| 測試或調試 Portal 行為 | 使用 `disablePortal={true}` | 禁用 Portal 在原位置渲染，便於檢查 DOM 層級 |
+| 伺服器端渲染環境 | 注意 Portal 伺服器端返回 null | 客戶端必須完成初始化，避免水合不匹配 |
+
+### 常見錯誤
+
+- **直接在應用程式中使用 Portal**：Portal 是低階工具，應使用 Modal、Drawer、Tooltip 等高階元件
+- **在多個 Portal 中都使用預設容器導致 z-index 競爭**：改用 `layer="alert"` 或自訂容器區分優先級
+- **SSR 環境中期望 Portal 內容在伺服器端渲染**：Portal 檢查 `typeof window === 'undefined'` 後返回 null，必須等待客戶端初始化
+- **將 Portal 嵌套在具有特殊定位的容器內**：嵌套容器的 `position` 和 `z-index` 可能影響 Portal 的定位和層級
 
 ## Best Practices
 

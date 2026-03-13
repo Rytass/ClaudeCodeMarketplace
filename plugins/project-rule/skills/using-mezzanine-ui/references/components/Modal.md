@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Modal`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Modal) | Verified: 2026-03-06
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Modal) · Verified v2 source (2026-03-13)
 
 A dialog component for scenarios requiring user attention or action.
 
@@ -515,8 +515,45 @@ const { Container, defaultOptions } = useModalContainer();
 
 ## Best Practices
 
-1. **Clear action intent**: Title should clearly describe the action
-2. **Provide cancel option**: Allow users to exit
-3. **Use destructive for dangerous actions**: Use `modalStatusType="delete"` for delete operations
-4. **Prevent duplicate submissions during loading**: Use `loading` state
-5. **Appropriate size**: Choose a suitable `size` based on content volume
+### 場景推薦
+
+| 使用場景 | 建議方案 | 說明 |
+| ------- | ------- | ---- |
+| 簡單確認 | `modalType="standard"` | 一般確認/警告對話框 |
+| 刪除確認 | `modalStatusType="delete"` | 危險操作的確認 |
+| 複雜表單 | `modalType="extended"` | 多欄位或複雜內容的對話框 |
+| 左右分欄 | `modalType="extendedSplit"` | 預覽 + 設定的分割佈局 |
+| 驗證碼輸入 | `modalType="verification"` | 驗證流程 |
+| 媒體預覽 | `modalType="mediaPreview"` | 圖片/影片預覽 |
+| 小內容 | `size="tight"` 或 `"narrow"` | 簡短訊息 |
+| 大內容 | `size="wide"` | 複雜資訊展示 |
+
+### 常見錯誤
+
+1. **忘記提供取消選項**
+   - ❌ 錯誤：`<Modal ... onConfirm={handleConfirm}>`（無法取消）
+   - ✅ 正確：`<Modal ... onConfirm={handleConfirm} onCancel={handleCancel} />`
+
+2. **標題不夠清晰**
+   - ❌ 錯誤：`<Modal title="Action">`（使用者不知道在做什麼）
+   - ✅ 正確：`<Modal title="Delete item? This cannot be undone.">`
+
+3. **未使用 loading 狀態**
+   - ❌ 錯誤：點擊確認後，使用者可重複點擊
+   - ✅ 正確：`<Modal loading={isLoading} ...>` 防止重複提交
+
+4. **危險操作未視覺提示**
+   - ❌ 錯誤：刪除對話框使用預設 `modalStatusType="info"`
+   - ✅ 正確：`<Modal modalStatusType="delete">` 視覺警示危險
+
+5. **內容過多但尺寸設定不當**
+   - ❌ 錯誤：`<Modal size="tight">` 卻放入很多內容
+   - ✅ 正確：根據內容量選擇 size：short → narrow → regular → wide
+
+### 實作建議
+
+1. **明確的操作意圖**：標題應清楚描述操作
+2. **提供取消選項**：允許使用者退出
+3. **危險操作視覺提示**：刪除操作使用 `modalStatusType="delete"`
+4. **防止重複提交**：在 loading 期間使用 `loading` 狀態
+5. **合適的尺寸**：根據內容量選擇合適的 `size`

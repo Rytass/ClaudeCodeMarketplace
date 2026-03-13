@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Textarea`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Textarea)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Textarea) | Verified v2 rc.5: 2026-03-13
 
 Multi-line text input component for entering longer text content.
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/Alert Banner`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/AlertBanner)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/AlertBanner) · Verified v2 source (2026-03-13)
 
 Alert banner component for displaying important system-level notifications. Supports both component-based and imperative APIs. Internally based on `createNotifier`, with sorting rules: non-info first, newest first. Renders using Portal `alert` level.
 
@@ -237,9 +237,147 @@ AlertBanner.destroy();
 
 ## Best Practices
 
-1. **Choose appropriate severity**: Select severity based on message importance
-2. **Keep messages concise**: message should be short and clear
-3. **Max 2 action buttons**: Avoid too many choices
-4. **Error messages should not auto-close by default**: Give users enough time to read
-5. **Component-based for fixed positions**: Use component-based for fixed page areas
-6. **Imperative for global notifications**: Use imperative API for system-level notifications
+### 場景推薦
+
+| 使用情境 | 推薦用法 | 原因 |
+| ------- | ------- | ---- |
+| 資訊提示 | `<AlertBanner severity="info" />` 或 `AlertBanner.info()` | 輕量級通知 |
+| 警告通知 | `<AlertBanner severity="warning" />` 或 `AlertBanner.warning()` | 需注意但非緊急 |
+| 錯誤通知 | `<AlertBanner severity="error" />` 或 `AlertBanner.error()` | 需要立即處理 |
+| 固定位置通知 | 組件式 `<AlertBanner>` | 放在頁面固定區域 |
+| 全域系統通知 | 命令式 `AlertBanner.add()` | 全局隊列，自動排序 |
+| 需要用戶操作 | 加 `actions` 屬性 | 讓用戶立即回應 |
+| 自動消失 | `duration={3000}` (命令式) | 低優先級訊息 |
+| 需持久顯示 | `closable={false}` 或 `duration={false}` | 重要告示 |
+
+### 常見錯誤
+
+#### ❌ 訊息冗長
+```tsx
+// 不好：太長，用戶無法快速理解
+<AlertBanner
+  severity="error"
+  message="系統在進行定期維護，預計於 2026 年 3 月 13 日下午 2 點至 4 點進行，期間服務將無法使用，給您造成不便敬請見諒"
+/>
+```
+
+#### ✅ 正確做法：簡潔清晰
+```tsx
+<AlertBanner
+  severity="error"
+  message="系統維護中，2-4 PM 期間無法使用"
+  actions={[
+    {
+      content: '了解詳情',
+      onClick: () => window.open('/maintenance-info'),
+    },
+  ]}
+/>
+```
+
+#### ❌ 超過 2 個行動按鈕
+```tsx
+// 不好：選擇過多，影響決策
+<AlertBanner
+  severity="warning"
+  message="帳戶即將過期"
+  actions={[
+    { content: '續約', onClick: renew },
+    { content: '忽略', onClick: dismiss },
+    { content: '升級', onClick: upgrade },  {/* 太多 */}
+  ]}
+/>
+```
+
+#### ✅ 正確做法：最多 2 個動作
+```tsx
+<AlertBanner
+  severity="warning"
+  message="帳戶即將過期"
+  actions={[
+    { content: '續約', onClick: renew },
+    { content: '詳情', onClick: showDetails },
+  ]}
+/>
+```
+
+#### ❌ 錯誤訊息設定自動消失
+```tsx
+// 不好：錯誤需要用戶注意，不應自動消失
+AlertBanner.error('付款失敗', { duration: 3000 });
+```
+
+#### ✅ 正確做法：錯誤應持久顯示
+```tsx
+// 方式 1：不設 duration（預設不消失）
+AlertBanner.error('付款失敗', { closable: true });
+
+// 方式 2：明確禁用自動消失
+AlertBanner.error('付款失敗', { duration: false });
+```
+
+#### ❌ 混用組件式和命令式
+```tsx
+// 不夠清晰：邏輯分散
+const [showAlert, setShowAlert] = useState(false);
+
+return (
+  <>
+    {showAlert && <AlertBanner severity="info" message="Info" />}
+    <Button
+      onClick={() => {
+        AlertBanner.warning('Warning');  {/* 又用命令式 */}
+      }}
+    />
+  </>
+);
+```
+
+#### ✅ 正確做法：一致的用法
+```tsx
+// 全用命令式，簡潔
+<Button
+  onClick={() => {
+    AlertBanner.info('Info');
+    AlertBanner.warning('Warning');
+  }}
+/>
+
+// 或全用組件式，可控
+const [alerts, setAlerts] = useState([]);
+return (
+  <>
+    {alerts.map((alert) => (
+      <AlertBanner key={alert.id} {...alert} />
+    ))}
+  </>
+);
+```
+
+#### ❌ 自訂圖示卻未設定 severity
+```tsx
+// 問題：圖示自訂但 severity 不明確
+<AlertBanner
+  icon={CustomIcon}
+  message="Something happened"
+  {/* 用戶不知道嚴重性 */}
+/>
+```
+
+#### ✅ 正確做法：保持 severity 語義
+```tsx
+<AlertBanner
+  severity="warning"
+  icon={CustomWarningIcon}  {/* 配合 severity */}
+  message="Important notice"
+/>
+```
+
+### 核心要點
+
+1. **選擇合適 severity**：資訊 < 警告 < 錯誤，影響視覺突出度
+2. **訊息簡潔**：一行為佳，方便快速理解
+3. **最多 2 動作**：過多選擇導致決策困難
+4. **錯誤不自動消失**：需要用戶主動確認
+5. **命令式適合全局**：多個通知時自動排序和去重
+6. **組件式適合固定區域**：頁面特定位置的提示

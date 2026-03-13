@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/PageFooter`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/PageFooter)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/PageFooter) | Verified: 2026-03-13
 
 Page footer component for displaying page-level action buttons and auxiliary information.
 
@@ -239,10 +239,50 @@ function FormFooter({ isValid, onSubmit, onCancel, onReset }) {
 
 ---
 
-## Best Practices
+## Best Practices (最佳實踐)
 
-1. **Button order**: Secondary button on left, primary button on right
-2. **Fixed positioning**: Typically used with `position: fixed` or `sticky`
-3. **Warning message**: Use for form validation failure hints
-4. **Overflow menu**: Use overflow type for multiple secondary actions
-5. **Semantic**: Renders as a `<footer>` element
+### 場景推薦 (Scenario Recommendations)
+
+| 場景 | 推薦做法 | 相關 Props |
+| --- | --- | --- |
+| 簡單操作確認 | 使用 `type="standard"` 搭配一個或兩個按鈕 | `actions`, `primaryButton` |
+| 表單提交 | 使用 `type="standard"` 搭配 `supportingActionName="Reset"` | `supportingActionName` |
+| 多個次要操作 | 使用 `type="overflow"` 與下拉菜單 | `type="overflow"`, `dropdownProps` |
+| 驗證失敗提示 | 顯示 `warningMessage` 並禁用提交按鈕 | `warningMessage`, `disabled` |
+| 信息展示頁面 | 使用 `type="information"` 搭配 `annotation` | `type="information"`, `annotation` |
+| 固定在底部 | 搭配 CSS `position: fixed` 或 `sticky` | - |
+
+### 常見錯誤 (Common Mistakes)
+
+1. **按鈕順序反向**
+   - ❌ 誤：主操作按鈕在左邊，次要按鈕在右邊
+   - ✅ 正確：次要按鈕在左，主操作按鈕在右
+   - 範例：`secondaryButton` 先定義，`primaryButton` 後定義
+
+2. **缺少 warningMessage**
+   - ❌ 誤：表單驗證失敗後不提示用戶
+   - ✅ 正確：在驗證失敗時顯示 `warningMessage`
+   - 範例：`warningMessage={!isValid ? '請填寫必填項' : undefined}`
+
+3. **type 選擇不當**
+   - ❌ 誤：多個操作都使用 `standard` 類型
+   - ✅ 正確：多個次要操作使用 `overflow` 類型
+   - 影響：避免按鈕過多導致布局混亂
+
+4. **未固定位置**
+   - ❌ 誤：在滾動內容下未固定頁腳
+   - ✅ 正確：使用 `position: fixed` 或 `sticky`
+   - 範例：`<PageFooter style={{ position: 'sticky', bottom: 0 }} />`
+
+5. **actionName 過長**
+   - ❌ 誤：`supportingActionName="Reset All Data"`
+   - ✅ 正確：`supportingActionName="重置"`
+   - 影響：按鈕寬度合理，不影響主按鈕
+
+### 核心建議 (Core Recommendations)
+
+1. **按鈕位置**：次要按鈕在左，主操作按鈕在右
+2. **固定位置**：通常使用 `position: fixed` 或 `sticky`
+3. **警告提示**：用於表單驗證失敗提示
+4. **溢出菜單**：多個次要操作使用 `overflow` 類型
+5. **語義化**：正確使用 `<footer>` 標籤提升可訪問性

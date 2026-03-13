@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Empty`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Empty)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Empty) · Verified v2 source (2026-03-13)
 
 An empty state component for displaying placeholder screens when there is no data or in specific states.
 
@@ -251,8 +251,109 @@ function DataList({ data, loading }) {
 
 ## Best Practices
 
-1. **Choose appropriate type**: Select the matching type based on the scenario
-2. **Provide actions**: Empty states should suggest a next step
-3. **Concise copy**: Title and description should be short and clear
-4. **Appropriate size**: Choose a suitable size based on container dimensions
-5. **Maximum two buttons**: Avoid too many choices
+### 場景推薦
+
+| 使用場景 | 推薦設定 | 說明 |
+|---------|--------|------|
+| 初始化無數據 | `type="initial-data"`, `size="main"` | 首次進入應用或無任何記錄 |
+| 搜尋無結果 | `type="result"`, `size="main"` | 搜尋或篩選結果為空 |
+| 系統異常 | `type="system"`, `size="main"` | 服務異常或出現錯誤 |
+| 無通知提示 | `type="notification"`, `size="sub"` | 通知中心空狀態 |
+| 列表簡化 | `type="initial-data"`, `size="minor"` | 列表欄位或工具列空狀態 |
+
+### 常見錯誤
+
+1. **未指定 title 導致顯示不完整**
+   ```tsx
+   // ❌ 錯誤：缺少必要的 title
+   <Empty type="initial-data" />
+
+   // ✅ 正確：提供清晰的標題
+   <Empty
+     type="initial-data"
+     title="No data available"
+     description="Click the button below to add your first item"
+   />
+   ```
+
+2. **尺寸選擇不當導致視覺失衡**
+   ```tsx
+   // ❌ 錯誤：在小元件中使用 main 尺寸
+   <div style={{ width: '200px' }}>
+     <Empty type="initial-data" size="main" title="Empty" />
+   </div>
+
+   // ✅ 正確：根據容器選擇合適尺寸
+   <div style={{ width: '200px' }}>
+     <Empty type="initial-data" size="minor" title="Empty" />
+   </div>
+   ```
+
+3. **為 minor 尺寸設定不支援的屬性**
+   ```tsx
+   // ❌ 錯誤：minor 不支援 actions 和 description
+   <Empty
+     size="minor"
+     title="Empty"
+     description="This won't display"
+     actions={{ content: 'Add' }}
+   />
+
+   // ✅ 正確：minor 只支援 title
+   <Empty
+     size="minor"
+     title="Empty"
+   />
+   ```
+
+4. **按鈕數量過多導致選擇困難**
+   ```tsx
+   // ❌ 錯誤：超過兩個按鈕
+   <Empty
+     title="No data"
+     actions={{
+       primaryButton: { content: 'Add' },
+       secondaryButton: { content: 'Import' },
+       // ... more buttons
+     }}
+   />
+
+   // ✅ 正確：最多兩個按鈕
+   <Empty
+     title="No data"
+     actions={{
+       primaryButton: { content: 'Add New' },
+       secondaryButton: { content: 'Import from File' },
+     }}
+   />
+   ```
+
+5. **混淆 actions 和 children 的優先級**
+   ```tsx
+   // ❌ 錯誤：同時設定 actions 和 children
+   <Empty
+     title="Empty"
+     actions={{ content: 'Add' }}
+   >
+     <Button>This will be ignored</Button>
+   </Empty>
+
+   // ✅ 正確：優先使用 actions 配置
+   <Empty
+     title="Empty"
+     actions={{
+       primaryButton: { content: 'Add' },
+       secondaryButton: { content: 'Learn More' },
+     }}
+   />
+   ```
+
+### 核心原則
+
+1. **選擇適當類型**: 根據場景選擇匹配的類型
+2. **提供操作**: 空狀態應暗示下一步行動
+3. **文案簡潔**: 標題和描述應短小清晰
+4. **尺寸適配**: 根據容器尺寸選擇合適大小
+5. **限制按鈕**: 最多使用兩個按鈕，避免選擇過多
+6. **引導用戶**: 提供清晰的指示幫助用戶採取行動
+7. **型別一致**: 同一頁面的多個 Empty 應使用一致的邏輯

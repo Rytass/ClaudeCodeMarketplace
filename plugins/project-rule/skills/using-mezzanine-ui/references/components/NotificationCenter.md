@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Notification Center`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/NotificationCenter)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/NotificationCenter) | Verified: 2026-03-13
 
 Notification center component for displaying global notifications. Supports both popup notification and drawer list modes.
 
@@ -281,10 +281,51 @@ Notification list drawer component that displays notifications in a Drawer forma
 
 ---
 
-## Best Practices
+## Best Practices (最佳實踐)
 
-1. **Appropriate severity**: Choose severity based on message importance
-2. **Concise title**: Title should be short and clear
-3. **Auto-close**: Set `duration` for non-critical notifications
-4. **Action buttons**: Provide onConfirm/onCancel when user confirmation is needed
-5. **Limit count**: Use `maxVisibleNotifications` to avoid screen clutter
+### 場景推薦 (Scenario Recommendations)
+
+| 場景 | 推薦做法 | 相關 Props |
+| --- | --- | --- |
+| 簡短操作成功提示 | 使用 `severity="success"` 搭配 `duration: 3000` | `severity`, `duration` |
+| 警告或風險操作 | 使用 `severity="warning"` 搭配確認按鈕 | `severity`, `confirmButtonText` |
+| 錯誤通知 | 使用 `severity="error"` 並提供重試選項 | `severity`, `onConfirm` |
+| 一般信息通知 | 使用 `severity="info"` (預設) 可自動關閉 | `severity`, `duration` |
+| 需要用戶確認 | 提供 `confirmButtonText` 和 `cancelButtonText` | `onConfirm`, `onCancel` |
+| 通知列表模式 | 使用 `type="drawer"` 顯示通知歷史 | `type`, `showBadge` |
+| 過多通知 | 設定 `maxVisibleNotifications` 並提供 `onViewAll` | `maxVisibleNotifications` |
+
+### 常見錯誤 (Common Mistakes)
+
+1. **嚴重性選擇不當**
+   - ❌ 誤：所有通知都使用 `severity="error"`
+   - ✅ 正確：根據重要性選擇適當的嚴重性等級
+   - 範例：保存成功用 `success`，API 錯誤用 `error`
+
+2. **過長標題或描述**
+   - ❌ 誤：`title="Operation completed successfully and all data has been saved to the server"`
+   - ✅ 正確：`title="操作成功"` 搭配 `description="資料已保存"`
+   - 影響：易於快速掃讀，提升用戶體驗
+
+3. **不設定自動關閉時間**
+   - ❌ 誤：所有非關鍵通知都設 `duration: false`
+   - ✅ 正確：非關鍵通知設 `duration: 3000-5000`
+   - 影響：避免通知堆積，提升界面整潔性
+
+4. **過多可見通知**
+   - ❌ 誤：同時顯示 10+ 個通知
+   - ✅ 正確：設定 `maxVisibleNotifications: 3` 並提供 `onViewAll`
+   - 範例：超過限制自動顯示「查看更多」按鈕
+
+5. **缺少回調處理**
+   - ❌ 誤：提供確認按鈕但未設 `onConfirm`
+   - ✅ 正確：所有按鈕都對應相應回調
+   - 範例：刪除操作應設 `onConfirm` 和 `onCancel`
+
+### 核心建議 (Core Recommendations)
+
+1. **適當的嚴重性**：根據消息重要性選擇嚴重性等級
+2. **簡潔標題**：標題應簡短清晰
+3. **自動關閉**：非關鍵通知設定 `duration`
+4. **操作按鈕**：需要用戶確認時提供 `onConfirm`/`onCancel`
+5. **限制數量**：使用 `maxVisibleNotifications` 避免視覺混亂

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Notifier`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Notifier)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Notifier) | Verified: 2026-03-13
 
 Notifier factory function for creating custom notification systems. It is the underlying implementation of Message, NotificationCenter, and other components.
 
@@ -246,10 +246,56 @@ Notifier is a pure functional factory with no corresponding visual element in Fi
 
 ---
 
-## Best Practices
+## Best Practices (最佳實踐)
 
-1. **Use existing components**: Generally use Message or NotificationCenter instead of createNotifier directly
-2. **Appropriate duration**: Set duration based on message importance
-3. **Limit count**: Use maxCount to avoid too many notifications
-4. **Cleanup on destroy**: Call destroy() on component unmount to clean up resources
-5. **Sorting strategy**: Use sortBeforeUpdate to prioritize important notifications
+### 場景推薦 (Scenario Recommendations)
+
+| 場景 | 推薦做法 | 相關參數 |
+| --- | --- | --- |
+| 快速操作提示 | 使用 `Message` 組件而非直接 `createNotifier` | `duration: 3000` |
+| 複雜通知系統 | 直接使用 `NotificationCenter` 或自訂 `createNotifier` | `render`, `renderContainer` |
+| 優先級通知 | 使用 `sortBeforeUpdate` 排序重要通知 | `sortBeforeUpdate` |
+| 無限期通知 | 設定 `duration: false` 並提供手動關閉機制 | `duration`, `onClose` |
+| 通知堆積限制 | 設定 `maxCount` 限制可見通知數量 | `maxCount` |
+| 自訂容器樣式 | 使用 `renderContainer` 包裝通知內容 | `renderContainer`, `setRoot` |
+| 動態配置 | 使用 `config()` 方法更新全域設定 | `config()`, `getConfig()` |
+
+### 常見錯誤 (Common Mistakes)
+
+1. **過度使用 createNotifier**
+   - ❌ 誤：為簡單提示創建自訂 Notifier
+   - ✅ 正確：使用現成的 `Message` 或 `NotificationCenter`
+   - 影響：減少複雜性，提升維護性
+
+2. **不設定自動關閉時間**
+   - ❌ 誤：所有通知都設 `duration: false`
+   - ✅ 正確：重要消息無自動關閉，簡短提示設 `duration: 3000`
+   - 範例：錯誤警告 `duration: false`，成功提示 `duration: 3000`
+
+3. **過多可見通知**
+   - ❌ 誤：不設 `maxCount`，同時顯示 20+ 個通知
+   - ✅ 正確：設定合理的 `maxCount` (通常 3-5)
+   - 影響：避免視覺混亂，提升用戶體驗
+
+4. **忘記清理資源**
+   - ❌ 誤：組件卸載時未調用 `destroy()`
+   - ✅ 正確：在 `useEffect` 清理函數中調用 `destroy()`
+   - 範例：`useEffect(() => () => notifier.destroy(), [])`
+
+5. **排序邏輯不清**
+   - ❌ 誤：`sortBeforeUpdate` 返回新陣列但未排序
+   - ✅ 正確：確保返回的陣列按優先級排序
+   - 範例：`notifiers.sort((a, b) => b.priority - a.priority)`
+
+6. **忽視 render 函數中的 key**
+   - ❌ 誤：在 render 中使用不穩定的 key
+   - ✅ 正確：使用 `notifier.key` 作為 React key
+   - 範例：`<NotificationUI key={notifier.key} {...notifier} />`
+
+### 核心建議 (Core Recommendations)
+
+1. **使用現成組件**：通常優先使用 `Message` 或 `NotificationCenter`，而非直接 `createNotifier`
+2. **適當的時間設定**：根據消息重要性設定 `duration`
+3. **限制通知數量**：使用 `maxCount` 避免過多通知
+4. **資源清理**：在組件卸載時調用 `destroy()` 清理資源
+5. **優先級排序**：使用 `sortBeforeUpdate` 優先顯示重要通知

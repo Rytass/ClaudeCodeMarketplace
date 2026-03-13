@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Progress`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Progress)
+> **Source Verification**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Progress) · Verified v2 source (2026-03-13)
 
 A progress bar component for displaying operation completion progress.
 
@@ -163,6 +163,25 @@ function DownloadProgress() {
 | `Progress / With Tick`       | `tick={75}`                              |
 
 ---
+
+## Scenario-Oriented Best Practices
+
+### 場景推薦
+
+| 使用場景 | 建議做法 | 原因 |
+| -------- | -------- | ---- |
+| 檔案上傳進度 | 使用 `type="icon"` 搭配動態 `percent` | 上傳完成時自動轉為成功狀態，視覺反饋清晰 |
+| 下載進度顯示 | 使用 `type="percent"` 顯示百分比數值 | 用戶關心具體數字，便於預估剩餘時間 |
+| 任務完成狀態指示 | 使用 `type="icon"` 配合 `status="error"` | 失敗狀態需手動設置，以區別正常進度 |
+| 處理流程多個里程碑 | 使用 `tick` 標記重要節點 | 視覺化顯示流程階段，提示用戶當前位置 |
+| 自訂成功/失敗圖示 | 透過 `icons` prop 傳入自訂 IconDefinition | 配合品牌或特定設計風格 |
+
+### 常見錯誤
+
+- **期望 error 狀態自動檢測**：Error 無法自動檢測，必須明確 `status="error"`。Success 在 `percent >= 100` 時自動轉換，Error 不會
+- **在 `percent < 100` 時設置 `status="success"`**：可行但不符合直覺。應等待 `percent >= 100` 利用自動檢測
+- **使用 `type="percent"` 卻自訂了 `renderValue`**：Type 控制顯示內容類型，自訂 `renderValue` 時應改用 `percentProps`
+- **tick 值超過 100 或為負數**：Tick 應在 0-100 範圍內，超出範圍會導致視覺位置不正確
 
 ## Best Practices
 

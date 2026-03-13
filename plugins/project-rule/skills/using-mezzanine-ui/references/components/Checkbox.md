@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Checkbox`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Checkbox) · Verified v2 source (2026-03-06)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Checkbox) · Verified v2 source (2026-03-13)
 
 A checkbox component supporting standalone or group usage, with multiple modes.
 
@@ -50,6 +50,7 @@ import type {
 | `mode`           | `CheckboxMode`                         | `'default'` | Display mode                             |
 | `name`           | `string`                               | -           | Input name attribute                     |
 | `onChange`       | `ChangeEventHandler<HTMLInputElement>` | -           | Change event                             |
+| `severity`       | `'info' \| 'error'`                    | `'info'`    | Semantic form-validation coloring (NEW in rc.5) |
 | `size`           | `CheckboxSize`                         | `'main'`    | Size (available values vary by mode)     |
 | `value`          | `string`                               | -           | Value (required within a group)          |
 | `withEditInput`  | `boolean`                              | `false`     | Whether to show editable input           |
@@ -62,6 +63,15 @@ import type {
 | --------- | ---------------------------------- | ----------------------------------- |
 | `default` | `'main'` \| `'sub'`               | Default mode, standard checkbox     |
 | `chip`    | `'main'` \| `'sub'` \| `'minor'`  | Chip mode, tag-button-like appearance |
+
+## Checkbox Severity
+
+The `severity` prop enables semantic form-validation styling:
+
+| Severity | Visual | Use Case                                    |
+| -------- | ------ | ------------------------------------------- |
+| `'info'` | Normal | Default state; informational checkbox      |
+| `'error'` | Error color | Marks invalid form state; use with FormField |
 
 ---
 
@@ -178,6 +188,23 @@ function ControlledCheckbox() {
 <Checkbox
   label="Advanced Settings"
   description="Enabling this option will show more configuration items"
+/>
+```
+
+### With Severity (Info and Error States)
+
+```tsx
+{/* Info state (default) */}
+<Checkbox
+  label="Info checkbox"
+  severity="info"
+/>
+
+{/* Error state for form validation */}
+<Checkbox
+  label="Error checkbox"
+  severity="error"
+  description="This field is required"
 />
 ```
 
@@ -322,3 +349,4 @@ function FormExample() {
 3. **Provide name attribute**: Ensure `name` is set when integrating with forms
 4. **Chip mode for tag selection**: Use `mode="chip"` when tag-style UI is needed
 5. **Pair with FormField**: Use FormField wrapper to provide labels and error messages
+6. **Use severity for validation**: Set `severity="error"` when displaying validation errors; rely on FormField for automatic context handling

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/DateTimePicker`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/DateTimePicker) · Verified v2 source (2026-02-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/DateTimePicker) · Verified v2 source (2026-03-13)
 
 A date-time picker that allows selecting both date and time simultaneously. Must be used with `CalendarContext`. Internally composed of `DatePickerCalendar`, `TimePickerPanel`, and `PickerTriggerWithSeparator`.
 
@@ -229,8 +229,61 @@ DateTimePicker consists of two independent input fields and panels:
 
 ## Best Practices
 
-1. **Context required**: Must be wrapped in CalendarContext.Provider
-2. **Consistent formats**: `formatDate` and `formatTime` should match the actual use case
-3. **Time steps**: Use step props to limit selectable times
-4. **Input validation**: The component automatically validates input format
-5. **Complete selection**: onChange only fires when both date and time are selected
+### 場景推薦
+
+| 使用場景 | 推薦設定 | 說明 |
+|---------|--------|------|
+| 訂單時間範圍查詢 | `hideSecond=true`, `minuteStep={15}` | 隱藏秒數，分鐘以15分鐘遞增 |
+| 系統日誌查詢 | `formatTime="HH:mm:ss"` | 顯示完整時間含秒數 |
+| 會議預約 | `hourStep={1}`, `minuteStep={30}` | 以小時和30分鐘遞增 |
+| 數據導出排程 | `isDateDisabled` + 過去日期檢查 | 禁用過去日期，只允許未來日期 |
+| 報表生成 | `popperPropsTime` 自訂位置 | 根據容器寬度調整時間面板位置 |
+
+### 常見錯誤
+
+1. **未包裝 CalendarContext**
+   ```tsx
+   // ❌ 錯誤：缺少 CalendarContext
+   <DateTimePicker value={value} onChange={setValue} />
+
+   // ✅ 正確：使用適當的日期庫提供者
+   <CalendarConfigProviderDayjs>
+     <DateTimePicker value={value} onChange={setValue} />
+   </CalendarConfigProviderDayjs>
+   ```
+
+2. **未對齊格式字符串**
+   ```tsx
+   // ❌ 錯誤：formatTime 與 hideSecond 不一致
+   <DateTimePicker hideSecond formatTime="HH:mm:ss" />
+
+   // ✅ 正確：隱藏秒數時調整格式
+   <DateTimePicker hideSecond formatTime="HH:mm" />
+   ```
+
+3. **忽略受控/非受控模式**
+   ```tsx
+   // ❌ 錯誤：混合受控與非受控
+   const [value, setValue] = useState();
+   <DateTimePicker value={value} defaultValue="2024-01-01" onChange={setValue} />
+
+   // ✅ 正確：選擇其中一種模式
+   <DateTimePicker defaultValue="2024-01-01" onChange={setValue} />
+   ```
+
+4. **時間步長設定不當**
+   ```tsx
+   // ❌ 錯誤：步長過小導致選項過多
+   <DateTimePicker minuteStep={1} secondStep={1} />
+
+   // ✅ 正確：依使用場景設定合理步長
+   <DateTimePicker minuteStep={15} secondStep={30} />
+   ```
+
+### 核心原則
+
+1. **上下文必需**: 必須包裝在 CalendarContext.Provider 中
+2. **格式一致性**: `formatDate` 和 `formatTime` 應與實際用途相符
+3. **時間粒度**: 使用步長 props 限制可選的時間
+4. **前期驗證**: 元件會自動驗證輸入格式
+5. **完整選擇流程**: 當兩個輸入欄位都有值時，onChange 才會觸發

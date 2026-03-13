@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/TimeRangePicker`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimeRangePicker)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimeRangePicker) | Verified v2 rc.5: 2026-03-13
 
 Time range picker for selecting start and end times. Uses RangePickerTrigger to provide dual inputs with a TimePickerPanel panel. Must be used with `CalendarContext`.
 
@@ -216,6 +216,25 @@ function ControlledExample() {
     </>
   );
 }
+```
+
+### Independent Pending Values per Panel (rc.5)
+
+In rc.5, each time panel maintains independent pending state, and Ok/Cancel buttons are correctly wired:
+
+```tsx
+<TimeRangePicker
+  hideSecond
+  value={value}
+  onChange={setValue}
+/>
+
+// User can interact with from/to panels independently:
+// - Focus from input → opens from panel with pending state
+// - Select time → shows preview in panel
+// - Click Ok → commits to onChange
+// - Click Cancel → discards changes, panel closes
+// - Focus to input → opens to panel independently
 ```
 
 ---

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Internal/Picker`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Picker)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Picker) | Verified: 2026-03-13
 
 Internal shared Picker base components and Hooks, used by picker components such as DatePicker, DateRangePicker, TimePicker, TimeRangePicker, DateTimePicker, etc. Not recommended for direct use, but can be referenced or composed when building custom pickers.
 
@@ -353,10 +353,51 @@ function PickerWithTabClose() {
 
 ---
 
-## Best Practices
+## Best Practices (最佳實踐)
 
-1. **Internal component**: This module is a shared internal component; in general, use high-level components (DatePicker, TimePicker, etc.) directly
-2. **Close behavior separation**: `onClose` is for Escape (reverts value), `onChangeClose` is for click outside and Tab (commits changes)
-3. **FormattedInput**: PickerTrigger and RangePickerTrigger internally use FormattedInput to implement formatted typing
-4. **Ref management**: Use `anchorRef`, `popperRef`, `inputRef` with usePickerDocumentEventClose to implement complete open/close logic
-5. **Custom pickers**: To build custom pickers, compose PickerTrigger/RangePickerTrigger with usePickerDocumentEventClose
+### 場景推薦 (Scenario Recommendations)
+
+| 場景 | 推薦做法 | 相關組件 |
+| --- | --- | --- |
+| 日期選擇 | 直接使用 `DatePicker` 而非 `Picker` | `DatePicker` |
+| 時間選擇 | 直接使用 `TimePicker` 而非 `Picker` | `TimePicker` |
+| 日期時間選擇 | 直接使用 `DateTimePicker` 而非 `Picker` | `DateTimePicker` |
+| 日期範圍選擇 | 直接使用 `DateRangePicker` 而非 `Picker` | `DateRangePicker` |
+| 自訂選擇器 | 組合 `PickerTrigger` 和鉤子實現 | `PickerTrigger`, `usePickerDocumentEventClose` |
+| 格式化輸入 | 使用內置 `FormattedInput` 功能 | `FormattedInput`, `format` |
+| 鍵盤操作 | 監聽 Tab 鍵或 Escape 鍵 | `useTabKeyClose`, `onClose` |
+
+### 常見錯誤 (Common Mistakes)
+
+1. **直接使用 Picker 組件**
+   - ❌ 誤：使用 `PickerTrigger` 構建日期選擇器
+   - ✅ 正確：直接使用 `DatePicker`、`TimePicker` 等高階組件
+   - 影響：避免重複開發，提高代碼複用性
+
+2. **onClose 和 onChangeClose 混淆**
+   - ❌ 誤：不區分兩個回調的用途
+   - ✅ 正確：`onClose` 用於 Escape (回滾值)，`onChangeClose` 用於點擊外部和 Tab (提交變更)
+   - 範例：Escape 時恢復原值，Tab 時保存新值
+
+3. **未提供格式化格式**
+   - ❌ 誤：`<PickerTrigger />` 不設定 `format`
+   - ✅ 正確：提供 `format` 如 `"YYYY-MM-DD"`
+   - 影響：用戶無法了解輸入格式
+
+4. **Ref 管理不完整**
+   - ❌ 誤：提供 `inputRef` 但未提供 `anchorRef` 或 `popperRef`
+   - ✅ 正確：提供完整的三個 ref 以支持完整的開關邏輯
+   - 範例：結合 `usePickerDocumentEventClose` 使用三個 ref
+
+5. **雙輸入格式不匹配**
+   - ❌ 誤：`formatLeft="YYYY-MM-DD"` 和 `formatRight="HH:mm"` 不一致
+   - ✅ 正確：確保兩個輸入的格式清晰且一致
+   - 範例：日期和時間使用標準格式
+
+### 核心建議 (Core Recommendations)
+
+1. **優先使用高階組件**：通常直接使用 DatePicker、TimePicker 等而非 Picker
+2. **區分關閉行為**：`onClose` 回滾值，`onChangeClose` 提交變更
+3. **FormattedInput**：`PickerTrigger` 內置支持格式化輸入
+4. **Ref 管理**：結合 `usePickerDocumentEventClose` 實現完整的開關邏輯
+5. **自訂選擇器**：使用 `PickerTrigger`/`RangePickerTrigger` 與鉤子組合構建

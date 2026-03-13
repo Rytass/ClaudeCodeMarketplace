@@ -4,7 +4,9 @@
 >
 > **Storybook**: `Internal/Scrollbar`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Scrollbar)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Scrollbar) · Verified v2 source (2026-03-13)
+>
+> **Important**: Scrollbar is **NOT exported** from the public `@mezzanine-ui/react` entry. It is an internal-only component. Import directly from sub-path only if absolutely necessary.
 
 Custom scrollbar component providing consistent scrollbar styles across browsers. Based on OverlayScrollbars.
 
@@ -178,6 +180,24 @@ function ScrollbarWithRef() {
 
 ---
 
+## Scenario-Oriented Best Practices
+
+### 場景推薦
+
+| 使用場景 | 建議做法 | 原因 |
+| -------- | -------- | ---- |
+| Modal 或 Drawer 內的長內容 | 在 ModalBody 內使用 `<Scrollbar />` | 提供一致的滾動條樣式體驗 |
+| 受限高度容器內的大量列表 | 設置 `maxHeight` 和 `onViewportReady` | 可監聽視口就緒，配合無限滾動加載 |
+| 禁用自訂滾動條使用原生 | 設置 `disabled={true}` | 某些特殊場景可能需要原生滾動條行為 |
+| 提升初始渲染性能 | 保持預設 `defer={true}` | 延遲初始化 OverlayScrollbars，避免阻塞首屏 |
+
+### 常見錯誤
+
+- **未設置 maxHeight 或 maxWidth**：沒有尺寸限制無法產生滾動條，內容只會原樣展示
+- **在沒有設置寬度限制的情況下期望水平滾動條出現**：必須同時設置 `maxWidth` 和寬度超過該值的內容
+- **期望直接在公開 API 中導入 Scrollbar**：應從 sub-path 導入，且建議只在必要時使用
+- **頻繁改變 options 配置**：OverlayScrollbars 初始化開銷較大，避免動態改變 options
+
 ## Best Practices
 
 1. **Set dimensions**: Must set `maxHeight` or `maxWidth` to see scrollbars
@@ -185,3 +205,4 @@ function ScrollbarWithRef() {
 3. **Disabled mode**: `disabled=true` renders as a plain div
 4. **Click scroll**: Default `clickScroll` enabled, allows clicking the track to scroll directly
 5. **Auto hide**: Scrollbar auto-hides 600ms after scrolling stops
+6. **Internal component**: Scrollbar is not exported from main entry—import from sub-path only when necessary

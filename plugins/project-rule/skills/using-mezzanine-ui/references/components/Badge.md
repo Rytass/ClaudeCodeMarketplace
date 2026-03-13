@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Badge`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Badge)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Badge) · Verified v2 source (2026-03-13)
 
 Badge component for marking status, quantity, or hint messages. Supports dot and count modes.
 
@@ -307,8 +307,146 @@ interface BadgeTextProps {
 
 ## Best Practices
 
-1. **Choose appropriate variant**: Select the corresponding variant based on semantics
-2. **Set overflow count**: Use `overflowCount` for large numbers to prevent layout overflow
-3. **Dot with icon**: Wrap dot badge around icons
-4. **0 hides badge**: Count variant automatically hides when 0
-5. **Status consistency**: Maintain consistent status color meanings within the same system
+### 場景推薦
+
+| 使用情境 | 推薦用法 | 原因 |
+| ------- | ------- | ---- |
+| 狀態指示 | `variant="dot-*"` | 視覺標記狀態（在線/離線） |
+| 通知計數 | `variant="count-*"` + `count={num}` | 顯示未讀數量 |
+| 內聯狀態文字 | `variant="text-*"` + `text="..."` | 文字形式的狀態 |
+| 大於 99 | `overflowCount={99}` | 防止數字過長 |
+| 狀態點配圖示 | `<Badge><Icon/></Badge>` | 圖示右上角顯示狀態 |
+| 計數為 0 | `count={0}` | 自動隱藏（不顯示） |
+| 成功 | `variant="dot-success"` 或 `count-brand` | 綠色，正面語義 |
+| 警告 | `variant="dot-warning"` 或 `count-alert` | 黃色，需注意 |
+| 錯誤/離線 | `variant="dot-error"` | 紅色，立即關注 |
+| 次要/灰色 | `variant="dot-inactive"` | 無狀態或已禁用 |
+
+### 常見錯誤
+
+#### ❌ count=0 仍顯示
+```tsx
+// 不好：count=0 時不應顯示
+<Badge variant="count-alert" count={0} />
+{/* 實際上會隱藏，設計符合預期 */}
+```
+
+#### ✅ 預期行為：count=0 自動隱藏
+```tsx
+{/* count=0 時不顯示，這是預期的 */}
+<Badge variant="count-alert" count={notifications.length} />
+{/* 沒有通知時，Badge 完全隱藏 */}
+```
+
+#### ❌ 數字過大導致版面擠壓
+```tsx
+// 不好：9999 會很長
+<Badge variant="count-alert" count={9999} />
+```
+
+#### ✅ 正確做法：設定 overflowCount
+```tsx
+<Badge
+  variant="count-alert"
+  count={notifications.length}
+  overflowCount={99}  {/* 超過 99 顯示 "99+" */}
+/>
+```
+
+#### ❌ 混淆點 Badge 和文字 Badge
+```tsx
+// 不夠清晰：當需要文字時用錯了類型
+<Badge variant="dot-success">  {/* 是點，不是文字 */}
+  <Icon />
+</Badge>
+```
+
+#### ✅ 正確做法：區分類型
+```tsx
+// 點 + 圖示
+<Badge variant="dot-success">
+  <Icon />
+</Badge>
+
+// 點 + 文字
+<Badge variant="dot-success" text="Online" />
+
+// 純文字
+<Badge variant="text-success" text="Active" />
+```
+
+#### ❌ 狀態顏色意義不一致
+```tsx
+// 不好：不同地方使用不同顏色表示相同狀態
+// 系統 A 用綠色表示「成功」
+// 系統 B 用藍色表示「成功」
+```
+
+#### ✅ 正確做法：全系統一致
+```tsx
+// 全系統統一：綠色 = 成功/在線
+<Badge variant="dot-success" text="Online" />
+
+// 紅色 = 錯誤/離線
+<Badge variant="dot-error" text="Offline" />
+
+// 黃色 = 警告
+<Badge variant="dot-warning" text="Pending" />
+```
+
+#### ❌ Count Badge 包含不必要資訊
+```tsx
+// 不好：count variant 應僅顯示數字，不應有文字
+<Badge variant="count-alert" count={5}>
+  Notifications  {/* 多餘，只顯示數字 */}
+</Badge>
+```
+
+#### ✅ 正確做法：count 只用於計數
+```tsx
+<Badge variant="count-alert" count={notifications.length} />
+
+// 需要文字說明時用文字 Badge
+<Badge variant="text-alert" text="5 Notifications" />
+```
+
+#### ❌ Dot Badge 位置不明確
+```tsx
+// 不好：點在哪裡？
+<Badge variant="dot-success" />
+```
+
+#### ✅ 正確做法：點應配合內容
+```tsx
+// 點 + 文字，清晰表達
+<Badge variant="dot-success" text="Online" />
+
+// 點 + 圖示，醒目標記
+<Badge variant="dot-error">
+  <Icon icon={AlertIcon} />
+</Badge>
+```
+
+#### ❌ 尺寸搭配不當
+```tsx
+// 不好：子尺寸的文字太小，難以閱讀
+<Badge variant="text-success" text="Verified" size="sub" />
+```
+
+#### ✅ 正確做法：根據上下文選尺寸
+```tsx
+// 主要列表項使用 main
+<Badge variant="text-success" text="Active" size="main" />
+
+// 細小列表使用 sub
+<Badge variant="text-inactive" text="Disabled" size="sub" />
+```
+
+### 核心要點
+
+1. **count=0 自動隱藏**：計數為 0 時 Badge 不顯示，節省空間
+2. **overflowCount 防溢出**：大數字用 "99+" 表示，防止版面破裂
+3. **型別區分明確**：dot、count、text 各有用途，勿混用
+4. **狀態色彩一致**：全系統統一顏色語義
+5. **點搭配內容**：點應與圖示或文字結合，增強表意
+6. **尺寸適應場景**：main 用於主要內容，sub 用於輔助資訊

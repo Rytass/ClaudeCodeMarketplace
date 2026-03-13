@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Slider`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Slider) · Verified v2 source (2026-03-06)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Slider) · Verified v2 source (2026-03-13)
 
 Slider component for selecting values within a numeric range. Supports single value and range modes.
 
@@ -109,10 +109,12 @@ Slider addons are implemented as a union type, choose one of three:
 
 ### SliderWithIconProps
 
-| Property     | Type             | Description    |
-| ------------ | ---------------- | -------------- |
-| `prefixIcon` | `IconDefinition` | Prefix icon    |
-| `suffixIcon` | `IconDefinition` | Suffix icon    |
+| Property             | Type                 | Description                               |
+| -------------------- | -------------------- | ----------------------------------------- |
+| `prefixIcon`         | `IconDefinition`     | Prefix icon                               |
+| `suffixIcon`         | `IconDefinition`     | Suffix icon                               |
+| `onPrefixIconClick`  | `() => void`         | Custom handler for prefix icon click (overrides default decrement) |
+| `onSuffixIconClick`  | `() => void`         | Custom handler for suffix icon click (overrides default increment) |
 
 ### SliderWithoutAddonsProps
 
@@ -219,6 +221,31 @@ import { VolumeOffIcon, VolumeHighIcon } from '@mezzanine-ui/icons';
   prefixIcon={VolumeOffIcon}
   suffixIcon={VolumeHighIcon}
 />
+```
+
+### Custom Icon Click Handlers
+
+```tsx
+import { MinusIcon, PlusIcon } from '@mezzanine-ui/icons';
+
+<Slider
+  value={quantity}
+  onChange={setQuantity}
+  min={1}
+  max={10}
+  prefixIcon={MinusIcon}
+  suffixIcon={PlusIcon}
+  onPrefixIconClick={() => {
+    // Custom logic: emit event, trigger analytics, etc.
+    console.log('Minus clicked');
+  }}
+  onSuffixIconClick={() => {
+    // Custom logic instead of default increment
+    console.log('Plus clicked');
+  }}
+/>
+
+// Without custom handlers, defaults to step-based increment/decrement
 ```
 
 ### Disabled State

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Tag`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tag) | Verification date: 2026-02-13
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tag) | Verified v2 rc.5: 2026-03-13
 
 Tag component for labeling, categorizing, or filtering content. Supports multiple types with different host elements (`<span>` or `<button>`).
 

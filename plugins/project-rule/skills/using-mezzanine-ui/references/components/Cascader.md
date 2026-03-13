@@ -1,6 +1,12 @@
-# Cascader
+# Cascader Component
 
-A hierarchical dropdown selector that lets users drill through multi-level option trees. The selected path (from root to leaf) is represented as an array of `CascaderOption` objects. Selection is only committed when a leaf node is clicked or confirmed via keyboard.
+> **Category**: Data Entry
+>
+> **Storybook**: `Data Entry/Cascader`
+>
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Cascader) · Verified v2 source (2026-03-13)
+
+A hierarchical dropdown selector that lets users drill through multi-level option trees. The selected path (from root to leaf) is represented as an array of `CascaderOption` objects. Selection is only committed when a leaf node is clicked or confirmed via keyboard. In rc.5, overflow handling improved with automatic path truncation and tooltip display.
 
 ## Import
 
@@ -165,6 +171,35 @@ Constrains the height of each panel column; columns become scrollable when optio
 | `ArrowLeft`             | Collapses back to the parent column, restoring focus to the previously active item.     |
 
 > Disabled options are automatically skipped during `ArrowDown` / `ArrowUp` navigation.
+
+## Overflow Display Behavior (rc.5)
+
+When the selected path is too long to fit in the trigger input width, the Cascader automatically collapses the display:
+
+**Collapsed Display Format**: `first_name / … / last_name`
+- Shows only the first and last items in the path
+- Intermediate items are replaced with `…` (ellipsis)
+- Activates when 3+ path items and container width is constrained (≈160px minimum)
+
+**Hover Tooltip**: When collapsed, hovering over the trigger displays a tooltip showing the full path with all intermediate items.
+
+**Scrollable Panels**: Panel columns use the Scrollbar component overlay style when `menuMaxHeight` is set and options exceed the available height.
+
+### Example with Long Path
+
+```tsx
+<Cascader
+  options={options}
+  placeholder="Select region / city / district"
+  value={[
+    { id: 'north', name: '北部' },
+    { id: 'taipei', name: '台北市' },
+    { id: 'zhongshan', name: '中山區' },
+  ]}
+  // In narrow containers, displays as: "北部 / … / 中山區"
+  // Hover shows tooltip: "北部 > 台北市 > 中山區"
+/>
+```
 
 ## Integration with FormField
 

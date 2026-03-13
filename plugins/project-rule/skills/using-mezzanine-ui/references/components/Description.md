@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Description`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Description)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Description) · Verified v2 source (2026-03-13)
 
 Description component for displaying structured information in title-content pairs.
 
@@ -380,8 +380,82 @@ function OrderDetail({ order }) {
 
 ## Best Practices
 
-1. **Keep titles concise**: Titles should be short and clear
-2. **Appropriate content**: Choose suitable child components based on content type
-3. **Consistent layout**: Maintain the same orientation within the same area
-4. **Spacing control**: Use appropriate spacing between multiple Descriptions
-5. **Responsive considerations**: Consider using vertical layout on small screens
+### 場景推薦
+
+| 使用場景 | 推薦設定 | 說明 |
+|---------|--------|------|
+| 用戶資訊卡 | `orientation="horizontal"`, `size="main"` | 橫向佈局，用於簡潔資訊展示 |
+| 訂單詳情頁 | `orientation="vertical"`, 混合內容類型 | 縱向佈局可容納更多內容 |
+| 狀態指示 | children 為 Badge | 搭配 Badge 顯示狀態 |
+| 進度追蹤 | children 為 Progress | 顯示處理進度或完成度 |
+| 標籤展示 | children 為 TagGroup | 展示標籤或分類 |
+| 操作按鈕 | children 為 Button | 提供快速操作入口 |
+
+### 常見錯誤
+
+1. **混淆方向導致佈局混亂**
+   ```tsx
+   // ❌ 錯誤：方向不一致
+   <Description title="Name" orientation="horizontal">
+     <DescriptionContent>John</DescriptionContent>
+   </Description>
+   <Description title="Biography" orientation="horizontal">
+     <DescriptionContent>Long text content...</DescriptionContent>
+   </Description>
+
+   // ✅ 正確：根據內容長度選擇方向
+   <Description title="Name" orientation="horizontal">
+     <DescriptionContent>John</DescriptionContent>
+   </Description>
+   <Description title="Biography" orientation="vertical">
+     <DescriptionContent>Long text content...</DescriptionContent>
+   </Description>
+   ```
+
+2. **使用不支援的子元件類型**
+   ```tsx
+   // ❌ 錯誤：使用了不支援的元件
+   <Description title="Info">
+     <div>Custom content</div>
+   </Description>
+
+   // ✅ 正確：使用支援的元件
+   <Description title="Info">
+     <DescriptionContent>Custom content</DescriptionContent>
+   </Description>
+   ```
+
+3. **尺寸不匹配導致視覺失衡**
+   ```tsx
+   // ❌ 錯誤：父層 size 與子層不同步
+   <Description title="Large" size="main">
+     <DescriptionContent size="sub">Content</DescriptionContent>
+   </Description>
+
+   // ✅ 正確：讓子層繼承父層 size（除非需要覆蓋）
+   <Description title="Large" size="main">
+     <DescriptionContent>Content</DescriptionContent>
+   </Description>
+   ```
+
+4. **標題過長導致視覺不美觀**
+   ```tsx
+   // ❌ 錯誤：標題過長
+   <Description title="This is a very long title that explains everything in detail">
+     <DescriptionContent>Content</DescriptionContent>
+   </Description>
+
+   // ✅ 正確：簡潔標題，詳細說明用 tooltip
+   <Description title="Description" icon={InfoIcon} tooltip="This is a very long title that explains everything in detail">
+     <DescriptionContent>Content</DescriptionContent>
+   </Description>
+   ```
+
+### 核心原則
+
+1. **保持標題簡潔**: 標題應短小清晰
+2. **適當內容**: 根據內容類型選擇合適的子元件
+3. **佈局一致**: 保持同一區域內方向的一致性
+4. **間距控制**: 多個 Descriptions 之間使用適當的間距
+5. **響應式設計**: 在小屏幕上考慮使用縱向佈局
+6. **內容對齐**: 多行 Description 應採用相同尺寸以保持對齐

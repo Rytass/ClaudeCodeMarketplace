@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Navigation`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Navigation)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Navigation) | Verified: 2026-03-13
 
 Side navigation component supporting expand/collapse, multi-level, categories, search, and more.
 
@@ -345,10 +345,51 @@ import { SettingIcon, HelpIcon } from '@mezzanine-ui/icons';
 
 ---
 
-## Best Practices
+## Best Practices (最佳實踐)
 
-1. **Provide icons**: Every main option should have an icon for identification
-2. **Limit nesting levels**: Recommend at most 3 levels of nesting
-3. **Use categories**: Group related options with `NavigationOptionCategory`
-4. **Collapsed mode icons**: Only icons are shown when collapsed; ensure icons are recognizable
-5. **Integrate with Router**: Use `optionsAnchorComponent` or per-option `anchorComponent` with SPA router components (e.g. react-router's `Link`)
+### 場景推薦 (Scenario Recommendations)
+
+| 場景 | 推薦做法 | 相關 Props |
+| --- | --- | --- |
+| SPA 路由整合 | 使用 `optionsAnchorComponent={Link}` 搭配 react-router | `optionsAnchorComponent`, `anchorComponent` |
+| 精確路由匹配 | 啟用 `exactActivatedMatch={true}` 避免路由前綴重疊 | `exactActivatedMatch` |
+| 路由前綴匹配 | 保持 `exactActivatedMatch={false}` (預設) 用於巢狀路由 | `exactActivatedMatch` |
+| 長導航列表 | 啟用 `filter={true}` 提供搜尋功能 | `filter` |
+| 響應式設計 | 搭配 `collapsed={true}` 在小螢幕上使用 | `collapsed`, `onCollapseChange` |
+| 深層導航結構 | 限制巢狀層級不超過 3 層，使用 `NavigationOptionCategory` 分組 | - |
+| 動態導航項目 | 利用 `activatedPath` 和 `onOptionClick` 管理活躍狀態 | `activatedPath`, `onOptionClick` |
+
+### 常見錯誤 (Common Mistakes)
+
+1. **路由匹配誤設**
+   - ❌ 誤：在多層路由時不設定 `exactActivatedMatch`，導致過多項目被啟用
+   - ✅ 正確：根據路由結構選擇 `exactActivatedMatch={true}` 或 `false`
+   - 範例：若路由為 `/dashboard` 和 `/dashboard/reports`，啟用精確匹配避免兩者同時亮起
+
+2. **缺少圖標識別**
+   - ❌ 誤：折疊時只顯示文字，用戶無法識別
+   - ✅ 正確：所有選項提供有意義的圖標，確保折疊時仍可識別
+   - 範例：`<NavigationOption icon={HomeIcon} title="首頁" />`
+
+3. **過度巢狀**
+   - ❌ 誤：超過 4 層深的巢狀結構
+   - ✅ 正確：限制在 3 層以內，使用分類組織
+   - 範例：使用 `NavigationOptionCategory` 而不是無限巢狀
+
+4. **未整合路由器**
+   - ❌ 誤：使用 `href` 但未提供 `optionsAnchorComponent`，導致整頁重載
+   - ✅ 正確：搭配 SPA 路由器的 `Link` 組件
+   - 範例：`<Navigation optionsAnchorComponent={Link}>`
+
+5. **路由激活邏輯混亂**
+   - ❌ 誤：手動更新 `activatedPath` 與瀏覽器 URL 不同步
+   - ✅ 正確：監聽路由變化同步 `activatedPath`
+   - 範例：使用 `useLocation()` hook 自動更新
+
+### 核心建議 (Core Recommendations)
+
+1. **提供圖標**：每個主選項都應有圖標便於識別
+2. **限制巢狀層級**：建議最多 3 層巢狀
+3. **使用分類**：用 `NavigationOptionCategory` 組織相關選項
+4. **折疊模式圖標**：折疊時僅顯示圖標，需確保圖標清晰辨識
+5. **路由器整合**：使用 `optionsAnchorComponent` 或逐項 `anchorComponent` 與 SPA 路由器整合 (如 react-router 的 `Link`)

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Message`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Message) | Verified: 2026-03-06
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Message) · Verified v2 source (2026-03-13)
 
 A global message notification component for displaying operation feedback, system notifications, and other lightweight messages. Uses an imperative API.
 
@@ -250,7 +250,43 @@ Set via `Message.config()`:
 
 ## Best Practices
 
-1. **Choose appropriate type**: Select severity based on the message nature
-2. **Keep it short**: Message content should be concise and clear
-3. **Clean up loading**: `loading` messages must be manually removed
-4. **Use Modal for important messages**: Messages requiring user confirmation should use Modal
+### 場景推薦
+
+| 使用場景 | 建議方案 | 說明 |
+| ------- | ------- | ---- |
+| 操作成功反饋 | `Message.success()` | 表單提交、檔案上傳等成功操作 |
+| 操作失敗 | `Message.error()` | 操作失敗時的錯誤提示 |
+| 警告通知 | `Message.warning()` | 操作前的警告（但仍允許繼續） |
+| 資訊提示 | `Message.info()` | 一般資訊通知 |
+| 長時間操作 | `Message.loading()` | 需要手動關閉的載入狀態 |
+| 需確認的訊息 | 使用 `Modal` | 重要決定需要用戶確認 |
+
+### 常見錯誤
+
+1. **loading 訊息未手動關閉**
+   - ❌ 錯誤：`Message.loading('Loading...')`（使用者無法看到結果）
+   - ✅ 正確：`const key = Message.loading('...')` 然後 `Message.remove(key)`
+
+2. **同時顯示超過 4 條訊息**
+   - ❌ 錯誤：快速觸發多個 `Message.success()` 而不清理
+   - ✅ 正確：等待訊息自動消失或主動清理舊訊息
+
+3. **錯誤訊息使用 info severity**
+   - ❌ 錯誤：`Message.info('Operation failed!')`
+   - ✅ 正確：`Message.error('Operation failed!')`
+
+4. **使用 Message 代替需要確認的對話框**
+   - ❌ 錯誤：`Message.warning('Delete this item?')`（使用者無法確認/取消）
+   - ✅ 正確：使用 `<Modal>` 進行確認
+
+5. **訊息過長或複雜**
+   - ❌ 錯誤：`Message.error('An error occurred with the following details: ...')`
+   - ✅ 正確：保持簡潔：`Message.error('Save failed, please try again')`
+
+### 實作建議
+
+1. **選擇適當的類型**：根據訊息性質選擇嚴重程度
+2. **保持簡潔**：訊息內容應簡明扼要
+3. **清理載入訊息**：`loading` 訊息必須手動移除
+4. **重要訊息用 Modal**：需要用戶確認的訊息應使用 Modal 而非 Message
+5. **監聽計時器**：hover 時計時器暫停，離開時繼續，充分利用自動消失機制

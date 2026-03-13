@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/DateTimeRangePicker`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/DateTimeRangePicker) · Verified v2 source (2026-03-06)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/DateTimeRangePicker) · Verified v2 source (2026-03-13)
 
 A date-time range picker that combines two DateTimePickers to select start and end date-times. Must be used with `CalendarContext`. The direction icon switches between `LongTailArrowRightIcon` / `LongTailArrowDownIcon` based on the `direction` prop.
 
@@ -190,8 +190,113 @@ direction="column":
 
 ## Best Practices
 
-1. **Context required**: Must be wrapped in CalendarContext.Provider
-2. **Layout direction**: Use `row` when space is sufficient; use `column` for narrow layouts
-3. **Shared props**: All DateTimePicker-related props are applied to both pickers simultaneously
-4. **Consistent formats**: `formatDate` and `formatTime` should match the actual use case
-5. **Controlled mode**: value is a `[from, to]` array; onChange fires when either end changes
+### 場景推薦
+
+| 使用場景 | 推薦設定 | 說明 |
+|---------|--------|------|
+| 時間區間查詢 | `direction="row"`, 足夠寬度 | 橫向排列，節省垂直空間 |
+| 報表日期篩選 | `hideSecond=true`, `minuteStep={15}` | 隱藏秒數，分鐘步長 15 |
+| 日誌時間範圍 | `formatTime="HH:mm:ss"` | 顯示完整時間含秒數 |
+| 窄容器佈局 | `direction="column"` | 使用縱向排列適配窄容器 |
+| 排除過去時間 | `isDateDisabled` 檢查 | 禁用過去日期，只允許未來 |
+
+### 常見錯誤
+
+1. **兩個日期選擇器使用不同格式**
+   ```tsx
+   // ❌ 錯誤：無法保持一致的格式
+   <DateTimeRangePicker
+     formatDate="YYYY-MM-DD"
+     formatTime="HH:mm"
+     value={value}
+     onChange={setValue}
+   />
+   // 轉換後可能導致格式不一致
+
+   // ✅ 正確：格式在兩個選擇器都統一應用
+   <DateTimeRangePicker
+     formatDate="YYYY-MM-DD"
+     formatTime="HH:mm"
+     value={value}
+     onChange={setValue}
+   />
+   ```
+
+2. **未正確驗證日期範圍**
+   ```tsx
+   // ❌ 錯誤：允許結束日期早於開始日期
+   <DateTimeRangePicker
+     value={value}
+     onChange={setValue}
+   />
+
+   // ✅ 正確：在 onChange 中驗證範圍
+   const handleChange = (newValue: DateTimeRangePickerValue) => {
+     const [from, to] = newValue;
+     if (from && to && dayjs(to).isBefore(from)) {
+       console.warn('End date must be after start date');
+       return;
+     }
+     setValue(newValue);
+   };
+   <DateTimeRangePicker
+     value={value}
+     onChange={handleChange}
+   />
+   ```
+
+3. **縱向佈局時未調整容器寬度**
+   ```tsx
+   // ❌ 錯誤：縱向排列導致視覺擁擠
+   <div style={{ width: '100px' }}>
+     <DateTimeRangePicker direction="column" value={value} onChange={setValue} />
+   </div>
+
+   // ✅ 正確：縱向佈局需要適當的容器寬度
+   <div style={{ width: '300px' }}>
+     <DateTimeRangePicker direction="column" value={value} onChange={setValue} />
+   </div>
+   ```
+
+4. **未考慮部分選擇狀態**
+   ```tsx
+   // ❌ 錯誤：未處理只有開始日期的狀態
+   const [value, setValue] = useState<DateTimeRangePickerValue>(['2024-01-01', '2024-12-31']);
+   // 用戶可能只選擇了開始日期
+
+   // ✅ 正確：檢查完整的日期範圍
+   const isRangeValid = (value: DateTimeRangePickerValue) => {
+     const [from, to] = value;
+     return from !== undefined && to !== undefined && dayjs(to).isAfter(from);
+   };
+   ```
+
+5. **禁用規則邏輯過於嚴格**
+   ```tsx
+   // ❌ 錯誤：禁用了所有過去日期，導致無法編輯歷史記錄
+   <DateTimeRangePicker
+     isDateDisabled={(date) => dayjs(date).isBefore(dayjs(), 'day')}
+     value={value}
+     onChange={setValue}
+   />
+
+   // ✅ 正確：根據實際需求設定禁用規則
+   <DateTimeRangePicker
+     isDateDisabled={(date) => {
+       // 只禁用當前日期之後（若用於查詢過去）
+       return dayjs(date).isAfter(dayjs(), 'day');
+     }}
+     value={value}
+     onChange={setValue}
+   />
+   ```
+
+### 核心原則
+
+1. **上下文必需**: 必須包裝在 CalendarContext.Provider 中
+2. **方向選擇**: 空間充足時使用 `row`；窄佈局時使用 `column`
+3. **共享屬性**: 所有 DateTimePicker 相關屬性同時應用於兩個選擇器
+4. **格式一致**: `formatDate` 和 `formatTime` 應與實際用途相符
+5. **受控模式**: value 是 `[from, to]` 陣列；任一端改變時 onChange 觸發
+6. **範圍驗證**: 在應用層驗證 `to` 晚於 `from` 的條件
+7. **無障礙考慮**: 提供清晰的佔位符文本幫助用戶理解選擇順序

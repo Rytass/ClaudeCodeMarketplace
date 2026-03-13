@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/MultipleDatePicker`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/MultipleDatePicker) · Verified v2 source (2026-03-06)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/MultipleDatePicker) · Verified v2 source (2026-03-13)
 
 A multiple date picker that allows selecting multiple dates from a calendar, displaying selected dates as Tags. Requires manual confirmation before triggering onChange. Must be used with `CalendarContext`.
 
@@ -269,8 +269,43 @@ MultipleDatePicker consists of a trigger and a calendar popup:
 
 ## Best Practices
 
-1. **Context required**: Must be wrapped in CalendarContext.Provider
-2. **Manual confirmation**: This component uses manual confirmation mode; onChange triggers only on confirm
-3. **Overflow handling**: When there are too many tags, defaults to `counter` strategy showing `+N`; `wrap` strategy wraps to new lines
-4. **Selection limit**: Use `maxSelections` to limit selectable dates; when the limit is reached, unselected dates are auto-disabled
-5. **Date sorting**: Selected dates are automatically sorted chronologically internally
+### 場景推薦
+
+| 使用場景 | 建議方案 | 說明 |
+| ------- | ------- | ---- |
+| 選擇假期 | `maxSelections={5}` | 限制選擇數量，超出後無法繼續選 |
+| 時間範圍選擇 | `maxSelections={2}` | 開始日期和結束日期，限制 2 天 |
+| 標籤溢出 - 空間有限 | `overflowStrategy="counter"` | 顯示 "+N" 計數，節省空間 |
+| 標籤溢出 - 空間充足 | `overflowStrategy="wrap"` | 多行顯示所有標籤 |
+| 週末禁用 | `isDateDisabled={(date) => {...}}` | 傳入驗證函式 |
+| 響應式設計 | `fullWidth` + size | 在不同寬度下調整 |
+
+### 常見錯誤
+
+1. **未在 CalendarContext 中使用**
+   - ❌ 錯誤：`<MultipleDatePicker />` 直接使用
+   - ✅ 正確：`<CalendarConfigProviderDayjs><MultipleDatePicker /></CalendarConfigProviderDayjs>`
+
+2. **搞混 onChange 的觸發時機**
+   - ❌ 錯誤：期望點擊日期時立即觸發 onChange
+   - ✅ 正確：只在確認按鈕點擊時才觸發 onChange
+
+3. **未提供 maxSelections 但期望限制**
+   - ❌ 錯誤：`<MultipleDatePicker />`（使用者可選無限多天）
+   - ✅ 正確：如需限制，設定 `maxSelections={N}`
+
+4. **未禁用已選日期**
+   - ❌ 錯誤：`<MultipleDatePicker maxSelections={2} />`（已選日期仍可再選）
+   - ✅ 正確：當達到上限時，其他日期自動禁用
+
+5. **日期格式不一致**
+   - ❌ 錯誤：`format="MM/DD"` 但期望 `YYYY-MM-DD` 格式
+   - ✅ 正確：確保 format 和實際日期值格式匹配
+
+### 實作建議
+
+1. **必須在上下文中使用**：必須被包裝在 CalendarContext 提供者中
+2. **手動確認模式**：此元件使用手動確認；onChange 僅在確認時觸發
+3. **標籤溢出處理**：預設為 `counter` 策略顯示 `+N`；`wrap` 策略會換行顯示
+4. **選擇限制**：使用 `maxSelections` 限制可選日期；達到上限時，未選日期自動禁用
+5. **日期排序**：選定日期內部自動按時間順序排序

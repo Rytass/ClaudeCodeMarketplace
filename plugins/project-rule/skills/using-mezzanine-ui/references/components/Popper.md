@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Popper`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Popper)
+> **Source Verification**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Popper) · Verified v2 source (2026-03-13)
 
 A positioned popup layer component based on @floating-ui/react-dom, used as the underlying positioning for Tooltip, Dropdown, Select, and other components.
 
@@ -254,6 +254,24 @@ const containerRef = useRef<HTMLDivElement>(null);
 | `Popper / With Arrow`  | `arrow.enabled`                          |
 
 ---
+
+## Scenario-Oriented Best Practices
+
+### 場景推薦
+
+| 使用場景 | 建議做法 | 原因 |
+| -------- | -------- | ---- |
+| 建立 Tooltip、Dropdown 等高階元件 | 使用 Popper 作為基礎層 | Popper 提供底層定位能力，高階元件負責交互邏輯 |
+| 需要控制 Popper 位置更新 | 使用 `controllerRef` 取得 controller，呼叫 `update()` | 當 anchor 位置改變但 Popper 未自動更新時，手動觸發位置計算 |
+| 自訂浮層容器位置 | 使用 `container` prop | 將 Popper 渲染到指定 DOM 位置，避免預設 Portal 容器 |
+| 需要箭頭指示器 | 配置 `arrow` 物件，設定 `enabled: true` | 自動計算箭頭位置和旋轉角度，提升視覺指向性 |
+
+### 常見錯誤
+
+- **誤用 Popper 直接開發業務元件**：應該包裝成 Tooltip、Dropdown 等高階元件再使用
+- **忘記配置 middleware**：預設缺少碰撞檢測，導致位置遮蓋。應加入 `offset()`、`flip()`、`shift()`
+- **設定 disablePortal 卻未考慮 z-index 層級**：Portal 默認管理 z-index，禁用後需手動處理堆疊順序
+- **anchor 為 null 時未處理**：若 anchor ref 未成功綁定會導致定位失敗，應檢查 DOM 掛載時機
 
 ## Best Practices
 

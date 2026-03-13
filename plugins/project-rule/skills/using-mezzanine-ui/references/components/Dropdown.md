@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Internal/Dropdown`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Dropdown)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Dropdown) · Verified v2 source (2026-03-13)
 
 A low-level dropdown component for displaying option lists. Typically used as the internal implementation of higher-level components like Select and AutoComplete, but can also be used independently with Button or Input. Supports flat list, grouped, and tree structures, with built-in scrolling, loading states, keyboard shortcuts, and action buttons.
 
@@ -71,7 +71,7 @@ Extends `DropdownItemSharedProps`.
 | `inputPosition`           | `DropdownInputPosition`                                                    | `'outside'` | Input position mode: `'outside'` (popup) / `'inside'` (inline)                 |
 | `isMatchInputValue`       | `boolean`                                                                  | `false`     | Whether to match input value and highlight option text                          |
 | `followText`              | `string`                                                                   | -           | Custom highlight match text (takes priority over auto-extraction from children) |
-| `placement`               | `PopperPlacement`                                                          | `'bottom'`  | Popup placement                                                                 |
+| `placement`               | `PopperPlacement`                                                          | `'bottom-start'` | Popup placement (RC5: changed from 'bottom' to align with trigger)               |
 | `customWidth`             | `number \| string`                                                        | -           | Custom dropdown width (takes priority over `sameWidth`)                         |
 | `sameWidth`               | `boolean`                                                                  | `false`     | Whether to match trigger element width                                          |
 | `maxHeight`               | `number \| string`                                                        | -           | Max height of dropdown list (enables scrolling when set)                        |
@@ -504,11 +504,112 @@ function InfiniteScrollDropdown() {
 
 ## Best Practices
 
-1. **Trigger element**: Use `Button` or `Input` as `children`; other elements may cause unexpected behavior.
-2. **Width control**: Use `sameWidth` to match trigger element width, or `customWidth` for fixed width.
-3. **Infinite scroll**: Combine `maxHeight`, `onReachBottom`, and `loadingPosition="bottom"` for paginated loading.
-4. **Tree structure limit**: Tree options support a maximum of 3 levels; deeper levels are truncated at runtime with an error message.
-5. **Keyboard shortcuts**: Configure shortcuts via `DropdownOption`'s `shortcutKeys`, supporting `cmd`/`ctrl`/`alt`/`shift` modifier combinations.
-6. **Action bar modes**: `onClear` and `onClick` are mutually exclusive, determining the action bar rendering mode (clear mode vs custom mode vs default mode).
-7. **Controlled vs uncontrolled**: Without `open`, the component is uncontrolled (auto-manages toggle); with `open`, it is controlled.
-8. **This is a low-level component**: For general use cases, prefer higher-level wrapper components like `Select`.
+### 場景推薦
+
+| 使用場景 | 推薦設定 | 說明 |
+|---------|--------|------|
+| 基本選擇器 | `type="default"`, `mode="single"` | 單選平面列表 |
+| 多選篩選 | `type="default"`, `mode="multiple"`, `showDropdownActions` | 多選模式需搭配確認按鈕 |
+| 分組列表 | `type="grouped"`, 結構化options | 將相關選項分組展示 |
+| 級聯選擇 | `type="tree"`, `mode="single"` | 最多支援3層級結構 |
+| 搜尋建議 | `inputPosition="inside"`, `isMatchInputValue=true` | 在輸入框內搜尋和高亮 |
+| 分頁載入 | `maxHeight={300}`, `onReachBottom`, `loadingPosition="bottom"` | 捲動到底部載入更多 |
+
+### 常見錯誤
+
+1. **位置變更未適應 (RC5 更新)**
+   ```tsx
+   // ❌ 舊版程式碼（RC3 預設為 'bottom'）
+   <Dropdown placement="bottom" options={options}>
+     <Button>Select</Button>
+   </Dropdown>
+
+   // ✅ RC5 預設已改為 'bottom-start'，無需明確指定
+   <Dropdown options={options}>
+     <Button>Select</Button>
+   </Dropdown>
+
+   // ✅ 需要垂直置中可明確指定
+   <Dropdown placement="bottom" options={options}>
+     <Button>Select</Button>
+   </Dropdown>
+   ```
+
+2. **多選時忘記確認按鈕**
+   ```tsx
+   // ❌ 錯誤：多選但無法確認選擇
+   <Dropdown type="default" mode="multiple" options={options} />
+
+   // ✅ 正確：多選需搭配確認流程
+   <Dropdown
+     type="default"
+     mode="multiple"
+     options={options}
+     showDropdownActions
+     actionConfirmText="Confirm"
+     onActionConfirm={handleConfirm}
+   />
+   ```
+
+3. **觸發元素類型錯誤**
+   ```tsx
+   // ❌ 錯誤：使用不支援的元素
+   <Dropdown options={options}>
+     <div>Click me</div>
+   </Dropdown>
+
+   // ✅ 正確：使用 Button 或 Input
+   <Dropdown options={options}>
+     <Button>Click me</Button>
+   </Dropdown>
+   ```
+
+4. **樹形結構層級過深**
+   ```tsx
+   // ❌ 錯誤：超過3層會被截斷
+   const deepTreeOptions = [
+     {
+       value: '1',
+       content: 'Level 1',
+       children: [
+         { value: '1-1', content: 'Level 2', children: [
+           { value: '1-1-1', content: 'Level 3', children: [
+             { value: '1-1-1-1', content: 'Level 4 (被截斷)' }
+           ]}
+         ]}
+       ]
+     }
+   ];
+
+   // ✅ 正確：保持在3層以內
+   const properTreeOptions = [{ value: '1', content: 'Level 1', ... }];
+   ```
+
+5. **混淆受控與非受控模式**
+   ```tsx
+   // ❌ 錯誤：同時設定 open 和 value，但無法協調
+   <Dropdown open value="option1" options={options} />
+
+   // ✅ 正確：受控模式需處理兩者的變更
+   const [open, setOpen] = useState(false);
+   const [value, setValue] = useState('option1');
+   <Dropdown
+     open={open}
+     onVisibilityChange={setOpen}
+     value={value}
+     onSelect={(option) => setValue(option.value)}
+     options={options}
+   />
+   ```
+
+### 核心原則
+
+1. **觸發元素**: 使用 `Button` 或 `Input` 作為 `children`；其他元素可能導致預期外行為。
+2. **寬度控制**: 使用 `sameWidth` 匹配觸發元素寬度，或使用 `customWidth` 固定寬度。
+3. **無限捲動**: 結合 `maxHeight`、`onReachBottom` 和 `loadingPosition="bottom"` 實現分頁載入。
+4. **樹形結構限制**: 樹形選項支援最多3層級；更深層級在運行時會被截斷並顯示錯誤訊息。
+5. **鍵盤快捷鍵**: 透過 `DropdownOption` 的 `shortcutKeys` 設定快捷鍵，支援 `cmd`/`ctrl`/`alt`/`shift` 修飾符組合。
+6. **操作欄模式**: `onClear` 和 `onClick` 相互排斥，決定操作欄渲染模式（清空模式 vs 自訂模式 vs 預設模式）。
+7. **受控 vs 非受控**: 無 `open` 時為非受控（自動管理開閉）；有 `open` 時為受控。
+8. **低階元件**: 一般用途優先使用高階包裝元件如 `Select`。
+9. **RC5 位置變更**: 預設 placement 從 RC3 的 `'bottom'` 改為 `'bottom-start'`，與觸發元素左對齊。

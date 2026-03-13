@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Tab`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tab)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tab) · Verified v2 source (2026-03-13)
 
 Tab component for switching between different content views within the same area.
 
@@ -36,6 +36,7 @@ type TabsChild = ReactElement<TabItemProps>;
 | `defaultActiveKey` | `Key`                                     | `0`            | Default active tab   |
 | `direction`        | `'horizontal' \| 'vertical'`             | `'horizontal'` | Layout direction     |
 | `onChange`         | `(activeKey: Key, index: number) => void` | -              | Change event         |
+| `size`             | `'main' \| 'sub'`                         | `'main'`       | Tab group size (controls padding) |
 
 ---
 
@@ -49,6 +50,7 @@ type TabsChild = ReactElement<TabItemProps>;
 | `badgeCount` | `number`         | -       | Badge number on the tab               |
 | `children`   | `ReactNode`      | -       | Tab content                           |
 | `disabled`   | `boolean`        | `false` | Whether disabled                      |
+| `error`      | `boolean`        | `false` | Error state variant (changes badge styling) |
 | `icon`       | `IconDefinition` | -       | Tab icon                              |
 
 ---
@@ -127,6 +129,37 @@ import { HomeIcon, UserIcon, SettingIcon } from '@mezzanine-ui/icons';
 </Tab>
 ```
 
+### Tab Group Sizes
+
+```tsx
+// Main size (default) - larger padding
+<Tab size="main">
+  <TabItem key="tab1">Main Tab</TabItem>
+  <TabItem key="tab2">Another Tab</TabItem>
+</Tab>
+
+// Sub size - compact padding
+<Tab size="sub">
+  <TabItem key="tab1">Compact Tab</TabItem>
+  <TabItem key="tab2">Another Tab</TabItem>
+</Tab>
+```
+
+### Error State on Tab Item
+
+```tsx
+// Error badge displays with alert variant (instead of default brand color)
+<Tab>
+  <TabItem key="form" icon={FormIcon}>Form</TabItem>
+  <TabItem key="review" icon={ReviewIcon} badgeCount={3} error>
+    Review
+  </TabItem>
+  <TabItem key="submit" icon={SendIcon}>Submit</TabItem>
+</Tab>
+
+// When error is true, badge variant changes to 'count-alert' to indicate issues
+```
+
 ### Disabled Tab
 
 ```tsx
@@ -194,10 +227,13 @@ function DynamicTabs() {
 
 | Figma Variant             | React Props                              |
 | ------------------------- | ---------------------------------------- |
+| `Tab / Main`              | `<Tab size="main">`                      |
+| `Tab / Sub`               | `<Tab size="sub">`                       |
 | `Tab / Horizontal`        | `<Tab direction="horizontal">`           |
 | `Tab / Vertical`          | `<Tab direction="vertical">`             |
 | `TabItem / Active`        | Determined by `activeKey`                |
 | `TabItem / Disabled`      | `<TabItem disabled>`                     |
+| `TabItem / Error`         | `<TabItem error>`                        |
 
 ---
 

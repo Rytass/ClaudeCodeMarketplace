@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Form`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Form) · Verified v2 source (2026-03-06)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Form) · Verified v2 source (2026-03-13)
 
 Form-related components including field containers, labels, hint text, and more.
 
@@ -499,9 +499,43 @@ function UserInfoForm() {
 
 ## Best Practices
 
-1. **Use FormField consistently**: Ensure form field styling is consistent
-2. **Provide clear labels**: Every input should have a corresponding label
-3. **Show error messages**: Use `severity="error"` with `hintText`
-4. **Mark required fields**: Use `required` to display the required marker
-5. **Choose appropriate layout**: Use `vertical` for short forms, consider `horizontal` for settings forms
-6. **Use FormGroup for grouping**: When there are many form fields, use `FormGroup` to organize related fields for better readability
+### 場景推薦
+
+| 使用場景 | 建議方案 | 說明 |
+| ------- | ------- | ---- |
+| 短表單（< 5 欄位） | `layout="vertical"` | 標籤在上方，輸入框下方，垂直堆疊 |
+| 設定表單 | `layout="horizontal"` | 標籤在左側，輸入框在右側，節省垂直空間 |
+| 長表單（> 10 欄位） | `layout="vertical"` + `FormGroup` | 按邏輯分組，提升可讀性 |
+| 密集佈局 | `density="tight"` 或 `"narrow"` | 減少標籤和輸入框的寬度比例 |
+| 無標籤欄位 | `layout="stretch"` | 輸入框填滿容器寬度 |
+
+### 常見錯誤
+
+1. **未提供標籤文字**
+   - ❌ 錯誤：`<FormField required><Input /></FormField>`（name 存在但無 label）
+   - ✅ 正確：`<FormField name="email" label="Email" required><Input /></FormField>`
+
+2. **錯誤提示未配合 severity**
+   - ❌ 錯誤：`<FormField severity="error" hintText="Required field"><Input /></FormField>`（無視覺反饋）
+   - ✅ 正確：`<FormField severity="error" hintText="Required"><Input error /></FormField>`
+
+3. **必填標示遺漏**
+   - ❌ 錯誤：重要欄位未標記 `required`
+   - ✅ 正確：`<FormField required label="Email"><Input /></FormField>`
+
+4. **過多欄位未分組**
+   - ❌ 錯誤：20 個欄位全部平鋪，無法理解邏輯
+   - ✅ 正確：使用 `<FormGroup>` 按類別分組（基本資訊、聯絡方式等）
+
+5. **density 和 labelSpacing 在非適用 layout 使用**
+   - ❌ 錯誤：`<FormField layout="vertical" density="tight">`（vertical 會忽略此屬性）
+   - ✅ 正確：在 `layout="horizontal"` 或 `"stretch"` 時使用 density
+
+### 實作建議
+
+1. **一致地使用 FormField**：所有表單控制項都應透過 FormField 包裝，確保樣式和行為一致
+2. **提供明確標籤**：每個輸入框都應有對應的標籤
+3. **即時顯示錯誤**：使用 `severity="error"` 配合 `hintText` 提供即時驗證反饋
+4. **標記必填欄位**：使用 `required` prop 自動顯示必填標示符號
+5. **選擇合適的 layout**：短表單用垂直佈局，設定表單考慮水平佈局
+6. **使用 FormGroup 組織**：大型表單應按邏輯分組相關欄位，提升可用性

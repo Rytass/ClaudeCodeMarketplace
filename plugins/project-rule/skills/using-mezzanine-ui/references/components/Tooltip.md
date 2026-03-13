@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Tooltip`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tooltip) | Verification date: 2026-02-13
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tooltip) | Verified v2 rc.5: 2026-03-13
 
 Tooltip component for displaying additional information on mouse hover. Extends `PopperProps` (excluding `arrow`, `children`, `disablePortal`, `title`).
 
@@ -29,6 +29,7 @@ Extends `PopperProps` (excluding `arrow`, `children`, `disablePortal`, `title`).
 | `className`       | `string`                                                                                                       | -      | Custom style class             |
 | `disablePortal`   | `boolean`                                                                                                      | `true` | Whether to disable Portal      |
 | `mouseLeaveDelay` | `number`                                                                                                       | `0.1`  | Mouse leave delay (seconds)    |
+| `offsetMainAxis`  | `number`                                                                                                       | -      | Tooltip distance to anchor on main axis (px, overrides default) |
 | `open`            | `boolean`                                                                                                      | `false`| Controlled open state (auto-triggers on hover when not set) |
 | `options`         | `PopperOptions`                                                                                                | `{}`   | Popper configuration           |
 | `title`           | `ReactNode`                                                                                                    | -      | Tooltip content                |
@@ -189,6 +190,22 @@ function AnchorTooltip() {
     </>
   );
 }
+```
+
+### Custom Offset from Anchor
+
+```tsx
+<Tooltip title="Tooltip with custom offset" offsetMainAxis={16}>
+  {({ ref, onMouseEnter, onMouseLeave }) => (
+    <Button
+      ref={ref}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      Hover with 16px offset
+    </Button>
+  )}
+</Tooltip>
 ```
 
 ---

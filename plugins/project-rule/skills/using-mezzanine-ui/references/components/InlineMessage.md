@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Inline Messages`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/InlineMessage)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/InlineMessage) · Verified v2 source (2026-03-13)
 
 An inline message component for displaying contextual feedback messages.
 
@@ -190,8 +190,41 @@ This is because warning and error messages typically require user action to reso
 
 ## Best Practices
 
-1. **Keep content concise**: Content should be short and clear
-2. **Use correct semantics**: Choose the appropriate severity based on message type
-3. **Appropriate placement**: Place near the related input field or content
-4. **Accessibility**: Component includes `role="status"` and `aria-live="polite"`
-5. **String only**: Content only supports strings, not ReactNode
+### 場景推薦
+
+| 使用場景 | 建議方案 | 說明 |
+| ------- | ------- | ---- |
+| 表單驗證提示 | `severity="error"` | 欄位驗證失敗時的即時反饋 |
+| 欄位說明 | `severity="info"` | 額外說明或提示，顯示關閉按鈕 |
+| 警告訊息 | `severity="warning"` | 操作前的警告，無關閉按鈕 |
+| 多個訊息 | `InlineMessageGroup` | 將多個訊息組織在一起顯示 |
+
+### 常見錯誤
+
+1. **使用 ReactNode 而非 string**
+   - ❌ 錯誤：`<InlineMessage severity="error" content={<span>Error</span>} />`
+   - ✅ 正確：`<InlineMessage severity="error" content="Error message" />`
+
+2. **僅靠文字傳達嚴重程度**
+   - ❌ 錯誤：`<InlineMessage severity="info" content="Error: Field required" />`（訊息說錯誤，但 severity 是 info）
+   - ✅ 正確：`<InlineMessage severity="error" content="This field is required" />`
+
+3. **在 warning/error 上新增 onClose**
+   - ❌ 錯誤：`<InlineMessage severity="error" onClose={handleClose} />`（使用者可能誤認為問題已解決）
+   - ✅ 正確：只在 `severity="info"` 時提供 onClose
+
+4. **訊息過長或複雜**
+   - ❌ 錯誤：`<InlineMessage content="This is a very long message explaining everything..." />`
+   - ✅ 正確：保持簡潔：`<InlineMessage content="Email is required" />`
+
+5. **位置不當**
+   - ❌ 錯誤：訊息放在頁面其他位置，與相關欄位相隔很遠
+   - ✅ 正確：放在相關欄位下方或旁邊
+
+### 實作建議
+
+1. **保持內容簡潔**：訊息應清晰且簡短
+2. **選擇正確的嚴重程度**：根據訊息類型選擇合適的 severity
+3. **位置靠近相關內容**：放在相關欄位或內容附近
+4. **無障礙支援**：組件已內含 `role="status"` 和 `aria-live="polite"`
+5. **僅支援字串內容**：content 只支援 string，不支援 ReactNode

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Calendar`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Calendar)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Calendar) · Verified v2 source (2026-03-13)
 
 Calendar component for displaying and selecting dates. Requires `CalendarConfigProvider` (which provides `CalendarContext`). Supports six modes: day, week, month, year, quarter, and half-year.
 
@@ -476,9 +476,144 @@ Use `disabledFooterControl` to hide the footer control.
 
 ## Best Practices
 
-1. **CalendarConfigProvider is required**: Must be wrapped in `CalendarConfigProvider` with `methods` provided (e.g., `CalendarMethodsDayjs`)
-2. **Use hooks**: Recommended to use `useCalendarControls` for managing control logic, with signature `useCalendarControls(referenceDate, mode?)`
-3. **Disabled checks**: Use `isDateDisabled` and similar functions to disable specific dates
-4. **Range selection**: Use `RangeCalendar` with `useRangeCalendarControls`
-5. **Accessibility**: Component includes `role="application"` and appropriate ARIA labels
-6. **Mode stack**: `useCalendarModeStack` manages mode switching history (e.g., from day to month and back to day)
+### 場景推薦
+
+| 使用情境 | 推薦用法 | 原因 |
+| ------- | ------- | ---- |
+| 單一日期選擇 | `mode="day"` + `value={selectedDate}` | 預設模式，直覺易用 |
+| 月份選擇 | `mode="month"` + `useCalendarControls` | 跳過日期層級，加快選擇 |
+| 年份選擇 | `mode="year"` + `useCalendarControls` | 快速選擇跨年份日期 |
+| 日期區間選擇 | `<RangeCalendar>` + `useRangeCalendarControls` | 雙日曆，同時選擇開始和結束 |
+| 禁用特定日期 | `isDateDisabled={date => weekends.includes(date)}` | 限制只能選工作日 |
+| 顯示日期範圍 | `isDateInRange={date => isBetween(date, start, end)}` | 視覺標記日期區間 |
+| 快速選擇預設值 | `quickSelect={{activeId: 'today', options: [...]}}` | 便捷按鈕（如「今天」、「本月」） |
+| 自訂日期註記 | `renderAnnotations={date => ({value: count, color: 'primary'})}` | 在日期上顯示事件計數 |
+| 多套日期庫支援 | `<CalendarConfigProviderDayjs \| Luxon \| Moment>` | 根據專案選擇日期工具 |
+| 國際化 | `locale={CalendarLocale.ZH_TW}` | 設定週首、月份名稱等語言 |
+
+### 常見錯誤
+
+#### ❌ 未包裹 CalendarConfigProvider
+```tsx
+// 錯誤：無提供者，日期處理失敗
+<Calendar referenceDate={date} onChange={handleChange} />
+```
+
+#### ✅ 正確做法：必須包裹提供者
+```tsx
+<CalendarConfigProviderDayjs locale={CalendarLocale.ZH_TW}>
+  <Calendar referenceDate={date} onChange={handleChange} />
+</CalendarConfigProviderDayjs>
+```
+
+#### ❌ 頻繁重建控制函數
+```tsx
+const MyCalendar = ({ referenceDate }) => {
+  // 每次渲染重建控制邏輯，效能低落
+  const controls = useCalendarControls(referenceDate);
+  return <Calendar {...controls} />;
+};
+```
+
+#### ✅ 正確做法：穩定化控制邏輯
+```tsx
+const MyCalendar = ({ initialDate }) => {
+  const [referenceDate, setReferenceDate] = useState(initialDate);
+  const controls = useMemo(
+    () => useCalendarControls(referenceDate),
+    [referenceDate]
+  );
+  return <Calendar {...controls} />;
+};
+```
+
+#### ❌ 雙向日期選擇未使用 RangeCalendar
+```tsx
+// 錯誤：兩個獨立 Calendar，狀態難同步
+<Calendar value={startDate} onChange={setStartDate} />
+<Calendar value={endDate} onChange={setEndDate} />
+```
+
+#### ✅ 正確做法：使用 RangeCalendar
+```tsx
+<RangeCalendar
+  referenceDate={referenceDate}
+  value={[startDate, endDate]}
+  onChange={([start, end]) => {
+    setStartDate(start);
+    setEndDate(end);
+  }}
+/>
+```
+
+#### ❌ 禁用日期條件複雜
+```tsx
+const isDateDisabled = (date) => {
+  // 每次呼叫都重新計算，效能差
+  return generateBlacklistDates().includes(date);
+};
+```
+
+#### ✅ 正確做法：預先計算禁用日期集
+```tsx
+const disabledDates = useMemo(
+  () => new Set(generateBlacklistDates()),
+  []
+);
+
+const isDateDisabled = useCallback(
+  (date) => disabledDates.has(date),
+  [disabledDates]
+);
+```
+
+#### ❌ 日期註記未優化
+```tsx
+<Calendar
+  renderAnnotations={(date) => {
+    // 每個日期都執行複雜查詢，導致卡頓
+    return { value: queryDatabase(date).length.toString() };
+  }}
+/>
+```
+
+#### ✅ 正確做法：預先構建註記快取
+```tsx
+const eventCounts = useMemo(
+  () => createEventCountMap(events),
+  [events]
+);
+
+<Calendar
+  renderAnnotations={(date) => ({
+    value: eventCounts[date] || '0',
+  })}
+/>
+```
+
+#### ❌ 模式切換手動管理
+```tsx
+const [mode, setMode] = useState('day');
+// 手動追蹤模式歷史，容易出錯
+```
+
+#### ✅ 正確做法：使用 useCalendarModeStack
+```tsx
+const { currentMode, pushModeStack, popModeStack } =
+  useCalendarModeStack('day');
+
+// 切換模式時自動管理歷史
+<Calendar
+  mode={currentMode}
+  onMonthControlClick={() => pushModeStack('month')}
+/>
+```
+
+### 核心要點
+
+1. **CalendarConfigProvider 必需**：提供日期處理方法（dayjs/luxon/moment）
+2. **控制邏輯分離**：使用 hooks（useCalendarControls、useRangeCalendarControls）管理狀態
+3. **效能優化**：禁用日期檢查和註記應使用 useMemo/useCallback
+4. **模式堆疊**：useCalendarModeStack 自動管理日→月→年切換歷史
+5. **區間選擇**：優先用 RangeCalendar 而非兩個獨立 Calendar
+6. **國際化支援**：透過 locale prop 自動調整週首、月份名稱

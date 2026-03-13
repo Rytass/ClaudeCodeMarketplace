@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Breadcrumb`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Breadcrumb)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Breadcrumb) · Verified v2 source (2026-03-13)
 
 Breadcrumb component for displaying hierarchical page navigation paths.
 
@@ -196,8 +196,167 @@ const items = [
 
 ## Best Practices
 
-1. **No link on last item**: Current page item doesn't need `href`
-2. **Use meaningful names**: Item names should clearly express hierarchy
-3. **Use condensed mode appropriately**: Consider `condensed` for deep hierarchies
-4. **Start with home**: Breadcrumbs typically start from the home page
-5. **Pair with routing**: Can be combined with React Router for dynamic generation
+### 場景推薦
+
+| 使用情境 | 推薦用法 | 原因 |
+| ------- | ------- | ---- |
+| 4 項或以下 | `items={items}` | 全部顯示，清楚導航 |
+| 5 項以上 | `items={items}` | 自動摺疊：首 2 + 菜單 + 末 2 |
+| 深層級（6+） | `condensed={true}` | 僅顯示菜單 + 末 2 項 |
+| 包含首頁 | 第一項指向 '/' | 標準做法 |
+| 當前頁無 href | 最後項無 `href` | 表示當前頁，不可點 |
+| 動態生成 | 配合路由狀態 | React Router 支援 |
+| 項目有 onClick | `onClick: () => {...}` | 自訂導航邏輯 |
+| 新窗口開啟 | `target="_blank"` | 外部連結 |
+
+### 常見錯誤
+
+#### ❌ 最後一項有 href
+```tsx
+// 不好：當前頁應無連結
+const items = [
+  { name: 'Home', href: '/' },
+  { name: 'Products', href: '/products' },
+  { name: 'Details', href: '/products/123' },  {/* 當前頁有 href */}
+];
+```
+
+#### ✅ 正確做法：當前頁無 href
+```tsx
+const items = [
+  { name: 'Home', href: '/' },
+  { name: 'Products', href: '/products' },
+  { name: 'Details' },  {/* 當前頁，無 href */}
+];
+```
+
+#### ❌ 項目名稱不清
+```tsx
+// 不好：導航層級不明
+const items = [
+  { name: 'Page 1' },
+  { name: 'Page 2' },
+  { name: 'Page 3' },
+];
+```
+
+#### ✅ 正確做法：清晰的層級命名
+```tsx
+const items = [
+  { name: 'Home', href: '/' },
+  { name: 'Products', href: '/products' },
+  { name: 'Electronics', href: '/products/electronics' },
+  { name: 'Laptops', href: '/products/electronics/laptops' },
+  { name: 'Details' },
+];
+```
+
+#### ❌ 不使用 condensed 導致冗長
+```tsx
+// 不好：8 層導航全顯示，占用空間
+<Breadcrumb
+  items={deepItemsArray}  {/* 8 項 */}
+/>
+```
+
+#### ✅ 正確做法：深層級用 condensed
+```tsx
+<Breadcrumb
+  items={deepItemsArray}
+  condensed  {/* 8 項會顯示為：菜單 + 末 2 項 */}
+/>
+```
+
+#### ❌ 自訂導航邏輯未使用 onClick
+```tsx
+// 不夠靈活：需要使用路由
+<Breadcrumb
+  items={items.map(item => ({
+    ...item,
+    href: generateHref(item),  {/* 但無法攔截 onClick */}
+  }))}
+/>
+```
+
+#### ✅ 正確做法：用 onClick 完全控制
+```tsx
+<Breadcrumb
+  items={items.map(item => ({
+    name: item.name,
+    onClick: () => {
+      // 自訂邏輯：路由、分析、驗證等
+      router.push(item.path);
+      trackEvent('breadcrumb-click', item.name);
+    },
+  }))}
+/>
+```
+
+#### ❌ 忽視自動摺疊邏輯
+```tsx
+// 不知道摺疊規則，導致意外驚喜
+const items = [
+  { name: 'A', href: '#a' },
+  { name: 'B', href: '#b' },
+  { name: 'C', href: '#c' },
+  { name: 'D', href: '#d' },
+  { name: 'E', href: '#e' },
+];
+
+<Breadcrumb items={items} />
+// 自動顯示：A, B, [菜單], D, E
+```
+
+#### ✅ 理解摺疊規則
+```tsx
+// ≤4 項：全顯示
+<Breadcrumb items={items4} />  // A, B, C, D
+
+// >4 項：首 2 + 菜單 + 末 2
+<Breadcrumb items={items5} />  // A, B, [菜單], D, E
+
+// condensed：菜單 + 末 2
+<Breadcrumb items={items5} condensed />  // [菜單], D, E
+```
+
+#### ❌ 外部連結未設定 target
+```tsx
+// 不好：外部連結應在新窗口打開
+const items = [
+  { name: 'External', href: 'https://example.com' },
+];
+```
+
+#### ✅ 正確做法：外部連結用 target="_blank"
+```tsx
+const items = [
+  { name: 'External', href: 'https://example.com', target: '_blank' },
+];
+```
+
+#### ❌ 使用不當的 component
+```tsx
+// 錯誤的用法：Breadcrumb 是高階，Item 不直接導出
+import { Breadcrumb, BreadcrumbItem } from '@mezzanine-ui/react';
+{/* BreadcrumbItem 不導出 */}
+```
+
+#### ✅ 正確做法：使用 items 陣列
+```tsx
+// items 陣列模式是推薦方式
+<Breadcrumb
+  items={[
+    { name: 'Home', href: '/' },
+    { name: 'Products' },
+  ]}
+/>
+```
+
+### 核心要點
+
+1. **當前頁無 href**：最後一項不應有連結
+2. **清晰命名**：項目名稱應明確表達層級
+3. **自動摺疊**：5+ 項自動摺疊，≤4 項全顯示
+4. **condensed 深層級**：超過 6 層時考慮啟用
+5. **自訂邏輯用 onClick**：需要特殊行為時使用
+6. **外部連結 target="_blank"**：提高用戶體驗

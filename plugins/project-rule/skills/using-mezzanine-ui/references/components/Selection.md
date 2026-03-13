@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Selection`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Selection) · Verified v2 source (2026-03-06)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Selection) · Verified v2 source (2026-03-13)
 
 Selection card component providing selection items with images or icons. Supports single-select (radio) and multi-select (checkbox) modes.
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Drawer`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Drawer)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Drawer) · Verified v2 source (2026-03-13)
 
 A drawer component that slides out from the edge of the page, used to display detailed information or forms.
 
@@ -292,8 +292,111 @@ function FormDrawer() {
 
 ## Best Practices
 
-1. **Choose appropriate size**: Select `size` based on content volume
-2. **Provide close methods**: Ensure users can close the drawer
-3. **Use bottom buttons for forms**: Form drawers should use the bottom action area
-4. **Disable backdrop close for critical operations**: Prevent accidental closure
-5. **Stacking handling**: With multiple drawers, ESC only closes the topmost one
+### 場景推薦
+
+| 使用場景 | 推薦設定 | 說明 |
+|---------|--------|------|
+| 詳情檢視 | `size="medium"`, `isHeaderDisplay` | 檢視額外詳細資訊 |
+| 表單編輯 | `size="wide"`, `isHeaderDisplay`, `isBottomDisplay` | 寬抽屜容納完整表單，底部按鈕群 |
+| 快速設定 | `size="narrow"`, 最少按鈕 | 簡單設定使用窄抽屜 |
+| 重要表單 | `disableCloseOnBackdropClick`, `disableCloseOnEscapeKeyDown` | 防止意外關閉 |
+| 列表操作 | `size="medium"`, 滾動內容 | 呈現清單或多筆項目 |
+
+### 常見錯誤
+
+1. **尺寸選擇不當導致佈局混亂**
+   ```tsx
+   // ❌ 錯誤：複雜表單用窄抽屜
+   <Drawer size="narrow" isBottomDisplay>
+     <ComplexForm />
+   </Drawer>
+
+   // ✅ 正確：根據內容複雜度選擇尺寸
+   <Drawer size="wide" isBottomDisplay>
+     <ComplexForm />
+   </Drawer>
+   ```
+
+2. **未提供關閉方式**
+   ```tsx
+   // ❌ 錯誤：使用者無法關閉
+   <Drawer open={open}>
+     Content only
+   </Drawer>
+
+   // ✅ 正確：提供多個關閉方式
+   <Drawer
+     open={open}
+     onClose={onClose}
+     isHeaderDisplay
+     headerTitle="Title"
+     isBottomDisplay
+     bottomSecondaryActionText="Close"
+     bottomOnSecondaryActionClick={onClose}
+   >
+     Content
+   </Drawer>
+   ```
+
+3. **使用 contentKey 不當**
+   ```tsx
+   // ❌ 錯誤：每次渲染都改變 contentKey
+   <Drawer contentKey={Math.random()} open={open}>
+     Content
+   </Drawer>
+
+   // ✅ 正確：只在數據變更時改變 contentKey
+   <Drawer contentKey={dataId} open={open}>
+     <DataContent id={dataId} />
+   </Drawer>
+   ```
+
+4. **底部按鈕設定邏輯錯誤**
+   ```tsx
+   // ❌ 錯誤：三個按鈕都啟用導致佈局擁擠
+   <Drawer
+     isBottomDisplay
+     bottomGhostActionText="A"
+     bottomSecondaryActionText="B"
+     bottomPrimaryActionText="C"
+   >
+     Content
+   </Drawer>
+
+   // ✅ 正確：根據場景選擇必要按鈕
+   <Drawer
+     isBottomDisplay
+     bottomSecondaryActionText="Cancel"
+     bottomPrimaryActionText="Save"
+   >
+     Form content
+   </Drawer>
+   ```
+
+5. **多層抽屜的管理**
+   ```tsx
+   // ❌ 錯誤：嵌套多個抽屜但無序處理
+   <Drawer open={drawer1Open} onClose={() => setDrawer1Open(false)}>
+     <Drawer open={drawer2Open} onClose={() => setDrawer2Open(false)}>
+       Nested
+     </Drawer>
+   </Drawer>
+
+   // ✅ 正確：使用堆疊結構，ESC 自動閉合頂層
+   <Drawer open={drawer1Open} onClose={() => setDrawer1Open(false)}>
+     <Button onClick={() => setDrawer2Open(true)}>Open Second</Button>
+   </Drawer>
+   <Drawer open={drawer2Open} onClose={() => setDrawer2Open(false)}>
+     Content
+   </Drawer>
+   ```
+
+### 核心原則
+
+1. **選擇適當尺寸**: 根據內容量選擇 `size`
+2. **提供關閉方式**: 確保用戶能夠關閉抽屜
+3. **表單使用底部按鈕**: 表單抽屜應使用底部操作區域
+4. **重要操作禁用意外關閉**: 防止關鍵操作被意外關閉
+5. **堆疊處理**: 多個抽屜時，ESC 只關閉頂層
+6. **contentKey 管理**: 僅在內容數據確實改變時修改
+7. **無障礙設計**: 提供 ARIA 標籤和適當的焦點管理

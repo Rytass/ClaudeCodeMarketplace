@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Icon`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Icon)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Icon) · Verified v2 source (2026-03-13)
 
 An icon component for displaying SVG icons provided by `@mezzanine-ui/icons`.
 
@@ -225,8 +225,43 @@ Figma icon nodes use `/` separated paths, corresponding to React import names:
 
 ## Best Practices
 
-1. **Use semantic colors**: Ensure consistency through the `color` prop
-2. **Set appropriate size**: Adjust `size` based on context
-3. **Provide accessibility titles**: Add `title` for important icons
-4. **Don't rely solely on icons to convey information**: Pair with text or tooltip
-5. **Use `spin` for loading animations**: `SpinnerIcon` with `spin` prop
+### 場景推薦
+
+| 使用場景 | 建議方案 | 說明 |
+| ------- | ------- | ---- |
+| 按鈕內圖標 | `size={16}` | 按鈕內的輔助圖標，使用 16px |
+| 表單標籤旁 | `size={16}` | 訊息提示、警告等小圖標 |
+| 獨立圖標按鈕 | `size={24}` | 點擊操作的圖標，視覺上更突出 |
+| 狀態指示器 | `size={32}` + 語義色 | 成功/失敗/警告等狀態 |
+| 載入動畫 | `spin` + `SpinnerIcon` | 長時間操作的視覺反饋 |
+| 導航圖標 | `color="inherit"` | 繼承父層顏色，適合導航列 |
+
+### 常見錯誤
+
+1. **只依靠圖標傳達資訊**
+   - ❌ 錯誤：`<Icon icon={DeleteIcon} />`（使用者不知道是什麼功能）
+   - ✅ 正確：`<Button icon={DeleteIcon}>Delete</Button>` 或加上 title 屬性
+
+2. **未指定語義化顏色**
+   - ❌ 錯誤：`<Icon icon={ErrorIcon} />`（顏色不明顯）
+   - ✅ 正確：`<Icon icon={ErrorIcon} color="error-solid" />`
+
+3. **圖標尺寸不一致**
+   - ❌ 錯誤：不同位置使用不同 size，導致視覺雜亂
+   - ✅ 正確：統一相同位置的圖標尺寸，如按鈕內都用 16px
+
+4. **spin 動畫濫用**
+   - ❌ 錯誤：在非載入狀態使用 `spin`
+   - ✅ 正確：只在 `loading` 狀態使用 `spin` 屬性
+
+5. **未提供無障礙標題**
+   - ❌ 錯誤：`<Icon icon={SearchIcon} onClick={handleSearch} />`（螢幕閱讀器無法理解）
+   - ✅ 正確：`<Icon icon={SearchIcon} title="Search" onClick={handleSearch} />`
+
+### 實作建議
+
+1. **使用語義化顏色**：確保顏色傳達正確的含義
+2. **設定適當尺寸**：根據上下文調整大小，保持層級感
+3. **提供無障礙標題**：重要的圖標應添加 `title` 屬性
+4. **避免只依靠圖標**：搭配文字或 tooltip 傳達完整資訊
+5. **載入動畫用 SpinnerIcon**：`<Icon icon={SpinnerIcon} spin />` 為標準做法

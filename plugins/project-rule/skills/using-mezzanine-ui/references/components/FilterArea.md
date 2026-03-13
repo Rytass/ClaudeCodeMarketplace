@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/FilterArea`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/FilterArea) | Verified: 2026-03-06
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/FilterArea) | Verified: 2026-03-13
 
 A filter area component for building search and filter forms. Contains three sub-components: FilterArea, FilterLine, and Filter. Expand/collapse buttons use `ChevronDownIcon` / `ChevronUpIcon`.
 
@@ -244,8 +244,138 @@ The Filter component uses a 12-column grid system:
 
 ## Best Practices
 
-1. **Common filters first**: Place the most frequently used filters in the first line
-2. **Reasonable width**: Use `span` to control field width for visual balance
-3. **Reset state**: Use `isDirty` to control the reset button's enabled state
-4. **Use with form libraries**: Recommended to use with react-hook-form for form state management
-5. **Semantic text**: Customize button text based on scenario (Search/Filter/Query)
+### 場景推薦
+
+| 使用場景 | 推薦設定 | 說明 |
+|---------|--------|------|
+| 簡單搜尋 | 單行 FilterLine, 2-3 個篩選項 | 最常用的搜尋條件 |
+| 高級篩選 | 多行 FilterLine，自動展開/摺疊 | 更多篩選條件分行展示 |
+| 表格查詢 | 結合 Table，isDirty 控制重設按鈕 | 控制表格資料顯示 |
+| 自訂按鈕文案 | submitText="Query", resetText="Clear" | 根據業務場景自訂 |
+| 響應式佈局 | 使用 `span` 控制欄寬 | 不同屏幕尺寸適配 |
+
+### 常見錯誤
+
+1. **按鈕文案與場景不符**
+   ```tsx
+   // ❌ 錯誤：使用通用文案
+   <FilterArea
+     submitText="Search"
+     resetText="Reset"
+     onSubmit={handleQuery}
+   >
+     ...
+   </FilterArea>
+
+   // ✅ 正確：根據業務場景選擇文案
+   <FilterArea
+     submitText="Query Orders"
+     resetText="Clear Filters"
+     onSubmit={handleQuery}
+   >
+     ...
+   </FilterArea>
+   ```
+
+2. **未控制重設按鈕狀態**
+   ```tsx
+   // ❌ 錯誤：重設按鈕始終啟用
+   <FilterArea onReset={handleReset}>
+     ...
+   </FilterArea>
+
+   // ✅ 正確：使用 isDirty 控制按鈕狀態
+   <FilterArea
+     isDirty={formState.isDirty}
+     onReset={handleReset}
+   >
+     ...
+   </FilterArea>
+   ```
+
+3. **篩選項分組不當**
+   ```tsx
+   // ❌ 錯誤：所有篩選項堆在第一行
+   <FilterArea onSubmit={handleSearch}>
+     <FilterLine>
+       <Filter>Field1</Filter>
+       <Filter>Field2</Filter>
+       <Filter>Field3</Filter>
+       <Filter>Field4</Filter>
+       <Filter>Field5</Filter>
+     </FilterLine>
+   </FilterArea>
+
+   // ✅ 正確：常用篩選項在第一行，高級選項在後續行
+   <FilterArea onSubmit={handleSearch}>
+     <FilterLine>
+       <Filter>Keyword</Filter>
+       <Filter>Status</Filter>
+       <Filter>Date Range</Filter>
+     </FilterLine>
+     <FilterLine>
+       <Filter>Advanced Option 1</Filter>
+       <Filter>Advanced Option 2</Filter>
+     </FilterLine>
+   </FilterArea>
+   ```
+
+4. **欄位寬度設定不當**
+   ```tsx
+   // ❌ 錯誤：寬度不一致導致視覺混亂
+   <FilterArea onSubmit={handleSearch}>
+     <FilterLine>
+       <Filter span={1}>Keyword</Filter>
+       <Filter span={8}>Status</Filter>
+       <Filter>Date</Filter>
+     </FilterLine>
+   </FilterArea>
+
+   // ✅ 正確：合理分配寬度
+   <FilterArea onSubmit={handleSearch}>
+     <FilterLine>
+       <Filter span={3}>Keyword</Filter>
+       <Filter span={3}>Status</Filter>
+       <Filter span={3}>Date</Filter>
+       <Filter grow>Expand</Filter>
+     </FilterLine>
+   </FilterArea>
+   ```
+
+5. **與表單庫集成不當**
+   ```tsx
+   // ❌ 錯誤：未連接表單狀態
+   <FilterArea onSubmit={handleSearch}>
+     <FilterLine>
+       <Filter>
+         <Input />
+       </Filter>
+     </FilterLine>
+   </FilterArea>
+
+   // ✅ 正確：使用 react-hook-form
+   const { register, handleSubmit, formState, reset } = useForm();
+   <FilterArea
+     onSubmit={handleSubmit(handleSearch)}
+     onReset={() => reset()}
+     isDirty={formState.isDirty}
+   >
+     <FilterLine>
+       <Filter>
+         <FormField label="Keyword">
+           <Input {...register('keyword')} />
+         </FormField>
+       </Filter>
+     </FilterLine>
+   </FilterArea>
+   ```
+
+### 核心原則
+
+1. **優先常用篩選項**: 把最常用的篩選條件放在第一行
+2. **寬度合理控制**: 使用 `span` 控制欄位寬度以保持視覺平衡
+3. **重設按鈕狀態**: 使用 `isDirty` 控制重設按鈕的啟用狀態
+4. **搭配表單庫**: 建議使用 react-hook-form 進行表單狀態管理
+5. **文案語境化**: 根據業務場景自訂按鈕文案（Search/Filter/Query）
+6. **多行展開/摺疊**: 多行篩選會自動添加展開/摺疊按鈕
+7. **網格系統**: 使用 12 列網格系統，`span` 預設值為 2

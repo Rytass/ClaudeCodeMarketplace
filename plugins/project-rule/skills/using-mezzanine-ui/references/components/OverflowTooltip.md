@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/OverflowTooltip`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/OverflowTooltip)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/OverflowTooltip) | Verified: 2026-03-13
 
 Overflow tag tooltip component for displaying truncated tag lists. Typically used with Select in multi-select mode.
 
@@ -200,10 +200,50 @@ function MultiSelectWithOverflow() {
 
 ---
 
-## Best Practices
+## Best Practices (最佳實踐)
 
-1. **Hover trigger**: Typically use mouseEnter/mouseLeave to control open/close
-2. **Sync state**: `onTagDismiss` should synchronize with external state
-3. **Appropriate placement**: Choose suitable `placement` based on available space
-4. **Read-only mode**: Use `readOnly` for display-only scenarios
-5. **Pair with Select**: Commonly used with multi-select Select's overflow counter
+### 場景推薦 (Scenario Recommendations)
+
+| 場景 | 推薦做法 | 相關 Props |
+| --- | --- | --- |
+| 多選框溢出標籤 | 使用 `OverflowCounterTag` 而非直接使用 `OverflowTooltip` | `OverflowCounterTag` |
+| 懸停顯示溢出 | 監聽 `onMouseEnter`/`onMouseLeave` 控制 `open` | `open` |
+| 標籤可刪除 | 保持 `readOnly={false}` (預設) 並處理 `onTagDismiss` | `onTagDismiss` |
+| 標籤唯讀展示 | 設定 `readOnly={true}` 隱藏刪除圖標 | `readOnly` |
+| 空間受限 | 根據可用空間選擇 `placement` (bottom-start 等) | `placement` |
+| 小螢幕適配 | 使用 `tagSize="sub"` 減少寬度佔用 | `tagSize` |
+
+### 常見錯誤 (Common Mistakes)
+
+1. **直接使用 OverflowTooltip**
+   - ❌ 誤：在應該使用 `OverflowCounterTag` 的場景直接使用 `OverflowTooltip`
+   - ✅ 正確：優先使用 `OverflowCounterTag`，內部已包裝 `OverflowTooltip`
+   - 影響：減少重複邏輯，提升代碼簡潔度
+
+2. **狀態同步不佳**
+   - ❌ 誤：`onTagDismiss` 未更新外部標籤狀態
+   - ✅ 正確：在 `onTagDismiss` 中更新 `tags` 陣列
+   - 範例：`onTagDismiss={(index) => setTags(tags.filter((_, i) => i !== index))}`
+
+3. **Placement 選擇不當**
+   - ❌ 誤：不考慮視窗邊界，總是使用 `top-start`
+   - ✅ 正確：根據 anchor 位置選擇合適的 `placement`
+   - 影響：避免工具提示被視窗邊界裁剪
+
+4. **忘記提供 anchor ref**
+   - ❌ 誤：不提供 `anchor` prop 或提供 null
+   - ✅ 正確：使用 `useRef` 關聯觸發元素
+   - 範例：`<OverflowTooltip anchor={anchorRef.current} />`
+
+5. **讀寫模式混亂**
+   - ❌ 誤：在讀寫模式下不提供 `onTagDismiss` 實現
+   - ✅ 正確：可編輯時提供回調，唯讀時設 `readOnly={true}`
+   - 範例：預覽模式 `readOnly={true}`，編輯模式 `readOnly={false}`
+
+### 核心建議 (Core Recommendations)
+
+1. **使用 OverflowCounterTag**：大多數場景優先使用 `OverflowCounterTag` 組件
+2. **懸停觸發**：通常使用 `mouseEnter`/`mouseLeave` 控制開關
+3. **狀態同步**：`onTagDismiss` 應同步外部狀態
+4. **合適的位置**：根據可用空間選擇 `placement`
+5. **讀寫區分**：唯讀展示使用 `readOnly={true}`，編輯場景使用 `readOnly={false}`

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Radio`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Radio) · Verified v2 source (2026-03-06)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Radio) · Verified v2 source (2026-03-13)
 
 Radio button component supporting normal mode and segment mode.
 
@@ -318,6 +318,26 @@ function FormExample() {
 | `Radio / With Input`        | `<Radio withInputConfig={...}>`      |
 
 ---
+
+## Scenario-Oriented Best Practices
+
+### 場景推薦
+
+| 使用場景 | 建議做法 | 原因 |
+| -------- | -------- | ---- |
+| 單個獨立單選項 | 直接使用 `<Radio />` 搭配 `checked` 和 `onChange` | 簡單場景不需要 RadioGroup 的複雜度 |
+| 多個相關選項的單選 | 使用 `<RadioGroup>` 包裝多個 `<Radio />` | RadioGroup 負責管理單選邏輯，自動排斥其他選項 |
+| 視圖切換或顯示模式選擇 | 使用 `type="segment"` 配合 icon | Segment 模式視覺上明確區分不同狀態，適合模式切換 |
+| 選項需要額外說明 | 使用 `hint` prop | 為複雜或不明確的選項提供補充說明，減少用戶困惑 |
+| 用戶需要在選項旁輸入值 | 使用 `withInputConfig` | 例如「自訂金額」場景，讓用戶既選擇又輸入 |
+
+### 常見錯誤
+
+- **在 RadioGroup 外使用多個 Radio 但預期單選行為**：單選需要 RadioGroup 管理，否則不同 Radio 互不影響
+- **忘記為 RadioGroup 設置 name**：建議設置 `name` 屬性便於表單提交和 accessibility
+- **Segment 模式搭配 hint**：Segment 模式不支援 hint，會被忽略。應改用 normal 模式或在其他位置提供說明
+- **在 Segment 模式使用 withInputConfig**：Segment 模式不支援附加輸入框，應改用 normal 模式
+- **icon 搭配 normal 模式**：Normal 模式的 icon 類型為 `never`，Segment 模式才支援 icon
 
 ## Best Practices
 

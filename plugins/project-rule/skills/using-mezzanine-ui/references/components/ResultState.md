@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/ResultState`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/ResultState)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/ResultState) · Verified v2 source (2026-03-13)
 
 Result state component for displaying operation results or status pages.
 
@@ -231,6 +231,27 @@ function SubmitSuccessPage() {
 | `ResultState / With Actions`  | `actions` or `children` has value        |
 
 ---
+
+## Scenario-Oriented Best Practices
+
+### 場景推薦
+
+| 使用場景 | 建議做法 | 原因 |
+| -------- | -------- | ---- |
+| 操作成功提示 | `type="success"` + 返回和詳情兩個按鈕 | 明確反饋操作結果，提供後續導航選項 |
+| 404 或資源不存在 | `type="error"` + 單一「返回首頁」按鈕 | 表達問題嚴重性，提供恢復路徑 |
+| 廢棄功能或維護中 | `type="help"` + 聯絡支援按鈕 | 提示用戶尋求幫助 |
+| 警告性操作確認 | `type="warning"` + 「取消」和「確認」按鈕 | 讓用戶在執行不可逆操作前重新確認 |
+| 權限不足或無法執行 | `type="failure"` + 相關按鈕 | 與 error 區別，failure 表示非異常的失敗 |
+| 在 Modal 內展示結果 | 使用 `size="sub"` 節省空間 | Modal 內容區域有限，小尺寸更合適 |
+
+### 常見錯誤
+
+- **混淆 error 和 failure**：Error 通常表示系統異常或意外，Failure 表示操作自然失敗（如驗證失敗）
+- **使用超過兩個按鈕**：會導致用戶決策疲勞。若需多個操作，應改成導航頁面而非對話框
+- **primaryButton 和 secondaryButton 顛倒位置**：Primary（右側）應該是推薦操作，Secondary（左側）是備選或返回
+- **省略 description 或僅複述 title**：Description 應補充細節，幫助用戶理解發生了什麼和後續步驟
+- **在過於複雜的工作流中使用 ResultState**：ResultState 最適合獨立結果頁面，不應嵌入多步驟流程中
 
 ## Best Practices
 

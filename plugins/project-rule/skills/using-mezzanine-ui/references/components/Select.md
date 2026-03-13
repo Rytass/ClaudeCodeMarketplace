@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Select`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Select) · Verified v2 source (2026-02-13)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Select) · Verified v2 source (2026-03-13)
 
 Dropdown select component supporting single-select and multi-select modes. Internally uses the Dropdown component to render the option list.
 
@@ -327,6 +327,27 @@ const treeOptions = [
 | `Select / With Prefix`      | `<Select prefix={...}>`            |
 
 ---
+
+## Scenario-Oriented Best Practices
+
+### 場景推薦
+
+| 使用場景 | 建議做法 | 原因 |
+| -------- | -------- | ---- |
+| 簡單單一選擇 | 使用 `mode="single"` 搭配 `clearable={true}` | 用戶可選擇或清除，提高靈活性 |
+| 多項選擇（如標籤或權限） | 使用 `mode="multiple"` 搭配 Tag 顯示 | SelectTriggerTags 自動處理多選顯示，支援 wrap 和 counter 溢出策略 |
+| 大型選項列表（1000+ 項） | 使用 `onScroll` 實現無限滾動 | 虛擬化加載防止初始化阻塞，提升性能 |
+| 需要搜尋功能 | 在 `options` 前加入搜尋邏輯，篩選提供的選項 | Select 本身不提供搜尋，由外層元件控制 options 內容 |
+| 多層級分類選項 | 使用樹狀 `options` 結構搭配 `children` | DropdownOption 支援 `children` 構建層級結構 |
+| 多選且需要始終保持清除按鈕 | 使用 SelectTrigger 搭配 `isForceClearable={true}` | 強制顯示清除按鈕，即使無選中值 |
+
+### 常見錯誤
+
+- **期望 Select 內建搜尋功能**：Select 無內建搜尋，應透過篩選 options 實現
+- **在 single 模式使用 SelectTriggerTags**：SelectTriggerTags 專為 multiple 模式設計，single 模式應使用 SelectTrigger
+- **樹狀選項使用 single 模式**：樹狀結構邏輯上適合 multiple 模式，single 模式下層級展開行為不清晰
+- **未設置 `menuMaxHeight` 導致選項列表過長**：應設置合理高度避免頁面溢出
+- **多選模式下誤用 `onChange` 回傳單一值**：Multiple 模式回傳 SelectValue[]，應對應處理陣列類型
 
 ## Best Practices
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Pagination`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Pagination) | Verified: 2026-03-06
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Pagination) | Verified: 2026-03-13
 
 Pagination component for paginated navigation of long data lists.
 
@@ -288,10 +288,51 @@ function CustomPagination() {
 
 ---
 
-## Best Practices
+## Best Practices (最佳實踐)
 
-1. **Provide total count**: `total` is required for correct page calculation
-2. **Controlled mode**: Use `current` and `onChange` for controlled behavior
-3. **Show jumper for large datasets**: Enable `showJumper` when data volume is large
-4. **Custom summary**: Use `renderResultSummary` to provide clear information
-5. **Appropriate pageSize options**: Set reasonable options based on data type
+### 場景推薦 (Scenario Recommendations)
+
+| 場景 | 推薦做法 | 相關 Props |
+| --- | --- | --- |
+| 小型資料集 (<100) | 基本配置，無需額外功能 | `current`, `onChange`, `total` |
+| 中等資料集 (100-1000) | 添加頁大小選項 | `showPageSizeOptions` |
+| 大型資料集 (>1000) | 啟用頁面跳轉和摘要 | `showJumper`, `renderResultSummary` |
+| 表格資料分頁 | 提供清晰摘要顯示 | `renderResultSummary` |
+| 搜尋結果分頁 | 動態更新頁大小選項 | `onChangePageSize` |
+| 無限滾動替代 | 使用分頁而非無限滾動 | - |
+| 自訂分頁結構 | 使用 `usePagination` hook | `usePagination` |
+
+### 常見錯誤 (Common Mistakes)
+
+1. **缺少 total 或錯誤的 total**
+   - ❌ 誤：不提供 `total`，或提供錯誤的總數
+   - ✅ 正確：提供正確的 `total` 值
+   - 影響：分頁計算錯誤，導致導航混亂
+
+2. **受控模式混亂**
+   - ❌ 誤：提供 `current` 但不提供 `onChange`，或反之
+   - ✅ 正確：同時提供 `current` 和 `onChange`
+   - 範例：`<Pagination current={page} onChange={setPage} />`
+
+3. **pageSize 值不合理**
+   - ❌ 誤：提供 `pageSizeOptions={[1, 500, 1000]}`
+   - ✅ 正確：提供合理漸進式選項，如 `[10, 20, 50]`
+   - 影響：優化用戶體驗，避免過度加載或過少顯示
+
+4. **不顯示摘要**
+   - ❌ 誤：大資料集不提供結果摘要
+   - ✅ 正確：使用 `renderResultSummary` 顯示當前範圍
+   - 範例：`renderResultSummary={(from, to, total) => '第 ${from}-${to} 項，共 ${total} 項'}`
+
+5. **跳轉功能閾值不當**
+   - ❌ 誤：小資料集也啟用 `showJumper`
+   - ✅ 正確：僅在資料量大時啟用跳轉功能
+   - 影響：降低小資料集的認知負荷
+
+### 核心建議 (Core Recommendations)
+
+1. **提供總數**：`total` 是分頁計算的必要條件
+2. **受控模式**：使用 `current` 和 `onChange` 實現受控行為
+3. **大資料集顯示跳轉**：資料量大時啟用 `showJumper`
+4. **清晰摘要**：使用 `renderResultSummary` 提供明確信息
+5. **合理分頁大小**：根據資料類型提供適當的頁大小選項

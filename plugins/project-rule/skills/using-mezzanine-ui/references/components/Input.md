@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Input`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Input) · Verified v2 source (2026-03-06)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Input) · Verified v2 source (2026-03-13)
 
 A versatile input component supporting multiple variants for different use cases.
 
@@ -23,7 +23,7 @@ import type {
   WithAffixInputProps,
   SearchInputProps,
   NumberInputProps,
-  CurrencyInputProps,
+  MeasureInputProps,
   ActionInputProps,
   SelectInputProps,
   WithPasswordStrengthIndicator,
@@ -41,7 +41,7 @@ import type {
 | `affix`    | Input with prefix/suffix      | Custom prefix/suffix               |
 | `search`   | Search input                  | Default search icon, clearable     |
 | `number`   | Number input                  | 36x36 compact number input         |
-| `currency` | Currency input                | Right-aligned, thousands format, optional spinner |
+| `measure`  | Measure/unit input            | Unit text, optional spinner controls |
 | `action`   | Input with action button      | Button outside the input           |
 | `select`   | Input with dropdown           | Button at prefix/suffix/both       |
 | `password` | Password input                | Eye toggle, strength indicator     |
@@ -79,7 +79,7 @@ Base properties shared by all variants. `InputBaseProps` extends `TextFieldProps
 // Clear functionality (shared by Base, Affix, Search, Password)
 type ClearableInput = Pick<TextFieldProps, 'clearable' | 'onClear'>;
 
-// Number related (shared by Number, Currency)
+// Number related (shared by Number, Measure)
 type NumberInput = {
   min?: number;
   max?: number;
@@ -134,11 +134,11 @@ type NumberInputProps = InputBaseProps & NumberInput & {
 // step defaults to 1
 ```
 
-### Currency Input
+### Measure Input
 
 ```tsx
-type CurrencyInputProps = InputBaseProps & NumberInput & TextFieldAffixProps & {
-  variant: 'currency';
+type MeasureInputProps = InputBaseProps & NumberInput & TextFieldAffixProps & {
+  variant: 'measure';
   showSpinner?: boolean;   // Default false
   onSpinUp?: VoidFunction;
   onSpinDown?: VoidFunction;
@@ -190,7 +190,7 @@ type InputProps =
   | WithAffixInputProps
   | SearchInputProps
   | NumberInputProps
-  | CurrencyInputProps
+  | MeasureInputProps
   | ActionInputProps
   | SelectInputProps
   | PasswordInputProps;
@@ -248,15 +248,18 @@ import { UserIcon, SearchIcon } from '@mezzanine-ui/icons';
 />
 ```
 
-### Currency Input
+### Measure Input
 
 ```tsx
 <Input
-  variant="currency"
+  variant="measure"
   prefix="NT$"
+  suffix="元"
   value={amount}
   onChange={(e) => setAmount(e.target.value)}
   showSpinner
+  onSpinUp={() => console.log('spin up')}
+  onSpinDown={() => console.log('spin down')}
 />
 ```
 
@@ -310,7 +313,7 @@ Extends all native div attributes from `NativeElementPropsWithoutKeyAndRef<'div'
 | `Input / Base`             | `<Input variant="base">`                 |
 | `Input / Search`           | `<Input variant="search">`               |
 | `Input / Number`           | `<Input variant="number">`               |
-| `Input / Currency`         | `<Input variant="currency">`             |
+| `Input / Measure`          | `<Input variant="measure">`              |
 | `Input / Password`         | `<Input variant="password">`             |
 | `Input / With Affix`       | `<Input variant="affix">`                |
 | `Input / With Action`      | `<Input variant="action">`               |
@@ -321,8 +324,45 @@ Extends all native div attributes from `NativeElementPropsWithoutKeyAndRef<'div'
 
 ## Best Practices
 
-1. **Choose appropriate variant**: Select the matching variant based on the use case
-2. **Provide placeholder**: Help users understand expected input
-3. **Use clearable**: Provide clear functionality for long text input
-4. **Use formatter for currency**: Auto-handle thousands formatting
-5. **Password strength hint**: Show strength indicator for sensitive data input
+### 場景推薦
+
+| 使用場景 | 建議方案 | 說明 |
+| ------- | ------- | ---- |
+| 通用文字輸入 | `variant="base"` | 最常見的輸入框，適合基本文字、郵件等 |
+| 搜尋功能 | `variant="search"` | 內建搜尋圖標，預設支援清除按鈕 |
+| 數字輸入 | `variant="number"` | 固定小尺寸 36x36，適合單一數字欄位 |
+| 貨幣/測量單位 | `variant="measure"` | 支援前後綴標籤（如 NT$、元）和步進按鈕 |
+| 包含前後綴 | `variant="affix"` | 靈活的自訂前後綴（圖標、文字等） |
+| 密碼輸入 | `variant="password"` | 支援顯示/隱藏切換和強度指示器 |
+| 搭配外部按鈕 | `variant="action"` | 複製、提交等輔助操作按鈕 |
+| 下拉選單組合 | `variant="select"` | 文字輸入加下拉清單 |
+
+### 常見錯誤
+
+1. **使用 currency variant（已棄用）**
+   - ❌ 錯誤：`<Input variant="currency" />`
+   - ✅ 正確：改用 `variant="measure"` 並配合 `prefix`/`suffix` props
+
+2. **搞混 formatter 和 parser**
+   - ❌ 錯誤：只設定 `formatter`，沒有設定 `parser`
+   - ✅ 正確：成對使用，formatter 用於顯示，parser 用於儲存原始值
+
+3. **measure variant 忘記設定 onSpinUp/onSpinDown**
+   - ❌ 錯誤：`<Input variant="measure" showSpinner />`（沒有按鈕回調）
+   - ✅ 正確：`<Input variant="measure" showSpinner onSpinUp={handleUp} onSpinDown={handleDown} />`
+
+4. **password variant 搜尋框混用**
+   - ❌ 錯誤：在搜尋框使用 password variant
+   - ✅ 正確：`variant="search"` 搜尋，`variant="password"` 密碼
+
+5. **number variant 邊界值未設定**
+   - ❌ 錯誤：`<Input variant="number" />`（沒有 min/max 限制）
+   - ✅ 正確：`<Input variant="number" min={0} max={100} step={5} />`
+
+### 實作建議
+
+1. **選擇適當的 variant**：根據用途選擇對應的輸入類型，無效的 variant 組合會導致 TypeScript 編譯錯誤
+2. **提供 placeholder**：幫助使用者理解預期的輸入格式
+3. **使用 clearable**：對於長文本輸入，提供清除按鈕提升體驗
+4. **formatter/parser 成對使用**：處理貨幣、電話號碼等格式化輸入時，確保顯示和儲存的值一致
+5. **密碼強度提示**：敏感資料輸入時，顯示密碼強度指示器指導使用者
