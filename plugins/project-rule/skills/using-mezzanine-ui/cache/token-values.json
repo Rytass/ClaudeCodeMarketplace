@@ -1,6 +1,6 @@
 {
   "version": "v2",
-  "lastUpdated": "2026-02-14T00:10:00Z",
+  "lastUpdated": "2026-03-13T00:00:00Z",
   "source": "packages/system/src typings + DESIGN_TOKENS.md",
   "colors": {
     "primitives": {

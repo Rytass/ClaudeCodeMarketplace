@@ -1,7 +1,7 @@
 {
   "meta": {
-    "generatedAt": "2026-03-06",
-    "sourceVersion": "1.0.0-rc.3",
+    "generatedAt": "2026-03-13",
+    "sourceVersion": "1.0.0-rc.5",
     "description": "Complete import paths index for Mezzanine UI v2 packages"
   },
   "packages": {
@@ -255,7 +255,7 @@
           "fromDateTimeRangePicker": ["DateTimeRangePickerProps", "DateTimeRangePickerValue"],
           "fromFilterArea": ["FilterAreaProps", "FilterLineProps", "FilterProps"],
           "fromForm": ["FormControl", "FormFieldProps", "FormHintTextProps", "FormLabelProps"],
-          "fromInput": ["ActionInputProps", "BaseInputProps", "ClearableInput", "CurrencyInputProps", "InputBaseProps", "InputProps", "InputSize", "InputStrength", "NumberInput", "NumberInputProps", "PasswordInputProps", "SearchInputProps", "SelectInputProps", "WithAffixInputProps", "WithPasswordStrengthIndicator"],
+          "fromInput": ["ActionInputProps", "BaseInputProps", "ClearableInput", "MeasureInputProps", "InputBaseProps", "InputProps", "InputSize", "InputStrength", "NumberInput", "NumberInputProps", "PasswordInputProps", "SearchInputProps", "SelectInputProps", "WithAffixInputProps", "WithPasswordStrengthIndicator"],
           "fromMultipleDatePicker": ["MultipleDatePickerDateValue", "MultipleDatePickerProps", "MultipleDatePickerTriggerProps", "UseMultipleDatePickerValueProps", "UseMultipleDatePickerValueReturn"],
           "fromPicker": ["PickerTriggerProps", "RangePickerTriggerProps", "UsePickerDocumentEventCloseProps", "UsePickerValueProps"],
           "fromRadio": ["RadioGroupOrientation", "RadioGroupProps", "RadioProps", "RadioSize"],
@@ -630,6 +630,6 @@
   "packageNotes": {
     "noExportsField": "None of the packages use the 'exports' field in package.json. Subpath imports work via directory-based resolution (each directory has its own index.ts/index.js).",
     "buildSystem": "All packages use a custom build script (scripts/build.js) that compiles TypeScript to individual directories.",
-    "version": "All source packages are at 1.0.0-rc.3."
+    "version": "All source packages are at 1.0.0-rc.5."
   }
 }

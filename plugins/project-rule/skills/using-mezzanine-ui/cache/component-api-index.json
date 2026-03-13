@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "generatedAt": "2026-03-06",
-    "version": "1.0.0-rc.3",
+    "generatedAt": "2026-03-13",
+    "version": "1.0.0-rc.5",
     "description": "Component props API index for Mezzanine UI v2 packages"
   },
   "Accordion": {
@@ -274,7 +274,16 @@
     "propsType": "| AutoCompleteMultipleProps\n  | AutoCompleteSingleProps",
     "subComponents": {
       "AutoCompleteBaseProps": {
-        "props": {},
+        "props": {
+          "stepByStepBulkCreate": {
+            "type": "boolean",
+            "required": false
+          },
+          "onRemoveCreated": {
+            "type": "(cleanedOptions: SelectValue[]) => void",
+            "required": false
+          }
+        },
         "extends": [
           "Omit<\n    SelectTriggerProps,\n    | 'active'\n    | 'clearable'\n    | 'forceHideSuffixActionIcon'\n    | 'mode'\n    | 'onClick'\n    | 'onKeyDown'\n    | 'onChange'\n    | 'renderValue'\n    | 'inputProps'\n    | 'suffixActionIcon'\n    | 'value'\n  >",
           "PickRenameMulti<\n    Pick<PopperProps, 'options'>,"
@@ -1877,6 +1886,10 @@
         "type": "CheckboxSize<NonNullable<CheckboxPropsBase['mode']>>",
         "required": false,
         "default": "'main'"
+      },
+      "severity": {
+        "type": "'info' | 'error'",
+        "required": false
       }
     },
     "sourceFile": "packages/react/src/Checkbox/Checkbox.tsx",
@@ -2693,7 +2706,8 @@
       },
       "placement": {
         "type": "PopperPlacement",
-        "required": false
+        "required": false,
+        "default": "'bottom-start'"
       },
       "customWidth": {
         "type": "number | string",
@@ -3621,7 +3635,7 @@
   "Input": {
     "props": {},
     "sourceFile": "packages/react/src/Input/Input.tsx",
-    "propsType": "| BaseInputProps\n  | WithAffixInputProps\n  | SearchInputProps\n  | NumberInputProps\n  | CurrencyInputProps\n  | ActionInputProps\n  | SelectInputProps\n  | PasswordInputProps",
+    "propsType": "| BaseInputProps\n  | WithAffixInputProps\n  | SearchInputProps\n  | NumberInputProps\n  | MeasureInputProps\n  | ActionInputProps\n  | SelectInputProps\n  | PasswordInputProps",
     "subComponents": {
       "InputBaseProps": {
         "props": {
@@ -3709,10 +3723,10 @@
         },
         "sourceFile": "packages/react/src/Input/Input.tsx"
       },
-      "CurrencyInputProps": {
+      "MeasureInputProps": {
         "props": {
           "variant": {
-            "type": "'currency'",
+            "type": "'measure'",
             "required": true
           },
           "showSpinner": {
@@ -5949,7 +5963,7 @@
           "step": {
             "type": "number",
             "required": false,
-            "default": "0"
+            "default": "1"
           },
           "withTick": {
             "type": "number | number[]",
@@ -5979,6 +5993,14 @@
           "suffixIcon": {
             "type": "IconDefinition",
             "required": true
+          },
+          "onPrefixIconClick": {
+            "type": "() => void",
+            "required": false
+          },
+          "onSuffixIconClick": {
+            "type": "() => void",
+            "required": false
           }
         },
         "sourceFile": "packages/react/src/Slider/Slider.tsx"
@@ -6222,6 +6244,11 @@
       "onChange": {
         "type": "(activeKey: Key, index: number) => void",
         "required": false
+      },
+      "size": {
+        "type": "'main' | 'sub'",
+        "required": false,
+        "default": "'main'"
       }
     },
     "sourceFile": "packages/react/src/Tab/Tab.tsx",
@@ -6243,6 +6270,10 @@
             "type": "boolean",
             "required": false,
             "default": "false"
+          },
+          "error": {
+            "type": "boolean",
+            "required": false
           },
           "icon": {
             "type": "IconDefinition",
@@ -6873,6 +6904,10 @@
         "type": "number",
         "required": false,
         "default": "0.1"
+      },
+      "offsetMainAxis": {
+        "type": "number",
+        "required": false
       },
       "title": {
         "type": "ReactNode",
