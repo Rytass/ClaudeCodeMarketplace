@@ -14,7 +14,7 @@ description: Mezzanine-UI design system development guide (v2). All frontend dev
 | Design Docs / Storybook | npm Version | Git Branch | Status                 |
 | ----------------------- | ----------- | ---------- | ---------------------- |
 | v1 (Legacy)             | `0.x`       | main       | Deprecated             |
-| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.3)       |
+| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.5)       |
 
 > This document is based on **v2** (npm `1.x` series).
 >

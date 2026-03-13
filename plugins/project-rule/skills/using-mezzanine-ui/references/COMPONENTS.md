@@ -4,7 +4,7 @@ Complete component API reference documentation.
 
 > This document is based on **v2** (npm `1.x` series, git branch `v2`, RC stage)
 >
-> **Version mapping**: Design file v1 = npm `0.x` (deprecated); Design file v2 = npm `1.x` (RC)
+> **Version mapping**: Design file v1 = npm `0.x` (deprecated); Design file v2 = npm `1.x` (RC 1.0.0-rc.5)
 
 ## Table of Contents
 
@@ -212,7 +212,7 @@ import { HomeIcon, SettingIcon } from '@mezzanine-ui/icons';
 </Navigation>
 ```
 
-**Notable Props (RC3)**
+**Notable Props (RC5)**
 
 | Prop                   | Type      | Default | Description                              |
 | ---------------------- | --------- | ------- | ---------------------------------------- |
@@ -232,6 +232,13 @@ import { Tab, TabItem } from '@mezzanine-ui/react';
   <TabItem key="2">Tab 2</TabItem>
 </Tab>
 ```
+
+**Notable Props (RC5)**
+
+| Prop    | Type                    | Default | Description                         |
+| ------- | ----------------------- | ------- | ----------------------------------- |
+| `size`  | `'main' \| 'sub'`       | `'main'`| Tab size                            |
+| `error` | `boolean`               | `false` | Show error state                    |
 
 ---
 
@@ -323,7 +330,7 @@ const data = [
 <Table columns={columns} dataSource={data} />
 ```
 
-**Notable Props (RC3)**
+**Notable Props (RC5)**
 
 | Prop       | Type                                                                  | Default | Description                                          |
 | ---------- | --------------------------------------------------------------------- | ------- | ---------------------------------------------------- |
@@ -485,6 +492,12 @@ import { Tooltip, Button } from '@mezzanine-ui/react';
 </Tooltip>
 ```
 
+**Notable Props (RC5)**
+
+| Prop                 | Type                         | Default | Description                           |
+| -------------------- | ---------------------------- | ------- | ------------------------------------- |
+| `offsetMainAxis`     | `number`                     | -       | Offset distance along main axis       |
+
 ---
 
 ### Pagination
@@ -567,11 +580,13 @@ import { Input, TextField } from '@mezzanine-ui/react';
 <TextField prefix={<SearchIcon />} placeholder="Search" />
 ```
 
-**Notable Props (RC3)**
+**Notable Props (RC5)**
 
 | Prop                       | Type      | Default | Description                                                       |
 | -------------------------- | --------- | ------- | ----------------------------------------------------------------- |
 | `hideSuffixWhenClearable`  | `boolean` | `false` | When true, clear icon overlays the suffix position when clearable |
+
+**Breaking Change in RC5**: The `variant="currency"` has been renamed to `variant="measure"`. Update any Input components using the currency variant.
 
 ---
 
@@ -617,6 +632,12 @@ import type { CheckAllProps } from '@mezzanine-ui/react';
 </RadioGroup>
 ```
 
+**Notable Props (RC5)**
+
+| Prop        | Type                                        | Default | Description                |
+| ----------- | ------------------------------------------- | ------- | -------------------------- |
+| `severity`  | `'info' \| 'warning' \| 'error'` (Checkbox)| `'info'`| Checkbox error state       |
+
 ---
 
 ### Switch
@@ -660,7 +681,14 @@ const options = [
 />
 ```
 
-**RC3 Enhancement**: `searchTextControlRef` now exposes a `reset()` method for clearing the search text programmatically.
+**Notable Props (RC5)**
+
+| Prop                      | Type      | Default | Description                                    |
+| ------------------------- | --------- | ------- | ---------------------------------------------- |
+| `overflowStrategy`        | `string`  | -       | Dropdown overflow handling strategy             |
+| `stepByStepBulkCreate`    | `boolean` | `false` | Enable step-by-step bulk creation mode         |
+
+**RC5 Enhancement**: `searchTextControlRef` now exposes a `reset()` method for clearing the search text programmatically.
 
 ---
 
@@ -721,6 +749,13 @@ import { Slider, useSlider } from '@mezzanine-ui/react';
 // Range
 <Slider value={[20, 80]} onChange={setRange} min={0} max={100} />
 ```
+
+**Notable Props (RC5)**
+
+| Prop                  | Type       | Default | Description                      |
+| --------------------- | ---------- | ------- | -------------------------------- |
+| `onIconLeadingClick`  | `function` | -       | Icon click handler for leading   |
+| `onIconTrailingClick` | `function` | -       | Icon click handler for trailing  |
 
 ---
 
