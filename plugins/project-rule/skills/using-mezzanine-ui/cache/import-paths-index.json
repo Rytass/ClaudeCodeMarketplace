@@ -1,7 +1,7 @@
 {
   "meta": {
-    "generatedAt": "2026-03-13",
-    "sourceVersion": "1.0.0-rc.5",
+    "generatedAt": "2026-03-18",
+    "sourceVersion": "1.0.0-rc.6",
     "description": "Complete import paths index for Mezzanine UI v2 packages"
   },
   "packages": {
@@ -98,6 +98,7 @@
           "PaginationPageSize": { "source": "./Pagination", "exportType": "named" },
           "usePagination": { "source": "./Pagination", "exportType": "named" },
           "Section": { "source": "./Section", "exportType": "default" },
+          "SectionGroup": { "source": "./Section", "exportType": "named" },
           "Table": { "source": "./Table", "exportType": "default" },
           "TableContext": { "source": "./Table", "exportType": "named" },
           "TableDataContext": { "source": "./Table", "exportType": "named" },
@@ -148,7 +149,7 @@
           "SelectControlContext": { "source": "./Select", "exportType": "named" },
           "SelectTrigger": { "source": "./Select", "exportType": "named" },
           "SelectTriggerTags": { "source": "./Select", "exportType": "named" },
-          "Selection": { "source": "./Selection", "exportType": "default" },
+          "SelectionCard": { "source": "./SelectionCard", "exportType": "default" },
           "Slider": { "source": "./Slider", "exportType": "default" },
           "useSlider": { "source": "./Slider", "exportType": "named" },
           "Textarea": { "source": "./Textarea", "exportType": "default" },
@@ -242,7 +243,7 @@
           "fromEmpty": ["EmptyProps"],
           "fromOverflowTooltip": ["OverflowCounterTagProps"],
           "fromPagination": ["PaginationItemProps", "PaginationItemType", "PaginationJumperProps", "PaginationPageSizeProps", "PaginationProps"],
-          "fromSection": ["SectionProps"],
+          "fromSection": ["SectionProps", "SectionGroupProps"],
           "fromTable": ["ColumnAlign", "FixedType", "HighlightMode", "SortOrder", "TableActionItem", "TableActions", "TableActionsBase", "TableActionsWithMinWidth", "TableBaseProps", "TableBulkActions", "TableBulkGeneralAction", "TableBulkOverflowAction", "TableCollectable", "TableColumn", "TableColumnBase", "TableColumnBaseWithMinWidthRequired", "TableColumnTitleMenu", "TableColumnWithDataIndex", "TableColumnWithDataIndexAndMinWidth", "TableColumnWithMinWidth", "TableColumnWithRender", "TableColumnWithRenderAndMinWidth", "TableContextValue", "TableDataContextValue", "TableDataSource", "TableDataSourceWithId", "TableDataSourceWithKey", "TableDraggable", "TableDraggableOnlyProps", "TableExpandable", "TableExpansionState", "TableNoDragOrPinProps", "TableNonResizableProps", "TableNonVirtualizedProps", "TablePinnableOnlyProps", "TableProps", "TableRecord", "TableResizableProps", "TableResizedColumnState", "TableRowSelection", "TableRowSelectionBase", "TableRowSelectionCheckbox", "TableRowSelectionRadio", "TableScroll", "TableSelectionMode", "TableSelectionState", "TableSize", "TableSortingState", "TableToggleable", "TableTransitionState", "TableVirtualizedProps", "UpdateDataSourceOptions", "UseTableDataSourceOptions"],
           "fromTag": ["TagGroupProps", "TagProps", "TagSize"],
           "fromTooltip": ["TooltipProps"],
@@ -260,7 +261,7 @@
           "fromPicker": ["PickerTriggerProps", "RangePickerTriggerProps", "UsePickerDocumentEventCloseProps", "UsePickerValueProps"],
           "fromRadio": ["RadioGroupOrientation", "RadioGroupProps", "RadioProps", "RadioSize"],
           "fromSelect": ["SelectControl", "SelectProps", "SelectTriggerInputProps", "SelectTriggerProps", "SelectTriggerTagsProps", "SelectValue"],
-          "fromSelection": ["SelectionProps", "SelectionPropsBase"],
+          "fromSelectionCard": ["SelectionCardProps", "SelectionCardPropsBase"],
           "fromSlider": ["RangeSliderProps", "RangeSliderValue", "SingleSliderProps", "SingleSliderValue", "SliderBaseProps", "SliderComponentProps", "SliderProps", "SliderRect", "SliderValue", "UseRangeSliderProps", "UseSingleSliderProps", "UseSliderCommonProps", "UseSliderProps", "UseSliderResult"],
           "fromTextarea": ["TextareaProps"],
           "fromTextField": ["TextFieldAffixProps", "TextFieldBaseProps", "TextFieldInteractiveStateProps", "TextFieldPaddingInfo", "TextFieldProps", "TextFieldSize"],
@@ -630,6 +631,6 @@
   "packageNotes": {
     "noExportsField": "None of the packages use the 'exports' field in package.json. Subpath imports work via directory-based resolution (each directory has its own index.ts/index.js).",
     "buildSystem": "All packages use a custom build script (scripts/build.js) that compiles TypeScript to individual directories.",
-    "version": "All source packages are at 1.0.0-rc.5."
+    "version": "All source packages are at 1.0.0-rc.6."
   }
 }

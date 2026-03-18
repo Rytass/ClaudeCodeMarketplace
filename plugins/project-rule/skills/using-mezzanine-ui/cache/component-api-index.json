@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "generatedAt": "2026-03-13",
-    "version": "1.0.0-rc.5",
+    "generatedAt": "2026-03-18",
+    "version": "1.0.0-rc.6",
     "description": "Component props API index for Mezzanine UI v2 packages"
   },
   "Accordion": {
@@ -5465,6 +5465,20 @@
     },
     "sourceFile": "packages/react/src/Section/Section.tsx"
   },
+  "SectionGroup": {
+    "props": {
+      "className": {
+        "type": "string",
+        "required": false
+      },
+      "direction": {
+        "type": "'horizontal' | 'vertical'",
+        "required": false,
+        "default": "'vertical'"
+      }
+    },
+    "sourceFile": "packages/react/src/Section/SectionGroup.tsx"
+  },
   "Select": {
     "props": {},
     "sourceFile": "packages/react/src/Select/Select.tsx",
@@ -5515,6 +5529,28 @@
             "type": "boolean",
             "required": false,
             "default": "true"
+          },
+          "loading": {
+            "type": "boolean",
+            "required": false,
+            "default": "false"
+          },
+          "loadingPosition": {
+            "type": "DropdownLoadingPosition",
+            "required": false,
+            "default": "'bottom'"
+          },
+          "loadingText": {
+            "type": "string",
+            "required": false
+          },
+          "onLeaveBottom": {
+            "type": "() => void",
+            "required": false
+          },
+          "onReachBottom": {
+            "type": "() => void",
+            "required": false
           }
         },
         "extends": [
@@ -5660,11 +5696,6 @@
             "type": "string",
             "required": false
           },
-          "isForceClearable": {
-            "type": "boolean",
-            "required": false,
-            "default": "false"
-          },
           "readOnly": {
             "type": "boolean",
             "required": false,
@@ -5779,19 +5810,19 @@
       }
     }
   },
-  "Selection": {
+  "SelectionCard": {
     "props": {
       "onClick": {
         "type": "(event: MouseEvent<HTMLLabelElement>) => void",
         "required": false
       }
     },
-    "sourceFile": "packages/react/src/Selection/Selection.tsx",
+    "sourceFile": "packages/react/src/SelectionCard/SelectionCard.tsx",
     "extends": [
-      "SelectionPropsBase"
+      "SelectionCardPropsBase"
     ],
     "subComponents": {
-      "SelectionPropsBase": {
+      "SelectionCardPropsBase": {
         "props": {
           "checked": {
             "type": "boolean",
@@ -5842,8 +5873,16 @@
             "type": "string",
             "required": true
           },
+          "textMaxWidth": {
+            "type": "CSSProperties['maxWidth']",
+            "required": false
+          },
           "supportingText": {
             "type": "string",
+            "required": false
+          },
+          "supportingTextMaxWidth": {
+            "type": "CSSProperties['maxWidth']",
             "required": false
           },
           "readonly": {
@@ -5867,7 +5906,7 @@
         "extends": [
           "Omit<NativeElementPropsWithoutKeyAndRef<'label'>, 'onChange'>"
         ],
-        "sourceFile": "packages/react/src/Selection/Selection.tsx"
+        "sourceFile": "packages/react/src/SelectionCard/SelectionCard.tsx"
       },
       "SelectionGroupBaseProps": {
         "props": {
@@ -6112,6 +6151,10 @@
   },
   "Spin": {
     "props": {
+      "color": {
+        "type": "string",
+        "required": false
+      },
       "description": {
         "type": "string",
         "required": false
@@ -6130,14 +6173,14 @@
         "required": false,
         "default": "false"
       },
-      "iconProps": {
-        "type": "Omit<IconProps, 'icon' | 'spin'>",
-        "required": false
-      },
       "loading": {
         "type": "boolean",
         "required": false,
         "default": "false"
+      },
+      "trackColor": {
+        "type": "string",
+        "required": false
       },
       "backdropProps": {
         "type": "Omit<BackdropProps, 'container' | 'open'>",
@@ -6710,6 +6753,14 @@
       },
       "value": {
         "type": "DateType",
+        "required": false
+      },
+      "onCancel": {
+        "type": "VoidFunction",
+        "required": false
+      },
+      "onConfirm": {
+        "type": "VoidFunction",
         "required": false
       }
     },
