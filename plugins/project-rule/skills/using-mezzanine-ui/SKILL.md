@@ -14,7 +14,7 @@ description: Mezzanine-UI design system development guide (v2). All frontend dev
 | Design Docs / Storybook | npm Version | Git Branch | Status                 |
 | ----------------------- | ----------- | ---------- | ---------------------- |
 | v1 (Legacy)             | `0.x`       | main       | Deprecated             |
-| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.5)       |
+| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.6)       |
 
 > This document is based on **v2** (npm `1.x` series).
 >
@@ -145,6 +145,7 @@ Data presentation and visualization components.
 | `OverflowCounterTag`| Overflow counter  | [OverflowTooltip.md](references/components/OverflowTooltip.md) |
 | `Pagination`        | Pagination        | [Pagination.md](references/components/Pagination.md)           |
 | `Section`           | Section           | [Section.md](references/components/Section.md)                 |
+| `SectionGroup`      | Section group     | [Section.md](references/components/Section.md)                 |
 | `Table`             | Table             | [Table.md](references/components/Table.md)                     |
 | `Tag`               | Tag               | [Tag.md](references/components/Tag.md)                         |
 | `Tooltip`           | Tooltip           | [Tooltip.md](references/components/Tooltip.md)                 |
@@ -170,7 +171,7 @@ Form and user input components.
 | `Picker`              | Picker base          | [Picker.md](references/components/Picker.md)                           |
 | `Radio`               | Radio button         | [Radio.md](references/components/Radio.md)                             |
 | `Select`              | Select dropdown      | [Select.md](references/components/Select.md)                           |
-| `Selection`           | Selection            | [Selection.md](references/components/Selection.md)                     |
+| `SelectionCard`       | Selection card       | [SelectionCard.md](references/components/SelectionCard.md)             |
 | `Slider`              | Slider               | [Slider.md](references/components/Slider.md)                           |
 | `Switch`              | Switch toggle        | [Switch.md](references/components/Switch.md)                           |
 | `Textarea`            | Textarea             | [Textarea.md](references/components/Textarea.md)                       |

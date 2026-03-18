@@ -4,7 +4,7 @@ Complete component API reference documentation.
 
 > This document is based on **v2** (npm `1.x` series, git branch `v2`, RC stage)
 >
-> **Version mapping**: Design file v1 = npm `0.x` (deprecated); Design file v2 = npm `1.x` (RC 1.0.0-rc.5)
+> **Version mapping**: Design file v1 = npm `0.x` (deprecated); Design file v2 = npm `1.x` (RC 1.0.0-rc.6)
 
 ## Table of Contents
 
@@ -555,6 +555,21 @@ import { Section } from '@mezzanine-ui/react';
 
 ---
 
+### SectionGroup
+
+Groups multiple Section components with consistent spacing.
+
+```tsx
+import { SectionGroup } from '@mezzanine-ui/react';
+
+<SectionGroup direction="vertical">
+  <Section contentHeader={<ContentHeader title="Section 1" />}>Content 1</Section>
+  <Section contentHeader={<ContentHeader title="Section 2" />}>Content 2</Section>
+</SectionGroup>
+```
+
+---
+
 ### OverflowCounterTag
 
 Overflow counter tag for displaying the number of overflowed items.
@@ -759,14 +774,14 @@ import { Slider, useSlider } from '@mezzanine-ui/react';
 
 ---
 
-### Selection
+### SelectionCard
 
-Selection component.
+Selection card component.
 
 ```tsx
-import { Selection } from '@mezzanine-ui/react';
+import { SelectionCard } from '@mezzanine-ui/react';
 
-<Selection options={options} value={value} onChange={setValue} />
+<SelectionCard text="Option 1" selector="radio" name="option" value="1" />
 ```
 
 ---
