@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Inline Messages`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/InlineMessage) · Verified v2 source (2026-03-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/InlineMessage) · Verified v2 source (2026-03-18)
 
 An inline message component for displaying contextual feedback messages.
 

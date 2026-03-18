@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/Backdrop`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Backdrop) · Verified v2 source (2026-03-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Backdrop) · Verified v2 source (2026-03-18)
 
 Backdrop overlay component for creating backgrounds for modals, drawers, and other overlay layers.
 
@@ -22,7 +22,7 @@ import type { BackdropProps } from '@mezzanine-ui/react';
 | Property                        | Type                 | Default | Description                        |
 | ------------------------------- | -------------------- | ------- | ---------------------------------- |
 | `children`                      | `ReactNode`          | -       | Child content                      |
-| `container`                     | `HTMLElement \| RefObject<HTMLElement \| null> \| null` | - | Portal container |
+| `container`                     | `HTMLElement \| RefObject<HTMLElement> \| RefObject<HTMLElement \| null> \| null` | - | Portal container |
 | `disableCloseOnBackdropClick`   | `boolean`            | `false` | Disable close on backdrop click    |
 | `disablePortal`                 | `boolean`            | `false` | Disable Portal                     |
 | `disableScrollLock`             | `boolean`            | `false` | Disable scroll lock                |

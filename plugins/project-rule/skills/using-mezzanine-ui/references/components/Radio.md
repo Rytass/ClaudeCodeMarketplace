@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Radio`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Radio) · Verified v2 source (2026-03-13)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Radio) · Verified v2 source (2026-03-18)
 
 Radio button component supporting normal mode and segment mode.
 
@@ -44,7 +44,7 @@ Extends `InputCheckProps` (excluding `control`, `htmlFor`).
 | `error`          | `boolean`                                                        | `false`   | Whether in error state   |
 | `inputProps`     | `Omit<NativeElementPropsWithoutKeyAndRef<'input'>, ...excluded>` | -         | Props passed to input    |
 | `onChange`       | `ChangeEventHandler<HTMLInputElement>`                           | -         | Change event             |
-| `size`           | `RadioSize` (`'main' \| 'sub' \| 'minor'`)                      | `'main'`  | Size                     |
+| `size`           | `RadioSize` (`'main' \| 'sub'`)                                  | `'main'`  | Size                     |
 | `value`          | `string`                                                         | -         | Value                    |
 
 ### RadioNormalProps (type: 'radio')
@@ -89,7 +89,7 @@ Extends `InputCheckGroupProps` (excluding `onChange`, `type`).
 | `name`         | `string`                                                 | -              | Group name                                 |
 | `onChange`     | `ChangeEventHandler<HTMLInputElement>`                   | -              | Change event                               |
 | `orientation`  | `RadioGroupOrientation` (`'horizontal' \| 'vertical'`)   | `'horizontal'` | Layout direction                           |
-| `size`         | `RadioSize` (`'main' \| 'sub' \| 'minor'`)               | `'main'`       | Size                                       |
+| `size`         | `RadioSize` (`'main' \| 'sub'`)                           | `'main'`       | Size                                       |
 | `value`        | `string`                                                 | -              | Controlled selected value                  |
 
 ### RadioGroupNormalProps (type: 'radio')

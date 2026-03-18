@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Badge`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Badge) · Verified v2 source (2026-03-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Badge) · Verified v2 source (2026-03-18)
 
 Badge component for marking status, quantity, or hint messages. Supports dot and count modes.
 
@@ -75,7 +75,7 @@ Badge props are divided into mutually exclusive structures based on `variant` ty
 | --------- | ----------------- | -------- | -------------------------------- |
 | `variant` | `BadgeDotVariant` | -        | Required, dot variant            |
 | `text`    | `string`          | -        | Text next to the dot (optional)  |
-| `size`    | `BadgeTextSize`   | `'main'` | Size of the dot and text         |
+| `size`    | `BadgeTextSize`   | -        | Size of the dot and text         |
 
 > Dot badge with text does not support `children`.
 

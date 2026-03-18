@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Spin`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Spin) · Verified v2 source (2026-03-13)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Spin) · Verified rc.6 source (2026-03-18)
 
 Spinning loading component for indicating content is loading.
 
@@ -22,12 +22,13 @@ import type { SpinProps } from '@mezzanine-ui/react';
 | Property               | Type                  | Default  | Description                |
 | ---------------------- | --------------------- | -------- | -------------------------- |
 | `children`             | `ReactNode`           | -        | Wrapped content            |
+| `color`                | `string`              | -        | Custom CSS color for spinner arc |
 | `description`          | `string`              | -        | Loading description text   |
 | `descriptionClassName` | `string`              | -        | Description className      |
 | `size`                 | `GeneralSize`          | `'main'` | Size (`'main' \| 'sub' \| 'minor'`) |
 | `stretch`              | `boolean`             | `false`  | Whether to stretch to fill container |
-| `iconProps`            | `Omit<IconProps, 'icon' \| 'spin'>` | -  | Custom icon props          |
 | `loading`              | `boolean`             | `false`  | Whether loading            |
+| `trackColor`           | `string`              | -        | Custom CSS color for track ring background |
 | `backdropProps`        | `Omit<BackdropProps, 'container' \| 'open'>` | - | Backdrop props (nested mode) |
 
 ---
@@ -100,16 +101,26 @@ function DataTable() {
 }
 ```
 
-### Custom Icon Style
+### Custom Color
 
 ```tsx
+// Custom spinner arc color
 <Spin
   loading
-  iconProps={{
-    color: 'primary',
-    size: 32,
-  }}
+  color="#1890ff"
 />
+
+// Custom track and arc colors
+<Spin
+  loading
+  color="#1890ff"
+  trackColor="#f0f0f0"
+/>
+
+// Using CSS variables
+<div style={{ '--mzn-spin--color': '#ff4d4f', '--mzn-spin--track-color': '#ffccc7' }}>
+  <Spin loading />
+</div>
 ```
 
 ### Full Page Loading
@@ -177,6 +188,30 @@ function ConditionalLoading() {
   );
 }
 ```
+
+---
+
+## Migration Guide (v2 → rc.6)
+
+### Breaking Changes
+
+The spinner animation system has been significantly refactored from Icon-based to CSS-based:
+
+- **Removed**: `iconProps` prop - The spinner is no longer an Icon component
+- **Added**: `color` prop - Set custom spinner arc color via `--mzn-spin--color` CSS variable
+- **Added**: `trackColor` prop - Set custom track ring background color via `--mzn-spin--track-color` CSS variable
+
+**Before (v2)**:
+```tsx
+<Spin loading iconProps={{ color: 'primary', size: 32 }} />
+```
+
+**After (rc.6)**:
+```tsx
+<Spin loading color="#1890ff" trackColor="#f0f0f0" />
+```
+
+The spinner now uses a Fluent 2-style spinning arc animation with CSS-based ring/tail elements for better performance and customization.
 
 ---
 

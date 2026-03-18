@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Time Panel`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimePanel) | Verified v2 rc.5: 2026-03-13
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimePanel) | Verified v2 rc.6: 2026-03-18
 
 Time panel component for selecting time. Must be used with CalendarContext.
 
@@ -26,7 +26,9 @@ import type { TimePanelProps, TimePanelActionProps, TimePanelColumnProps } from 
 | `hideSecond` | `boolean`                 | `false` | Hide second column   |
 | `hourStep`   | `number`                  | `1`     | Hour step            |
 | `minuteStep` | `number`                  | `1`     | Minute step          |
+| `onCancel`   | `VoidFunction`            | -       | Cancel button click callback |
 | `onChange`   | `(target: DateType) => void` | -    | Change callback      |
+| `onConfirm`  | `VoidFunction`            | -       | Confirm button click callback |
 | `secondStep` | `number`                  | `1`     | Second step          |
 | `value`      | `DateType`                | -       | Current time value   |
 

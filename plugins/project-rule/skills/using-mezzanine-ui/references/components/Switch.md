@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Switch`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Toggle) · Verified v2 source (2026-03-13)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Toggle) · Verified v2 source (2026-03-18)
 
 Toggle switch component for switching between two states (on/off). In v2, renamed from `Toggle` to `Switch` (source directory remains `Toggle`, re-exported as `Switch` via `index.ts`).
 

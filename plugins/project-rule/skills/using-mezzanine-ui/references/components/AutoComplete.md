@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/AutoComplete`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/AutoComplete) · Verified v2 source (2026-03-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/AutoComplete) · Verified v2 source (2026-03-18)
 
 Autocomplete component combining input with dropdown menu. Supports search filtering and dynamic option creation. Internally uses `Dropdown` and `SelectTrigger` composition.
 
@@ -43,14 +43,14 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `createActionTextTemplate`   | `string`                                               | `'建立 "{text}"'`      | Create button text template              |
 | `disabledOptionsFilter`      | `boolean`                                              | `false`                | Disable built-in filtering               |
 | `dropdownZIndex`             | `number \| string`                                     | -                      | Dropdown z-index                         |
-| `emptyText`                  | `string`                                               | `'沒有選項'` (built-in) | Empty result hint text                   |
+| `emptyText`                  | `string`                                               | `'沒有符合的項目'` (built-in) | Empty result hint text                   |
 | `globalPortal`               | `boolean`                                              | `true`                 | Whether to enable Portal                 |
 | `id`                         | `string`                                               | -                      | Input element id attribute               |
 | `inputPosition`              | `DropdownInputPosition`                                | `'outside'`            | Input position                           |
 | `inputProps`                 | `Omit<SelectTriggerInputProps, 'onChange' \| 'placeholder' \| 'role' \| 'value' \| 'aria-*'>` | - | Props passed to input element |
 | `loading`                    | `boolean`                                              | `false`                | Whether loading                          |
-| `loadingText`                | `string`                                               | `'加載中…'` (built-in)  | Loading hint text                        |
-| `loadingPosition`            | `DropdownLoadingPosition`                              | `'top'` (changed)      | Loading state display position           |
+| `loadingText`                | `string`                                               | `'載入中...'` (built-in) | Loading hint text                        |
+| `loadingPosition`            | `DropdownLoadingPosition`                              | `'bottom'`             | Loading state display position           |
 | `menuMaxHeight`              | `number \| string`                                     | -                      | Dropdown max height                      |
 | `name`                       | `string`                                               | -                      | Input element name attribute             |
 | `onInsert`                   | `(text: string, currentOptions: SelectValue[]) => SelectValue[]` | -            | Insert option callback                   |
@@ -444,8 +444,8 @@ const handleSearch = async (input) => {
 
 ### 核心要點
 
-1. **選項提交時機改變（rc.5）**：選項僅在按下 Enter 或點擊時提交，不再在搜尋或輸入時自動提交
-2. **內建文字預設值**：`emptyText` 和 `loadingText` 已有內建中文預設值（'沒有選項'、'加載中…'），毋需額外設定
-3. **loadingPosition 預設變更**：從 'bottom' 改為 'top'，更符合直覺
+1. **選項提交時機改變（rc.6）**：選項僅在按下 Enter 或點擊時提交，不再在搜尋或輸入時自動提交
+2. **內建文字預設值**：`emptyText` 和 `loadingText` 已有內建中文預設值（'沒有符合的項目'、'載入中...'），毋需額外設定
+3. **loadingPosition 預設值**：預設為 'bottom'
 4. **overflowStrategy 預設變更**：多重模式現預設為 'wrap'，更易見標籤
 5. **新增 onRemoveCreated**：允許在模糊時自動清理未選中的已建立項目

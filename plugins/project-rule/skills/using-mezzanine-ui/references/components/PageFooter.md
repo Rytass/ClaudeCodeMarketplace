@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/PageFooter`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/PageFooter) | Verified: 2026-03-13
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/PageFooter) | Verified: 2026-03-18
 
 Page footer component for displaying page-level action buttons and auxiliary information.
 
@@ -79,7 +79,7 @@ type PageFooterActions = SingleButtonAction | TwoButtonsAction;
 
 | Property               | Type                     | Default           | Description              |
 | ---------------------- | ------------------------ | ----------------- | ------------------------ |
-| `supportingActionIcon` | `ButtonProps['icon']`    | `DotVerticalIcon` | Overflow button icon     |
+| `supportingActionIcon` | `ButtonProps['icon']`    | `DotHorizontalIcon` | Overflow button icon     |
 | `dropdownProps`        | `Partial<DropdownProps>` | (required)        | Dropdown props           |
 
 ### type="information"

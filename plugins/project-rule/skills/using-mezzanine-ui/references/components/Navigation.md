@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Navigation`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Navigation) | Verified: 2026-03-13
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Navigation) | Verified: 2026-03-18
 
 Side navigation component supporting expand/collapse, multi-level, categories, search, and more.
 
@@ -96,6 +96,10 @@ type NavigationOptionChildren = NavigationOptionChild | NavigationOptionChild[];
 | `anchorComponent`| `React.ElementType`                                           | -            | Custom anchor component, should support `href` and `onClick` |
 | `onTriggerClick` | `(path: string[], currentKey: string, href?: string) => void` | -            | Option trigger click event                |
 
+**Animation Details**: The title is wrapped in a `titleWrapper` `<span>` with a `Fade` transition that provides smooth appear/disappear animation when the navigation collapses/expands. The fade is controlled by `in={collapsed === false || !icon}`, ensuring the title fades in when expanded or when an icon is not present, and fades out when collapsed with an icon.
+
+**Tooltip Positioning**: When a tooltip is displayed for the option, it uses `offsetMainAxis={14}` (8 + 6, where 6 is the padding of the item) to maintain proper spacing from the navigation item.
+
 ---
 
 ## NavigationOptionCategory Props
@@ -119,6 +123,10 @@ type NavigationOptionChildren = NavigationOptionChild | NavigationOptionChild[];
 | `title`        | `string`       | (required) | Title text                               |
 | `onBrandClick` | `() => void`   | -          | Brand area (Logo + title) click callback |
 
+**Brand Area Rendering**: The brand area is rendered as a `<button>` element when `onBrandClick` is provided, allowing for interactive behavior. When no callback is provided, it renders as a `<div>`.
+
+**Title Display & Animation**: The title shows the first character when the navigation is collapsed and the full title when expanded. The title is wrapped in a `Fade` transition for smooth text appear/disappear during collapse/expand animations.
+
 ---
 
 ## NavigationFooter Props
@@ -133,9 +141,10 @@ type NavigationOptionChildren = NavigationOptionChild | NavigationOptionChild[];
 
 ## NavigationIconButton Props
 
-| Property | Type             | Description                  |
-| -------- | ---------------- | ---------------------------- |
-| `icon`   | `IconDefinition` | **Required**, display icon   |
+| Property | Type             | Default | Description                  |
+| -------- | ---------------- | ------- | ---------------------------- |
+| `icon`   | `IconDefinition` | -       | **Required**, display icon   |
+| `active` | `boolean`        | `false` | When true, applies active state styling class |
 
 > Extends native `<button>` attributes (excluding `children`).
 
@@ -342,6 +351,18 @@ import { SettingIcon, HelpIcon } from '@mezzanine-ui/icons';
 - **UserMenu overflow handling**: UserMenu supports scrolling when content overflows
 - **Text fade transition**: Smooth text fade-in/fade-out animation during sidebar collapse/expand
 - **Bug fixes**: `collapsedPlacement` and UserMenu tooltip positioning corrections; open/active state text and background color token fixes; minimum width constraint fixes
+
+## RC3+ Enhancements
+
+- **exactActivatedMatch**: Added in RC3 - allows precise control over href matching behavior for navigation activation
+
+## RC6 Enhancements
+
+- **NavigationIconButton active prop**: Added `active` boolean prop to apply active state styling
+- **Title fade animation**: NavigationOption and NavigationHeader now wrap titles in `Fade` transition for smooth collapse/expand animations
+- **Tooltip offset refinement**: Options use `offsetMainAxis={14}` for improved tooltip positioning
+- **NavigationHeader button rendering**: Brand area renders as `<button>` when `onBrandClick` is provided, enabling interactive callbacks
+- **Collapsed title display**: NavigationHeader displays first character when collapsed, full title when expanded
 
 ---
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Form`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Form) · Verified v2 source (2026-03-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Form) · Verified rc.6 source (2026-03-18)
 
 Form-related components including field containers, labels, hint text, and more.
 
@@ -42,6 +42,7 @@ An integrated form field component including label, input area, hint text, etc.
 | `layout`                 | `FormFieldLayout`          | `FormFieldLayout.HORIZONTAL`  | Layout direction                           |
 | `density`                | `FormFieldDensity`         | -                             | Density (label/data entry width ratio)     |
 | `controlFieldSlotLayout` | `ControlFieldSlotLayout`   | `ControlFieldSlotLayout.MAIN` | Control area layout                        |
+| `controlFieldSlotColumns` | `number`                   | `-`                           | Number of grid columns for control field slot layout. When set, the control area uses CSS grid with the specified column count. |
 | `labelSpacing`           | `FormFieldLabelSpacing`    | `FormFieldLabelSpacing.MAIN`  | Label spacing (effective in horizontal/stretch mode) |
 | `required`               | `boolean`                  | `false`                       | Whether required                           |
 | `disabled`               | `boolean`                  | `false`                       | Whether disabled                           |
@@ -96,6 +97,8 @@ An integrated form field component including label, input area, hint text, etc.
 | ---------- | ----------- |
 | `main`     | Main layout |
 | `sub`      | Sub layout  |
+| `auto`     | Auto layout |
+| `grid`     | Grid layout |
 
 ---
 
@@ -231,6 +234,22 @@ import { QuestionOutlineIcon } from '@mezzanine-ui/icons';
   severity="info"
   showHintTextIcon={false}
 />
+```
+
+### Multi-Column Control Field Layout
+
+```tsx
+<FormField
+  label="Credit Card"
+  name="creditCard"
+  layout="vertical"
+  controlFieldSlotColumns={2}
+>
+  <Input placeholder="Card Number" />
+  <Input placeholder="Expiry" />
+  <Input placeholder="CVV" />
+  <Input placeholder="Cardholder Name" />
+</FormField>
 ```
 
 ### Complete Form Example

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/DateTimePicker`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/DateTimePicker) · Verified v2 source (2026-03-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/DateTimePicker) · Verified v2 source (2026-03-18)
 
 A date-time picker that allows selecting both date and time simultaneously. Must be used with `CalendarContext`. Internally composed of `DatePickerCalendar`, `TimePickerPanel`, and `PickerTriggerWithSeparator`.
 
@@ -29,8 +29,8 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 | Property         | Type                                                     | Default                                  | Description              |
 | ---------------- | -------------------------------------------------------- | ---------------------------------------- | ------------------------ |
 | `defaultValue`   | `DateType`                                               | -                                        | Default value            |
-| `formatDate`     | `string`                                                 | Depends on mode (default `'YYYY-MM-DD'`) | Date display format      |
-| `formatTime`     | `string`                                                 | `hideSecond ? 'HH:mm' : 'HH:mm:ss'`     | Time display format      |
+| `formatDate`     | `string`                                                 | From `CalendarContext` (typically `'YYYY-MM-DD'`) | Date display format      |
+| `formatTime`     | `string`                                                 | From `CalendarContext` (typically `'HH:mm:ss'` or `'HH:mm'` when `hideSecond`) | Time display format      |
 | `onChange`       | `(target?: DateType) => void`                            | -                                        | Change callback          |
 | `onPanelToggle`  | `(open: boolean, focusedInput: FocusedInput) => void`    | -                                        | Panel toggle callback    |
 | `popperPropsTime`| `TimePickerPanelProps['popperProps']`                    | -                                        | Time Popper props        |

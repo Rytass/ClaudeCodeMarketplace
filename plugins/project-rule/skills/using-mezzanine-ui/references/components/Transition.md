@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Transition`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Transition) | Verified v2 rc.5: 2026-03-13
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Transition) | Verified v2 rc.6: 2026-03-18
 
 Transition animation component group, based on `react-transition-group`. Provides the base `Transition` component and various preset animation effects: `Collapse`, `Fade`, `Rotate`, `Scale`, `Slide`, `Translate`.
 

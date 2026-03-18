@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/Anchor`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Anchor) · Verified v2 source (2026-03-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Anchor) · Verified v2 source (2026-03-18)
 
 Anchor navigation component for in-page section navigation with automatic hash tracking.
 

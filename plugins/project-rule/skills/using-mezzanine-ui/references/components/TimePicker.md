@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/TimePicker`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimePicker) | Verified v2 rc.5: 2026-03-13
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimePicker) | Verified v2 rc.6: 2026-03-18
 
 Time picker for selecting time. Must be used with `CalendarContext`.
 
@@ -159,9 +159,9 @@ function ControlledTimePicker() {
 />
 ```
 
-### Keyboard Input (rc.5)
+### Keyboard Input (rc.6)
 
-In rc.5, keyboard input commits immediately and typed values show as pending preview:
+In rc.6, keyboard input commits immediately and typed values show as pending preview:
 
 ```tsx
 <TimePicker

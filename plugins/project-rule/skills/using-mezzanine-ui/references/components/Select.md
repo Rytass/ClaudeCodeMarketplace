@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Select`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Select) · Verified v2 source (2026-03-13)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Select) · Verified v2 source (2026-03-18)
 
 Dropdown select component supporting single-select and multi-select modes. Internally uses the Dropdown component to render the option list.
 
@@ -69,6 +69,11 @@ Extends `SelectTriggerProps`, which includes trigger-related properties.
 | `required`         | `boolean`                                                                                | `false`     | Whether required (inheritable from FormControlContext) |
 | `size`             | `SelectInputSize`                                                                        | -           | Input size                             |
 | `suffixActionIcon` | `ReactElement<IconProps, typeof Icon>`                                                   | -           | Suffix action icon                     |
+| `loading`          | `boolean`                                                                                | `false`     | Whether in loading state               |
+| `loadingPosition`  | `DropdownLoadingPosition`                                                                | `'bottom'`  | Loading indicator position             |
+| `loadingText`      | `string`                                                                                 | -           | Text displayed while loading           |
+| `onLeaveBottom`    | `() => void`                                                                             | -           | Callback when dropdown list leaves bottom |
+| `onReachBottom`    | `() => void`                                                                             | -           | Callback when dropdown list reaches bottom |
 | `type`             | `DropdownType`                                                                           | `'default'` | Dropdown type                          |
 
 ### Single Select Mode (mode: 'single')

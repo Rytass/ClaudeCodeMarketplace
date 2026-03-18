@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Section`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Section) · Verified v2 source (2026-03-13)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Section) · Verified v2 source (2026-03-18)
 >
 > **Migration Note (rc.4)**: Module resolution fix changed barrel file extension from `.tsx` → `.ts`. No API changes.
 
@@ -13,8 +13,8 @@ Section container component for composing `ContentHeader`, `FilterArea`, `Tab`, 
 ## Import
 
 ```tsx
-import { Section } from '@mezzanine-ui/react';
-import type { SectionProps } from '@mezzanine-ui/react';
+import { Section, SectionGroup } from '@mezzanine-ui/react';
+import type { SectionProps, SectionGroupProps } from '@mezzanine-ui/react';
 ```
 
 ---
@@ -32,6 +32,18 @@ The component uses `forwardRef<HTMLDivElement, PropsWithChildren<SectionProps>>`
 | `children`      | `ReactNode`                        | -       | Section body content, rendered after contentHeader, filterArea, and tab           |
 
 > Section automatically injects `size="sub"` prop into the passed `contentHeader` and `filterArea`, ensuring correct sizing in sub-sections.
+
+---
+
+## SectionGroup Props
+
+SectionGroup is a layout container component that groups multiple `Section` components with a configurable direction.
+
+| Property    | Type                           | Default      | Description                                                    |
+| ----------- | ------------------------------ | ------------ | -------------------------------------------------------------- |
+| `className` | `string`                       | -            | Additional CSS class                                           |
+| `direction` | `'horizontal' \| 'vertical'`   | `'vertical'` | Layout direction for grouped sections                          |
+| `children`  | `ReactNode`                    | -            | Child elements, typically multiple `Section` components        |
 
 ---
 
@@ -152,6 +164,94 @@ function FullSection() {
 }
 ```
 
+### SectionGroup - Vertical Layout (Default)
+
+```tsx
+import { Section, SectionGroup } from '@mezzanine-ui/react';
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
+
+function VerticalSectionGroup() {
+  return (
+    <SectionGroup direction="vertical">
+      <Section
+        contentHeader={<ContentHeader title="Sales Analytics" />}
+      >
+        <div>Sales data visualization</div>
+      </Section>
+      <Section
+        contentHeader={<ContentHeader title="Revenue Trends" />}
+      >
+        <div>Revenue charts and metrics</div>
+      </Section>
+      <Section
+        contentHeader={<ContentHeader title="Regional Performance" />}
+      >
+        <div>Regional breakdown</div>
+      </Section>
+    </SectionGroup>
+  );
+}
+```
+
+### SectionGroup - Horizontal Layout
+
+```tsx
+import { Section, SectionGroup } from '@mezzanine-ui/react';
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
+
+function HorizontalSectionGroup() {
+  return (
+    <SectionGroup direction="horizontal">
+      <Section
+        contentHeader={<ContentHeader title="Active Users" />}
+      >
+        <div>User count: 1,250</div>
+      </Section>
+      <Section
+        contentHeader={<ContentHeader title="Total Revenue" />}
+      >
+        <div>Revenue: $45,000</div>
+      </Section>
+      <Section
+        contentHeader={<ContentHeader title="Conversion Rate" />}
+      >
+        <div>Rate: 12.5%</div>
+      </Section>
+    </SectionGroup>
+  );
+}
+```
+
+### SectionGroup with Custom Styling
+
+```tsx
+import { Section, SectionGroup } from '@mezzanine-ui/react';
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
+
+function StyledSectionGroup() {
+  return (
+    <SectionGroup
+      direction="horizontal"
+      className="section-group-custom"
+      style={{ gap: '24px' }}
+    >
+      <Section
+        contentHeader={<ContentHeader title="Section 1" />}
+        className="section-custom"
+      >
+        <div>Content 1</div>
+      </Section>
+      <Section
+        contentHeader={<ContentHeader title="Section 2" />}
+        className="section-custom"
+      >
+        <div>Content 2</div>
+      </Section>
+    </SectionGroup>
+  );
+}
+```
+
 ---
 
 ## Type Validation
@@ -196,6 +296,8 @@ Section's content area now supports `minHeight` to maintain consistent layout he
 | 分頁籤式檢視 | 使用 `tab` 切換不同資料集合 | Tab 改變時 children 內容更新，Section 保持結構穩定 |
 | 完整的列表頁面 | 組合 contentHeader、filterArea、tab、children | 按順序組合可建立標準的資料管理頁面 |
 | 需要最小高度保持版面穩定 | 使用 CSS custom property `--section-content-min-height` | 避免內容少時頁面塌陷 |
+| 垂直排列多個 Section | 使用 `SectionGroup` 搭配 `direction="vertical"` | 統一管理多個 Section 的間距和佈局 |
+| 水平排列多個統計卡 | 使用 `SectionGroup` 搭配 `direction="horizontal"` | 並排顯示 KPI 或統計數據，充分利用寬度 |
 
 ### 常見錯誤
 
@@ -204,6 +306,7 @@ Section's content area now supports `minHeight` to maintain consistent layout he
 - **在 filterArea 內放置非篩選相關內容**：FilterArea 語義上應該只包含篩選條件，其他內容應放在 children
 - **期望 tab 改變時 contentHeader 也更新**：ContentHeader 位置固定在頂部，改變 tab 不會影響它。若需聯動，應在 children 處理
 - **嵌套多層 Section**：雖然技術上可行但會導致複雜的嵌套層級。應扁平化結構或改用其他容器
+- **在 SectionGroup 中混合不同的 direction**：SectionGroup 只支援單一 direction。若需複雜佈局，應嵌套多個 SectionGroup
 
 ## Best Practices
 
@@ -212,3 +315,5 @@ Section's content area now supports `minHeight` to maintain consistent layout he
 3. **Structural consistency**: Use the Section composition pattern consistently across pages to ensure uniform layout and spacing.
 4. **Body content in children**: Place tables, lists, and other main data content in `children`; let Section manage the block layout.
 5. **Consistent height**: Use `minHeight` on the content area when you need consistent section heights across a page.
+6. **SectionGroup for multiple sections**: Use `SectionGroup` to manage layout of multiple `Section` components; set `direction="vertical"` for stacked layouts or `direction="horizontal"` for side-by-side layouts.
+7. **Responsive layouts**: Consider using CSS media queries with `SectionGroup direction` for responsive behavior (e.g., horizontal on desktop, vertical on mobile).

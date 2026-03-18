@@ -4,9 +4,9 @@
 >
 > **Storybook**: `Data Entry/Cascader`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Cascader) · Verified v2 source (2026-03-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Cascader) · Verified v2 source (2026-03-18)
 
-A hierarchical dropdown selector that lets users drill through multi-level option trees. The selected path (from root to leaf) is represented as an array of `CascaderOption` objects. Selection is only committed when a leaf node is clicked or confirmed via keyboard. In rc.5, overflow handling improved with automatic path truncation and tooltip display.
+A hierarchical dropdown selector that lets users drill through multi-level option trees. The selected path (from root to leaf) is represented as an array of `CascaderOption` objects. Selection is only committed when a leaf node is clicked or confirmed via keyboard. In rc.6, overflow handling improved with automatic path truncation and tooltip display.
 
 ## Import
 
@@ -172,7 +172,7 @@ Constrains the height of each panel column; columns become scrollable when optio
 
 > Disabled options are automatically skipped during `ArrowDown` / `ArrowUp` navigation.
 
-## Overflow Display Behavior (rc.5)
+## Overflow Display Behavior (rc.6)
 
 When the selected path is too long to fit in the trigger input width, the Cascader automatically collapses the display:
 

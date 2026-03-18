@@ -4,11 +4,11 @@
 >
 > **Storybook**: `Data Entry/DatePicker`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/DatePicker) | Verified v2 source (2026-03-13)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/DatePicker) | Verified v2 source (2026-03-18)
 
 Date picker component supporting multiple modes (day, week, month, quarter, half-year, year). Requires `CalendarContext`. Internally composed of `PickerTrigger` and `DatePickerCalendar`.
 
-> **rc.5 Change**: Fixed hover preview display bug in calendar panels.
+> **rc.6 Change**: Fixed hover preview display bug in calendar panels.
 
 ## Import
 

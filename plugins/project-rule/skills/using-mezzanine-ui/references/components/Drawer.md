@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Drawer`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Drawer) · Verified v2 source (2026-03-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Drawer) · Verified v2 source (2026-03-18)
 
 A drawer component that slides out from the edge of the page, used to display detailed information or forms.
 

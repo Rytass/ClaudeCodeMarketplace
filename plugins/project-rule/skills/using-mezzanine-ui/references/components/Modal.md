@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Modal`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Modal) · Verified v2 source (2026-03-13)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Modal) · Verified rc.6 source (2026-03-18)
 
 A dialog component for scenarios requiring user attention or action.
 
@@ -83,6 +83,7 @@ Extends `ModalContainerProps` (excluding `children`) with partial `ModalHeaderPr
 | -------------------------- | --------------- | ---------------------------- |
 | `showModalHeader = true`   | `title`         | Title (`string`)             |
 | `showModalFooter = true`   | `confirmText`   | Confirm button text (`string`) |
+| `showCancelButton = true`   | `cancelText`    | Cancel button text (`string`) (enforced via discriminated union types) |
 
 ### Header-related Props (when showModalHeader = true)
 
@@ -97,6 +98,40 @@ From `Partial<Omit<ModalHeaderProps, 'children' | 'className' | 'title'>>`.
 | `supportingTextAlign`  | `'left' \| 'center'`         | `'left'`     | Supporting text align|
 | `titleAlign`           | `'left' \| 'center'`         | `'left'`     | Title alignment      |
 
+### Alignment Constraints
+
+When using `ModalHeader` or `Modal` with header configuration, the following alignment rules are enforced via TypeScript discriminated union types:
+
+- **Horizontal Icon Layout Constraint**: When `statusTypeIconLayout="horizontal"`, only `titleAlign="left"` is allowed. Center alignment is not permitted with horizontal icon layout.
+- **Supporting Text Constraint**: When `titleAlign="center"` and `statusTypeIconLayout="horizontal"`, `supportingTextAlign` cannot be `"center"` (it must be `"left"`).
+
+These constraints are automatically enforced at compile time by TypeScript discriminated union types.
+
+```tsx
+// ✓ Valid: horizontal icon with left-aligned title
+<ModalHeader
+  title="Warning"
+  showStatusTypeIcon
+  statusTypeIconLayout="horizontal"
+  titleAlign="left"
+/>
+
+// ✓ Valid: center title with vertical icon
+<ModalHeader
+  title="Confirmation"
+  showStatusTypeIcon
+  statusTypeIconLayout="vertical"
+  titleAlign="center"
+/>
+
+// ✗ Invalid: horizontal icon with center title (will not compile)
+// <ModalHeader
+//   showStatusTypeIcon
+//   statusTypeIconLayout="horizontal"
+//   titleAlign="center"
+// />
+```
+
 ### Footer-related Props (when showModalFooter = true)
 
 From `Partial<Omit<ModalFooterProps, 'children' | 'className' | 'confirmText'>>`.
@@ -104,7 +139,7 @@ From `Partial<Omit<ModalFooterProps, 'children' | 'className' | 'confirmText'>>`
 | Property                        | Type                                                              | Default   | Description                |
 | ------------------------------- | ----------------------------------------------------------------- | --------- | -------------------------- |
 | `confirmText`                   | `string`                                                          | **Required** | Confirm button text     |
-| `cancelText`                    | `ReactNode`                                                       | -         | Cancel button text         |
+| `cancelText`                    | `ReactNode`                                                       | -         | Cancel button text (required when `showCancelButton=true`) |
 | `onConfirm`                     | `ButtonProps['onClick']`                                          | -         | Confirm button callback    |
 | `onCancel`                      | `ButtonProps['onClick']`                                          | -         | Cancel button callback     |
 | `actionsButtonLayout`           | `'fill' \| 'fixed'`                                               | `'fixed'` | Button layout mode         |
@@ -287,11 +322,52 @@ function ExtendedSplitModal() {
 }
 ```
 
+### Dynamic Body Separator
+
+When the modal content scrolls, separator lines automatically appear based on scroll position. This visual feedback helps users understand that more content is available:
+
+- **Top Separator**: Appears when the content is scrolled down (when `scrollTop > 0`)
+- **Bottom Separator**: Appears when content extends below the visible area, indicating more content below
+
+The separators are automatically managed and do not require additional configuration.
+
+```tsx
+function ScrollableContentModal() {
+  const handleClose = () => setOpen(false);
+
+  return (
+    <Modal open onClose={handleClose}>
+      <ModalHeader title="Scrollable Content" />
+
+      {/* The container manages scrollable content */}
+      <div style={{ maxHeight: 300, overflow: 'auto' }}>
+        {/* Long content - separators appear automatically based on scroll */}
+        <p>Paragraph 1: Start of content...</p>
+        <p>Paragraph 2: More content in the middle...</p>
+        <p>Paragraph 3: Content continues...</p>
+        <p>Paragraph 4: More paragraphs...</p>
+        <p>Paragraph 5: Even more content...</p>
+        <p>Paragraph 6: Content extends below visible area...</p>
+        <p>Paragraph 7: Bottom of scrollable content</p>
+      </div>
+
+      <ModalFooter
+        confirmText="Confirm"
+        showCancelButton
+        cancelText="Cancel"
+        onConfirm={handleClose}
+        onCancel={handleClose}
+      />
+    </Modal>
+  );
+}
+```
+
 ---
 
 ## ModalHeader
 
-Standalone header component for custom headers.
+Standalone header component for custom headers. The title uses `Typography` with `variant="h2"`.
 
 ### Props
 
