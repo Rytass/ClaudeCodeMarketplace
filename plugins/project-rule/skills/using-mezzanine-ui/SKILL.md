@@ -8,13 +8,15 @@ description: Mezzanine-UI design system development guide (v2). All frontend dev
 **Core principle: All frontend development MUST prefer the Mezzanine-UI design system.**
 
 > Currently v2 Release Candidate, npm version `1.x` series
+>
+> **Last verified**: 2026-03-26
 
 ### Version Mapping
 
 | Design Docs / Storybook | npm Version | Git Branch | Status                 |
 | ----------------------- | ----------- | ---------- | ---------------------- |
 | v1 (Legacy)             | `0.x`       | main       | Deprecated             |
-| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.6)       |
+| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.7)       |
 
 > This document is based on **v2** (npm `1.x` series).
 >

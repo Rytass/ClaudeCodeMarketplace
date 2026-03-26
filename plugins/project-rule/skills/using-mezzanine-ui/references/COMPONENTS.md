@@ -2,9 +2,11 @@
 
 Complete component API reference documentation.
 
-> This document is based on **v2** (npm `1.x` series, git branch `v2`, RC stage)
+> This document is based on **v2** (npm `1.x` series, git branch `v2`, RC 1.0.0-rc.7)
 >
-> **Version mapping**: Design file v1 = npm `0.x` (deprecated); Design file v2 = npm `1.x` (RC 1.0.0-rc.6)
+> **Last verified**: 2026-03-26
+>
+> **Version mapping**: Design file v1 = npm `0.x` (deprecated); Design file v2 = npm `1.x` (RC 1.0.0-rc.7)
 
 ## Table of Contents
 
@@ -601,7 +603,7 @@ import { Input, TextField } from '@mezzanine-ui/react';
 | -------------------------- | --------- | ------- | ----------------------------------------------------------------- |
 | `hideSuffixWhenClearable`  | `boolean` | `false` | When true, clear icon overlays the suffix position when clearable |
 
-**Breaking Change in RC5**: The `variant="currency"` has been renamed to `variant="measure"`. Update any Input components using the currency variant.
+**Breaking Change in RC7**: The `variant="currency"` has been renamed to `variant="measure"`. Update any Input components using the currency variant.
 
 ---
 

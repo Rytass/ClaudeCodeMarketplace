@@ -4,7 +4,9 @@ Foundation visual variable definitions for the design system. v2 uses a **Primit
 
 > **Source verification**: This document is based on [GitHub source code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/system/src)
 >
-> ⚠️ This document is based on **v2** (npm `1.x` series, git branch `v2`, RC 1.0.0-rc.6)
+> ⚠️ This document is based on **v2** (npm `1.x` series, git branch `v2`, RC 1.0.0-rc.7)
+>
+> **Last verified**: 2026-03-26
 >
 > **Version mapping**: Design file v1 = npm `0.x` (deprecated); Design file v2 = npm `1.x` (in use)
 
