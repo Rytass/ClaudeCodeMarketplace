@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "generatedAt": "2026-03-18",
-    "version": "1.0.0-rc.6",
+    "generatedAt": "2026-03-26",
+    "version": "1.0.0-rc.7",
     "description": "Component props API index for Mezzanine UI v2 packages"
   },
   "Accordion": {
@@ -282,6 +282,12 @@
           "onRemoveCreated": {
             "type": "(cleanedOptions: SelectValue[]) => void",
             "required": false
+          },
+          "clearSearchText": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Whether to clear search text when leaving the textfield/dropdown scope."
           }
         },
         "extends": [
@@ -2517,52 +2523,6 @@
         "required": false,
         "default": "'base-secondary'"
       },
-      "controlBarAllRadioLabel": {
-        "type": "string",
-        "required": false
-      },
-      "controlBarCustomButtonLabel": {
-        "type": "string",
-        "required": false
-      },
-      "controlBarDefaultValue": {
-        "type": "string",
-        "required": false
-      },
-      "controlBarIsEmpty": {
-        "type": "boolean",
-        "required": false
-      },
-      "controlBarOnCustomButtonClick": {
-        "type": "VoidFunction",
-        "required": false
-      },
-      "controlBarOnRadioChange": {
-        "type": "ChangeEventHandler<HTMLInputElement>",
-        "required": false
-      },
-      "controlBarReadRadioLabel": {
-        "type": "string",
-        "required": false
-      },
-      "controlBarShow": {
-        "type": "boolean",
-        "required": false,
-        "default": "false"
-      },
-      "controlBarShowUnreadButton": {
-        "type": "boolean",
-        "required": false,
-        "default": "false"
-      },
-      "controlBarUnreadRadioLabel": {
-        "type": "string",
-        "required": false
-      },
-      "controlBarValue": {
-        "type": "string",
-        "required": false
-      },
       "disableCloseOnEscapeKeyDown": {
         "type": "boolean",
         "required": false,
@@ -2588,6 +2548,74 @@
         "type": "DrawerSize",
         "required": false,
         "default": "'medium'"
+      },
+      "filterAreaOptions": {
+        "type": "DropdownOption[]",
+        "required": false,
+        "description": "Options for the filter bar dropdown."
+      },
+      "filterAreaOnSelect": {
+        "type": "(option: DropdownOption) => void",
+        "required": false,
+        "description": "Callback fired when a filter bar dropdown option is selected."
+      },
+      "filterAreaAllRadioLabel": {
+        "type": "string",
+        "required": false,
+        "description": "The label of the all radio in filter area."
+      },
+      "filterAreaCustomButtonLabel": {
+        "type": "string",
+        "required": false,
+        "description": "The label of the custom button in filter area."
+      },
+      "filterAreaDefaultValue": {
+        "type": "string",
+        "required": false,
+        "description": "The default value of the radio group in filter area."
+      },
+      "filterAreaIsEmpty": {
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Whether the filter area content is empty (for disabling custom button)."
+      },
+      "filterAreaOnCustomButtonClick": {
+        "type": "VoidFunction",
+        "required": false,
+        "description": "The callback function when the custom button is clicked in filter area."
+      },
+      "filterAreaOnRadioChange": {
+        "type": "ChangeEventHandler<HTMLInputElement>",
+        "required": false,
+        "description": "The callback function when the radio group value changes in filter area."
+      },
+      "filterAreaReadRadioLabel": {
+        "type": "string",
+        "required": false,
+        "description": "The label of the read radio in filter area."
+      },
+      "filterAreaShow": {
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Controls whether to display the filter area."
+      },
+      "filterAreaShowUnreadButton": {
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Controls whether to display the unread button in filter area."
+      },
+      "filterAreaUnreadRadioLabel": {
+        "type": "string",
+        "required": false,
+        "description": "The label of the unread radio in filter area."
+      },
+      "filterAreaValue": {
+        "type": "string",
+        "required": false,
+        "description": "The value of the radio group in filter area."
       }
     },
     "sourceFile": "packages/react/src/Drawer/Drawer.tsx",
@@ -4088,6 +4116,41 @@
           "Pick<\n    BackdropProps,\n    | 'className'\n    | 'container'\n    | 'disableCloseOnBackdropClick'\n    | 'disablePortal'\n    | 'onBackdropClick'\n    | 'onClose'\n    | 'open'\n  >"
         ],
         "sourceFile": "packages/react/src/Modal/useModalContainer.tsx"
+      },
+      "ExtendedSplitModalProps": {
+        "props": {
+          "extendedSplitLeftSideContent": {
+            "type": "React.ReactNode",
+            "required": true,
+            "description": "Content for the left side in extendedSplit layout."
+          },
+          "extendedSplitRightSideContent": {
+            "type": "React.ReactNode",
+            "required": true,
+            "description": "Content for the right side in extendedSplit layout."
+          },
+          "extendedSplitSidebarPosition": {
+            "type": "'left' | 'right'",
+            "required": false,
+            "default": "'right'",
+            "description": "Controls which side the sidebar panel appears on."
+          },
+          "modalType": {
+            "type": "'extendedSplit'",
+            "required": true,
+            "description": "Modal type for extendedSplit layout."
+          },
+          "size": {
+            "type": "'wide'",
+            "required": false,
+            "default": "'wide'",
+            "description": "Size of the modal (only 'wide' allowed for extendedSplit)."
+          }
+        },
+        "extends": [
+          "CommonModalProps"
+        ],
+        "sourceFile": "packages/react/src/Modal/Modal.tsx"
       }
     }
   },
@@ -4399,7 +4462,13 @@
     }
   },
   "NotificationCenter": {
-    "props": {},
+    "props": {
+      "filterBarOnSelect": {
+        "type": "(option: DropdownOption) => void",
+        "required": false,
+        "description": "Callback fired when a filter bar option is selected."
+      }
+    },
     "sourceFile": "packages/react/src/NotificationCenter/",
     "subComponents": {
       "NotificationConfigProps": {
@@ -4500,6 +4569,16 @@
       "disabled": {
         "type": "boolean",
         "required": false
+      },
+      "tagSize": {
+        "type": "string",
+        "required": false,
+        "description": "Size of the tag element."
+      },
+      "readOnly": {
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the tag is read-only."
       }
     },
     "sourceFile": "packages/react/src/OverflowTooltip/OverflowCounterTag.tsx",
@@ -5231,7 +5310,13 @@
     ]
   },
   "Radio": {
-    "props": {},
+    "props": {
+      "withEditInput": {
+        "type": "boolean",
+        "required": false,
+        "description": "Whether to show edit input for radio label."
+      }
+    },
     "sourceFile": "packages/react/src/Radio/Radio.tsx",
     "propsType": "RadioNormalProps | RadioSegmentProps",
     "subComponents": {
