@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Modal`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Modal) · Verified rc.6 source (2026-03-18)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Modal) · Verified rc.7 source (2026-03-26)
 
 A dialog component for scenarios requiring user attention or action.
 
@@ -76,6 +76,7 @@ Extends `ModalContainerProps` (excluding `children`) with partial `ModalHeaderPr
 | `size`                          | `'wide'`    | `'wide'` | Fixed to wide     |
 | `extendedSplitLeftSideContent`  | `ReactNode` | **Required** | Left content |
 | `extendedSplitRightSideContent` | `ReactNode` | **Required** | Right content|
+| `extendedSplitSidebarPosition`  | `'left' \| 'right'` | `'right'` | **RC.7 NEW**: Sidebar position (only for `modalType='extendedSplit'`) |
 
 ### Conditionally Required Props
 

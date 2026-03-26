@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Internal/ContentHeader`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/ContentHeader) · Verified v2 source (2026-03-18)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/ContentHeader) · Verified v2 source (2026-03-26)
 
 > **Important**: `ContentHeader` is not exported from the `@mezzanine-ui/react` main entry (`index.ts`). This is an internal component primarily used internally by `PageHeader`. If you need to use it directly, import from the sub-path.
 

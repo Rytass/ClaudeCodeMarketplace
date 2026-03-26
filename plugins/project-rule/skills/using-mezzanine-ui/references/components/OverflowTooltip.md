@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/OverflowTooltip`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/OverflowTooltip) | Verified: 2026-03-18
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/OverflowTooltip) | Verified rc.7: 2026-03-26
 
 Overflow tag tooltip component for displaying truncated tag lists. Typically used with Select in multi-select mode.
 
@@ -35,9 +35,9 @@ Extends `NativeElementPropsWithoutKeyAndRef<'span'>` and `Pick<OverflowTooltipPr
 | `disabled`     | `boolean`                 | -       | Whether disabled             |
 | `onTagDismiss` | `(index: number) => void` | -       | Tag dismiss callback (required) |
 | `placement`    | `Placement`               | -       | Popup placement              |
-| `readOnly`     | `boolean`                 | -       | Whether read-only            |
+| `readOnly`     | `boolean` **(RC.7 NEW)**  | -       | Whether read-only            |
+| `tagSize`      | `TagProps['size']` **(RC.7 NEW)** | - | Tag size (new prop)          |
 | `tags`         | `string[]`                | `[]`    | Tag list                     |
-| `tagSize`      | `TagProps['size']`        | -       | Tag size                     |
 
 ### OverflowCounterTag Usage Example
 
@@ -64,9 +64,9 @@ import { OverflowCounterTag } from '@mezzanine-ui/react';
 | `onTagDismiss` | `(tagIndex: number) => void` | **required** | Tag dismiss callback |
 | `open`         | `boolean`                  | **required**  | Whether open         |
 | `placement`    | `Placement`                | `'top-start'` | Popup placement      |
-| `readOnly`     | `boolean`                  | -             | Whether read-only    |
+| `readOnly`     | `boolean` **(RC.7 NEW)**   | -             | Whether read-only    |
+| `tagSize`      | `TagProps['size']` **(RC.7 NEW)** | - | Tag size (new prop)           |
 | `tags`         | `string[]`                 | **required**  | Tag list             |
-| `tagSize`      | `TagProps['size']`         | -             | Tag size             |
 
 ---
 

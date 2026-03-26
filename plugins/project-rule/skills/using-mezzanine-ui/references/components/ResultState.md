@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/ResultState`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/ResultState) · Verified v2 source (2026-03-18)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/ResultState) · Verified rc.7 source (2026-03-26)
 
 Result state component for displaying operation results or status pages.
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/DateTimePicker`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/DateTimePicker) · Verified v2 source (2026-03-18)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/DateTimePicker) · Verified v2 source (2026-03-26)
 
 A date-time picker that allows selecting both date and time simultaneously. Must be used with `CalendarContext`. Internally composed of `DatePickerCalendar`, `TimePickerPanel`, and `PickerTriggerWithSeparator`.
 

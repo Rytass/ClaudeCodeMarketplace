@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Calendar`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Calendar) · Verified v2 source (2026-03-18)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Calendar) · Verified v2 source (2026-03-26)
 
 Calendar component for displaying and selecting dates. Requires `CalendarConfigProvider` (which provides `CalendarContext`). Supports six modes: day, week, month, year, quarter, and half-year.
 

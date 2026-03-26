@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Internal/Scrollbar`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Scrollbar) · Verified v2 source (2026-03-18)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Scrollbar) · Verified rc.7 source (2026-03-26)
 >
 > **Important**: Scrollbar is **NOT exported** from the public `@mezzanine-ui/react` entry. It is an internal-only component. Import directly from sub-path only if absolutely necessary.
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Input`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Input) · Verified v2 source (2026-03-18)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Input) · Verified rc.7 source (2026-03-26)
 
 A versatile input component supporting multiple variants for different use cases.
 
@@ -41,7 +41,7 @@ import type {
 | `affix`    | Input with prefix/suffix      | Custom prefix/suffix               |
 | `search`   | Search input                  | Default search icon, clearable     |
 | `number`   | Number input                  | 36x36 compact number input         |
-| `measure`  | Measure/unit input            | Unit text, optional spinner controls |
+| `measure`  | Measure/unit input **(RC.7: replaces `currency`)** | Unit text, optional spinner controls |
 | `action`   | Input with action button      | Button outside the input           |
 | `select`   | Input with dropdown           | Button at prefix/suffix/both       |
 | `password` | Password input                | Eye toggle, strength indicator     |

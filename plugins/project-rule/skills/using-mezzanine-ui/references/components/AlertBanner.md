@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/Alert Banner`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/AlertBanner) · Verified v2 source (2026-03-18)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/AlertBanner) · Verified v2 source (2026-03-26)
 
 Alert banner component for displaying important system-level notifications. Supports both component-based and imperative APIs. Internally based on `createNotifier`, with sorting rules: non-info first, newest first. Renders using Portal `alert` level.
 

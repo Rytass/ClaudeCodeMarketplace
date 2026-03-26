@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Notifier`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Notifier) | Verified: 2026-03-18
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Notifier) | Verified: 2026-03-26
 
 Notifier factory function for creating custom notification systems. It is the underlying implementation of Message, NotificationCenter, and other components.
 

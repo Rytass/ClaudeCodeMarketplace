@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Drawer`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Drawer) · Verified v2 source (2026-03-18)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Drawer) · Verified rc.7 source (2026-03-26)
 
 A drawer component that slides out from the edge of the page, used to display detailed information or forms.
 
@@ -78,22 +78,23 @@ import type { DrawerProps, DrawerPlacement } from '@mezzanine-ui/react';
 | `bottomSecondaryActionSize`         | `ButtonSize`      | -                   | Button size          |
 | `bottomSecondaryActionVariant`      | `ButtonVariant`   | `'base-secondary'`  | Button variant       |
 
-### Control Bar Props
+### Filter Area Props
 
 | Property                          | Type                                    | Default      | Description                    |
 | --------------------------------- | --------------------------------------- | ------------ | ------------------------------ |
-| `controlBarShow`                  | `boolean`                               | `false`      | Whether to show control bar    |
-| `renderControlBar`                | `() => ReactNode`                       | -            | Custom control bar render fn   |
-| `controlBarAllRadioLabel`         | `string`                                | -            | Control bar "All" label        |
-| `controlBarReadRadioLabel`        | `string`                                | -            | Control bar "Read" label       |
-| `controlBarUnreadRadioLabel`      | `string`                                | -            | Control bar "Unread" label     |
-| `controlBarShowUnreadButton`      | `boolean`                               | `false`      | Whether to show unread button  |
-| `controlBarCustomButtonLabel`     | `string`                                | `'全部已讀'`      | Custom button text             |
-| `controlBarOnCustomButtonClick`   | `VoidFunction`                          | -            | Custom button click handler    |
-| `controlBarOnRadioChange`         | `ChangeEventHandler<HTMLInputElement>`  | -            | Radio change event handler     |
-| `controlBarDefaultValue`          | `string`                                | -            | Default radio value            |
-| `controlBarValue`                 | `string`                                | -            | Controlled radio value         |
-| `controlBarIsEmpty`               | `boolean`                               | `false`      | Whether to disable custom btn  |
+| `filterAreaShow`                  | `boolean`                               | `false`      | Whether to show filter area    |
+| `filterAreaAllRadioLabel`         | `string`                                | -            | Filter area "All" label        |
+| `filterAreaReadRadioLabel`        | `string`                                | -            | Filter area "Read" label       |
+| `filterAreaUnreadRadioLabel`      | `string`                                | -            | Filter area "Unread" label     |
+| `filterAreaShowUnreadButton`      | `boolean`                               | `false`      | Whether to show unread button  |
+| `filterAreaCustomButtonLabel`     | `string`                                | `'全部已讀'`      | Custom button text             |
+| `filterAreaOnCustomButtonClick`   | `VoidFunction`                          | -            | Custom button click handler    |
+| `filterAreaOnRadioChange`         | `ChangeEventHandler<HTMLInputElement>`  | -            | Radio change event handler     |
+| `filterAreaDefaultValue`          | `string`                                | -            | Default radio value            |
+| `filterAreaValue`                 | `string`                                | -            | Controlled radio value         |
+| `filterAreaIsEmpty`               | `boolean`                               | `false`      | Whether to disable custom btn  |
+| `filterAreaOptions`               | `DropdownOption[]`                      | -            | Options for dropdown in filter area |
+| `filterAreaOnSelect`              | `(option: DropdownOption) => void`      | -            | Callback when dropdown option selected |
 
 ---
 
@@ -304,7 +305,39 @@ function FormDrawer() {
 
 ### 常見錯誤
 
-1. **尺寸選擇不當導致佈局混亂**
+1. **RC.7 重大更新: controlBar → filterArea 轉換**
+   ```tsx
+   // ❌ 錯誤 (RC.6 已廢棄)：
+   <Drawer
+     controlBarShow
+     controlBarAllRadioLabel="全部"
+     controlBarValue={filter}
+     controlBarOnRadioChange={handleChange}
+   >
+     Content
+   </Drawer>
+
+   // ✅ 正確 (RC.7)：
+   <Drawer
+     filterAreaShow
+     filterAreaAllRadioLabel="全部"
+     filterAreaValue={filter}
+     filterAreaOnRadioChange={handleChange}
+   >
+     Content
+   </Drawer>
+
+   // 與 Dropdown 配合 (RC.7)：
+   <Drawer
+     filterAreaShow
+     filterAreaOptions={dropdownOptions}
+     filterAreaOnSelect={handleDropdownSelect}
+   >
+     Content
+   </Drawer>
+   ```
+
+2. **尺寸選擇不當導致佈局混亂**
    ```tsx
    // ❌ 錯誤：複雜表單用窄抽屜
    <Drawer size="narrow" isBottomDisplay>

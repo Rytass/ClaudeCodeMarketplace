@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Message`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Message) · Verified v2 source (2026-03-18)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Message) · Verified rc.7 source (2026-03-26)
 
 A global message notification component for displaying operation feedback, system notifications, and other lightweight messages. Uses an imperative API.
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Notification Center`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/NotificationCenter) | Verified: 2026-03-18
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/NotificationCenter) | Verified: rc.7 (2026-03-26)
 
 Notification center component for displaying global notifications. Supports both popup notification and drawer list modes.
 
@@ -241,17 +241,19 @@ Notification list drawer component that displays notifications in a Drawer forma
 | `earlierLabel`                   | `string`                                 | `'更早'`                   | Earlier group label                            |
 | `emptyNotificationIcon`          | `IconDefinition`                         | `NotificationIcon`         | Empty notification icon                        |
 | `emptyNotificationTitle`         | `string`                                 | `'目前沒有新的通知'`       | Empty notification text                        |
-| `controlBarShow`                 | `boolean`                                | -                          | Whether to show control bar                    |
-| `controlBarDefaultValue`         | `string`                                 | -                          | Control bar default value                      |
-| `controlBarValue`                | `string`                                 | -                          | Control bar controlled value                   |
-| `controlBarOnRadioChange`        | `(value: string) => void`                | -                          | Radio change callback                          |
-| `controlBarAllRadioLabel`        | `string`                                 | -                          | All radio label                                |
-| `controlBarReadRadioLabel`       | `string`                                 | -                          | Read radio label                               |
-| `controlBarUnreadRadioLabel`     | `string`                                 | -                          | Unread radio label                             |
-| `controlBarShowUnreadButton`     | `boolean`                                | -                          | Whether to show unread button                  |
-| `controlBarCustomButtonLabel`    | `string`                                 | -                          | Custom button label                            |
-| `controlBarOnCustomButtonClick`  | `() => void`                             | -                          | Custom button callback                         |
-| `renderControlBar`               | `(props) => ReactNode`                   | -                          | Custom control bar render                      |
+| `filterAreaShow`                 | `boolean`                                | -                          | Whether to show filter area                    |
+| `filterAreaDefaultValue`         | `string`                                 | -                          | Filter area default value                      |
+| `filterAreaValue`                | `string`                                 | -                          | Filter area controlled value                   |
+| `filterAreaOnRadioChange`        | `(value: string) => void`                | -                          | Radio change callback                          |
+| `filterAreaAllRadioLabel`        | `string`                                 | -                          | All radio label                                |
+| `filterAreaReadRadioLabel`       | `string`                                 | -                          | Read radio label                               |
+| `filterAreaUnreadRadioLabel`     | `string`                                 | -                          | Unread radio label                             |
+| `filterAreaShowUnreadButton`     | `boolean`                                | -                          | Whether to show unread button                  |
+| `filterAreaCustomButtonLabel`    | `string`                                 | -                          | Custom button label                            |
+| `filterAreaOnCustomButtonClick`  | `() => void`                             | -                          | Custom button callback                         |
+| `filterAreaOptions`              | `DropdownOption[]`                       | -                          | Filter area dropdown options **(RC.7 NEW)**    |
+| `filterAreaOnSelect`             | `(value: string) => void`                | -                          | Filter area dropdown select callback **(RC.7 NEW)** |
+| `renderFilterArea`               | `(props) => ReactNode`                   | -                          | Custom filter area render                      |
 
 ---
 

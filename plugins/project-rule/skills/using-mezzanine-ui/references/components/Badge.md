@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Badge`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Badge) · Verified v2 source (2026-03-18)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Badge) · Verified v2 source (2026-03-26)
 
 Badge component for marking status, quantity, or hint messages. Supports dot and count modes.
 

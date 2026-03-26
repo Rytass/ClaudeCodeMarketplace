@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Time Panel`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimePanel) | Verified v2 rc.6: 2026-03-18
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimePanel) | Verified rc.7: 2026-03-26
 
 Time panel component for selecting time. Must be used with CalendarContext.
 

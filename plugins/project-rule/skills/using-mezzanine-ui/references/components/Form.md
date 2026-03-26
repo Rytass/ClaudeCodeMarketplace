@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Form`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Form) · Verified rc.6 source (2026-03-18)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Form) · Verified rc.7 source (2026-03-26)
 
 Form-related components including field containers, labels, hint text, and more.
 

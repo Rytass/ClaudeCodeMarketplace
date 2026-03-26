@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Checkbox`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Checkbox) · Verified v2 source (2026-03-18)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Checkbox) · Verified rc.7 source (2026-03-26)
 
 A checkbox component supporting standalone or group usage, with multiple modes.
 
@@ -53,7 +53,8 @@ import type {
 | `severity`       | `'info' \| 'error'`                    | `'info'`    | Semantic form-validation coloring (NEW in rc.6) |
 | `size`           | `CheckboxSize`                         | `'main'`    | Size (available values vary by mode)     |
 | `value`          | `string`                               | -           | Value (required within a group)          |
-| `withEditInput`  | `boolean`                              | `false`     | Whether to show editable input           |
+| `withEditInput`  | `boolean` **(RC.7 NEW)**               | `false`     | Show editable input when checked. Auto-checks and auto-focuses input. |
+| `editableInput`  | `Omit<BaseInputProps, 'variant'>` **(RC.7 NEW)** | -  | Config for editable input (name, id, placeholder, etc.) |
 
 ---
 

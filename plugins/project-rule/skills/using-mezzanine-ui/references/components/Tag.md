@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Tag`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tag) | Verified v2 rc.6: 2026-03-18
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tag) | Verified rc.7: 2026-03-26
 
 Tag component for labeling, categorizing, or filtering content. Supports multiple types with different host elements (`<span>` or `<button>`).
 
@@ -90,7 +90,8 @@ interface TagPropsDismissable {
   active?: boolean;
   disabled?: boolean;
   onClose: MouseEventHandler<HTMLButtonElement>;  // Required
-  // The following are never: readOnly, count, onClick
+  // The following are never: count, onClick
+  // RC.7: readOnly removed - no longer supported for dismissable type
 }
 ```
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Breadcrumb`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Breadcrumb) · Verified v2 source (2026-03-18)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Breadcrumb) · Verified rc.7 source (2026-03-26)
 
 Breadcrumb component for displaying hierarchical page navigation paths.
 

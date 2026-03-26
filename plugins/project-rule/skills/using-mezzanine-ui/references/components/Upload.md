@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Upload`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Upload) | Verified v2 rc.6: 2026-03-18
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Upload) | Verified rc.7: 2026-03-26 (246 lines of Uploader changes)
 
 File upload component with support for multiple display modes and upload status management.
 
