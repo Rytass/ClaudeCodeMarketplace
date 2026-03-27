@@ -1,0 +1,808 @@
+{
+  "meta": {
+    "fromVersion": "1.0.0-rc.7",
+    "toVersion": "1.0.0-rc.8",
+    "generatedAt": "2026-03-27T07:25:31Z",
+    "description": "Mezzanine-UI upgrade work manifest"
+  },
+  "summary": {
+    "componentsAdded": 1,
+    "componentsRemoved": 4,
+    "componentsUnchanged": 64,
+    "componentsWithPropChanges": 19,
+    "releasesCovered": 0,
+    "workItemsTotal": 24,
+    "workItemsHigh": 24,
+    "workItemsMedium": 0,
+    "workItemsLow": 0
+  },
+  "componentDiff": {
+    "added": [
+      "Toggle"
+    ],
+    "removed": [
+      "ClearActions",
+      "ContentHeader",
+      "Scrollbar",
+      "Switch"
+    ],
+    "unchanged": [
+      "Accordion",
+      "AlertBanner",
+      "Anchor",
+      "AutoComplete",
+      "Backdrop",
+      "Badge",
+      "Breadcrumb",
+      "Button",
+      "Calendar",
+      "Card",
+      "Cascader",
+      "Checkbox",
+      "Cropper",
+      "DatePicker",
+      "DateRangePicker",
+      "DateTimePicker",
+      "DateTimeRangePicker",
+      "Description",
+      "Drawer",
+      "Dropdown",
+      "Empty",
+      "FilterArea",
+      "FloatingButton",
+      "Form",
+      "Icon",
+      "InlineMessage",
+      "Input",
+      "Layout",
+      "Message",
+      "Modal",
+      "MultipleDatePicker",
+      "Navigation",
+      "NotificationCenter",
+      "Notifier",
+      "OverflowTooltip",
+      "PageFooter",
+      "PageHeader",
+      "Pagination",
+      "Picker",
+      "Popper",
+      "Portal",
+      "Progress",
+      "Radio",
+      "ResultState",
+      "Section",
+      "Select",
+      "SelectionCard",
+      "Separator",
+      "Skeleton",
+      "Slider",
+      "Spin",
+      "Stepper",
+      "Tab",
+      "Table",
+      "Tag",
+      "Textarea",
+      "TextField",
+      "TimePanel",
+      "TimePicker",
+      "TimeRangePicker",
+      "Tooltip",
+      "Transition",
+      "Typography",
+      "Upload"
+    ]
+  },
+  "changelog": [],
+  "propsDiff": [
+    {
+      "component": "Accordion",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "onChange"
+      ]
+    },
+    {
+      "component": "Anchor",
+      "propsAdded": [
+        "anchors",
+        "children"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Calendar",
+      "propsAdded": [
+        "calendarDaysProps",
+        "calendarMonthsProps"
+      ],
+      "propsRemoved": [
+        "disabledFooterControl",
+        "disabledMonthSwitch",
+        "disabledYearSwitch",
+        "mode",
+        "onChange",
+        "onDoubleNext",
+        "onDoublePrev",
+        "onMonthControlClick",
+        "onNext",
+        "onPrev",
+        "onYearControlClick",
+        "quickSelect",
+        "referenceDate",
+        "value"
+      ]
+    },
+    {
+      "component": "Checkbox",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "id",
+        "inputProps",
+        "inputRef",
+        "name",
+        "onChange",
+        "severity",
+        "size",
+        "value"
+      ]
+    },
+    {
+      "component": "DateRangePicker",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "defaultValue",
+        "format",
+        "onCalendarToggle",
+        "onChange",
+        "referenceDate",
+        "value"
+      ]
+    },
+    {
+      "component": "DateTimePicker",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "value"
+      ]
+    },
+    {
+      "component": "Drawer",
+      "propsAdded": [
+        "contentKey"
+      ],
+      "propsRemoved": [
+        "bottomOnSecondaryActionClick",
+        "bottomPrimaryActionDisabled",
+        "bottomPrimaryActionIcon",
+        "bottomPrimaryActionIconType",
+        "bottomPrimaryActionLoading",
+        "bottomPrimaryActionSize",
+        "bottomPrimaryActionText",
+        "bottomPrimaryActionVariant",
+        "bottomSecondaryActionDisabled",
+        "bottomSecondaryActionIcon",
+        "bottomSecondaryActionIconType",
+        "bottomSecondaryActionLoading",
+        "bottomSecondaryActionSize",
+        "bottomSecondaryActionText",
+        "bottomSecondaryActionVariant",
+        "disableCloseOnEscapeKeyDown",
+        "filterAreaAllRadioLabel",
+        "filterAreaCustomButtonLabel",
+        "filterAreaDefaultValue",
+        "filterAreaIsEmpty",
+        "filterAreaOnCustomButtonClick",
+        "filterAreaOnRadioChange",
+        "filterAreaOnSelect",
+        "filterAreaOptions",
+        "filterAreaReadRadioLabel",
+        "filterAreaShow",
+        "filterAreaShowUnreadButton",
+        "filterAreaUnreadRadioLabel",
+        "filterAreaValue",
+        "headerTitle",
+        "isBottomDisplay",
+        "isHeaderDisplay",
+        "renderControlBar",
+        "size"
+      ]
+    },
+    {
+      "component": "Dropdown",
+      "propsAdded": [
+        "keyboardActiveIndex"
+      ],
+      "propsRemoved": [
+        "customWidth",
+        "emptyIcon",
+        "emptyText",
+        "globalPortal",
+        "listboxId",
+        "listboxLabel",
+        "loadingPosition",
+        "loadingText",
+        "maxHeight",
+        "onActionCancel",
+        "onActionClear",
+        "onActionConfirm",
+        "onActionCustom",
+        "onClose",
+        "onItemHover",
+        "onLeaveBottom",
+        "onOpen",
+        "onReachBottom",
+        "onSelect",
+        "onVisibilityChange",
+        "open",
+        "options",
+        "placement",
+        "sameWidth",
+        "scrollbarDefer",
+        "scrollbarDisabled",
+        "scrollbarMaxWidth",
+        "scrollbarOptions",
+        "showActionShowTopBar",
+        "showDropdownActions",
+        "status",
+        "toggleCheckedOnClick",
+        "type",
+        "zIndex"
+      ]
+    },
+    {
+      "component": "FilterArea",
+      "propsAdded": [
+        "rowAlign"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "MultipleDatePicker",
+      "propsAdded": [
+        "calendarProps"
+      ],
+      "propsRemoved": [
+        "onCalendarToggle",
+        "onChange",
+        "placeholder",
+        "referenceDate",
+        "required",
+        "value"
+      ]
+    },
+    {
+      "component": "Pagination",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "renderPageSizeOptionName",
+        "renderResultSummary",
+        "showJumper",
+        "showPageSizeOptions",
+        "siblingCount",
+        "total"
+      ]
+    },
+    {
+      "component": "Popper",
+      "propsAdded": [
+        "arrow",
+        "className",
+        "enabled",
+        "padding"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Portal",
+      "propsAdded": [
+        "container"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Progress",
+      "propsAdded": [
+        "error",
+        "icons",
+        "success"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "ResultState",
+      "propsAdded": [
+        "children"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "SelectionCard",
+      "propsAdded": [
+        "checked",
+        "customIcon",
+        "defaultChecked",
+        "direction",
+        "disabled",
+        "id",
+        "image",
+        "imageObjectFit",
+        "name",
+        "selector",
+        "text",
+        "textMaxWidth"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Tooltip",
+      "propsAdded": [
+        "onMouseEnter",
+        "onMouseLeave",
+        "ref"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Typography",
+      "propsAdded": [
+        "align",
+        "color",
+        "display",
+        "ellipsis",
+        "noWrap",
+        "variant"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Upload",
+      "propsAdded": [
+        "dropzoneHints"
+      ],
+      "propsRemoved": [
+        "errorIcon",
+        "errorMessage",
+        "isFillWidth",
+        "multiple",
+        "name",
+        "onChange",
+        "onDelete",
+        "onDownload",
+        "onMaxFilesExceeded",
+        "onReload",
+        "onZoomIn",
+        "showFileSize",
+        "size",
+        "uploaderLabel"
+      ]
+    }
+  ],
+  "workItems": [
+    {
+      "component": "Toggle",
+      "action": "CREATE",
+      "reason": "New component not yet documented",
+      "priority": "HIGH"
+    },
+    {
+      "component": "ClearActions",
+      "action": "REMOVE_OR_DEPRECATE",
+      "reason": "Component no longer exported from index.ts",
+      "priority": "HIGH"
+    },
+    {
+      "component": "ContentHeader",
+      "action": "REMOVE_OR_DEPRECATE",
+      "reason": "Component no longer exported from index.ts",
+      "priority": "HIGH"
+    },
+    {
+      "component": "Scrollbar",
+      "action": "REMOVE_OR_DEPRECATE",
+      "reason": "Component no longer exported from index.ts",
+      "priority": "HIGH"
+    },
+    {
+      "component": "Switch",
+      "action": "REMOVE_OR_DEPRECATE",
+      "reason": "Component no longer exported from index.ts",
+      "priority": "HIGH"
+    },
+    {
+      "component": "Accordion",
+      "action": "UPDATE",
+      "reason": "Props added: ; Props removed: onChange",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "onChange"
+      ]
+    },
+    {
+      "component": "Anchor",
+      "action": "UPDATE",
+      "reason": "Props added: anchors, children; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "anchors",
+        "children"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Calendar",
+      "action": "UPDATE",
+      "reason": "Props added: calendarDaysProps, calendarMonthsProps; Props removed: disabledFooterControl, disabledMonthSwitch, disabledYearSwitch, mode, onChange, onDoubleNext, onDoublePrev, onMonthControlClick, onNext, onPrev, onYearControlClick, quickSelect, referenceDate, value",
+      "priority": "HIGH",
+      "propsAdded": [
+        "calendarDaysProps",
+        "calendarMonthsProps"
+      ],
+      "propsRemoved": [
+        "disabledFooterControl",
+        "disabledMonthSwitch",
+        "disabledYearSwitch",
+        "mode",
+        "onChange",
+        "onDoubleNext",
+        "onDoublePrev",
+        "onMonthControlClick",
+        "onNext",
+        "onPrev",
+        "onYearControlClick",
+        "quickSelect",
+        "referenceDate",
+        "value"
+      ]
+    },
+    {
+      "component": "Checkbox",
+      "action": "UPDATE",
+      "reason": "Props added: ; Props removed: id, inputProps, inputRef, name, onChange, severity, size, value",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "id",
+        "inputProps",
+        "inputRef",
+        "name",
+        "onChange",
+        "severity",
+        "size",
+        "value"
+      ]
+    },
+    {
+      "component": "DateRangePicker",
+      "action": "UPDATE",
+      "reason": "Props added: ; Props removed: defaultValue, format, onCalendarToggle, onChange, referenceDate, value",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "defaultValue",
+        "format",
+        "onCalendarToggle",
+        "onChange",
+        "referenceDate",
+        "value"
+      ]
+    },
+    {
+      "component": "DateTimePicker",
+      "action": "UPDATE",
+      "reason": "Props added: ; Props removed: value",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "value"
+      ]
+    },
+    {
+      "component": "Drawer",
+      "action": "UPDATE",
+      "reason": "Props added: contentKey; Props removed: bottomOnSecondaryActionClick, bottomPrimaryActionDisabled, bottomPrimaryActionIcon, bottomPrimaryActionIconType, bottomPrimaryActionLoading, bottomPrimaryActionSize, bottomPrimaryActionText, bottomPrimaryActionVariant, bottomSecondaryActionDisabled, bottomSecondaryActionIcon, bottomSecondaryActionIconType, bottomSecondaryActionLoading, bottomSecondaryActionSize, bottomSecondaryActionText, bottomSecondaryActionVariant, disableCloseOnEscapeKeyDown, filterAreaAllRadioLabel, filterAreaCustomButtonLabel, filterAreaDefaultValue, filterAreaIsEmpty, filterAreaOnCustomButtonClick, filterAreaOnRadioChange, filterAreaOnSelect, filterAreaOptions, filterAreaReadRadioLabel, filterAreaShow, filterAreaShowUnreadButton, filterAreaUnreadRadioLabel, filterAreaValue, headerTitle, isBottomDisplay, isHeaderDisplay, renderControlBar, size",
+      "priority": "HIGH",
+      "propsAdded": [
+        "contentKey"
+      ],
+      "propsRemoved": [
+        "bottomOnSecondaryActionClick",
+        "bottomPrimaryActionDisabled",
+        "bottomPrimaryActionIcon",
+        "bottomPrimaryActionIconType",
+        "bottomPrimaryActionLoading",
+        "bottomPrimaryActionSize",
+        "bottomPrimaryActionText",
+        "bottomPrimaryActionVariant",
+        "bottomSecondaryActionDisabled",
+        "bottomSecondaryActionIcon",
+        "bottomSecondaryActionIconType",
+        "bottomSecondaryActionLoading",
+        "bottomSecondaryActionSize",
+        "bottomSecondaryActionText",
+        "bottomSecondaryActionVariant",
+        "disableCloseOnEscapeKeyDown",
+        "filterAreaAllRadioLabel",
+        "filterAreaCustomButtonLabel",
+        "filterAreaDefaultValue",
+        "filterAreaIsEmpty",
+        "filterAreaOnCustomButtonClick",
+        "filterAreaOnRadioChange",
+        "filterAreaOnSelect",
+        "filterAreaOptions",
+        "filterAreaReadRadioLabel",
+        "filterAreaShow",
+        "filterAreaShowUnreadButton",
+        "filterAreaUnreadRadioLabel",
+        "filterAreaValue",
+        "headerTitle",
+        "isBottomDisplay",
+        "isHeaderDisplay",
+        "renderControlBar",
+        "size"
+      ]
+    },
+    {
+      "component": "Dropdown",
+      "action": "UPDATE",
+      "reason": "Props added: keyboardActiveIndex; Props removed: customWidth, emptyIcon, emptyText, globalPortal, listboxId, listboxLabel, loadingPosition, loadingText, maxHeight, onActionCancel, onActionClear, onActionConfirm, onActionCustom, onClose, onItemHover, onLeaveBottom, onOpen, onReachBottom, onSelect, onVisibilityChange, open, options, placement, sameWidth, scrollbarDefer, scrollbarDisabled, scrollbarMaxWidth, scrollbarOptions, showActionShowTopBar, showDropdownActions, status, toggleCheckedOnClick, type, zIndex",
+      "priority": "HIGH",
+      "propsAdded": [
+        "keyboardActiveIndex"
+      ],
+      "propsRemoved": [
+        "customWidth",
+        "emptyIcon",
+        "emptyText",
+        "globalPortal",
+        "listboxId",
+        "listboxLabel",
+        "loadingPosition",
+        "loadingText",
+        "maxHeight",
+        "onActionCancel",
+        "onActionClear",
+        "onActionConfirm",
+        "onActionCustom",
+        "onClose",
+        "onItemHover",
+        "onLeaveBottom",
+        "onOpen",
+        "onReachBottom",
+        "onSelect",
+        "onVisibilityChange",
+        "open",
+        "options",
+        "placement",
+        "sameWidth",
+        "scrollbarDefer",
+        "scrollbarDisabled",
+        "scrollbarMaxWidth",
+        "scrollbarOptions",
+        "showActionShowTopBar",
+        "showDropdownActions",
+        "status",
+        "toggleCheckedOnClick",
+        "type",
+        "zIndex"
+      ]
+    },
+    {
+      "component": "FilterArea",
+      "action": "UPDATE",
+      "reason": "Props added: rowAlign; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "rowAlign"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "MultipleDatePicker",
+      "action": "UPDATE",
+      "reason": "Props added: calendarProps; Props removed: onCalendarToggle, onChange, placeholder, referenceDate, required, value",
+      "priority": "HIGH",
+      "propsAdded": [
+        "calendarProps"
+      ],
+      "propsRemoved": [
+        "onCalendarToggle",
+        "onChange",
+        "placeholder",
+        "referenceDate",
+        "required",
+        "value"
+      ]
+    },
+    {
+      "component": "Pagination",
+      "action": "UPDATE",
+      "reason": "Props added: ; Props removed: renderPageSizeOptionName, renderResultSummary, showJumper, showPageSizeOptions, siblingCount, total",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "renderPageSizeOptionName",
+        "renderResultSummary",
+        "showJumper",
+        "showPageSizeOptions",
+        "siblingCount",
+        "total"
+      ]
+    },
+    {
+      "component": "Popper",
+      "action": "UPDATE",
+      "reason": "Props added: arrow, className, enabled, padding; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "arrow",
+        "className",
+        "enabled",
+        "padding"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Portal",
+      "action": "UPDATE",
+      "reason": "Props added: container; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "container"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Progress",
+      "action": "UPDATE",
+      "reason": "Props added: error, icons, success; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "error",
+        "icons",
+        "success"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "ResultState",
+      "action": "UPDATE",
+      "reason": "Props added: children; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "children"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "SelectionCard",
+      "action": "UPDATE",
+      "reason": "Props added: checked, customIcon, defaultChecked, direction, disabled, id, image, imageObjectFit, name, selector, text, textMaxWidth; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "checked",
+        "customIcon",
+        "defaultChecked",
+        "direction",
+        "disabled",
+        "id",
+        "image",
+        "imageObjectFit",
+        "name",
+        "selector",
+        "text",
+        "textMaxWidth"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Tooltip",
+      "action": "UPDATE",
+      "reason": "Props added: onMouseEnter, onMouseLeave, ref; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "onMouseEnter",
+        "onMouseLeave",
+        "ref"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Typography",
+      "action": "UPDATE",
+      "reason": "Props added: align, color, display, ellipsis, noWrap, variant; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "align",
+        "color",
+        "display",
+        "ellipsis",
+        "noWrap",
+        "variant"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Upload",
+      "action": "UPDATE",
+      "reason": "Props added: dropzoneHints; Props removed: errorIcon, errorMessage, isFillWidth, multiple, name, onChange, onDelete, onDownload, onMaxFilesExceeded, onReload, onZoomIn, showFileSize, size, uploaderLabel",
+      "priority": "HIGH",
+      "propsAdded": [
+        "dropzoneHints"
+      ],
+      "propsRemoved": [
+        "errorIcon",
+        "errorMessage",
+        "isFillWidth",
+        "multiple",
+        "name",
+        "onChange",
+        "onDelete",
+        "onDownload",
+        "onMaxFilesExceeded",
+        "onReload",
+        "onZoomIn",
+        "showFileSize",
+        "size",
+        "uploaderLabel"
+      ]
+    }
+  ]
+}

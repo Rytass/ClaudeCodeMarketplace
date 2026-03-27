@@ -163,11 +163,12 @@ fetch_and_compare_components() {
         return
     fi
 
-    # Extract exported component names (uppercase-starting exports from export * from lines)
-    # Pattern: export * from './ComponentName/...'  or  export { Foo, Bar } from './...'
+    # Extract exported component names (uppercase-starting exports)
+    # Handles both: export * from './ComponentName/...'  and  export { Foo } from './ComponentName'
+    # Excludes utils/ and hooks/ sub-paths
     local target_components
     target_components=$(echo "$index_content" \
-        | grep -oE "from '\./([A-Z][A-Za-z0-9]+)/" \
+        | grep -oE "from '\./([A-Z][A-Za-z0-9]+)(/|')" \
         | grep -oE "[A-Z][A-Za-z0-9]+" \
         | sort -u)
 
