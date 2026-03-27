@@ -1,9 +1,9 @@
 {
   "meta": {
-    "generatedAt": "2026-03-26",
-    "sourceVersion": "1.0.0-rc.7",
+    "generatedAt": "2026-03-27",
+    "sourceVersion": "1.0.0-rc.8",
     "description": "Complete import paths index for Mezzanine UI v2 packages",
-    "version": "1.0.0-rc.7"
+    "version": "1.0.0-rc.8"
   },
   "packages": {
     "@mezzanine-ui/react": {
@@ -1809,6 +1809,9 @@
   "packageNotes": {
     "noExportsField": "None of the packages use the 'exports' field in package.json. Subpath imports work via directory-based resolution (each directory has its own index.ts/index.js).",
     "buildSystem": "All packages use a custom build script (scripts/build.js) that compiles TypeScript to individual directories.",
-    "version": "All source packages are at 1.0.0-rc.7."
+    "version": "All source packages are at 1.0.0-rc.8."
+  },
+  "notes": {
+    "version": "All source packages are at 1.0.0-rc.8."
   }
 }
