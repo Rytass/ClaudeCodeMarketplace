@@ -1,6 +1,6 @@
 ---
 name: using-mezzanine-ui
-description: Mezzanine-UI design system development guide (v2). All frontend development MUST prefer this design system. Use when building UI interfaces or React components, using @mezzanine-ui/* packages, looking up design specs and component usage, reviewing Figma designs, or implementing form/table/modal/navigation UI patterns.
+description: Mezzanine-UI design system development guide (v2, rc.8). All frontend development MUST prefer this design system. Use when building UI interfaces or React components, using @mezzanine-ui/* packages, looking up design specs and component usage, reviewing Figma designs, or implementing form/table/modal/navigation UI patterns.
 ---
 
 # Mezzanine-UI Design System (v2)
@@ -9,14 +9,14 @@ description: Mezzanine-UI design system development guide (v2). All frontend dev
 
 > Currently v2 Release Candidate, npm version `1.x` series
 >
-> **Last verified**: 2026-03-26
+> **Last verified**: 2026-03-27
 
 ### Version Mapping
 
 | Design Docs / Storybook | npm Version | Git Branch | Status                 |
 | ----------------------- | ----------- | ---------- | ---------------------- |
 | v1 (Legacy)             | `0.x`       | main       | Deprecated             |
-| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.7)       |
+| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.8)       |
 
 > This document is based on **v2** (npm `1.x` series).
 >
@@ -88,6 +88,30 @@ function App() {
   );
 }
 ```
+
+---
+
+## What's New in rc.8
+
+- **Toggle** 取代 Switch — 全新元件，提供更簡潔的 API
+- **Drawer** 簡化 — 移除內建底部操作按鈕與篩選區域，改採組合模式（DrawerHeader / DrawerBody / DrawerFooter）
+- **Dropdown** 重構 — 簡化 API，移除直接傳入 options / onSelect 的模式
+- **Calendar** 重構 — 移除直接的 mode / value / onChange，改為 calendarDaysProps / calendarMonthsProps
+- **Upload** 簡化 — 移除內建錯誤與刪除 handler，新增 dropzoneHints
+- **Typography** 增強 — 新增 align、color、display、ellipsis、noWrap、variant props
+- **Popper** 增強 — 新增 arrow、className、enabled、padding props
+- **4 個元件已廢棄**：ClearActions、ContentHeader、Scrollbar、Switch
+
+---
+
+## Storybook — 權威互動參考
+
+所有元件皆可在 [Storybook](https://storybook.mezzanine-ui.org) 中查看互動範例。當文件描述與實際行為不一致時，以 Storybook 的互動範例為準。
+
+每個元件的參考文件都包含直接的 Storybook 連結，格式為：
+`https://storybook.mezzanine-ui.org/?path=/docs/{kebab-category}-{kebab-component}--docs`
+
+> **Best Practice**: 在實作前先查看 Storybook 的 Controls panel，了解各 prop 的實際效果和預設值。
 
 ---
 
@@ -175,11 +199,12 @@ Form and user input components.
 | `Select`              | Select dropdown      | [Select.md](references/components/Select.md)                           |
 | `SelectionCard`       | Selection card       | [SelectionCard.md](references/components/SelectionCard.md)             |
 | `Slider`              | Slider               | [Slider.md](references/components/Slider.md)                           |
-| `Switch`              | Switch toggle        | [Switch.md](references/components/Switch.md)                           |
+| `Switch` *(已廢棄)*   | Switch toggle — 請改用 Toggle | [Switch.md](references/components/Switch.md)               |
 | `Textarea`            | Textarea             | [Textarea.md](references/components/Textarea.md)                       |
 | `TextField`           | Text field           | [TextField.md](references/components/TextField.md)                     |
 | `TimePicker`          | Time picker          | [TimePicker.md](references/components/TimePicker.md)                   |
 | `TimeRangePicker`     | Time range picker    | [TimeRangePicker.md](references/components/TimeRangePicker.md)         |
+| `Toggle`              | Toggle (取代 Switch) | [Toggle.md](references/components/Toggle.md)                           |
 | `Upload`              | Upload               | [Upload.md](references/components/Upload.md)                           |
 
 ### Feedback
@@ -239,12 +264,12 @@ Utility components and transition animations.
 
 Internal components, not typically used directly but available for advanced customization.
 
-| Component        | Description            | Export                      | Reference                                                    |
-| ---------------- | ---------------------- | --------------------------- | ------------------------------------------------------------ |
-| `ClearActions`   | Clear/close button     | sub-path only               | [ClearActions.md](references/components/ClearActions.md)     |
-| `ContentHeader`  | Content section header | sub-path only               | [ContentHeader.md](references/components/ContentHeader.md)   |
-| `Dropdown`       | Dropdown container     | `@mezzanine-ui/react`       | [Dropdown.md](references/components/Dropdown.md)             |
-| `Scrollbar`      | Custom scrollbar       | sub-path only               | [Scrollbar.md](references/components/Scrollbar.md)           |
+| Component                    | Description                          | Export                | Reference                                                    |
+| ---------------------------- | ------------------------------------ | --------------------- | ------------------------------------------------------------ |
+| `ClearActions` *(已廢棄)*    | Clear/close button                   | sub-path only         | [ClearActions.md](references/components/ClearActions.md)     |
+| `ContentHeader` *(已廢棄)*   | Content section header               | sub-path only         | [ContentHeader.md](references/components/ContentHeader.md)   |
+| `Dropdown`                   | Dropdown container (API 已重構)      | `@mezzanine-ui/react` | [Dropdown.md](references/components/Dropdown.md)             |
+| `Scrollbar` *(已廢棄)*       | Custom scrollbar                     | sub-path only         | [Scrollbar.md](references/components/Scrollbar.md)           |
 
 ---
 
