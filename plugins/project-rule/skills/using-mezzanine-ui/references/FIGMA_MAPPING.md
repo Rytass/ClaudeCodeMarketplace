@@ -2,9 +2,9 @@
 
 Maps Figma design file components to React code.
 
-> ⚠️ This document is based on **v2** (npm `1.x` series, git branch `v2`, RC 1.0.0-rc.7)
+> ⚠️ This document is based on **v2** (npm `1.x` series, git branch `v2`, RC 1.0.0-rc.8)
 >
-> **Last verified**: 2026-03-26
+> **Last verified**: 2026-03-27
 >
 > **Version mapping**: Design file v1 = npm `0.x` (deprecated); Design file v2 = npm `1.x` (in use)
 
@@ -144,6 +144,17 @@ curl -s -H "X-Figma-Token: $MEZZANINE_FIGMA_TOKEN" \
 
 ## UI Component Mapping
 
+### Deprecation Notice
+
+The following components have been deprecated in rc.8 and are no longer available:
+
+- **ClearActions**: Removed. Use custom footer implementations instead.
+- **ContentHeader**: Removed. Use DrawerHeader with custom layouts instead.
+- **Scrollbar**: Removed. Native browser scrolling is now the standard.
+- **Switch**: Removed. Use **Toggle** component instead.
+
+---
+
 ### Button
 
 v2 uses a new variant naming system:
@@ -222,13 +233,23 @@ v2 uses a new variant naming system:
 | `Radio / Checked`              | `<Radio checked>`                        |
 | `RadioGroup`                   | `<RadioGroup>`                           |
 
-### Switch
+### Switch (Deprecated in rc.8)
+
+⚠️ Switch component has been removed. Use Toggle instead.
 
 | Figma Variant              | React Props                              |
 | -------------------------- | ---------------------------------------- |
-| `Switch / Off`             | `<Switch checked={false}>`               |
-| `Switch / On`              | `<Switch checked>`                       |
-| `Switch / Disabled`        | `<Switch disabled>`                      |
+| `Switch / Off`             | ~~`<Switch checked={false}>`~~ Use Toggle |
+| `Switch / On`              | ~~`<Switch checked>`~~ Use Toggle         |
+| `Switch / Disabled`        | ~~`<Switch disabled>`~~ Use Toggle        |
+
+### Toggle
+
+| Figma Variant              | React Props                              |
+| -------------------------- | ---------------------------------------- |
+| `Toggle / Off`             | `<Toggle checked={false}>`               |
+| `Toggle / On`              | `<Toggle checked>`                       |
+| `Toggle / Disabled`        | `<Toggle disabled>`                      |
 
 ### DatePicker
 
@@ -259,10 +280,10 @@ v2 uses a new variant naming system:
 
 | Figma Variant              | React Props                                              |
 | -------------------------- | -------------------------------------------------------- |
-| `Drawer / Right`           | `<Drawer isHeaderDisplay headerTitle="Title">`           |
-| `Drawer / Left`            | `<Drawer isHeaderDisplay headerTitle="Title">`           |
-| `Drawer / Top`             | `<Drawer isHeaderDisplay headerTitle="Title">`           |
-| `Drawer / Bottom`          | `<Drawer isHeaderDisplay headerTitle="Title">`           |
+| `Drawer / Right`           | `<Drawer><DrawerHeader title="Title" /><DrawerBody>...</DrawerBody></Drawer>` |
+| `Drawer / Left`            | `<Drawer><DrawerHeader title="Title" /><DrawerBody>...</DrawerBody></Drawer>` |
+| `Drawer / Top`             | `<Drawer><DrawerHeader title="Title" /><DrawerBody>...</DrawerBody></Drawer>` |
+| `Drawer / Bottom`          | `<Drawer><DrawerHeader title="Title" /><DrawerBody>...</DrawerBody></Drawer>` |
 
 ### Navigation
 

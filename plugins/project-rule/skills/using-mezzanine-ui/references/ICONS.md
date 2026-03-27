@@ -1,8 +1,8 @@
 # Mezzanine-UI Icon Reference (v2)
 
-Complete icon library list, based on `@mezzanine-ui/icons` v2 (RC 1.0.0-rc.7).
+Complete icon library list, based on `@mezzanine-ui/icons` v2 (RC 1.0.0-rc.8).
 
-**Last verified**: 2026-03-26
+**Last verified**: 2026-03-27
 
 > **Source verification**: This document is based on [GitHub source code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/icons/src)
 

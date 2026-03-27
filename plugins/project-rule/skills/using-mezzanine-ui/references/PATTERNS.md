@@ -4,9 +4,9 @@ Common UI pattern implementation examples.
 
 > This document is based on **v2** (npm `1.x` series, git branch `v2`, RC stage)
 >
-> **Version mapping**: Design document v1 = npm `0.x` (deprecated); design document v2 = npm `1.x` (RC 1.0.0-rc.7)
+> **Version mapping**: Design document v1 = npm `0.x` (deprecated); design document v2 = npm `1.x` (RC 1.0.0-rc.8)
 >
-> **Last verified**: 2026-03-26
+> **Last verified**: 2026-03-27
 
 ## Table of Contents
 
@@ -472,6 +472,10 @@ function FormModal({ open, onClose, onSubmit }) {
 ```tsx
 import {
   Drawer,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
+  Button,
   Description,
   DescriptionGroup,
   DescriptionContent,
@@ -479,26 +483,29 @@ import {
 
 function DetailDrawer({ open, onClose, data }) {
   return (
-    <Drawer
-      open={open}
-      onClose={onClose}
-      isHeaderDisplay
-      headerTitle="Item Details"
-      isBottomDisplay
-      bottomPrimaryActionText="Edit"
-      bottomOnPrimaryActionClick={() => handleEdit(data)}
-    >
-      <DescriptionGroup>
-        <Description title="Name">
-          <DescriptionContent>{data?.name}</DescriptionContent>
-        </Description>
-        <Description title="Status">
-          <DescriptionContent>{data?.status}</DescriptionContent>
-        </Description>
-        <Description title="Created At">
-          <DescriptionContent>{data?.createdAt}</DescriptionContent>
-        </Description>
-      </DescriptionGroup>
+    <Drawer open={open} onClose={onClose}>
+      <DrawerHeader title="Item Details" />
+      <DrawerBody>
+        <DescriptionGroup>
+          <Description title="Name">
+            <DescriptionContent>{data?.name}</DescriptionContent>
+          </Description>
+          <Description title="Status">
+            <DescriptionContent>{data?.status}</DescriptionContent>
+          </Description>
+          <Description title="Created At">
+            <DescriptionContent>{data?.createdAt}</DescriptionContent>
+          </Description>
+        </DescriptionGroup>
+      </DrawerBody>
+      <DrawerFooter>
+        <Button variant="base-secondary" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button variant="base-primary" onClick={() => handleEdit(data)}>
+          Edit
+        </Button>
+      </DrawerFooter>
     </Drawer>
   );
 }
