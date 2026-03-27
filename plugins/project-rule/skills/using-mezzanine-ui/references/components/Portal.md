@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Portal`
 >
-> **Source Verification**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Portal) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Portal) · Verified rc.8 (2026-03-27)
 
 A portal component that renders children to a different location in the DOM. Used by Modal, Drawer, Tooltip, and other components that need to escape the parent DOM structure.
 
@@ -20,6 +20,8 @@ import { initializePortals } from '@mezzanine-ui/react/Portal';
 // Other sub-path exports
 // import { getContainer, getRootElement, resetPortals, PortalLayer } from '@mezzanine-ui/react/Portal';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/utility-portal--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

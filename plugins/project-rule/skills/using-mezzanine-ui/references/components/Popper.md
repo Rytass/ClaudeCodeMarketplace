@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Popper`
 >
-> **Source Verification**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Popper) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Popper) · Verified rc.8 (2026-03-27)
 
 A positioned popup layer component based on @floating-ui/react-dom, used as the underlying positioning for Tooltip, Dropdown, Select, and other components.
 
@@ -20,6 +20,8 @@ import type {
 } from '@mezzanine-ui/react';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/utility-popper--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Popper Props
@@ -31,11 +33,14 @@ import type {
 | `anchor`        | `ElementGetter`             | -       | Anchor element (trigger) |
 | `arrow`         | `ArrowConfig \| null`       | -       | Arrow configuration      |
 | `children`      | `ReactNode`                 | -       | Popup content            |
+| `className`     | `string`                    | -       | Custom CSS class name    |
 | `container`     | `HTMLElement \| RefObject<HTMLElement \| null> \| null` | - | Portal container |
 | `controllerRef` | `Ref<PopperController>`     | -       | Controller reference     |
 | `disablePortal` | `boolean`                   | -       | Disable Portal           |
+| `enabled`       | `boolean`                   | -       | Enable/disable arrow     |
 | `open`          | `boolean`                   | `false` | Whether open             |
 | `options`       | `UseFloatingOptions`        | -       | floating-ui options      |
+| `padding`       | `number`                    | -       | Arrow padding (px)       |
 
 ---
 
