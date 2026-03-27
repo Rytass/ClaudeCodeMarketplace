@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/FloatingButton`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/FloatingButton) · Verified v2 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/FloatingButton) · Verified rc.8 (2026-03-27)
 
 A floating action button component that stays fixed on the page. Internally uses the `Button` component with fixed `variant="base-primary"`, `size="main"`, and `tooltipPosition="left"`. Supports auto-hide when `open` state is active.
 
@@ -14,6 +14,8 @@ A floating action button component that stays fixed on the page. Internally uses
 import { FloatingButton } from '@mezzanine-ui/react';
 import type { FloatingButtonProps } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/others-floatingbutton--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

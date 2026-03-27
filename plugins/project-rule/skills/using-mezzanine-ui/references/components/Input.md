@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Input`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Input) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Input) · Verified rc.8 (2026-03-27)
 
 A versatile input component supporting multiple variants for different use cases.
 
@@ -30,6 +30,8 @@ import type {
   PasswordInputProps,
 } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-input--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

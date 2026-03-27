@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Card`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Card) · Verified v2 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Card) · Verified rc.8 (2026-03-27)
 
 The Card system provides a set of structured card components for displaying different types of content. The v2 version splits cards into multiple specialized sub-components, each with clear use cases and type definitions. All card components support polymorphic rendering and can render as `div`, `a`, or custom components (e.g., Next.js `Link`).
 
@@ -76,6 +76,8 @@ import type {
   ThumbnailCardInfoProps,
 } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-card--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

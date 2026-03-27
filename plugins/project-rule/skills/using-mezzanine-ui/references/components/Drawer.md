@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Drawer`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Drawer) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Drawer) · Verified rc.8 (2026-03-27)
 
 A drawer component that slides out from the edge of the page, used to display detailed information or forms.
 
@@ -15,13 +15,13 @@ import { Drawer } from '@mezzanine-ui/react';
 import type { DrawerProps, DrawerPlacement } from '@mezzanine-ui/react';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/navigation-drawer--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Drawer Props
 
 > Extends `NativeElementPropsWithoutKeyAndRef<'div'>` and partial `BackdropProps`.
-
-### Core Props
 
 | Property                      | Type              | Default    | Description                    |
 | ----------------------------- | ----------------- | ---------- | ------------------------------ |
@@ -29,72 +29,11 @@ import type { DrawerProps, DrawerPlacement } from '@mezzanine-ui/react';
 | `onClose`                     | `VoidFunction`    | -          | Close event handler            |
 | `children`                    | `ReactNode`       | -          | Content                        |
 | `size`                        | `DrawerSize`      | `'medium'` | Width size                     |
-| `headerTitle`                 | `string`          | -          | Header title text              |
-| `isHeaderDisplay`             | `boolean`         | -          | Whether to show header area    |
-| `isBottomDisplay`             | `boolean`         | -          | Whether to show bottom area    |
 | `container`                   | `Element`         | -          | Portal container               |
 | `disablePortal`               | `boolean`         | -          | Disable Portal                 |
 | `disableCloseOnBackdropClick` | `boolean`         | `false`    | Disable close on backdrop click|
-| `disableCloseOnEscapeKeyDown` | `boolean`         | `false`    | Disable close on ESC key       |
-| `contentKey`                  | `React.Key`       | -          | Remounts drawer content on change, prevents stale DOM state |
+| `contentKey`                  | `string \| number`| -          | Forces remount when data changes, prevents stale DOM state |
 | `onBackdropClick`             | `() => void`      | -          | Backdrop click event handler   |
-
-### Bottom Ghost Button Props
-
-| Property                          | Type              | Default         | Description          |
-| --------------------------------- | ----------------- | --------------- | -------------------- |
-| `bottomGhostActionText`           | `string`          | -               | Button text          |
-| `bottomOnGhostActionClick`        | `VoidFunction`    | -               | Click event handler  |
-| `bottomGhostActionDisabled`       | `boolean`         | -               | Whether disabled     |
-| `bottomGhostActionIcon`           | `IconDefinition`  | -               | Button icon          |
-| `bottomGhostActionIconType`       | `ButtonIconType`  | -               | Icon position        |
-| `bottomGhostActionLoading`        | `boolean`         | -               | Loading state        |
-| `bottomGhostActionSize`           | `ButtonSize`      | -               | Button size          |
-| `bottomGhostActionVariant`        | `ButtonVariant`   | `'base-ghost'`  | Button variant       |
-
-### Bottom Primary Button Props
-
-| Property                          | Type              | Default           | Description          |
-| --------------------------------- | ----------------- | ----------------- | -------------------- |
-| `bottomPrimaryActionText`         | `string`          | -                 | Button text          |
-| `bottomOnPrimaryActionClick`      | `VoidFunction`    | -                 | Click event handler  |
-| `bottomPrimaryActionDisabled`     | `boolean`         | -                 | Whether disabled     |
-| `bottomPrimaryActionIcon`         | `IconDefinition`  | -                 | Button icon          |
-| `bottomPrimaryActionIconType`     | `ButtonIconType`  | -                 | Icon position        |
-| `bottomPrimaryActionLoading`      | `boolean`         | -                 | Loading state        |
-| `bottomPrimaryActionSize`         | `ButtonSize`      | -                 | Button size          |
-| `bottomPrimaryActionVariant`      | `ButtonVariant`   | `'base-primary'`  | Button variant       |
-
-### Bottom Secondary Button Props
-
-| Property                            | Type              | Default             | Description          |
-| ----------------------------------- | ----------------- | ------------------- | -------------------- |
-| `bottomSecondaryActionText`         | `string`          | -                   | Button text          |
-| `bottomOnSecondaryActionClick`      | `VoidFunction`    | -                   | Click event handler  |
-| `bottomSecondaryActionDisabled`     | `boolean`         | -                   | Whether disabled     |
-| `bottomSecondaryActionIcon`         | `IconDefinition`  | -                   | Button icon          |
-| `bottomSecondaryActionIconType`     | `ButtonIconType`  | -                   | Icon position        |
-| `bottomSecondaryActionLoading`      | `boolean`         | -                   | Loading state        |
-| `bottomSecondaryActionSize`         | `ButtonSize`      | -                   | Button size          |
-| `bottomSecondaryActionVariant`      | `ButtonVariant`   | `'base-secondary'`  | Button variant       |
-
-### Filter Area Props
-
-| Property                          | Type                                    | Default      | Description                    |
-| --------------------------------- | --------------------------------------- | ------------ | ------------------------------ |
-| `filterAreaShow`                  | `boolean`                               | `false`      | Whether to show filter area    |
-| `filterAreaAllRadioLabel`         | `string`                                | -            | Filter area "All" label        |
-| `filterAreaReadRadioLabel`        | `string`                                | -            | Filter area "Read" label       |
-| `filterAreaUnreadRadioLabel`      | `string`                                | -            | Filter area "Unread" label     |
-| `filterAreaShowUnreadButton`      | `boolean`                               | `false`      | Whether to show unread button  |
-| `filterAreaCustomButtonLabel`     | `string`                                | `'全部已讀'`      | Custom button text             |
-| `filterAreaOnCustomButtonClick`   | `VoidFunction`                          | -            | Custom button click handler    |
-| `filterAreaOnRadioChange`         | `ChangeEventHandler<HTMLInputElement>`  | -            | Radio change event handler     |
-| `filterAreaDefaultValue`          | `string`                                | -            | Default radio value            |
-| `filterAreaValue`                 | `string`                                | -            | Controlled radio value         |
-| `filterAreaIsEmpty`               | `boolean`                               | `false`      | Whether to disable custom btn  |
-| `filterAreaOptions`               | `DropdownOption[]`                      | -            | Options for dropdown in filter area |
-| `filterAreaOnSelect`              | `(option: DropdownOption) => void`      | -            | Callback when dropdown option selected |
 
 ---
 
@@ -132,12 +71,7 @@ function BasicDrawer() {
   return (
     <>
       <Button onClick={() => setOpen(true)}>Open Drawer</Button>
-      <Drawer
-        open={open}
-        onClose={() => setOpen(false)}
-        isHeaderDisplay
-        headerTitle="Drawer Title"
-      >
+      <Drawer open={open} onClose={() => setOpen(false)}>
         <p>Drawer content</p>
       </Drawer>
     </>
@@ -164,116 +98,45 @@ function BasicDrawer() {
 </Drawer>
 ```
 
-### With Header and Bottom
-
-```tsx
-<Drawer
-  open={open}
-  onClose={onClose}
-  isHeaderDisplay
-  headerTitle="Edit User"
-  isBottomDisplay
-  bottomPrimaryActionText="Save"
-  bottomOnPrimaryActionClick={handleSave}
-  bottomSecondaryActionText="Cancel"
-  bottomOnSecondaryActionClick={onClose}
->
-  <UserForm />
-</Drawer>
-```
-
-### With Three Bottom Buttons
-
-```tsx
-<Drawer
-  open={open}
-  onClose={onClose}
-  isHeaderDisplay
-  headerTitle="Advanced Settings"
-  isBottomDisplay
-  bottomGhostActionText="Reset"
-  bottomOnGhostActionClick={handleReset}
-  bottomSecondaryActionText="Cancel"
-  bottomOnSecondaryActionClick={onClose}
-  bottomPrimaryActionText="Apply"
-  bottomOnPrimaryActionClick={handleApply}
->
-  <SettingsForm />
-</Drawer>
-```
-
-### Disable Backdrop Click Close
+### Prevent Backdrop Click Close
 
 ```tsx
 <Drawer
   open={open}
   onClose={onClose}
   disableCloseOnBackdropClick
-  isHeaderDisplay
-  headerTitle="Important Form"
 >
-  <ImportantForm />
+  <p>Content that cannot be dismissed by clicking backdrop</p>
 </Drawer>
 ```
 
-### Disable ESC Close
+### Using ContentKey for Data Changes
+
+```tsx
+function DataDrawer() {
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  return (
+    <>
+      <Drawer open={open} onClose={() => setOpen(false)} contentKey={selectedId}>
+        {selectedId && <DataContent id={selectedId} />}
+      </Drawer>
+    </>
+  );
+}
+```
+
+### Drawer with Portal Container
 
 ```tsx
 <Drawer
   open={open}
   onClose={onClose}
-  disableCloseOnEscapeKeyDown
-  isHeaderDisplay
-  headerTitle="Fill Form"
+  container={document.getElementById('drawer-root')}
 >
-  <FormContent />
+  <p>Rendered into custom container</p>
 </Drawer>
-```
-
-### Form Drawer
-
-```tsx
-function FormDrawer() {
-  const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '' });
-
-  const handleSave = () => {
-    // Save logic
-    setOpen(false);
-  };
-
-  return (
-    <>
-      <Button onClick={() => setOpen(true)}>Add User</Button>
-      <Drawer
-        open={open}
-        onClose={() => setOpen(false)}
-        size="medium"
-        isHeaderDisplay
-        headerTitle="Add User"
-        isBottomDisplay
-        bottomPrimaryActionText="Save"
-        bottomOnPrimaryActionClick={handleSave}
-        bottomSecondaryActionText="Cancel"
-        bottomOnSecondaryActionClick={() => setOpen(false)}
-      >
-        <FormField name="name" label="Name" layout="vertical" required>
-          <Input
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          />
-        </FormField>
-        <FormField name="email" label="Email" layout="vertical" required>
-          <Input
-            inputType="email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          />
-        </FormField>
-      </Drawer>
-    </>
-  );
-}
 ```
 
 ---
@@ -293,47 +156,37 @@ function FormDrawer() {
 
 ## Best Practices
 
-### 場景推薦
-
 | 使用場景 | 推薦設定 | 說明 |
 |---------|--------|------|
-| 詳情檢視 | `size="medium"`, `isHeaderDisplay` | 檢視額外詳細資訊 |
-| 表單編輯 | `size="wide"`, `isHeaderDisplay`, `isBottomDisplay` | 寬抽屜容納完整表單，底部按鈕群 |
-| 快速設定 | `size="narrow"`, 最少按鈕 | 簡單設定使用窄抽屜 |
-| 重要表單 | `disableCloseOnBackdropClick`, `disableCloseOnEscapeKeyDown` | 防止意外關閉 |
+| 詳情檢視 | `size="medium"` | 檢視額外詳細資訊 |
+| 表單編輯 | `size="wide"` | 寬抽屜容納完整表單 |
+| 快速設定 | `size="narrow"` | 簡單設定使用窄抽屜 |
+| 重要表單 | `disableCloseOnBackdropClick` | 防止意外關閉 |
 | 列表操作 | `size="medium"`, 滾動內容 | 呈現清單或多筆項目 |
 
 ### 常見錯誤
 
-1. **RC.7 重大更新: controlBar → filterArea 轉換**
+1. **RC.8 重大更新：移除底部操作按鈕和篩選區域**
    ```tsx
-   // ❌ 錯誤 (RC.6 已廢棄)：
+   // ❌ 錯誤 (RC.7 已廢棄)：
    <Drawer
-     controlBarShow
-     controlBarAllRadioLabel="全部"
-     controlBarValue={filter}
-     controlBarOnRadioChange={handleChange}
+     isHeaderDisplay
+     headerTitle="Title"
+     isBottomDisplay
+     bottomPrimaryActionText="Save"
+     bottomOnPrimaryActionClick={handleSave}
    >
      Content
    </Drawer>
 
-   // ✅ 正確 (RC.7)：
-   <Drawer
-     filterAreaShow
-     filterAreaAllRadioLabel="全部"
-     filterAreaValue={filter}
-     filterAreaOnRadioChange={handleChange}
-   >
-     Content
-   </Drawer>
-
-   // 與 Dropdown 配合 (RC.7)：
-   <Drawer
-     filterAreaShow
-     filterAreaOptions={dropdownOptions}
-     filterAreaOnSelect={handleDropdownSelect}
-   >
-     Content
+   // ✅ 正確 (RC.8)：自行實現底部按鈕或將其放在內容區域
+   <Drawer open={open} onClose={onClose}>
+     <div className="drawer-content">
+       <p>Content</p>
+     </div>
+     <div className="drawer-footer">
+       <Button onClick={handleSave}>Save</Button>
+     </div>
    </Drawer>
    ```
 
@@ -357,16 +210,8 @@ function FormDrawer() {
      Content only
    </Drawer>
 
-   // ✅ 正確：提供多個關閉方式
-   <Drawer
-     open={open}
-     onClose={onClose}
-     isHeaderDisplay
-     headerTitle="Title"
-     isBottomDisplay
-     bottomSecondaryActionText="Close"
-     bottomOnSecondaryActionClick={onClose}
-   >
+   // ✅ 正確：提供 onClose 方式
+   <Drawer open={open} onClose={onClose}>
      Content
    </Drawer>
    ```
@@ -384,29 +229,7 @@ function FormDrawer() {
    </Drawer>
    ```
 
-4. **底部按鈕設定邏輯錯誤**
-   ```tsx
-   // ❌ 錯誤：三個按鈕都啟用導致佈局擁擠
-   <Drawer
-     isBottomDisplay
-     bottomGhostActionText="A"
-     bottomSecondaryActionText="B"
-     bottomPrimaryActionText="C"
-   >
-     Content
-   </Drawer>
-
-   // ✅ 正確：根據場景選擇必要按鈕
-   <Drawer
-     isBottomDisplay
-     bottomSecondaryActionText="Cancel"
-     bottomPrimaryActionText="Save"
-   >
-     Form content
-   </Drawer>
-   ```
-
-5. **多層抽屜的管理**
+4. **多層抽屜的管理**
    ```tsx
    // ❌ 錯誤：嵌套多個抽屜但無序處理
    <Drawer open={drawer1Open} onClose={() => setDrawer1Open(false)}>
@@ -427,9 +250,9 @@ function FormDrawer() {
 ### 核心原則
 
 1. **選擇適當尺寸**: 根據內容量選擇 `size`
-2. **提供關閉方式**: 確保用戶能夠關閉抽屜
-3. **表單使用底部按鈕**: 表單抽屜應使用底部操作區域
-4. **重要操作禁用意外關閉**: 防止關鍵操作被意外關閉
+2. **提供關閉方式**: 確保用戶能夠關閉抽屜 (via `onClose`)
+3. **自行實現按鈕**: RC.8 移除了內建按鈕，將按鈕放在內容或自訂區域
+4. **重要操作禁用意外關閉**: 使用 `disableCloseOnBackdropClick` 防止關鍵操作被意外關閉
 5. **堆疊處理**: 多個抽屜時，ESC 只關閉頂層
-6. **contentKey 管理**: 僅在內容數據確實改變時修改
-7. **無障礙設計**: 提供 ARIA 標籤和適當的焦點管理
+6. **contentKey 管理**: 僅在內容數據確實改變時修改，避免頻繁重掛載
+7. **無障礙設計**: 提供適當的焦點管理和鍵盤導航

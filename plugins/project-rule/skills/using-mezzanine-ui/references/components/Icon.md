@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Icon`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Icon) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Icon) · Verified rc.8 (2026-03-27)
 
 An icon component for displaying SVG icons provided by `@mezzanine-ui/icons`.
 
@@ -17,6 +17,8 @@ import type { IconProps, IconColor } from '@mezzanine-ui/react';
 // Icons are imported from the icons package
 import { PlusIcon, SearchIcon, SpinnerIcon } from '@mezzanine-ui/icons';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/foundation-icon--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

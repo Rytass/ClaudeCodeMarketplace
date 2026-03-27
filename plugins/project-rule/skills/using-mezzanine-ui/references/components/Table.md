@@ -117,6 +117,8 @@ interface TableColumnTitleMenu {
 }
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## TableDataSource Requirements
@@ -136,6 +138,8 @@ interface TableDataSourceWithId {
 
 type TableDataSource = TableDataSourceWithKey | TableDataSourceWithId;
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -185,6 +189,8 @@ interface TableBulkActions<T> {
 }
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Expandable Rows (expandable)
@@ -199,6 +205,8 @@ interface TableExpandable<T> {
   rowExpandable?: (record: T) => boolean;
 }
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -254,6 +262,8 @@ interface TableActionItemDropdown<T> {
 }
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Scroll Config (scroll)
@@ -283,6 +293,8 @@ interface TableDraggable<T> {
 }
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Pinning (pinnable)
@@ -295,6 +307,8 @@ interface TablePinnable<T> {
   pinnedRowKeys: string[];
 }
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -315,6 +329,8 @@ interface TableToggleable<T> {
 }
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Collect Column (collectable)
@@ -333,6 +349,8 @@ interface TableCollectable<T> {
   align?: ColumnAlign;
 }
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -417,6 +435,8 @@ const {
   totalSelectionCount,
 } = useTableRowSelection<T>({ getSubData });
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -645,6 +665,8 @@ function AnimatedTable() {
   }}
 />
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/PageFooter`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/PageFooter) | Verified rc.7: 2026-03-26
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/PageFooter) · Verified rc.8 (2026-03-27)
 
 Page footer component for displaying page-level action buttons and auxiliary information.
 
@@ -14,6 +14,8 @@ Page footer component for displaying page-level action buttons and auxiliary inf
 import { PageFooter } from '@mezzanine-ui/react';
 import type { PageFooterProps } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/navigation-pagefooter--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 > **Note**: `PageFooterType` and `PageFooterActions` types are not exported from the main entry; only `PageFooterProps` is available from `@mezzanine-ui/react`.
 

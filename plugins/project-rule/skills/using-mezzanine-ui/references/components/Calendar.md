@@ -4,7 +4,9 @@
 >
 > **Storybook**: `Utility/Calendar`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Calendar) · Verified v2 source (2026-03-26)
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/utility-calendar--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+>
+> **Source**: Verified rc.8 (2026-03-27)
 
 Calendar component for displaying and selecting dates. Requires `CalendarConfigProvider` (which provides `CalendarContext`). Supports six modes: day, week, month, year, quarter, and half-year.
 
@@ -65,53 +67,39 @@ import type { CalendarLocale } from '@mezzanine-ui/react/Calendar';
 
 ## Calendar Props
 
-| Property                | Type                                                               | Default      | Description                          |
-| ----------------------- | ------------------------------------------------------------------ | ------------ | ------------------------------------ |
-| `calendarDaysProps`     | `Omit<CalendarDaysProps, ...>`                                     | -            | Additional props for day view        |
-| `calendarMonthsProps`   | `Omit<CalendarMonthsProps, ...>`                                   | -            | Additional props for month view      |
-| `calendarWeeksProps`    | `Omit<CalendarWeeksProps, ...>`                                    | -            | Additional props for week view       |
-| `calendarYearsProps`    | `Omit<CalendarYearsProps, ...>`                                    | -            | Additional props for year view       |
-| `calendarQuartersProps` | `Omit<CalendarQuartersProps, ...>`                                 | -            | Additional props for quarter view    |
-| `calendarHalfYearsProps`| `Omit<CalendarHalfYearsProps, ...>`                                | -            | Additional props for half-year view  |
-| `disabledFooterControl` | `boolean`                                                          | `false`      | Disable footer control               |
-| `disabledMonthSwitch`   | `boolean`                                                          | `false`      | Disable month switching              |
-| `disabledYearSwitch`    | `boolean`                                                          | `false`      | Disable year switching               |
-| `disableOnDoubleNext`   | `boolean`                                                          | -            | Disable year fast-forward            |
-| `disableOnDoublePrev`   | `boolean`                                                          | -            | Disable year fast-backward           |
-| `disableOnNext`         | `boolean`                                                          | -            | Disable month fast-forward           |
-| `disableOnPrev`         | `boolean`                                                          | -            | Disable month fast-backward          |
-| `displayMonthLocale`    | `string`                                                           | `locale`     | Month display localization           |
-| `displayWeekDayLocale`  | `string`                                                           | `locale`     | Weekday display localization         |
-| `isDateDisabled`        | `(date: DateType) => boolean`                                      | -            | Date disabled check                  |
-| `isDateInRange`         | `(date: DateType) => boolean`                                      | -            | Date range check                     |
-| `isHalfYearDisabled`    | `(date: DateType) => boolean`                                      | -            | Half-year disabled check             |
-| `isHalfYearInRange`     | `(date: DateType) => boolean`                                      | -            | Half-year range check                |
-| `isMonthDisabled`       | `(date: DateType) => boolean`                                      | -            | Month disabled check                 |
-| `isMonthInRange`        | `(date: DateType) => boolean`                                      | -            | Month range check                    |
-| `isQuarterDisabled`     | `(date: DateType) => boolean`                                      | -            | Quarter disabled check               |
-| `isQuarterInRange`      | `(date: DateType) => boolean`                                      | -            | Quarter range check                  |
-| `isWeekDisabled`        | `(date: DateType) => boolean`                                      | -            | Week disabled check                  |
-| `isWeekInRange`         | `(date: DateType) => boolean`                                      | -            | Week range check                     |
-| `isYearDisabled`        | `(date: DateType) => boolean`                                      | -            | Year disabled check                  |
-| `isYearInRange`         | `(date: DateType) => boolean`                                      | -            | Year range check                     |
-| `mode`                  | `CalendarMode`                                                     | `'day'`      | Display mode                         |
-| `onChange`              | `(target: DateType) => void`                                       | -            | Date selection callback              |
-| `onDateHover`           | `(date: DateType) => void`                                         | -            | Date hover callback                  |
-| `onDoubleNext`          | `(currentMode: CalendarMode) => void`                              | -            | Year fast-forward callback           |
-| `onDoublePrev`          | `(currentMode: CalendarMode) => void`                              | -            | Year fast-backward callback          |
-| `onHalfYearHover`       | `(date: DateType) => void`                                         | -            | Half-year hover callback             |
-| `onMonthControlClick`   | `VoidFunction`                                                     | -            | Month control click                  |
-| `onMonthHover`          | `(date: DateType) => void`                                         | -            | Month hover callback                 |
-| `onNext`                | `(currentMode: CalendarMode) => void`                              | -            | Month fast-forward callback          |
-| `onPrev`                | `(currentMode: CalendarMode) => void`                              | -            | Month fast-backward callback         |
-| `onQuarterHover`        | `(date: DateType) => void`                                         | -            | Quarter hover callback               |
-| `onWeekHover`           | `(date: DateType) => void`                                         | -            | Week hover callback                  |
-| `onYearControlClick`    | `VoidFunction`                                                     | -            | Year control click                   |
-| `onYearHover`           | `(date: DateType) => void`                                         | -            | Year hover callback                  |
-| `quickSelect`           | `Pick<CalendarQuickSelectProps, 'activeId' \| 'options'>`          | -            | Quick select options                 |
-| `referenceDate`         | `DateType`                                                         | **required** | Reference date                       |
-| `renderAnnotations`     | `(date: DateType) => { value: string; color?: TypographyColor }`   | -            | Custom date annotations              |
-| `value`                 | `DateType \| DateType[]`                                           | -            | Selected date(s)                     |
+| Property                | Type                                                               | Default | Description                          |
+| ----------------------- | ------------------------------------------------------------------ | ------- | ------------------------------------ |
+| `calendarDaysProps`     | `Omit<CalendarDaysProps, ...>`                                     | -       | Additional props for day view        |
+| `calendarMonthsProps`   | `Omit<CalendarMonthsProps, ...>`                                   | -       | Additional props for month view      |
+| `calendarWeeksProps`    | `Omit<CalendarWeeksProps, ...>`                                    | -       | Additional props for week view       |
+| `calendarYearsProps`    | `Omit<CalendarYearsProps, ...>`                                    | -       | Additional props for year view       |
+| `calendarQuartersProps` | `Omit<CalendarQuartersProps, ...>`                                 | -       | Additional props for quarter view    |
+| `calendarHalfYearsProps`| `Omit<CalendarHalfYearsProps, ...>`                                | -       | Additional props for half-year view  |
+| `disableOnDoubleNext`   | `boolean`                                                          | -       | Disable year fast-forward            |
+| `disableOnDoublePrev`   | `boolean`                                                          | -       | Disable year fast-backward           |
+| `disableOnNext`         | `boolean`                                                          | -       | Disable month fast-forward           |
+| `disableOnPrev`         | `boolean`                                                          | -       | Disable month fast-backward          |
+| `displayMonthLocale`    | `string`                                                           | -       | Month display localization           |
+| `displayWeekDayLocale`  | `string`                                                           | -       | Weekday display localization         |
+| `isDateDisabled`        | `(date: DateType) => boolean`                                      | -       | Date disabled check                  |
+| `isDateInRange`         | `(date: DateType) => boolean`                                      | -       | Date range check                     |
+| `isHalfYearDisabled`    | `(date: DateType) => boolean`                                      | -       | Half-year disabled check             |
+| `isHalfYearInRange`     | `(date: DateType) => boolean`                                      | -       | Half-year range check                |
+| `isMonthDisabled`       | `(date: DateType) => boolean`                                      | -       | Month disabled check                 |
+| `isMonthInRange`        | `(date: DateType) => boolean`                                      | -       | Month range check                    |
+| `isQuarterDisabled`     | `(date: DateType) => boolean`                                      | -       | Quarter disabled check               |
+| `isQuarterInRange`      | `(date: DateType) => boolean`                                      | -       | Quarter range check                  |
+| `isWeekDisabled`        | `(date: DateType) => boolean`                                      | -       | Week disabled check                  |
+| `isWeekInRange`         | `(date: DateType) => boolean`                                      | -       | Week range check                     |
+| `isYearDisabled`        | `(date: DateType) => boolean`                                      | -       | Year disabled check                  |
+| `isYearInRange`         | `(date: DateType) => boolean`                                      | -       | Year range check                     |
+| `onDateHover`           | `(date: DateType) => void`                                         | -       | Date hover callback                  |
+| `onHalfYearHover`       | `(date: DateType) => void`                                         | -       | Half-year hover callback             |
+| `onMonthHover`          | `(date: DateType) => void`                                         | -       | Month hover callback                 |
+| `onQuarterHover`        | `(date: DateType) => void`                                         | -       | Quarter hover callback               |
+| `onWeekHover`           | `(date: DateType) => void`                                         | -       | Week hover callback                  |
+| `onYearHover`           | `(date: DateType) => void`                                         | -       | Year hover callback                  |
+| `renderAnnotations`     | `(date: DateType) => { value: string; color?: TypographyColor }`   | -       | Custom date annotations              |
 
 ---
 
@@ -125,36 +113,14 @@ type CalendarMode = 'day' | 'week' | 'month' | 'year' | 'quarter' | 'half-year';
 
 ## Usage Examples
 
-### Basic Usage
+### Basic Usage with useCalendarControls
 
 ```tsx
-import { Calendar } from '@mezzanine-ui/react';
+import { Calendar, useCalendarControls } from '@mezzanine-ui/react';
 import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
 import dayjs from 'dayjs';
 
 function BasicCalendar() {
-  const [value, setValue] = useState<string | undefined>();
-  const [referenceDate, setReferenceDate] = useState(dayjs().toISOString());
-
-  return (
-    <CalendarConfigProviderDayjs>
-      <Calendar
-        referenceDate={referenceDate}
-        value={value}
-        onChange={setValue}
-      />
-    </CalendarConfigProviderDayjs>
-  );
-}
-```
-
-### Using useCalendarControls
-
-```tsx
-import { Calendar, useCalendarControls } from '@mezzanine-ui/react';
-import dayjs from 'dayjs';
-
-function CalendarWithControls() {
   const [value, setValue] = useState<string | undefined>();
   const defaultRef = dayjs().toISOString();
 
@@ -172,60 +138,33 @@ function CalendarWithControls() {
   } = useCalendarControls(defaultRef);
 
   return (
-    <Calendar
-      mode={currentMode}
-      referenceDate={referenceDate}
-      value={value}
-      onChange={(date) => {
-        setValue(date);
-        popModeStack();
-        updateReferenceDate(date);
-      }}
-      onMonthControlClick={onMonthControlClick}
-      onYearControlClick={onYearControlClick}
-      onNext={onNext}
-      onPrev={onPrev}
-      onDoubleNext={onDoubleNext}
-      onDoublePrev={onDoublePrev}
-    />
+    <CalendarConfigProviderDayjs>
+      <Calendar
+        calendarDaysProps={{}}
+        isDateDisabled={(date) => {
+          // Disable weekends
+          const dayOfWeek = dayjs(date).day();
+          return dayOfWeek === 0 || dayOfWeek === 6;
+        }}
+        onDateHover={(date) => {
+          // Handle date hover
+        }}
+      />
+    </CalendarConfigProviderDayjs>
   );
 }
-```
-
-### Month Selection Mode
-
-```tsx
-<Calendar
-  mode="month"
-  referenceDate={referenceDate}
-  value={value}
-  onChange={handleChange}
-/>
-```
-
-### Disabling Specific Dates
-
-```tsx
-<Calendar
-  referenceDate={referenceDate}
-  isDateDisabled={(date) => {
-    // Disable weekends
-    const dayOfWeek = dayjs(date).day();
-    return dayOfWeek === 0 || dayOfWeek === 6;
-  }}
-  onChange={handleChange}
-/>
 ```
 
 ### Date Range Highlighting
 
 ```tsx
 <Calendar
-  referenceDate={referenceDate}
   isDateInRange={(date) => {
     return dayjs(date).isBetween(startDate, endDate);
   }}
-  onChange={handleChange}
+  onDateHover={(date) => {
+    // Handle hover for range display
+  }}
 />
 ```
 
@@ -233,7 +172,6 @@ function CalendarWithControls() {
 
 ```tsx
 <Calendar
-  referenceDate={referenceDate}
   renderAnnotations={(date) => {
     const event = events.find(e => dayjs(e.date).isSame(date, 'day'));
     return {
@@ -241,24 +179,45 @@ function CalendarWithControls() {
       color: event ? 'primary' : 'text-neutral',
     };
   }}
-  onChange={handleChange}
 />
 ```
 
-### Quick Select
+### Using RangeCalendar for Date Ranges
 
 ```tsx
-<Calendar
-  referenceDate={referenceDate}
-  quickSelect={{
-    activeId: 'today',
-    options: [
-      { id: 'today', name: 'Today', onClick: () => handleChange(dayjs().toISOString()) },
-      { id: 'tomorrow', name: 'Tomorrow', onClick: () => handleChange(dayjs().add(1, 'day').toISOString()) },
-    ],
-  }}
-  onChange={handleChange}
-/>
+import { RangeCalendar, useRangeCalendarControls } from '@mezzanine-ui/react';
+
+function DateRangeExample() {
+  const [value, setValue] = useState<[string, string | undefined]>(['', undefined]);
+
+  const {
+    currentMode,
+    referenceDates,
+    updateFirstReferenceDate,
+    updateSecondReferenceDate,
+    onFirstNext,
+    onFirstPrev,
+    onFirstDoubleNext,
+    onFirstDoublePrev,
+    onSecondNext,
+    onSecondPrev,
+    onSecondDoubleNext,
+    onSecondDoublePrev,
+  } = useRangeCalendarControls(dayjs().toISOString());
+
+  return (
+    <RangeCalendar
+      referenceDate={referenceDates[0]}
+      value={value}
+      onChange={setValue}
+      isDateInRange={(date) => {
+        const [start, end] = value;
+        if (!end) return false;
+        return dayjs(date).isBetween(start, end, null, '[]');
+      }}
+    />
+  );
+}
 ```
 
 ---
@@ -346,35 +305,33 @@ function useRangeCalendarControls(
 
 ### Inherited from CalendarProps
 
-| Property                | Type                                                             | Default  | Description                    |
-| ----------------------- | ---------------------------------------------------------------- | -------- | ------------------------------ |
-| `disabledMonthSwitch`   | `boolean`                                                        | -        | Disable month switching        |
-| `disabledYearSwitch`    | `boolean`                                                        | -        | Disable year switching         |
-| `disableOnDoubleNext`   | `boolean`                                                        | -        | Disable year fast-forward      |
-| `disableOnDoublePrev`   | `boolean`                                                        | -        | Disable year fast-backward     |
-| `disableOnNext`         | `boolean`                                                        | -        | Disable month fast-forward     |
-| `disableOnPrev`         | `boolean`                                                        | -        | Disable month fast-backward    |
-| `displayMonthLocale`    | `string`                                                         | `locale` | Month display localization     |
-| `displayWeekDayLocale`  | `string`                                                         | `locale` | Weekday display localization   |
-| `isDateDisabled`        | `(date: DateType) => boolean`                                    | -        | Date disabled check            |
-| `isDateInRange`         | `(date: DateType) => boolean`                                    | -        | Date range check               |
-| `isHalfYearDisabled`    | `(date: DateType) => boolean`                                    | -        | Half-year disabled check       |
-| `isHalfYearInRange`     | `(date: DateType) => boolean`                                    | -        | Half-year range check          |
-| `isMonthDisabled`       | `(date: DateType) => boolean`                                    | -        | Month disabled check           |
-| `isMonthInRange`        | `(date: DateType) => boolean`                                    | -        | Month range check              |
-| `isQuarterDisabled`     | `(date: DateType) => boolean`                                    | -        | Quarter disabled check         |
-| `isQuarterInRange`      | `(date: DateType) => boolean`                                    | -        | Quarter range check            |
-| `isWeekDisabled`        | `(date: DateType) => boolean`                                    | -        | Week disabled check            |
-| `isWeekInRange`         | `(date: DateType) => boolean`                                    | -        | Week range check               |
-| `isYearDisabled`        | `(date: DateType) => boolean`                                    | -        | Year disabled check            |
-| `isYearInRange`         | `(date: DateType) => boolean`                                    | -        | Year range check               |
-| `onDateHover`           | `(date: DateType) => void`                                       | -        | Date hover callback            |
-| `onHalfYearHover`       | `(date: DateType) => void`                                       | -        | Half-year hover callback       |
-| `onMonthHover`          | `(date: DateType) => void`                                       | -        | Month hover callback           |
-| `onQuarterHover`        | `(date: DateType) => void`                                       | -        | Quarter hover callback         |
-| `onWeekHover`           | `(date: DateType) => void`                                       | -        | Week hover callback            |
-| `onYearHover`           | `(date: DateType) => void`                                       | -        | Year hover callback            |
-| `renderAnnotations`     | `(date: DateType) => { value: string; color?: TypographyColor }` | -        | Custom date annotations        |
+| Property                | Type                                                             | Default | Description                    |
+| ----------------------- | ---------------------------------------------------------------- | ------- | ------------------------------ |
+| `disableOnDoubleNext`   | `boolean`                                                        | -       | Disable year fast-forward      |
+| `disableOnDoublePrev`   | `boolean`                                                        | -       | Disable year fast-backward     |
+| `disableOnNext`         | `boolean`                                                        | -       | Disable month fast-forward     |
+| `disableOnPrev`         | `boolean`                                                        | -       | Disable month fast-backward    |
+| `displayMonthLocale`    | `string`                                                         | -       | Month display localization     |
+| `displayWeekDayLocale`  | `string`                                                         | -       | Weekday display localization   |
+| `isDateDisabled`        | `(date: DateType) => boolean`                                    | -       | Date disabled check            |
+| `isDateInRange`         | `(date: DateType) => boolean`                                    | -       | Date range check               |
+| `isHalfYearDisabled`    | `(date: DateType) => boolean`                                    | -       | Half-year disabled check       |
+| `isHalfYearInRange`     | `(date: DateType) => boolean`                                    | -       | Half-year range check          |
+| `isMonthDisabled`       | `(date: DateType) => boolean`                                    | -       | Month disabled check           |
+| `isMonthInRange`        | `(date: DateType) => boolean`                                    | -       | Month range check              |
+| `isQuarterDisabled`     | `(date: DateType) => boolean`                                    | -       | Quarter disabled check         |
+| `isQuarterInRange`      | `(date: DateType) => boolean`                                    | -       | Quarter range check            |
+| `isWeekDisabled`        | `(date: DateType) => boolean`                                    | -       | Week disabled check            |
+| `isWeekInRange`         | `(date: DateType) => boolean`                                    | -       | Week range check               |
+| `isYearDisabled`        | `(date: DateType) => boolean`                                    | -       | Year disabled check            |
+| `isYearInRange`         | `(date: DateType) => boolean`                                    | -       | Year range check               |
+| `onDateHover`           | `(date: DateType) => void`                                       | -       | Date hover callback            |
+| `onHalfYearHover`       | `(date: DateType) => void`                                       | -       | Half-year hover callback       |
+| `onMonthHover`          | `(date: DateType) => void`                                       | -       | Month hover callback           |
+| `onQuarterHover`        | `(date: DateType) => void`                                       | -       | Quarter hover callback         |
+| `onWeekHover`           | `(date: DateType) => void`                                       | -       | Week hover callback            |
+| `onYearHover`           | `(date: DateType) => void`                                       | -       | Year hover callback            |
+| `renderAnnotations`     | `(date: DateType) => { value: string; color?: TypographyColor }` | -       | Custom date annotations        |
 
 ---
 
@@ -443,34 +400,14 @@ import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
 
 ---
 
-## Footer Control
-
-Depending on the mode, the footer control button displays different text:
-
-| mode        | Button Text   |
-| ----------- | ------------- |
-| `day`       | Today         |
-| `week`      | This week     |
-| `month`     | This month    |
-| `year`      | This year     |
-| `quarter`   | This quarter  |
-| `half-year` | This half year|
-
-Use `disabledFooterControl` to hide the footer control.
-
 ---
 
 ## Figma Mapping
 
-| Figma Variant                   | React Props                              |
-| ------------------------------- | ---------------------------------------- |
-| `Calendar / Day`                | `mode="day"` (default)                   |
-| `Calendar / Week`               | `mode="week"`                            |
-| `Calendar / Month`              | `mode="month"`                           |
-| `Calendar / Year`               | `mode="year"`                            |
-| `Calendar / Quarter`            | `mode="quarter"`                         |
-| `Calendar / Half Year`          | `mode="half-year"`                       |
-| `Calendar / With Quick Select`  | `quickSelect` has value                  |
+| Figma Variant                      | React Props                              |
+| ---------------------------------- | ---------------------------------------- |
+| `Calendar / Day`                   | Default calendar display                 |
+| `Calendar / With Annotations`      | `renderAnnotations` prop provided        |
 
 ---
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/Alert Banner`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/AlertBanner) · Verified v2 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/AlertBanner) · Verified rc.8 (2026-03-27)
 
 Alert banner component for displaying important system-level notifications. Supports both component-based and imperative APIs. Internally based on `createNotifier`, with sorting rules: non-info first, newest first. Renders using Portal `alert` level.
 
@@ -17,6 +17,8 @@ import type { AlertBannerProps } from '@mezzanine-ui/react';
 // AlertBannerSeverity must be imported from core
 import type { AlertBannerSeverity } from '@mezzanine-ui/core/alert-banner';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/others-alert-banner--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

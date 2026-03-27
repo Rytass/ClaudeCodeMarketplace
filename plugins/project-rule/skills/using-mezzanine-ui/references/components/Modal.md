@@ -36,6 +36,8 @@ import type {
 } from '@mezzanine-ui/react/Modal';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-modal--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Modal Props
@@ -364,6 +366,8 @@ function ScrollableContentModal() {
 }
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-modal--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## ModalHeader
@@ -390,6 +394,8 @@ Extends `NativeElementPropsWithoutKeyAndRef<'div'>`.
   showStatusTypeIcon
 />
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-modal--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -437,6 +443,8 @@ Standalone footer component for custom buttons.
   auxiliaryContentOnChange={setChecked}
 />
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-modal--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -488,6 +496,8 @@ function VerificationModal() {
 }
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-modal--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## MediaPreviewModal
@@ -526,6 +536,8 @@ import { MediaPreviewModal } from '@mezzanine-ui/react/Modal';
   enableCircularNavigation
 />
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-modal--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -575,6 +587,8 @@ const { Container, defaultOptions } = useModalContainer();
   {children}
 </Container>
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-modal--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

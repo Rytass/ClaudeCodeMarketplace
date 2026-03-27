@@ -15,6 +15,8 @@ import { Message } from '@mezzanine-ui/react';
 import type { MessageData, MessageSeverity, MessageType } from '@mezzanine-ui/react';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-message--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Message API
@@ -81,6 +83,8 @@ type MessageType = FC<MessageData> &
     ) => Key
   >;
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-message--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -212,6 +216,8 @@ Message.success('Success message', {
   reference: 'custom-key',
 });
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-message--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

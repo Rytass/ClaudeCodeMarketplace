@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Description`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Description) · Verified v2 source (2026-03-26)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Description) · Verified rc.8 (2026-03-27)
 
 Description component for displaying structured information in title-content pairs.
 
@@ -24,6 +24,8 @@ import type {
   DescriptionGroupProps,
 } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-description--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -56,6 +58,8 @@ The `size` prop on `Description` sets the default size for its child `Descriptio
   <DescriptionContent size="main">John Doe</DescriptionContent>
 </Description>
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-description--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -165,6 +169,8 @@ type DescriptionContentVariant =
   | 'trend-down'
   | 'with-icon';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-description--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -361,6 +367,8 @@ function OrderDetail({ order }) {
   </Description>
 </div>
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-description--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

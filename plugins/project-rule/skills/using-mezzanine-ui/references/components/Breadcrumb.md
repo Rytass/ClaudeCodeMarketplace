@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Breadcrumb`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Breadcrumb) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Breadcrumb) · Verified rc.8 (2026-03-27)
 
 Breadcrumb component for displaying hierarchical page navigation paths.
 
@@ -14,6 +14,8 @@ Breadcrumb component for displaying hierarchical page navigation paths.
 import { Breadcrumb } from '@mezzanine-ui/react';
 import type { BreadcrumbProps, BreadcrumbItemProps } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/navigation-breadcrumb--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 > **Note**: `BreadcrumbItem` component is not exported from `@mezzanine-ui/react` main entry. Use `items` array or children mode with the `BreadcrumbItemProps` type.
 

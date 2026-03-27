@@ -22,6 +22,8 @@ import type {
 } from '@mezzanine-ui/react/NotificationCenter';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-notification-center--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## API Methods
@@ -78,6 +80,8 @@ Extends `NotifierData` (`children`, `onClose`, `duration`) and `NotificationConf
 ```tsx
 type NotificationSeverity = 'success' | 'warning' | 'error' | 'info';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-notification-center--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -218,6 +222,8 @@ NotificationCenter.remove(key);
 // Remove all
 NotificationCenter.destroy();
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-notification-center--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

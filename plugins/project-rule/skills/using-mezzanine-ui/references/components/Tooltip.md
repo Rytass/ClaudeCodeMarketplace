@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Tooltip`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tooltip) | Verified rc.7: 2026-03-26
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tooltip) · Verified rc.8 (2026-03-27)
 
 Tooltip component for displaying additional information on mouse hover. Extends `PopperProps` (excluding `arrow`, `children`, `disablePortal`, `title`).
 
@@ -14,6 +14,8 @@ Tooltip component for displaying additional information on mouse hover. Extends 
 import { Tooltip, useDelayMouseEnterLeave } from '@mezzanine-ui/react';
 import type { TooltipProps, UseDelayMouseEnterLeave, DelayMouseEnterLeave } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-tooltip--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -30,8 +32,11 @@ Extends `PopperProps` (excluding `arrow`, `children`, `disablePortal`, `title`).
 | `disablePortal`   | `boolean`                                                                                                      | `true` | Whether to disable Portal      |
 | `mouseLeaveDelay` | `number`                                                                                                       | `0.1`  | Mouse leave delay (seconds)    |
 | `offsetMainAxis`  | `number`                                                                                                       | -      | Tooltip distance to anchor on main axis (px, overrides default) |
+| `onMouseEnter`    | `(event: MouseEvent) => void`                                                                                  | -      | Mouse enter callback           |
+| `onMouseLeave`    | `(event: MouseEvent) => void`                                                                                  | -      | Mouse leave callback           |
 | `open`            | `boolean`                                                                                                      | `false`| Controlled open state (auto-triggers on hover when not set) |
 | `options`         | `PopperOptions`                                                                                                | `{}`   | Popper configuration           |
+| `ref`             | `RefObject<HTMLElement>`                                                                                       | -      | Tooltip root element ref       |
 | `title`           | `ReactNode`                                                                                                    | -      | Tooltip content                |
 
 > `children` must be a render function that receives `{ ref, onMouseEnter, onMouseLeave }` parameters. Tooltip visibility depends on the `open` prop or (internal `visible` state and `title` exists).

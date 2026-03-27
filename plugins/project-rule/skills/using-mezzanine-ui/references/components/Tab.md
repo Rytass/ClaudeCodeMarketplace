@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Tab`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tab) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tab) · Verified rc.8 (2026-03-27)
 
 Tab component for switching between different content views within the same area.
 
@@ -14,6 +14,8 @@ Tab component for switching between different content views within the same area
 import { Tab, TabItem } from '@mezzanine-ui/react';
 import type { TabProps, TabItemProps, TabsChild } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/navigation-tab--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

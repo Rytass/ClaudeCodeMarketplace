@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/TextField`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TextField) | Verified rc.7: 2026-03-26
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TextField) | Verified rc.8 (2026-03-27)
 
 Text input field container component providing a unified input box appearance. It is the underlying component for Input, Select, and other components.
 
@@ -21,6 +21,8 @@ import type {
   TextFieldSize
 } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-text-field--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

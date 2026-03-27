@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Progress`
 >
-> **Source Verification**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Progress) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Progress) · Verified rc.8 (2026-03-27)
 
 A progress bar component for displaying operation completion progress.
 
@@ -15,16 +15,20 @@ import { Progress } from '@mezzanine-ui/react';
 import type { ProgressProps } from '@mezzanine-ui/react';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-progress--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Progress Props
 
 | Property       | Type                                    | Default      | Description                      |
 | -------------- | --------------------------------------- | ------------ | -------------------------------- |
+| `error`        | `boolean`                               | `false`      | Whether in error state           |
 | `icons`        | `{ error?: IconDefinition; success?: IconDefinition }` | -  | Custom error/success icons       |
 | `percent`      | `number`                                | `0`          | Progress percentage (0-100)      |
 | `percentProps` | `Omit<TypographyProps, 'className' \| 'children'>` | - | Percentage text props            |
 | `status`       | `'enabled' \| 'success' \| 'error'`     | Auto-detect  | Force set status                 |
+| `success`      | `boolean`                               | `false`      | Whether in success state         |
 | `tick`         | `number`                                | `0`          | Tick mark position (0-100)       |
 | `type`         | `'progress' \| 'percent' \| 'icon'`     | `'progress'` | Display type                     |
 

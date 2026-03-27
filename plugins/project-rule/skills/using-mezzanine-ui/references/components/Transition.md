@@ -43,6 +43,8 @@ import type {
 } from '@mezzanine-ui/react/Transition';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/utility-transition--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Props / Sub-components
@@ -215,6 +217,8 @@ type SlideFrom = 'right' | 'top';
 type TranslateFrom = 'top' | 'bottom' | 'left' | 'right';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/utility-transition--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Usage Examples
@@ -385,6 +389,8 @@ function KeepMountExample() {
   );
 }
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/utility-transition--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Accordion`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Accordion) · Verified v2 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Accordion) · Verified rc.8 (2026-03-27)
 
 Collapsible accordion panels for expanding/collapsing content areas. Supports controlled/uncontrolled modes and group management.
 
@@ -27,6 +27,8 @@ import type {
 } from '@mezzanine-ui/react';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-accordion--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Props / Sub-components
@@ -43,7 +45,6 @@ Extends `Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'onChange'>`.
 | `defaultExpanded` | `boolean`                     | `false`  | Initial expanded state in uncontrolled mode                                                    |
 | `disabled`        | `boolean`                     | `false`  | Whether disabled (clicking title won't toggle when disabled)                                   |
 | `expanded`        | `boolean`                     | -        | Expanded state in controlled mode; setting this prop enables controlled mode                   |
-| `onChange`        | `(expanded: boolean) => void` | -        | Callback when expanded/collapsed state changes                                                 |
 | `size`            | `'main' \| 'sub'`            | `'main'` | Accordion size                                                                                 |
 | `title`           | `string`                      | -        | Shortcut for setting title text; when using this prop all `children` are treated as content     |
 | `actions`         | `AccordionActionsProps`       | -        | Action buttons on the right side of title (only effective when using `title` prop)              |
@@ -173,22 +174,18 @@ function CustomAccordion() {
 }
 ```
 
-### Controlled Mode
+### Uncontrolled Mode with Default Expanded
 
 ```tsx
-import { useState } from 'react';
 import { Accordion } from '@mezzanine-ui/react';
 
-function ControlledAccordion() {
-  const [expanded, setExpanded] = useState(false);
-
+function UncontrolledAccordion() {
   return (
     <Accordion
-      title="Controlled Accordion"
-      expanded={expanded}
-      onChange={setExpanded}
+      title="Uncontrolled Accordion"
+      defaultExpanded={true}
     >
-      <p>Expanded state controlled by external state.</p>
+      <p>Expanded state defaults to true, toggles via user click.</p>
     </Accordion>
   );
 }
@@ -359,21 +356,15 @@ function ExclusiveAccordion() {
 </AccordionGroup>
 ```
 
-#### ✅ 正確做法：controlled mode 配合 exclusive
+#### ✅ 正確做法：exclusive 模式自動管理展開狀態
 ```tsx
-const [expandedId, setExpandedId] = useState('section-1');
-
 <AccordionGroup exclusive>
-  <Accordion
-    expanded={expandedId === 'section-1'}
-    onChange={(isExp) => isExp && setExpandedId('section-1')}
-    title="Section 1"
-  />
-  <Accordion
-    expanded={expandedId === 'section-2'}
-    onChange={(isExp) => isExp && setExpandedId('section-2')}
-    title="Section 2"
-  />
+  <Accordion title="Section 1">
+    Content of section 1
+  </Accordion>
+  <Accordion title="Section 2">
+    Content of section 2
+  </Accordion>
 </AccordionGroup>
 ```
 

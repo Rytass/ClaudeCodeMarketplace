@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/SelectionCard`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/SelectionCard) · Verified rc.7 source (2026-03-26)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/SelectionCard) · Verified rc.8 (2026-03-27)
 
 SelectionCard component providing selection items with images or icons. Supports single-select (radio) and multi-select (checkbox) modes.
 
@@ -25,6 +25,8 @@ import type { SelectionCardImageObjectFit } from '@mezzanine-ui/core/selection-c
 ```
 
 > **Note**: `SelectionCardDirection` and `SelectionCardType` are not exported from the `@mezzanine-ui/react` main entry; import from `@mezzanine-ui/react/SelectionCard` or `@mezzanine-ui/core/selection-card`.
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-selection-card--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

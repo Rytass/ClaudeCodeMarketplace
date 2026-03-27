@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/FilterArea`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/FilterArea) | Verified rc.7: 2026-03-26
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/FilterArea) | Verified rc.8 (2026-03-27)
 
 A filter area component for building search and filter forms. Contains three sub-components: FilterArea, FilterLine, and Filter. Expand/collapse buttons use `ChevronDownIcon` / `ChevronUpIcon`.
 
@@ -14,6 +14,8 @@ A filter area component for building search and filter forms. Contains three sub
 import { FilterArea, FilterLine, Filter } from '@mezzanine-ui/react';
 import type { FilterAreaProps, FilterLineProps, FilterProps } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-filter-area--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -29,6 +31,7 @@ import type { FilterAreaProps, FilterLineProps, FilterProps } from '@mezzanine-u
 | `onReset`          | `() => void`                                             | -          | Reset callback           |
 | `onSubmit`         | `() => void`                                             | -          | Submit callback          |
 | `resetText`        | `string`                                                 | `'Reset'`  | Reset button text        |
+| `rowAlign`         | `'start' \| 'center' \| 'end' \| 'baseline'`             | `'center'` | **NEW in rc.8** — Row vertical alignment |
 | `size`             | `FilterAreaSize`                                         | `'main'`   | Size                     |
 | `submitText`       | `string`                                                 | `'Search'` | Submit button text       |
 | `resetButtonType`  | `ComponentPropsWithoutRef<'button'>['type']`             | `'button'` | Reset button type        |

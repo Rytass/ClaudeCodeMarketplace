@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Badge`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Badge) · Verified v2 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Badge) · Verified rc.8 (2026-03-27)
 
 Badge component for marking status, quantity, or hint messages. Supports dot and count modes.
 
@@ -14,6 +14,8 @@ Badge component for marking status, quantity, or hint messages. Supports dot and
 import { Badge, BadgeContainer } from '@mezzanine-ui/react';
 import type { BadgeProps } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-badge--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 > **Note**: `BadgeContainer` is deprecated (`@deprecated`), use the `Badge` component directly. `BadgeContainerProps` is equivalent to `NativeElementPropsWithoutKeyAndRef<'span'>`.
 

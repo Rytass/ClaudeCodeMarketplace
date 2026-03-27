@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Textarea`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Textarea) | Verified rc.7: 2026-03-26
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Textarea) | Verified rc.8 (2026-03-27)
 
 Multi-line text input component for entering longer text content.
 
@@ -14,6 +14,8 @@ Multi-line text input component for entering longer text content.
 import { Textarea } from '@mezzanine-ui/react';
 import type { TextareaProps } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-textarea--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

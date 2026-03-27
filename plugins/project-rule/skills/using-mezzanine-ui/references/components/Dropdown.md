@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Internal/Dropdown`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Dropdown) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Dropdown) · Verified rc.8 (2026-03-27)
 
 A low-level dropdown component for displaying option lists. Typically used as the internal implementation of higher-level components like Select and AutoComplete, but can also be used independently with Button or Input. Supports flat list, grouped, and tree structures, with built-in scrolling, loading states, keyboard shortcuts, and action buttons.
 
@@ -47,6 +47,8 @@ import type {
 import type { DropdownLoadingPosition } from '@mezzanine-ui/core/dropdown';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/internal-dropdown--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Props / Sub-components
@@ -67,6 +69,7 @@ Extends `DropdownItemSharedProps`.
 | `disabled`                | `boolean`                                                                  | `false`     | Whether disabled                                                                |
 | `open`                    | `boolean`                                                                  | -           | Controlled open state                                                           |
 | `activeIndex`             | `number \| null`                                                          | -           | Currently highlighted option index                                              |
+| `keyboardActiveIndex`     | `number \| null`                                                          | -           | **NEW in rc.8** — Index with keyboard focus ring styling                        |
 | `id`                      | `string`                                                                   | -           | Container DOM id                                                                |
 | `inputPosition`           | `DropdownInputPosition`                                                    | `'outside'` | Input position mode: `'outside'` (popup) / `'inside'` (inline)                 |
 | `isMatchInputValue`       | `boolean`                                                                  | `false`     | Whether to match input value and highlight option text                          |
@@ -108,6 +111,8 @@ Extends `DropdownItemSharedProps`.
 | `scrollbarDisabled`       | `boolean`                                                                  | `false`     | Disable custom scrollbar, use native scrolling                                  |
 | `scrollbarMaxWidth`       | `number \| string`                                                        | -           | Scrollbar container max width                                                   |
 | `scrollbarOptions`        | `PartialOptions`                                                           | -           | OverlayScrollbars additional options                                            |
+
+**Removed in rc.8**: `customWidth`, `emptyIcon`, `emptyText`, `globalPortal`, `listboxId`, `listboxLabel`, `loadingPosition`, `loadingText`, `maxHeight`, `onActionCancel`, `onActionClear`, `onActionConfirm`, `onActionCustom`, `onClose`, `onItemHover`, `onLeaveBottom`, `onOpen`, `onReachBottom`, `onSelect`, `open`, `options`, `placement`, `sameWidth`, `scrollbarDefer`, `scrollbarDisabled`, `scrollbarMaxWidth`, `scrollbarOptions`, `showActionShowTopBar`, `showDropdownActions`, `status`, `toggleCheckedOnClick`, `type`, `zIndex` — Most of these have been moved or refactored. Please refer to Storybook for current API.
 
 ---
 

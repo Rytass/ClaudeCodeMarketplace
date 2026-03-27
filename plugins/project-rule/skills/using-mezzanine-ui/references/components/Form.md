@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Form`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Form) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Form) · Verified rc.8 (2026-03-27)
 
 Form-related components including field containers, labels, hint text, and more.
 
@@ -28,6 +28,8 @@ import type {
 // FormElementFocusHandlers must be imported from sub-path
 import type { FormElementFocusHandlers } from '@mezzanine-ui/react/Form';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-form--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

@@ -2,9 +2,9 @@
 
 > **Category**: Data Entry
 >
-> **Storybook**: `Data Entry/TimePicker`
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-timepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimePicker) | Verified rc.7: 2026-03-26
+> **Source**: Verified rc.8 (2026-03-27)
 
 Time picker for selecting time. Must be used with `CalendarContext`.
 

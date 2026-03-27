@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Typography`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Typography) | Verified rc.7: 2026-03-26
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Typography) · Verified rc.8 (2026-03-27)
 
 Typography component for consistent text styling.
 
@@ -21,6 +21,8 @@ import type {
   TypographyDisplay,
 } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/foundation-typography--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

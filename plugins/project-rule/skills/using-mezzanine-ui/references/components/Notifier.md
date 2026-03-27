@@ -21,6 +21,8 @@ import type {
 } from '@mezzanine-ui/react';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-notifier--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## createNotifier Parameters
@@ -58,6 +60,8 @@ interface NotifierData extends Pick<NotifierConfig, 'duration'> {
   onClose?: (key: Key) => void;
 }
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-notifier--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -178,6 +182,8 @@ useEffect(() => {
 }, []);
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-notifier--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Message and NotificationCenter Implementation
@@ -213,6 +219,8 @@ const NotificationCenter = createNotifier<NotificationData>({
 });
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-notifier--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Sugar Method Pattern
@@ -237,6 +245,8 @@ const MessageWithSugar = {
 // Usage
 MessageWithSugar.success('Operation successful!');
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-notifier--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

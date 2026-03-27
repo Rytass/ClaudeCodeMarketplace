@@ -22,6 +22,8 @@ import type {
 import type { InlineMessageSeverity } from '@mezzanine-ui/core/inline-message';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-inline-message--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## InlineMessage Props
@@ -115,6 +117,8 @@ function FormFieldWithHint() {
 />
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-inline-message--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## InlineMessageGroup
@@ -152,6 +156,8 @@ import { InlineMessageGroup } from '@mezzanine-ui/react';
   onItemClose={(key) => console.log('closed', key)}
 />
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-inline-message--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

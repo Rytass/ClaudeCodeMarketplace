@@ -2,9 +2,9 @@
 
 > **Category**: Data Entry
 >
-> **Storybook**: `Data Entry/AutoComplete`
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-autocomplete--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/AutoComplete) · Verified rc.7 source (2026-03-26)
+> **Source**: Verified rc.8 (2026-03-27)
 
 Autocomplete component combining input with dropdown menu. Supports search filtering and dynamic option creation. Internally uses `Dropdown` and `SelectTrigger` composition.
 

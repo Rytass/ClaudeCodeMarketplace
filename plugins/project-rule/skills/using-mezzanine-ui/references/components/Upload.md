@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Upload`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Upload) | Verified rc.7: 2026-03-26 (246 lines of Uploader changes)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Upload) | Verified rc.8 (2026-03-27)
 
 File upload component with support for multiple display modes and upload status management.
 
@@ -21,6 +21,8 @@ import type {
 } from '@mezzanine-ui/react';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-upload--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Upload Props
@@ -29,8 +31,7 @@ import type {
 | ------------------- | --------------------------------------------------- | ---------- | ------------------------ |
 | `accept`            | `string`                                            | -          | Accepted file types      |
 | `disabled`          | `boolean`                                           | `false`    | Whether disabled         |
-| `errorIcon`         | `ReactNode`                                         | -          | Default error icon       |
-| `errorMessage`      | `string`                                            | -          | Default error message    |
+| `dropzoneHints`     | `string[]`                                          | -          | **NEW in rc.8** — Dropzone hint messages |
 | `files`             | `UploadFile[]`                                      | `[]`       | File list (controlled)   |
 | `hints`             | `UploaderHint[]`                                    | -          | Hint messages            |
 | `id`                | `string`                                            | -          | Input element id         |
@@ -52,6 +53,8 @@ import type {
 | `size`              | `UploadSize`                                        | `'main'`   | Size                     |
 | `uploaderIcon`      | `UploaderProps['icon']`                             | -          | Upload area icon         |
 | `uploaderLabel`     | `UploaderProps['label']`                            | -          | Upload area text         |
+
+**Removed in rc.8**: `errorIcon`, `errorMessage`, `isFillWidth`, `multiple`, `name`, `onChange`, `onDelete`, `onDownload`, `onMaxFilesExceeded`, `onReload`, `onZoomIn`, `showFileSize`, `size`, `uploaderLabel` — Refer to Storybook for updated API patterns.
 
 ---
 

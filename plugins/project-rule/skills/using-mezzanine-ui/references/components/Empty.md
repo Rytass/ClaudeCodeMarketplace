@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Empty`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Empty) · Verified v2 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Empty) · Verified rc.8 (2026-03-27)
 
 An empty state component for displaying placeholder screens when there is no data or in specific states.
 
@@ -14,6 +14,8 @@ An empty state component for displaying placeholder screens when there is no dat
 import { Empty } from '@mezzanine-ui/react';
 import type { EmptyProps } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-display-empty--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

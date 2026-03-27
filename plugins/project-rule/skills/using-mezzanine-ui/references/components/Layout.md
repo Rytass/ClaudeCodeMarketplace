@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Layout/Layout`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Layout) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Layout) · Verified rc.8 (2026-03-27)
 
 A full-page layout component providing a main content area and resizable side panels. Uses the compound component pattern; `Layout` internally creates a `LayoutHost` context provider.
 
@@ -42,6 +42,8 @@ Sub-path additional exports:
 ```tsx
 import type { LayoutHostProps } from '@mezzanine-ui/react/Layout';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/layout-layout--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

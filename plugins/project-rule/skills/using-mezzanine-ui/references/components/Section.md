@@ -17,6 +17,8 @@ import { Section, SectionGroup } from '@mezzanine-ui/react';
 import type { SectionProps, SectionGroupProps } from '@mezzanine-ui/react';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/layout-section--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Props
@@ -252,6 +254,8 @@ function StyledSectionGroup() {
 }
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/layout-section--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Type Validation
@@ -268,6 +272,8 @@ Passing non-matching components will output a console warning, e.g.:
 [Section] Invalid contentHeader type: <MyCustomHeader>. Only <ContentHeader /> component from @mezzanine-ui/react is allowed.
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/layout-section--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Content Area minHeight
@@ -282,6 +288,8 @@ Section's content area now supports `minHeight` to maintain consistent layout he
   <div>Content with consistent minimum height</div>
 </Section>
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/layout-section--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

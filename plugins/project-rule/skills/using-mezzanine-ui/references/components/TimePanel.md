@@ -2,9 +2,9 @@
 
 > **Category**: Utility
 >
-> **Storybook**: `Utility/Time Panel`
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/utility-timepanel--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TimePanel) | Verified rc.7: 2026-03-26
+> **Source**: Verified rc.8 (2026-03-27)
 
 Time panel component for selecting time. Must be used with CalendarContext.
 

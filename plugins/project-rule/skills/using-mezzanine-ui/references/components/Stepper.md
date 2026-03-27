@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Stepper`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Stepper) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Stepper) · Verified rc.8 (2026-03-27)
 
 Stepper component for guiding users through multi-step processes.
 
@@ -14,6 +14,8 @@ Stepper component for guiding users through multi-step processes.
 import { Stepper, Step, useStepper } from '@mezzanine-ui/react';
 import type { StepperProps, StepProps } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/navigation-stepper--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

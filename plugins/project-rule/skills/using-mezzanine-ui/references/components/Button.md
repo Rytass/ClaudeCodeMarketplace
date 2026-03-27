@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Button`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Button) · Verified v2 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Button) · Verified rc.8 (2026-03-27)
 
 The most commonly used interactive element, supporting multiple variants and sizes.
 
@@ -26,6 +26,8 @@ import type {
 // The following types must be imported from sub-path
 import type { ButtonIconType } from '@mezzanine-ui/react/Button';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/foundation-button--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

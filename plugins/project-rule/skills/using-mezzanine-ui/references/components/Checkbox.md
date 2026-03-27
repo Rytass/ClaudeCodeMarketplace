@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Checkbox`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Checkbox) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Checkbox) · Verified rc.8 (2026-03-27)
 
 A checkbox component supporting standalone or group usage, with multiple modes.
 
@@ -31,6 +31,8 @@ import type {
 } from '@mezzanine-ui/react/Checkbox';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-checkbox--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Checkbox Props
@@ -42,19 +44,12 @@ import type {
 | `description`    | `string`                               | -           | Description text                         |
 | `disabled`       | `boolean`                              | `false`     | Whether disabled                         |
 | `editableInput`  | `Omit<BaseInputProps, 'variant'>`      | -           | Editable input configuration             |
-| `id`             | `string`                               | -           | Input element ID                         |
 | `indeterminate`  | `boolean`                              | `false`     | Indeterminate state                      |
-| `inputProps`     | `CheckboxInputElementProps`            | -           | Props passed to input element            |
-| `inputRef`       | `Ref<HTMLInputElement>`                | -           | Input element ref                        |
 | `label`          | `string`                               | -           | Label text                               |
 | `mode`           | `CheckboxMode`                         | `'default'` | Display mode                             |
-| `name`           | `string`                               | -           | Input name attribute                     |
-| `onChange`       | `ChangeEventHandler<HTMLInputElement>` | -           | Change event                             |
-| `severity`       | `'info' \| 'error'`                    | `'info'`    | Semantic form-validation coloring (NEW in rc.6) |
-| `size`           | `CheckboxSize`                         | `'main'`    | Size (available values vary by mode)     |
-| `value`          | `string`                               | -           | Value (required within a group)          |
-| `withEditInput`  | `boolean` **(RC.7 NEW)**               | `false`     | Show editable input when checked. Auto-checks and auto-focuses input. |
-| `editableInput`  | `Omit<BaseInputProps, 'variant'>` **(RC.7 NEW)** | -  | Config for editable input (name, id, placeholder, etc.) |
+| `withEditInput`  | `boolean`                              | `false`     | Show editable input when checked. Auto-checks and auto-focuses input. |
+
+**Removed in rc.8**: `id`, `inputProps`, `inputRef`, `name`, `onChange`, `severity`, `size`, `value` — Use CheckboxGroup or form integration patterns instead.
 
 ---
 

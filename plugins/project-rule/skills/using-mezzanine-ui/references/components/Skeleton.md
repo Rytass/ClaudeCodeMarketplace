@@ -15,6 +15,8 @@ import { Skeleton } from '@mezzanine-ui/react';
 import type { SkeletonProps } from '@mezzanine-ui/react';
 ```
 
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-skeleton--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
+
 ---
 
 ## Skeleton Props
@@ -58,6 +60,8 @@ Set `circle` to create a circular skeleton.
 ```tsx
 <Skeleton circle width={48} height={48} />
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-skeleton--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 
@@ -192,6 +196,8 @@ function UserProfile({ loading, user }) {
   );
 }
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-skeleton--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Navigation`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Navigation) | Verified: 2026-03-26
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Navigation) · Verified rc.8 (2026-03-27)
 
 Side navigation component supporting expand/collapse, multi-level, categories, search, and more.
 
@@ -38,6 +38,8 @@ import type {
   NavigationOptionChildren,
 } from '@mezzanine-ui/react/Navigation';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/navigation-navigation--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

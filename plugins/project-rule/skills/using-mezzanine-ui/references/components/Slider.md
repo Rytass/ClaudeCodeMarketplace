@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Slider`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Slider) · Verified rc.7 source (2026-03-26)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Slider) · Verified rc.8 (2026-03-27)
 
 Slider component for selecting values within a numeric range. Supports single value and range modes.
 
@@ -33,6 +33,8 @@ import type {
   UseRangeSliderProps,
 } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-slider--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/ResultState`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/ResultState) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/ResultState) · Verified rc.8 (2026-03-27)
 
 Result state component for displaying operation results or status pages.
 
@@ -16,6 +16,8 @@ import type { ResultStateProps, ResultStateActions } from '@mezzanine-ui/react';
 // ResultStateType and ResultStateSize must be imported from core
 // import type { ResultStateType, ResultStateSize } from '@mezzanine-ui/core/result-state';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-result-state--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
 

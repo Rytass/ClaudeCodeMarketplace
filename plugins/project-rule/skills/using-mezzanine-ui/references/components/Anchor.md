@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/Anchor`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Anchor) · Verified rc.7 source (2026-03-26)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Anchor) · Verified rc.8 (2026-03-27)
 
 Anchor navigation component for in-page section navigation with automatic hash tracking.
 
@@ -14,6 +14,8 @@ Anchor navigation component for in-page section navigation with automatic hash t
 import { Anchor, AnchorGroup } from '@mezzanine-ui/react';
 import type { AnchorProps, AnchorGroupProps } from '@mezzanine-ui/react';
 ```
+
+> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/others-anchor--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 > **Note**: `AnchorItemData` type is not exported from `@mezzanine-ui/react` main entry, only used internally.
 
