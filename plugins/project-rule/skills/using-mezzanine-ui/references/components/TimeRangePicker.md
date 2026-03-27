@@ -8,6 +8,31 @@
 
 Time range picker for selecting start and end times. Uses RangePickerTrigger to provide dual inputs with a TimePickerPanel panel. Must be used with `CalendarContext`.
 
+## ⚠️ Prerequisite: CalendarConfigProvider
+
+此元件依賴 `CalendarContext`，必須在應用程式根層級（如 `layout.tsx` 或 `App.tsx`）包裹 `CalendarConfigProvider`。
+缺少此設定會導致 runtime error: `Cannot find values in your context`.
+
+```tsx
+// layout.tsx 或 App.tsx
+import { CalendarConfigProvider } from '@mezzanine-ui/react';
+import { CalendarMethodsMoment } from '@mezzanine-ui/core/calendar';
+// 或使用 dayjs: import { CalendarMethodsDayjs } from '@mezzanine-ui/core/calendar';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <CalendarConfigProvider methods={CalendarMethodsMoment}>
+      {children}
+    </CalendarConfigProvider>
+  );
+}
+```
+
+> 也可使用便捷封裝 `CalendarConfigProviderMoment` 或 `CalendarConfigProviderDayjs`。
+> 詳見 [Calendar.md](./Calendar.md) 的完整設定說明。
+
+---
+
 ## Import
 
 ```tsx

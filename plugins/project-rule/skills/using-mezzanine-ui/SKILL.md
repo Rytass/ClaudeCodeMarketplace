@@ -89,6 +89,26 @@ function App() {
 }
 ```
 
+### CalendarConfigProvider Setup (日期/時間元件必要)
+
+使用任何日期或時間相關元件（DatePicker, DateRangePicker, DateTimePicker, DateTimeRangePicker, MultipleDatePicker, TimePicker, TimeRangePicker, Calendar, TimePanel）之前，**必須**在應用程式根層級包裹 `CalendarConfigProvider`，否則會拋出 runtime error: `Cannot find values in your context`.
+
+```tsx
+// layout.tsx 或 App.tsx
+import { CalendarConfigProvider } from '@mezzanine-ui/react';
+import { CalendarMethodsMoment } from '@mezzanine-ui/core/calendar';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <CalendarConfigProvider methods={CalendarMethodsMoment}>
+      {children}
+    </CalendarConfigProvider>
+  );
+}
+```
+
+> 也可使用 `CalendarConfigProviderMoment` 或 `CalendarConfigProviderDayjs` 便捷封裝（從 `@mezzanine-ui/react/Calendar` 匯入）。
+
 ---
 
 ## What's New in rc.8

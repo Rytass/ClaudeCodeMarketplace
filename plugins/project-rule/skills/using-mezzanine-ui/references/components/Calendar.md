@@ -10,6 +10,62 @@
 
 Calendar component for displaying and selecting dates. Requires `CalendarConfigProvider` (which provides `CalendarContext`). Supports six modes: day, week, month, year, quarter, and half-year.
 
+## ⚠️ Prerequisite: CalendarConfigProvider
+
+所有日曆/日期/時間相關元件（Calendar, DatePicker, DateRangePicker, DateTimePicker, DateTimeRangePicker, MultipleDatePicker, TimePicker, TimeRangePicker, TimePanel）都依賴 `CalendarContext`。
+**必須**在應用程式根層級（如 `layout.tsx` 或 `App.tsx`）包裹 `CalendarConfigProvider`，否則會拋出 runtime error：
+
+```
+Cannot find values in your context. Make sure you use `CalendarConfigProvider`
+in your app and pass in one of the following as methods: `CalendarMethodsMoment`.
+```
+
+### 基本設定（選擇一種日期庫）
+
+```tsx
+// layout.tsx 或 App.tsx
+import { CalendarConfigProvider } from '@mezzanine-ui/react';
+import { CalendarMethodsMoment } from '@mezzanine-ui/core/calendar';
+// 或 dayjs: import { CalendarMethodsDayjs } from '@mezzanine-ui/core/calendar';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <CalendarConfigProvider methods={CalendarMethodsMoment}>
+      {children}
+    </CalendarConfigProvider>
+  );
+}
+```
+
+### 便捷封裝（推薦）
+
+```tsx
+// 使用 Moment.js
+import { CalendarConfigProviderMoment } from '@mezzanine-ui/react/Calendar';
+
+<CalendarConfigProviderMoment locale="zh-TW">
+  {children}
+</CalendarConfigProviderMoment>
+
+// 使用 Day.js
+import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
+
+<CalendarConfigProviderDayjs locale="zh-TW">
+  {children}
+</CalendarConfigProviderDayjs>
+```
+
+### CalendarConfigProvider Props
+
+| Property            | Type                   | Default             | Description            |
+| ------------------- | ---------------------- | ------------------- | ---------------------- |
+| `methods`           | `CalendarMethods`      | **required**        | 日期運算方法（Moment/Dayjs） |
+| `locale`            | `CalendarLocaleValue`  | `CalendarLocale.EN_US` | 語系（影響星期起始日、月份名稱） |
+| `defaultDateFormat` | `string`               | `'YYYY-MM-DD'`     | 預設日期格式           |
+| `defaultTimeFormat` | `string`               | `'HH:mm:ss'`       | 預設時間格式           |
+
+---
+
 ## Import
 
 ```tsx
