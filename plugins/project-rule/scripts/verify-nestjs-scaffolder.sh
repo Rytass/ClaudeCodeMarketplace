@@ -37,7 +37,7 @@ REQUIRED_PATTERNS=(
 for entry in "${REQUIRED_PATTERNS[@]}"; do
   pattern="${entry%%:*}"
   step="${entry#*:}"
-  if ! echo "$RECENT_FILES" | grep -q "$pattern"; then
+  if ! echo "$RECENT_FILES" | grep -qF -- "$pattern"; then
     MISSING="${MISSING}  - ${step} (${pattern})\n"
   fi
 done
