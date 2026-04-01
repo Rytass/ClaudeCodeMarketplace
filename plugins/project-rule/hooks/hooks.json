@@ -70,6 +70,11 @@
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/scripts/verify-dual-layer-structure.sh",
             "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/prefer-mezzanine-ui.sh",
+            "timeout": 5
           }
         ]
       },
