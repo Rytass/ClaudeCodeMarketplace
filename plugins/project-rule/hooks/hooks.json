@@ -115,9 +115,9 @@
       {
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "Review what was accomplished in this session. If a scaffolding workflow was started (NestJS 11-step module or Next.js 9-step page), verify all steps were completed. List any files that were created. If anything appears incomplete, briefly state what remains. Otherwise confirm the session can end cleanly.",
-            "timeout": 30
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/check-scaffolding-completion.sh",
+            "timeout": 10
           }
         ]
       }
