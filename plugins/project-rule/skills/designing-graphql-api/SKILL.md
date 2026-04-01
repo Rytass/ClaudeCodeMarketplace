@@ -1,6 +1,6 @@
 ---
 name: designing-graphql-api
-description: GraphQL API design principles. Mutation Input design decisions — when to use flatten (direct arguments) vs group (Input types). Use when designing GraphQL mutations, creating Input types, designing GraphQL schemas, or discussing API parameter design.
+description: GraphQL API design principles — flatten (direct arguments) vs group (Input types) decision guide. Use when creating or modifying *.mutations.ts, *.input.ts, *.resolver.ts files, defining GraphQL mutation arguments, designing Input types, or deciding whether to wrap parameters in an Input object. Trigger words — mutation input, Input type, flatten args, GraphQL schema design, API parameter, createXxxInput, updateXxxInput.
 ---
 
 # GraphQL API Design Principles

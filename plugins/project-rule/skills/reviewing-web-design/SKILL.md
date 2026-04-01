@@ -1,6 +1,6 @@
 ---
 name: reviewing-web-design
-description: Review UI code for Web Interface Guidelines compliance. Use when reviewing UI, checking accessibility, auditing design, reviewing UX, or comparing against best practices. Trigger words — review UI, check accessibility, audit design, review UX.
+description: Review UI code for Vercel Web Interface Guidelines compliance. Fetches latest rules and audits *.tsx, *.css, *.scss files for semantic HTML, accessibility (ARIA, focus, keyboard navigation), layout, responsive design, and UX patterns. Use when reviewing UI components, checking accessibility, auditing frontend design, or comparing against best practices. Trigger words — review UI, check accessibility, audit design, review UX, a11y check, WCAG, UI audit, design review.
 argument-hint: "<file-or-pattern>"
 ---
 

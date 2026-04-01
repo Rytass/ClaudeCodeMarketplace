@@ -1,6 +1,6 @@
 ---
 name: using-mezzanine-ui
-description: Mezzanine-UI design system development guide (v2, rc.8). All frontend development MUST prefer this design system. Use when building UI interfaces or React components, using @mezzanine-ui/* packages, looking up design specs and component usage, reviewing Figma designs, or implementing form/table/modal/navigation UI patterns.
+description: Create, edit, or style React components using the Mezzanine-UI design system (v2, rc.8). Covers @mezzanine-ui/react, @mezzanine-ui/core, @mezzanine-ui/system, @mezzanine-ui/icons. Use when creating or modifying *.tsx, *.scss files that import from @mezzanine-ui/*, adding Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Menu, Navigation, Typography, Icon, Drawer, Upload, Toggle components, or setting up design tokens and theming. Trigger words — add component, build form, create page UI, mezzanine, mzn, design system, frontend component, UI layout.
 ---
 
 # Mezzanine-UI Design System (v2)
