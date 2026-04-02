@@ -999,7 +999,7 @@
     }
   },
   "meta": {
-    "generatedAt": "2026-03-26",
+    "generatedAt": "2026-04-02",
     "sourceFiles": {
       "typescriptPalette": "packages/system/src/palette/typings.ts",
       "typescriptSpacing": "packages/system/src/spacing/typings.ts",
