@@ -29,10 +29,10 @@ Extends `NativeElementPropsWithoutKeyAndRef<'div'>`.
 | `defaultChecked`  | `boolean`                 | `-`     | Initial checked state (uncontrolled mode)|
 | `disabled`        | `boolean`                 | `false` | Whether disabled                         |
 | `inputProps`      | `InputHTMLAttributes<HTMLInputElement>` | - | Native input attributes |
-| `label`           | `ReactNode`               | -       | Label text displayed beside toggle       |
+| `label`           | `string`                  | -       | Label text displayed beside toggle       |
 | `onChange`        | `ChangeEventHandler<HTMLInputElement>` | - | Change event handler |
 | `size`            | `'main' \| 'sub'`        | `'main'` | Toggle size                              |
-| `supportingText`  | `ReactNode`               | -       | Helper text displayed below label        |
+| `supportingText`  | `string`                  | -       | Helper text displayed below label        |
 
 ---
 

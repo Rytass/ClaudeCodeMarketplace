@@ -51,6 +51,12 @@ Extends `DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>` (excluding
 | `pageSize`                 | `PaginationPageSizeProps['value']`             | `10`                                    | Items per page                    |
 | `pageSizeLabel`            | `PaginationPageSizeProps['label']`             | -                                       | Page size label                   |
 | `pageSizeOptions`          | `PaginationPageSizeProps['options']`           | -                                       | Page size options                 |
+| `renderResultSummary`      | `(from: number, to: number, total: number) => string` | -                              | Custom result summary renderer    |
+| `renderPageSizeOptionName` | `PaginationPageSizeProps['renderOptionName']`  | -                                       | Custom page size option name renderer |
+| `showJumper`               | `boolean`                                     | `false`                                 | Show page jumper input            |
+| `showPageSizeOptions`      | `boolean`                                     | `false`                                 | Show page size selector           |
+| `siblingCount`             | `number`                                      | `1`                                     | Pages shown on each side of current |
+| `total`                    | `number`                                      | `0`                                     | Total number of items             |
 
 ---
 
