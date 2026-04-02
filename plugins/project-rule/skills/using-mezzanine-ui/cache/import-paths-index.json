@@ -1,9 +1,9 @@
 {
   "meta": {
-    "generatedAt": "2026-03-27",
-    "sourceVersion": "1.0.0-rc.8",
+    "sourceVersion": "1.0.0",
+    "generatedAt": "2026-04-02",
     "description": "Complete import paths index for Mezzanine UI v2 packages",
-    "version": "1.0.0-rc.8"
+    "version": "1.0.0"
   },
   "packages": {
     "@mezzanine-ui/react": {
@@ -561,10 +561,14 @@
             "source": "./TimeRangePicker",
             "exportType": "named"
           },
+          "Toggle": {
+            "source": "./Toggle",
+            "exportType": "default"
+          },
           "Switch": {
             "source": "./Toggle",
             "exportType": "default",
-            "note": "Source directory is Toggle/, but exported as Switch"
+            "note": "Deprecated alias for Toggle. Source directory is Toggle/, exported as both Toggle and Switch"
           },
           "Upload": {
             "source": "./Upload",
@@ -1781,8 +1785,9 @@
       ]
     },
     "Switch_vs_Toggle": {
-      "correctImport": "import { Switch } from '@mezzanine-ui/react';",
-      "note": "The source directory is 'Toggle/' but the exported name is 'Switch'. Type exports are also renamed: ToggleProps → SwitchProps, ToggleSize → SwitchSize.",
+      "correctImport": "import { Toggle } from '@mezzanine-ui/react';",
+      "deprecatedImport": "import { Switch } from '@mezzanine-ui/react';",
+      "note": "In v1.0.0, Toggle is the primary export name. Switch is a deprecated alias. Both are exported from the same source directory 'Toggle/'. Type exports: ToggleProps, ToggleSize (SwitchProps and SwitchSize are deprecated aliases).",
       "incorrectPaths": [
         "@mezzanine-ui/react/Toggle",
         "@mezzanine-ui/react/Switch"
@@ -1803,15 +1808,15 @@
       "note": "Notifier types/utilities are exported via `export * from './Notifier'` in the main index. Available directly from @mezzanine-ui/react."
     },
     "Card_Generic_Suffix": {
-      "note": "Card components use Generic suffix internally but are renamed on export: BaseCardGeneric → BaseCard, FourThumbnailCardGeneric → FourThumbnailCard, QuickActionCardGeneric → QuickActionCard, SingleThumbnailCardGeneric → SingleThumbnailCard, ThumbnailGeneric → Thumbnail. Always use the renamed (shorter) names when importing."
+      "note": "Card components use Generic suffix internally but are renamed on export: BaseCardGeneric \u2192 BaseCard, FourThumbnailCardGeneric \u2192 FourThumbnailCard, QuickActionCardGeneric \u2192 QuickActionCard, SingleThumbnailCardGeneric \u2192 SingleThumbnailCard, ThumbnailGeneric \u2192 Thumbnail. Always use the renamed (shorter) names when importing."
     }
   },
   "packageNotes": {
     "noExportsField": "None of the packages use the 'exports' field in package.json. Subpath imports work via directory-based resolution (each directory has its own index.ts/index.js).",
     "buildSystem": "All packages use a custom build script (scripts/build.js) that compiles TypeScript to individual directories.",
-    "version": "All source packages are at 1.0.0-rc.8."
+    "version": "All source packages are at 1.0.0."
   },
   "notes": {
-    "version": "All source packages are at 1.0.0-rc.8."
+    "version": "All source packages are at 1.0.0."
   }
 }

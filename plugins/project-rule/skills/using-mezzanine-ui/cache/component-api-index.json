@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "generatedAt": "2026-03-27",
-    "version": "1.0.0-rc.8",
-    "description": "Component props API index for Mezzanine UI v2 packages"
+    "version": "1.0.0",
+    "generatedAt": "2026-04-02",
+    "description": "TypeScript props API index for Mezzanine UI v2"
   },
   "Accordion": {
     "props": {
@@ -797,6 +797,30 @@
       },
       "value": {
         "type": "DateType | DateType[]",
+        "required": false
+      },
+      "calendarDaysProps": {
+        "type": "Omit<CalendarDaysProps, 'onClick' | 'referenceDate' | 'value' | 'displayWeekDayLocale' | 'isDateDisabled' | 'isDateInRange' | 'onDateHover'>",
+        "required": false
+      },
+      "calendarHalfYearsProps": {
+        "type": "Omit<CalendarHalfYearsProps, 'onClick' | 'referenceDate' | 'value' | 'isHalfYearDisabled' | 'isHalfYearInRange' | 'onHalfYearHover'>",
+        "required": false
+      },
+      "calendarMonthsProps": {
+        "type": "Omit<CalendarMonthsProps, 'onClick' | 'referenceDate' | 'value' | 'isMonthDisabled' | 'isMonthInRange' | 'onMonthHover' | 'displayMonthLocale'>",
+        "required": false
+      },
+      "calendarQuartersProps": {
+        "type": "Omit<CalendarQuartersProps, 'onClick' | 'referenceDate' | 'value' | 'isQuarterDisabled' | 'isQuarterInRange' | 'onQuarterHover'>",
+        "required": false
+      },
+      "calendarWeeksProps": {
+        "type": "Omit<CalendarWeeksProps, 'onClick' | 'referenceDate' | 'value' | 'displayWeekDayLocale' | 'isWeekDisabled' | 'isWeekInRange' | 'onWeekHover'>",
+        "required": false
+      },
+      "calendarYearsProps": {
+        "type": "Omit<CalendarYearsProps, 'onClick' | 'referenceDate' | 'value' | 'isYearDisabled' | 'isYearInRange' | 'onYearHover'>",
         "required": false
       }
     },
@@ -1972,7 +1996,8 @@
   "ClearActions": {
     "props": {},
     "sourceFile": "packages/react/src/ClearActions/ClearActions.tsx",
-    "propsType": "| ClearActionsEmbeddedProps\n  | ClearActionsStandardProps\n  | ClearActionsClearableProps"
+    "propsType": "| ClearActionsEmbeddedProps\n  | ClearActionsStandardProps\n  | ClearActionsClearableProps",
+    "deprecated": true
   },
   "ContentHeader": {
     "props": {
@@ -2020,7 +2045,8 @@
         },
         "sourceFile": "packages/react/src/ContentHeader/ContentHeaderResponsive.tsx"
       }
-    }
+    },
+    "deprecated": true
   },
   "Cropper": {
     "props": {},
@@ -2036,7 +2062,7 @@
           "confirmText": {
             "type": "string",
             "required": false,
-            "default": "'確認'"
+            "default": "'\u78ba\u8a8d'"
           },
           "cropperContentClassName": {
             "type": "string",
@@ -2067,7 +2093,7 @@
           "title": {
             "type": "string",
             "required": false,
-            "default": "'圖片裁切'"
+            "default": "'\u5716\u7247\u88c1\u5207'"
           }
         },
         "sourceFile": "packages/react/src/Cropper/Cropper.tsx"
@@ -3949,12 +3975,12 @@
           "resendPrompt": {
             "type": "string",
             "required": false,
-            "default": "\"收不到驗證碼？\""
+            "default": "\"\u6536\u4e0d\u5230\u9a57\u8b49\u78bc\uff1f\""
           },
           "resendText": {
             "type": "string",
             "required": false,
-            "default": "\"點此重新寄送\""
+            "default": "\"\u9ede\u6b64\u91cd\u65b0\u5bc4\u9001\""
           },
           "value": {
             "type": "string",
@@ -4480,7 +4506,7 @@
           "viewAllButtonText": {
             "type": "string",
             "required": false,
-            "default": "'查看更多'"
+            "default": "'\u67e5\u770b\u66f4\u591a'"
           }
         },
         "extends": [
@@ -5527,7 +5553,8 @@
     "sourceFile": "packages/react/src/Scrollbar/typings.ts",
     "extends": [
       "Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'children'>"
-    ]
+    ],
+    "deprecated": true
   },
   "Section": {
     "props": {
@@ -7000,6 +7027,10 @@
         "type": "boolean",
         "required": false,
         "default": "false"
+      },
+      "inputProps": {
+        "type": "Omit<NativeElementPropsWithoutKeyAndRef<'input'>, 'checked' | 'defaultChecked' | 'disabled' | 'onChange' | 'placeholder' | 'type' | 'value' | `aria-${'disabled' | 'checked'}`>",
+        "required": false
       },
       "label": {
         "type": "string",
