@@ -2,11 +2,11 @@
 
 Complete component API reference documentation.
 
-> This document is based on **v2** (npm `1.x` series, git branch `v2`, RC 1.0.0-rc.8)
+> This document is based on **v2** (npm `1.x` series, git branch `v2`, 1.0.0)
 >
-> **Last verified**: 2026-03-27
+> **Last verified**: 2026-04-02
 >
-> **Version mapping**: Design file v1 = npm `0.x` (deprecated); Design file v2 = npm `1.x` (RC 1.0.0-rc.8)
+> **Version mapping**: Design file v1 = npm `0.x` (deprecated); Design file v2 = npm `1.x` (1.0.0)
 
 ## Table of Contents
 
@@ -214,7 +214,7 @@ import { HomeIcon, SettingIcon } from '@mezzanine-ui/icons';
 </Navigation>
 ```
 
-**Notable Props (RC5)**
+**Notable Props (v1.0.0)**
 
 | Prop                   | Type      | Default | Description                              |
 | ---------------------- | --------- | ------- | ---------------------------------------- |
@@ -235,7 +235,7 @@ import { Tab, TabItem } from '@mezzanine-ui/react';
 </Tab>
 ```
 
-**Notable Props (RC5)**
+**Notable Props (v1.0.0)**
 
 | Prop    | Type                    | Default | Description                         |
 | ------- | ----------------------- | ------- | ----------------------------------- |
@@ -297,14 +297,25 @@ import { Drawer } from '@mezzanine-ui/react';
 
 ---
 
-### PageHeader / PageFooter
+### PageHeader
 
-Page header and footer components.
+Page header component.
 
 ```tsx
-import { PageHeader, PageFooter } from '@mezzanine-ui/react';
+import { PageHeader } from '@mezzanine-ui/react';
 
 <PageHeader title="Page Title" />
+```
+
+---
+
+### PageFooter
+
+Page footer component.
+
+```tsx
+import { PageFooter } from '@mezzanine-ui/react';
+
 <PageFooter>Footer content</PageFooter>
 ```
 
@@ -332,7 +343,7 @@ const data = [
 <Table columns={columns} dataSource={data} />
 ```
 
-**Notable Props (RC5)**
+**Notable Props (v1.0.0)**
 
 | Prop       | Type                                                                  | Default | Description                                          |
 | ---------- | --------------------------------------------------------------------- | ------- | ---------------------------------------------------- |
@@ -461,7 +472,7 @@ import {
   </Accordion>
 </AccordionGroup>
 
-// Exclusive mode (RC3) — only one accordion open at a time
+// Exclusive mode — only one accordion open at a time
 <AccordionGroup exclusive>
   <Accordion title="Item 1">Content 1</Accordion>
   <Accordion title="Item 2">Content 2</Accordion>
@@ -494,7 +505,7 @@ import { Tooltip, Button } from '@mezzanine-ui/react';
 </Tooltip>
 ```
 
-**Notable Props (RC5)**
+**Notable Props (v1.0.0)**
 
 | Prop                 | Type                         | Default | Description                           |
 | -------------------- | ---------------------------- | ------- | ------------------------------------- |
@@ -570,13 +581,13 @@ import { SectionGroup } from '@mezzanine-ui/react';
 </SectionGroup>
 ```
 
-> **Note (RC8)**: ContentHeader is deprecated. Use alternative approach for section headers.
+> **Note (v1.0.0)**: ContentHeader is deprecated. Use alternative approach for section headers.
 
 ---
 
-### ⚠️ ContentHeader (Deprecated)
+### ⚠️ ContentHeader *(已廢棄)*
 
-**Deprecated in RC8**: ContentHeader is no longer exported. Use alternative layout patterns for section headers.
+**Deprecated in v1.0.0**: ContentHeader is no longer exported. Use alternative layout patterns for section headers.
 
 ---
 
@@ -592,32 +603,56 @@ import { OverflowCounterTag } from '@mezzanine-ui/react';
 
 ---
 
+### OverflowTooltip
+
+Internal overflow tooltip component used with Select in multi-select mode. Only `OverflowCounterTag` is exported from the main entry.
+
+```tsx
+import { OverflowCounterTag } from '@mezzanine-ui/react';
+
+// OverflowTooltip is internal; use OverflowCounterTag instead
+<OverflowCounterTag count={3} />
+```
+
+---
+
 ## Data Entry Components
 
-### Input / TextField
+### Input
 
 Input field component.
 
 ```tsx
-import { Input, TextField } from '@mezzanine-ui/react';
+import { Input } from '@mezzanine-ui/react';
 
 <Input placeholder="Enter text" />
-<TextField prefix={<SearchIcon />} placeholder="Search" />
 ```
 
-**Notable Props (RC5)**
+**Notable Props (v1.0.0)**
 
 | Prop                       | Type      | Default | Description                                                       |
 | -------------------------- | --------- | ------- | ----------------------------------------------------------------- |
 | `hideSuffixWhenClearable`  | `boolean` | `false` | When true, clear icon overlays the suffix position when clearable |
 
-**Breaking Change in RC7**: The `variant="currency"` has been renamed to `variant="measure"`. Update any Input components using the currency variant.
+**Breaking Change (v1.0.0)**: The `variant="currency"` has been renamed to `variant="measure"`. Update any Input components using the currency variant.
+
+---
+
+### TextField
+
+Text field component wrapping Input with additional features like prefix/suffix icons.
+
+```tsx
+import { TextField } from '@mezzanine-ui/react';
+import { SearchIcon } from '@mezzanine-ui/icons';
+
+<TextField prefix={<SearchIcon />} placeholder="Search" />
 
 ---
 
 ### Toggle
 
-Toggle component (new in RC8). Replaces deprecated Switch component.
+Toggle component (new in v1.0.0). Replaces deprecated Switch component.
 
 ```tsx
 import { Toggle } from '@mezzanine-ui/react';
@@ -629,7 +664,7 @@ import { Toggle } from '@mezzanine-ui/react';
 
 ### ⚠️ Switch (Deprecated)
 
-**Deprecated in RC8**: Use Toggle component instead.
+**Deprecated in v1.0.0**: Use Toggle component instead.
 
 ```tsx
 import { Switch } from '@mezzanine-ui/react';
@@ -657,7 +692,7 @@ const [value, setValue] = useState<SelectValue | null>(null);
 <Select placeholder="Please select" value={value} onChange={setValue} options={options} />
 ```
 
-**Notable Props (RC3)**
+**Notable Props (v1.0.0)**
 
 | Prop               | Type      | Default | Description                                               |
 | ------------------ | --------- | ------- | --------------------------------------------------------- |
@@ -665,38 +700,36 @@ const [value, setValue] = useState<SelectValue | null>(null);
 
 ---
 
-### Checkbox / Radio
+### Checkbox
 
-Checkbox and radio button components.
+Checkbox component supporting single and group modes.
 
 ```tsx
-import { Checkbox, CheckboxGroup, CheckAll, Radio, RadioGroup } from '@mezzanine-ui/react';
+import { Checkbox, CheckboxGroup, CheckAll } from '@mezzanine-ui/react';
 import type { CheckAllProps } from '@mezzanine-ui/react';
 
 <Checkbox checked={checked} onChange={setChecked}>Option</Checkbox>
+```
+
+**Notable Props (v1.0.0)**
+
+| Prop        | Type                                        | Default | Description                |
+| ----------- | ------------------------------------------- | ------- | -------------------------- |
+| `severity`  | `'info' \| 'warning' \| 'error'`           | `'info'`| Checkbox error state       |
+
+---
+
+### Radio
+
+Radio button component supporting normal and segment modes.
+
+```tsx
+import { Radio, RadioGroup } from '@mezzanine-ui/react';
 
 <RadioGroup value={value} onChange={setValue}>
   <Radio value="1">Option 1</Radio>
   <Radio value="2">Option 2</Radio>
 </RadioGroup>
-```
-
-**Notable Props (RC5)**
-
-| Prop        | Type                                        | Default | Description                |
-| ----------- | ------------------------------------------- | ------- | -------------------------- |
-| `severity`  | `'info' \| 'warning' \| 'error'` (Checkbox)| `'info'`| Checkbox error state       |
-
----
-
-### Switch
-
-Toggle switch component.
-
-```tsx
-import { Switch } from '@mezzanine-ui/react';
-
-<Switch checked={enabled} onChange={setEnabled} />
 ```
 
 ---
@@ -730,14 +763,14 @@ const options = [
 />
 ```
 
-**Notable Props (RC5)**
+**Notable Props (v1.0.0)**
 
 | Prop                      | Type      | Default | Description                                    |
 | ------------------------- | --------- | ------- | ---------------------------------------------- |
 | `overflowStrategy`        | `string`  | -       | Dropdown overflow handling strategy             |
 | `stepByStepBulkCreate`    | `boolean` | `false` | Enable step-by-step bulk creation mode         |
 
-**RC5 Enhancement**: `searchTextControlRef` now exposes a `reset()` method for clearing the search text programmatically.
+**v1.0.0 Enhancement**: `searchTextControlRef` now exposes a `reset()` method for clearing the search text programmatically.
 
 ---
 
@@ -799,7 +832,7 @@ import { Slider, useSlider } from '@mezzanine-ui/react';
 <Slider value={[20, 80]} onChange={setRange} min={0} max={100} />
 ```
 
-**Notable Props (RC5)**
+**Notable Props (v1.0.0)**
 
 | Prop                  | Type       | Default | Description                      |
 | --------------------- | ---------- | ------- | -------------------------------- |
@@ -825,10 +858,33 @@ import { SelectionCard } from '@mezzanine-ui/react';
 Date picker.
 
 ```tsx
-import { DatePicker, DateRangePicker, DateTimePicker } from '@mezzanine-ui/react';
+import { DatePicker } from '@mezzanine-ui/react';
 
 <DatePicker value={date} onChange={setDate} />
+```
+
+---
+
+### DateRangePicker
+
+Date range picker for selecting a start and end date.
+
+```tsx
+import { DateRangePicker } from '@mezzanine-ui/react';
+
 <DateRangePicker value={dateRange} onChange={setDateRange} />
+```
+
+---
+
+### DateTimePicker
+
+Date-time picker combining date and time selection.
+
+```tsx
+import { DateTimePicker } from '@mezzanine-ui/react';
+
+<DateTimePicker value={dateTime} onChange={setDateTime} />
 ```
 
 ---
@@ -859,14 +915,24 @@ const pickerValue = useMultipleDatePickerValue({ defaultValue: [] });
 
 ---
 
-### TimePicker / TimeRangePicker
+### TimePicker
 
 Time picker.
 
 ```tsx
-import { TimePicker, TimeRangePicker, useTimeRangePickerValue } from '@mezzanine-ui/react';
+import { TimePicker } from '@mezzanine-ui/react';
 
 <TimePicker value={time} onChange={setTime} />
+```
+
+---
+
+### TimeRangePicker
+
+Time range picker for selecting start and end times.
+
+```tsx
+import { TimeRangePicker, useTimeRangePickerValue } from '@mezzanine-ui/react';
 
 const rangeValue = useTimeRangePickerValue({ defaultValue: [null, null] });
 <TimeRangePicker {...rangeValue} />
@@ -954,14 +1020,27 @@ import { Modal, ModalHeader, ModalFooter, ModalBodyForVerification, Button } fro
 
 ---
 
-### Message / NotificationCenter
+### Message
 
-Message notifications.
+Message notification component for brief feedback messages.
 
 ```tsx
-import { Message, NotificationCenter } from '@mezzanine-ui/react';
+import { Message } from '@mezzanine-ui/react';
 
 Message.success('Success message');
+Message.error('Error message');
+Message.warning('Warning message');
+```
+
+---
+
+### NotificationCenter
+
+Notification center component for persistent notifications with title and description.
+
+```tsx
+import { NotificationCenter } from '@mezzanine-ui/react';
+
 NotificationCenter.error({ title: 'Error', description: 'Operation failed' });
 ```
 
@@ -1000,15 +1079,37 @@ import { InlineMessage, InlineMessageGroup } from '@mezzanine-ui/react';
 
 ---
 
-### Progress / Skeleton / Spin
+### Progress
 
-Loading state components.
+Progress bar component.
 
 ```tsx
-import { Progress, Skeleton, Spin } from '@mezzanine-ui/react';
+import { Progress } from '@mezzanine-ui/react';
 
 <Progress percent={70} />
+```
+
+---
+
+### Skeleton
+
+Skeleton loading placeholder component.
+
+```tsx
+import { Skeleton } from '@mezzanine-ui/react';
+
 <Skeleton />
+```
+
+---
+
+### Spin
+
+Spin loading indicator component.
+
+```tsx
+import { Spin } from '@mezzanine-ui/react';
+
 <Spin />
 ```
 
@@ -1198,15 +1299,31 @@ import type { Notifier } from '@mezzanine-ui/react';
 
 > The following are internal components, exported only for advanced customization.
 
-### ⚠️ ClearActions (Deprecated)
+### ⚠️ ClearActions *(已廢棄)*
 
-**Deprecated in RC8**: ClearActions component is no longer exported.
+**Deprecated in v1.0.0**: ClearActions component is no longer exported.
 
 ---
 
-### ⚠️ Scrollbar (Deprecated)
+### ⚠️ Scrollbar *(已廢棄)*
 
-**Deprecated in RC8**: Scrollbar component is no longer exported. Use native scrolling or alternative scroll libraries.
+**Deprecated in v1.0.0**: Scrollbar component is no longer exported. Use native scrolling or alternative scroll libraries.
+
+---
+
+### Picker
+
+Internal shared Picker base components and hooks, used by DatePicker, DateRangePicker, TimePicker, TimeRangePicker, DateTimePicker, etc.
+
+```tsx
+import {
+  PickerTrigger,
+  RangePickerTrigger,
+  usePickerDocumentEventClose,
+  usePickerValue,
+  useTabKeyClose,
+} from '@mezzanine-ui/react';
+```
 
 ---
 

@@ -1,24 +1,24 @@
 ---
 name: using-mezzanine-ui
-description: Create, edit, or style React components using the Mezzanine-UI design system (v2, rc.8). Covers @mezzanine-ui/react, @mezzanine-ui/core, @mezzanine-ui/system, @mezzanine-ui/icons. Use when creating or modifying *.tsx, *.scss files that import from @mezzanine-ui/*, adding Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Menu, Navigation, Typography, Icon, Drawer, Upload, Toggle components, or setting up design tokens and theming. Trigger words — add component, build form, create page UI, mezzanine, mzn, design system, frontend component, UI layout.
+description: Create, edit, or style React components using the Mezzanine-UI design system (v2, 1.0.0). Covers @mezzanine-ui/react, @mezzanine-ui/core, @mezzanine-ui/system, @mezzanine-ui/icons. Use when creating or modifying *.tsx, *.scss files that import from @mezzanine-ui/*, adding Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Menu, Navigation, Typography, Icon, Drawer, Upload, Toggle components, or setting up design tokens and theming. Trigger words — add component, build form, create page UI, mezzanine, mzn, design system, frontend component, UI layout.
 ---
 
 # Mezzanine-UI Design System (v2)
 
 **Core principle: All frontend development MUST prefer the Mezzanine-UI design system.**
 
-> Currently v2 Release Candidate, npm version `1.x` series
+> v2 Stable Release, npm version `1.x` series
 >
-> **Last verified**: 2026-03-27
+> **Last verified**: 2026-04-02
 
 ### Version Mapping
 
 | Design Docs / Storybook | npm Version | Git Branch | Status                 |
 | ----------------------- | ----------- | ---------- | ---------------------- |
 | v1 (Legacy)             | `0.x`       | main       | Deprecated             |
-| **v2 (Current)**        | **`1.x`**   | **v2**     | RC (1.0.0-rc.8)       |
+| **v2 (Current)**        | **`1.x`**   | **v2**     | Stable (1.0.0)         |
 
-> This document is based on **v2** (npm `1.x` series).
+> This document is based on **v2** (npm `1.x` series, 1.0.0 stable).
 >
 > Check latest version: `npm view @mezzanine-ui/react versions` or see [GitHub Releases](https://github.com/Mezzanine-UI/mezzanine/releases)
 
@@ -111,8 +111,50 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 ---
 
-## What's New in rc.8
+## What's New in v1.0.0
 
+1.0.0 是 Mezzanine-UI v2 系列的**第一個正式穩定版本**，從 rc.8 升級至 stable。主要變更如下：
+
+### 元件移除（Breaking Changes）
+
+4 個元件從公開 API 中移除，不再從 `@mezzanine-ui/react` 主入口匯出：
+
+- **ClearActions** — 無直接替代品，改用組合模式自行實作關閉按鈕
+- **ContentHeader** — 無直接替代品，改以 `PageHeader` + `Section` + utility components 組合取代
+- **Scrollbar** — 無直接替代品，改用原生滾動或 CSS 自訂捲軸樣式
+- **Switch** — 已正式由 `Toggle` 取代，所有 Switch 用法請直接改用 Toggle
+
+> 若專案中有使用上述元件，請在升級前完成遷移。詳見各元件 `.md` 的遷移說明。
+
+### API 重構
+
+- **Drawer** — 移除內建底部操作按鈕與篩選區域，改採明確的組合模式：`DrawerHeader` / `DrawerBody` / `DrawerFooter`
+- **Dropdown** — API 簡化，移除直接傳入 `options` / `onSelect` 的模式，改為 slot-based 組合
+- **Calendar** — 移除直接的 `mode` / `value` / `onChange` props，改為 `calendarDaysProps` / `calendarMonthsProps` 結構
+
+### 功能增強
+
+- **Toggle** — 正式取代 Switch，提供更簡潔一致的 API
+- **Upload** — 移除內建錯誤與刪除 handler，新增 `dropzoneHints` prop 供自訂提示
+- **Typography** — 新增 `align`、`color`、`display`、`ellipsis`、`noWrap`、`variant` props，排版控制更完整
+- **Popper** — 新增 `arrow`、`className`、`enabled`、`padding` props，定位控制更靈活
+
+<details>
+<summary>舊版：rc.8 發版說明</summary>
+
+rc.8 為 1.0.0 正式版的最後一個 Release Candidate。主要功能與架構已與 1.0.0 stable 相同。
+
+</details>
+
+---
+
+## Breaking Changes in 1.0.0
+
+- **4 個元件移除**：ClearActions、ContentHeader、Scrollbar、Switch
+  - ClearActions: 無直接替代品，改用組合模式
+  - ContentHeader: 無直接替代品，改用 PageHeader + Section + utility components
+  - Scrollbar: 無直接替代品，改用原生滾動或 CSS 樣式
+  - Switch: 已由 Toggle 取代，直接改用 Toggle
 - **Toggle** 取代 Switch — 全新元件，提供更簡潔的 API
 - **Drawer** 簡化 — 移除內建底部操作按鈕與篩選區域，改採組合模式（DrawerHeader / DrawerBody / DrawerFooter）
 - **Dropdown** 重構 — 簡化 API，移除直接傳入 options / onSelect 的模式
@@ -120,7 +162,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 - **Upload** 簡化 — 移除內建錯誤與刪除 handler，新增 dropzoneHints
 - **Typography** 增強 — 新增 align、color、display、ellipsis、noWrap、variant props
 - **Popper** 增強 — 新增 arrow、className、enabled、padding props
-- **4 個元件已廢棄**：ClearActions、ContentHeader、Scrollbar、Switch
 
 ---
 
@@ -361,3 +402,23 @@ document.documentElement.setAttribute('data-density', 'compact');
 | [references/PATTERNS.md](references/PATTERNS.md)             | Common usage pattern examples  |
 | [references/FIGMA_MAPPING.md](references/FIGMA_MAPPING.md)   | Figma node mapping table       |
 | [references/components/](references/components/)             | Detailed API docs per component |
+
+---
+
+## Maintenance
+
+### Version Sync Command
+
+When Mezzanine-UI releases a new version, use the `/sync-mezzanine-ui` command to refresh all skill content:
+
+```
+/sync-mezzanine-ui 1.0.0
+```
+
+This orchestrates a team of agents to:
+1. Fetch TypeScript interfaces from the GitHub source code
+2. Update component `.md` files to match real props/types
+3. Refresh cache JSON files
+4. Update this SKILL.md with the new version info
+
+See also: `scripts/upgrade-version.sh` (analysis script), `scripts/figma-sync.sh` (Figma metadata sync)

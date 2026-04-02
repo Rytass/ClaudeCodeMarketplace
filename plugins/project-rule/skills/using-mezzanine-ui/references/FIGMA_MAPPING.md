@@ -2,7 +2,7 @@
 
 Maps Figma design file components to React code.
 
-> ⚠️ This document is based on **v2** (npm `1.x` series, git branch `v2`, RC 1.0.0-rc.8)
+> ⚠️ This document is based on **v2** (npm `1.x` series, git branch `v2`, 1.0.0)
 >
 > **Last verified**: 2026-03-27
 >
@@ -146,7 +146,7 @@ curl -s -H "X-Figma-Token: $MEZZANINE_FIGMA_TOKEN" \
 
 ### Deprecation Notice
 
-The following components have been deprecated in rc.8 and are no longer available:
+The following components have been deprecated in 1.0.0 and are no longer available:
 
 - **ClearActions**: Removed. Use custom footer implementations instead.
 - **ContentHeader**: Removed. Use DrawerHeader with custom layouts instead.
@@ -233,7 +233,7 @@ v2 uses a new variant naming system:
 | `Radio / Checked`              | `<Radio checked>`                        |
 | `RadioGroup`                   | `<RadioGroup>`                           |
 
-### Switch (Deprecated in rc.8)
+### Switch (Deprecated in 1.0.0)
 
 ⚠️ Switch component has been removed. Use Toggle instead.
 
