@@ -2,7 +2,7 @@
 
 Complete icon library list, based on `@mezzanine-ui/icons` v2 (1.0.0).
 
-**Last verified**: 2026-03-27
+**Last verified**: 2026-04-02
 
 > **Source verification**: This document is based on [GitHub source code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/icons/src)
 

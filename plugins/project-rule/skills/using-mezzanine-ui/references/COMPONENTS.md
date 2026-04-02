@@ -573,15 +573,16 @@ import { Section } from '@mezzanine-ui/react';
 Groups multiple Section components with consistent spacing.
 
 ```tsx
-import { SectionGroup } from '@mezzanine-ui/react';
+import { SectionGroup, Section } from '@mezzanine-ui/react';
 
+// v1.0.0: ContentHeader is deprecated — use Typography or custom elements for section titles
 <SectionGroup direction="vertical">
-  <Section contentHeader={<ContentHeader title="Section 1" />}>Content 1</Section>
-  <Section contentHeader={<ContentHeader title="Section 2" />}>Content 2</Section>
+  <Section title="Section 1">Content 1</Section>
+  <Section title="Section 2">Content 2</Section>
 </SectionGroup>
 ```
 
-> **Note (v1.0.0)**: ContentHeader is deprecated. Use alternative approach for section headers.
+> **Note (v1.0.0)**: `ContentHeader` is removed. Pass `title` directly to `Section` or compose a custom header element.
 
 ---
 

@@ -51,6 +51,8 @@ PageHeader only accepts the following child components:
 - **ContentHeader**: Content header (must have one)
 
 > **Note**: `ContentHeader` is not exported from the `@mezzanine-ui/react` main entry; it must be imported from `@mezzanine-ui/react/ContentHeader`.
+>
+> **Deprecation Notice**: `ContentHeader` is deprecated in 1.0.0. See [ContentHeader.md](ContentHeader.md) for migration guidance. Consider using a custom composition with `PageHeader` + `Section` + utility components instead.
 
 Note: ContentHeader's `size` is automatically set to `'main'`.
 

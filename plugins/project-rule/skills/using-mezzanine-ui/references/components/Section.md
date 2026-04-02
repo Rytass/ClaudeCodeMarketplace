@@ -10,6 +10,8 @@
 
 Section container component for composing `ContentHeader`, `FilterArea`, `Tab`, and other sub-components to build structured page sections. The passed `contentHeader` and `filterArea` automatically receive `size="sub"`.
 
+> **Deprecation Notice**: `ContentHeader` is deprecated in 1.0.0. See [ContentHeader.md](ContentHeader.md) for migration guidance.
+
 ## Import
 
 ```tsx
