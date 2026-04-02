@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Notification Center`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/NotificationCenter)  · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/NotificationCenter)  · Verified 1.0.0 (2026-04-02)
 
 Notification center component for displaying global notifications. Supports both popup notification and drawer list modes.
 
@@ -257,8 +257,8 @@ Notification list drawer component that displays notifications in a Drawer forma
 | `filterAreaShowUnreadButton`     | `boolean`                                | -                          | Whether to show unread button                  |
 | `filterAreaCustomButtonLabel`    | `string`                                 | -                          | Custom button label                            |
 | `filterAreaOnCustomButtonClick`  | `() => void`                             | -                          | Custom button callback                         |
-| `filterAreaOptions`              | `DropdownOption[]`                       | -                          | Filter area dropdown options **(RC.7 NEW)**    |
-| `filterAreaOnSelect`             | `(value: string) => void`                | -                          | Filter area dropdown select callback **(RC.7 NEW)** |
+| `filterAreaOptions`              | `DropdownOption[]`                       | -                          | Filter area dropdown options                   |
+| `filterAreaOnSelect`             | `(value: string) => void`                | -                          | Filter area dropdown select callback           |
 | `renderFilterArea`               | `(props) => ReactNode`                   | -                          | Custom filter area render                      |
 
 ---

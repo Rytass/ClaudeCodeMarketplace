@@ -4,9 +4,9 @@
 >
 > **Storybook**: `Data Display/Section`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Section) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Section) · Verified 1.0.0 (2026-04-02)
 >
-> **Migration Note (rc.4)**: Module resolution fix changed barrel file extension from `.tsx` → `.ts`. No API changes.
+> **Migration Note**: Module resolution fix changed barrel file extension from `.tsx` → `.ts`. No API changes.
 
 Section container component for composing `ContentHeader`, `FilterArea`, `Tab`, and other sub-components to build structured page sections. The passed `contentHeader` and `filterArea` automatically receive `size="sub"`.
 

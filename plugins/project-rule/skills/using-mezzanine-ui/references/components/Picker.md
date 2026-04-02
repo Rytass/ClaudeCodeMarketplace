@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/internal-picker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified rc.8 (2026-03-27)
+> **Source**: Verified 1.0.0 (2026-04-02)
 
 Internal shared Picker base components and Hooks, used by picker components such as DatePicker, DateRangePicker, TimePicker, TimeRangePicker, DateTimePicker, etc. Not recommended for direct use, but can be referenced or composed when building custom pickers.
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/SelectionCard`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/SelectionCard) · Verified rc.8 (2026-03-27)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/SelectionCard) · Verified 1.0.0 (2026-04-02)
 
 SelectionCard component providing selection items with images or icons. Supports single-select (radio) and multi-select (checkbox) modes.
 
@@ -50,9 +50,9 @@ Base props interface, extends `Omit<NativeElementPropsWithoutKeyAndRef<'label'>,
 | `readonly`            | `boolean`                                                   | `false`        | Whether read-only              |
 | `selector`            | `SelectionCardType` (`'radio' \| 'checkbox'`)               | -              | Selector type (required)       |
 | `supportingText`      | `string`                                                    | -              | Supporting text                |
-| `supportingTextMaxWidth` | `CSSProperties['maxWidth']`                               | -              | Max width for supporting text (NEW rc.6) |
+| `supportingTextMaxWidth` | `CSSProperties['maxWidth']`                               | -              | Max width for supporting text  |
 | `text`                | `string`                                                    | **required**   | Primary text                   |
-| `textMaxWidth`        | `CSSProperties['maxWidth']`                                 | -              | Max width for primary text (NEW rc.6) |
+| `textMaxWidth`        | `CSSProperties['maxWidth']`                                 | -              | Max width for primary text  |
 | `value`               | `string`                                                    | -              | Input value attribute          |
 
 ## SelectionCardProps
@@ -149,7 +149,7 @@ import { FolderIcon } from '@mezzanine-ui/icons';
 />
 ```
 
-### With Text Width Constraints (rc.6+)
+### With Text Width Constraints
 
 ```tsx
 <SelectionCard

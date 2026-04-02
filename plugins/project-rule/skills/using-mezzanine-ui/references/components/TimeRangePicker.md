@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-timerangepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified rc.8 (2026-03-27)
+> **Source**: Verified 1.0.0 (2026-04-02)
 
 Time range picker for selecting start and end times. Uses RangePickerTrigger to provide dual inputs with a TimePickerPanel panel. Must be used with `CalendarContext`.
 
@@ -243,9 +243,9 @@ function ControlledExample() {
 }
 ```
 
-### Independent Pending Values per Panel (rc.6)
+### Independent Pending Values per Panel
 
-In rc.6, each time panel maintains independent pending state, and Ok/Cancel buttons are correctly wired:
+Each time panel maintains independent pending state, and Ok/Cancel buttons are correctly wired:
 
 ```tsx
 <TimeRangePicker

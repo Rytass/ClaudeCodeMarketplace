@@ -6,7 +6,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/utility-calendar--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified rc.8 (2026-03-27)
+> **Source**: Verified 1.0.0 (2026-04-02)
 
 Calendar component for displaying and selecting dates. Requires `CalendarConfigProvider` (which provides `CalendarContext`). Supports six modes: day, week, month, year, quarter, and half-year.
 
@@ -156,6 +156,20 @@ import type { CalendarLocale } from '@mezzanine-ui/react/Calendar';
 | `onWeekHover`           | `(date: DateType) => void`                                         | -       | Week hover callback                  |
 | `onYearHover`           | `(date: DateType) => void`                                         | -       | Year hover callback                  |
 | `renderAnnotations`     | `(date: DateType) => { value: string; color?: TypographyColor }`   | -       | Custom date annotations              |
+| `disabledFooterControl` | `boolean`                                                          | `false` | Disable footer control element       |
+| `disabledMonthSwitch`   | `boolean`                                                          | `false` | Disable Month calendar button click  |
+| `disabledYearSwitch`    | `boolean`                                                          | `false` | Disable Year calendar button click   |
+| `mode`                  | `CalendarMode`                                                     | `'day'` | Calendar display mode                |
+| `onChange`              | `(target: DateType) => void`                                       | -       | Click handler for every calendar cell |
+| `onMonthControlClick`   | `VoidFunction`                                                     | -       | Click handler for month control button |
+| `onNext`                | `(currentMode: CalendarMode) => void`                              | -       | Click handler for next button        |
+| `onDoubleNext`          | `(currentMode: CalendarMode) => void`                              | -       | Click handler for double-next button |
+| `onPrev`                | `(currentMode: CalendarMode) => void`                              | -       | Click handler for prev button        |
+| `onDoublePrev`          | `(currentMode: CalendarMode) => void`                              | -       | Click handler for double-prev button |
+| `onYearControlClick`    | `VoidFunction`                                                     | -       | Click handler for year control button |
+| `quickSelect`           | `Pick<CalendarQuickSelectProps, 'activeId' \| 'options'>`          | -       | Quick select options                 |
+| `referenceDate`         | `DateType`                                                         | **required** | Reference date for the calendar  |
+| `value`                 | `DateType \| DateType[]`                                           | -       | Selected date(s)                     |
 
 ---
 

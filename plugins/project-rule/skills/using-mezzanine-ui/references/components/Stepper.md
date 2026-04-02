@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Stepper`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Stepper) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Stepper) · Verified 1.0.0 (2026-04-02)
 
 Stepper component for guiding users through multi-step processes.
 
@@ -230,7 +230,7 @@ function WizardForm() {
 
 ---
 
-## Keyboard Support (rc.4+)
+## Keyboard Support
 
 Each Step supports keyboard navigation:
 
@@ -243,7 +243,7 @@ Steps must be focusable (typically rendered as buttons or with `tabIndex`). Disa
 
 ---
 
-## Processing State Animation (rc.4+)
+## Processing State Animation
 
 When a Step has `status="processing"`, it displays a subtle breath animation to indicate active progress. This animation is implemented via CSS and applies automatically when the status is set to `processing`.
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Upload`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Upload) | Verified rc.8 (2026-03-27)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Upload) | Verified 1.0.0 (2026-04-02)
 
 File upload component with support for multiple display modes and upload status management.
 
@@ -27,34 +27,34 @@ import type {
 
 ## Upload Props
 
-| Property            | Type                                                | Default    | Description              |
-| ------------------- | --------------------------------------------------- | ---------- | ------------------------ |
-| `accept`            | `string`                                            | -          | Accepted file types      |
-| `disabled`          | `boolean`                                           | `false`    | Whether disabled         |
-| `dropzoneHints`     | `string[]`                                          | -          | **NEW in rc.8** — Dropzone hint messages |
-| `files`             | `UploadFile[]`                                      | `[]`       | File list (controlled)   |
-| `hints`             | `UploaderHint[]`                                    | -          | Hint messages            |
-| `id`                | `string`                                            | -          | Input element id         |
-| `inputProps`        | `UploaderInputElementProps`                         | -          | Props passed to input element |
-| `inputRef`          | `Ref<HTMLInputElement>`                             | -          | Input element ref        |
-| `isFillWidth`       | `boolean`                                           | `false`    | Whether to fill container width |
-| `maxFiles`          | `number`                                            | -          | Maximum number of files  |
-| `mode`              | `'list' \| 'button-list' \| 'cards' \| 'card-wall'` | `'list'`   | Display mode             |
-| `multiple`          | `boolean`                                           | `false`    | Whether multi-select     |
-| `name`              | `string`                                            | -          | Input element name attribute |
-| `onChange`          | `(files: UploadFile[]) => void`                     | -          | File change callback     |
-| `onDelete`          | `(fileId, file) => void`                            | -          | Delete callback          |
-| `onDownload`        | `(fileId, file) => void`                            | -          | Download callback        |
-| `onMaxFilesExceeded`| `(max, selected, current) => void`                  | -          | Max files exceeded callback |
-| `onReload`          | `(fileId, file) => void`                            | -          | Retry callback           |
-| `onUpload`          | `(files, setProgress) => Promise<UploadFile[]> \| ...` | -       | Upload callback (see below) |
-| `onZoomIn`          | `(fileId, file) => void`                            | -          | Zoom preview callback    |
-| `showFileSize`      | `boolean`                                           | `true`     | Show file size           |
-| `size`              | `UploadSize`                                        | `'main'`   | Size                     |
-| `uploaderIcon`      | `UploaderProps['icon']`                             | -          | Upload area icon         |
-| `uploaderLabel`     | `UploaderProps['label']`                            | -          | Upload area text         |
-
-**Removed in rc.8**: `errorIcon`, `errorMessage`, `isFillWidth`, `multiple`, `name`, `onChange`, `onDelete`, `onDownload`, `onMaxFilesExceeded`, `onReload`, `onZoomIn`, `showFileSize`, `size`, `uploaderLabel` — Refer to Storybook for updated API patterns.
+| Property             | Type                                                                             | Default  | Description                                         |
+| -------------------- | -------------------------------------------------------------------------------- | -------- | --------------------------------------------------- |
+| `accept`             | `string`                                                                         | -        | Accepted file types (e.g. `'image/*'`, `'.pdf'`)   |
+| `ariaLabels`         | `UploadPictureCardAriaLabels`                                                    | -        | Aria labels for picture cards in `cards`/`card-wall` mode |
+| `disabled`           | `boolean`                                                                        | `false`  | Whether disabled                                    |
+| `dropzoneHints`      | `UploaderProps['hints']`                                                         | -        | Dropzone hint messages (visible in `list`/`card-wall` modes) |
+| `errorIcon`          | `ReactNode`                                                                      | -        | Default error icon when a file's status is `'error'` and no `errorIcon` is provided on the file |
+| `errorMessage`       | `string`                                                                         | -        | Default error message when a file's status is `'error'` and no `errorMessage` is provided on the file |
+| `files`              | `UploadFile[]`                                                                   | -        | Controlled file list                                |
+| `hints`              | `UploaderProps['hints']`                                                         | -        | Hint messages displayed outside the uploader (all modes) |
+| `id`                 | `string`                                                                         | -        | Input element id                                    |
+| `inputProps`         | `UploaderProps['inputProps']`                                                    | -        | Props passed directly to the input element          |
+| `inputRef`           | `UploaderProps['inputRef']`                                                      | -        | Ref for the input element                           |
+| `maxFiles`           | `number`                                                                         | -        | Maximum number of files allowed; excess files are ignored |
+| `mode`               | `UploadMode`                                                                     | `'list'` | Display mode (see Upload Mode table below)          |
+| `multiple`           | `boolean`                                                                        | `false`  | Whether multi-file selection is allowed             |
+| `name`               | `string`                                                                         | -        | Name attribute of the input element                 |
+| `onChange`           | `(files: UploadFile[]) => void`                                                  | -        | Fired when file list changes                        |
+| `onDelete`           | `(fileId: string, file: File) => void`                                           | -        | Fired when a file is deleted                        |
+| `onDownload`         | `(fileId: string, file: File) => void`                                           | -        | Fired when a file is downloaded (done state)        |
+| `onMaxFilesExceeded` | `(maxFiles: number, selectedCount: number, currentCount: number) => void`        | -        | Fired when maximum number of files is exceeded      |
+| `onReload`           | `(fileId: string, file: File) => void`                                           | -        | Fired when a file upload is retried (error state)   |
+| `onUpload`           | `(files: File[], setProgress?) => Promise<UploadFile[]> \| UploadFile[] \| ...`  | -        | Upload callback (see onUpload Return Format section)|
+| `onZoomIn`           | `(fileId: string, file: File) => void`                                           | -        | Fired when zoom in is clicked on a picture card     |
+| `showFileSize`       | `boolean`                                                                        | `true`   | Whether to show file size in list mode              |
+| `size`               | `UploadSize`                                                                     | `'main'` | Size of the upload component                        |
+| `uploaderIcon`       | `UploaderProps['icon']`                                                          | -        | Icon configuration for different actions and states |
+| `uploaderLabel`      | `UploaderProps['label']`                                                         | -        | Label configuration for different states            |
 
 ---
 
@@ -93,12 +93,13 @@ onUpload?: (files: File[], setProgress?) => Promise<void> | void;
 
 ## Upload Mode (Display Modes)
 
-| Mode          | Description    | Use Case              |
-| ------------- | -------------- | --------------------- |
-| `list`        | List mode      | General file upload   |
-| `button-list` | Button + list  | Inline button upload  |
-| `cards`       | Card mode      | Image upload          |
-| `card-wall`   | Card wall      | Top drag + image cards |
+| Mode          | Description                         | Use Case                                       |
+| ------------- | ------------------------------------ | ---------------------------------------------- |
+| `list`        | List with dropzone                   | General file upload (default)                  |
+| `basic-list`  | List without drag-and-drop           | File list display without dropzone interaction |
+| `button-list` | Button trigger with list below       | Inline button upload style                     |
+| `cards`       | Picture card grid                    | Image file upload and preview                  |
+| `card-wall`   | Uploader at top + picture cards below| Mixed drag-and-drop with image card display    |
 
 ---
 
@@ -291,6 +292,7 @@ const handleUpload = async (uploadFiles: File[]) => {
 | Figma Variant                | React Props                              |
 | ---------------------------- | ---------------------------------------- |
 | `Upload / List`              | `mode="list"`                            |
+| `Upload / Basic List`        | `mode="basic-list"`                      |
 | `Upload / Button List`       | `mode="button-list"`                     |
 | `Upload / Cards`             | `mode="cards"`                           |
 | `Upload / Card Wall`         | `mode="card-wall"`                       |

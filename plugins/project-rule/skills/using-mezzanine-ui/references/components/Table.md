@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Table`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Table)  · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Table)  · Verified 1.0.0 (2026-04-02)
 
 High-performance data table component supporting virtual scrolling, column resizing, fixed columns, row selection, sorting, expandable rows, drag-and-drop reordering, pinning, toggleable columns, collectable columns, and more.
 

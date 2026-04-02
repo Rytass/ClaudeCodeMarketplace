@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/TextField`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TextField) | Verified rc.8 (2026-03-27)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/TextField) | Verified 1.0.0 (2026-04-02)
 
 Text input field container component providing a unified input box appearance. It is the underlying component for Input, Select, and other components.
 

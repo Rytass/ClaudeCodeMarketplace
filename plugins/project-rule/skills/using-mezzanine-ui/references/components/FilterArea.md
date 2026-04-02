@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/FilterArea`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/FilterArea) | Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/FilterArea) | Verified 1.0.0 (2026-04-02)
 
 A filter area component for building search and filter forms. Contains three sub-components: FilterArea, FilterLine, and Filter. Expand/collapse buttons use `ChevronDownIcon` / `ChevronUpIcon`.
 
@@ -31,7 +31,7 @@ import type { FilterAreaProps, FilterLineProps, FilterProps } from '@mezzanine-u
 | `onReset`          | `() => void`                                             | -          | Reset callback           |
 | `onSubmit`         | `() => void`                                             | -          | Submit callback          |
 | `resetText`        | `string`                                                 | `'Reset'`  | Reset button text        |
-| `rowAlign`         | `'start' \| 'center' \| 'end' \| 'baseline'`             | `'center'` | **NEW in rc.8** — Row vertical alignment |
+| `rowAlign`         | `'start' \| 'center' \| 'end' \| 'baseline'`             | `'center'` | Row vertical alignment |
 | `size`             | `FilterAreaSize`                                         | `'main'`   | Size                     |
 | `submitText`       | `string`                                                 | `'Search'` | Submit button text       |
 | `resetButtonType`  | `ComponentPropsWithoutRef<'button'>['type']`             | `'button'` | Reset button type        |

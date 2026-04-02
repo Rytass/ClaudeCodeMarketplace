@@ -4,9 +4,9 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-cascader--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified rc.8 (2026-03-27)
+> **Source**: Verified 1.0.0 (2026-04-02)
 
-A hierarchical dropdown selector that lets users drill through multi-level option trees. The selected path (from root to leaf) is represented as an array of `CascaderOption` objects. Selection is only committed when a leaf node is clicked or confirmed via keyboard. In rc.6, overflow handling improved with automatic path truncation and tooltip display.
+A hierarchical dropdown selector that lets users drill through multi-level option trees. The selected path (from root to leaf) is represented as an array of `CascaderOption` objects. Selection is only committed when a leaf node is clicked or confirmed via keyboard. Overflow handling uses automatic path truncation and tooltip display.
 
 ## Import
 
@@ -172,7 +172,7 @@ Constrains the height of each panel column; columns become scrollable when optio
 
 > Disabled options are automatically skipped during `ArrowDown` / `ArrowUp` navigation.
 
-## Overflow Display Behavior (rc.6)
+## Overflow Display Behavior
 
 When the selected path is too long to fit in the trigger input width, the Cascader automatically collapses the display:
 
@@ -183,7 +183,9 @@ When the selected path is too long to fit in the trigger input width, the Cascad
 
 **Hover Tooltip**: When collapsed, hovering over the trigger displays a tooltip showing the full path with all intermediate items.
 
-**Scrollable Panels**: Panel columns use the Scrollbar component overlay style when `menuMaxHeight` is set and options exceed the available height.
+**Scrollable Panels**: Panel columns use scrolling styles when `menuMaxHeight` is set and options exceed the available height.
+
+> **Note**: `Scrollbar` is deprecated in 1.0.0. This component's internal scrolling behavior is handled by native browser scrolling.
 
 ### Example with Long Path
 

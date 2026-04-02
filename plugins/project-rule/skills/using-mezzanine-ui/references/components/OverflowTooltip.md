@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/OverflowTooltip`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/OverflowTooltip)  · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/OverflowTooltip)  · Verified 1.0.0 (2026-04-02)
 
 Overflow tag tooltip component for displaying truncated tag lists. Typically used with Select in multi-select mode.
 

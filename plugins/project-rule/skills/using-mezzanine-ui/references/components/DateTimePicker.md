@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-datetimepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified rc.8 (2026-03-27)
+> **Source**: Verified 1.0.0 (2026-04-02)
 
 A date-time picker that allows selecting both date and time simultaneously. Must be used with `CalendarContext`. Internally composed of `DatePickerCalendar`, `TimePickerPanel`, and `PickerTriggerWithSeparator`.
 
@@ -248,7 +248,7 @@ DateTimePicker consists of two independent input fields and panels:
 
 ## Behavior Notes
 
-- **Suffix overlay when clearable (since RC3)**: When `clearable` is true, the clear icon overlays the calendar-time suffix icon using PickerTriggerWithSeparator's `hideSuffixWhenClearable` pattern. The suffix icon is hidden while the clear button is visible.
+- **Suffix overlay when clearable**: When `clearable` is true, the clear icon overlays the calendar-time suffix icon. The suffix icon is hidden while the clear button is visible.
 
 ---
 

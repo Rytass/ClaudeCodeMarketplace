@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Select`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Select) · Verified rc.8 (2026-03-27)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Select) · Verified 1.0.0 (2026-04-02)
 
 Dropdown select component supporting single-select and multi-select modes. Internally uses the Dropdown component to render the option list.
 
@@ -298,7 +298,7 @@ const treeOptions = [
 
 | Property            | Type      | Default | Description                                                     |
 | ------------------- | --------- | ------- | --------------------------------------------------------------- |
-| `isForceClearable`  | `boolean` | `false` | Force show clearable icon regardless of value state (since RC3) |
+| `isForceClearable`  | `boolean` | `false` | Force show clearable icon regardless of value state             |
 
 > `SelectTriggerBaseProps` extends `TextFieldProps` (with omissions) and contains shared trigger configuration. The `isForceClearable` prop bypasses the default clearable logic (which requires `mode='multiple'` with selected values) and always shows the clear button. Useful for multi-select scenarios where the clear button should remain visible.
 

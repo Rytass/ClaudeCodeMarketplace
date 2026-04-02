@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Spin`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Spin) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Spin) · Verified 1.0.0 (2026-04-02)
 
 Spinning loading component for indicating content is loading.
 
@@ -195,7 +195,7 @@ function ConditionalLoading() {
 
 ---
 
-## Migration Guide (v2 → rc.6)
+## Migration Guide (v2 → v1.0.0)
 
 ### Breaking Changes
 
@@ -210,7 +210,7 @@ The spinner animation system has been significantly refactored from Icon-based t
 <Spin loading iconProps={{ color: 'primary', size: 32 }} />
 ```
 
-**After (rc.6)**:
+**After (v1.0.0)**:
 ```tsx
 <Spin loading color="#1890ff" trackColor="#f0f0f0" />
 ```

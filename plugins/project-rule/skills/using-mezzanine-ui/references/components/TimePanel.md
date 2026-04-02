@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/utility-timepanel--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified rc.8 (2026-03-27)
+> **Source**: Verified 1.0.0 (2026-04-02)
 
 Time panel component for selecting time. Must be used with CalendarContext.
 
@@ -46,9 +46,9 @@ import type { TimePanelProps, TimePanelActionProps, TimePanelColumnProps } from 
 
 | Property     | Type                      | Default | Description          |
 | ------------ | ------------------------- | ------- | -------------------- |
-| `hideHour`   | `boolean`                 | `false` | Hide hour column     |
-| `hideMinute` | `boolean`                 | `false` | Hide minute column   |
-| `hideSecond` | `boolean`                 | `false` | Hide second column   |
+| `hideHour`   | `boolean`                 | `-`     | Hide hour column     |
+| `hideMinute` | `boolean`                 | `-`     | Hide minute column   |
+| `hideSecond` | `boolean`                 | `-`     | Hide second column   |
 | `hourStep`   | `number`                  | `1`     | Hour step            |
 | `minuteStep` | `number`                  | `1`     | Minute step          |
 | `onCancel`   | `VoidFunction`            | -       | Cancel button click callback |

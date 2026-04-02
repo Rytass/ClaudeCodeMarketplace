@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/FloatingButton`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/FloatingButton) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/FloatingButton) · Verified 1.0.0 (2026-04-02)
 
 A floating action button component that stays fixed on the page. Internally uses the `Button` component with fixed `variant="base-primary"`, `size="main"`, and `tooltipPosition="left"`. Supports auto-hide when `open` state is active.
 

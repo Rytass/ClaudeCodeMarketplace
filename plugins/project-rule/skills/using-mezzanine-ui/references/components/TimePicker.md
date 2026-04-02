@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-timepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified rc.8 (2026-03-27)
+> **Source**: Verified 1.0.0 (2026-04-02)
 
 Time picker for selecting time. Must be used with `CalendarContext`.
 
@@ -184,9 +184,9 @@ function ControlledTimePicker() {
 />
 ```
 
-### Keyboard Input (rc.6)
+### Keyboard Input
 
-In rc.6, keyboard input commits immediately and typed values show as pending preview:
+Keyboard input commits immediately and typed values show as pending preview:
 
 ```tsx
 <TimePicker

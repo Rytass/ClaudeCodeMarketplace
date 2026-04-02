@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Portal`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Portal) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Portal) · Verified 1.0.0 (2026-04-02)
 
 A portal component that renders children to a different location in the DOM. Used by Modal, Drawer, Tooltip, and other components that need to escape the parent DOM structure.
 

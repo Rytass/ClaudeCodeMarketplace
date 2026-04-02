@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-daterangepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified rc.8 (2026-03-27)
+> **Source**: Verified 1.0.0 (2026-04-02)
 
 A date range picker for selecting start and end dates. Must be used with `CalendarContext`. Internally composed of `DateRangePickerCalendar` and `RangePickerTrigger`.
 
@@ -255,7 +255,7 @@ function BasicExample() {
 
 ## Behavior Notes
 
-- **Suffix overlay when clearable (since RC3)**: When `clearable` is true, the clear icon overlays the calendar suffix icon using RangePickerTrigger's `hideSuffixWhenClearable` pattern. The calendar icon is hidden while the clear button is visible.
+- **Suffix overlay when clearable**: When `clearable` is true, the clear icon overlays the calendar suffix icon. The calendar icon is hidden while the clear button is visible.
 
 ---
 

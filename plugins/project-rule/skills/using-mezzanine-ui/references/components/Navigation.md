@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Navigation`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Navigation) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Navigation) · Verified 1.0.0 (2026-04-02)
 
 Side navigation component supporting expand/collapse, multi-level, categories, search, and more.
 
@@ -345,26 +345,6 @@ import { SettingIcon, HelpIcon } from '@mezzanine-ui/icons';
 | `Navigation / Multi-level`      | Nested `<NavigationOption>`              |
 
 ---
-
-## RC1 Enhancements
-
-- **Auto-activate nav option**: Automatically highlights the navigation option matching the current path
-- **Username overflow handling**: Long usernames are automatically truncated with Tooltip
-- **UserMenu overflow handling**: UserMenu supports scrolling when content overflows
-- **Text fade transition**: Smooth text fade-in/fade-out animation during sidebar collapse/expand
-- **Bug fixes**: `collapsedPlacement` and UserMenu tooltip positioning corrections; open/active state text and background color token fixes; minimum width constraint fixes
-
-## RC3+ Enhancements
-
-- **exactActivatedMatch**: Added in RC3 - allows precise control over href matching behavior for navigation activation
-
-## RC6 Enhancements
-
-- **NavigationIconButton active prop**: Added `active` boolean prop to apply active state styling
-- **Title fade animation**: NavigationOption and NavigationHeader now wrap titles in `Fade` transition for smooth collapse/expand animations
-- **Tooltip offset refinement**: Options use `offsetMainAxis={14}` for improved tooltip positioning
-- **NavigationHeader button rendering**: Brand area renders as `<button>` when `onBrandClick` is provided, enabling interactive callbacks
-- **Collapsed title display**: NavigationHeader displays first character when collapsed, full title when expanded
 
 ---
 

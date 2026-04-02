@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Internal/Dropdown`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Dropdown) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Dropdown) · Verified 1.0.0 (2026-04-02)
 
 A low-level dropdown component for displaying option lists. Typically used as the internal implementation of higher-level components like Select and AutoComplete, but can also be used independently with Button or Input. Supports flat list, grouped, and tree structures, with built-in scrolling, loading states, keyboard shortcuts, and action buttons.
 
@@ -49,6 +49,8 @@ import type { DropdownLoadingPosition } from '@mezzanine-ui/core/dropdown';
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/internal-dropdown--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
+> **Note**: The `scrollbar*` props in Dropdown are for internal dropdown scrolling configuration. `Scrollbar` itself is deprecated in 1.0.0; use native scrolling or CSS-based styling.
+
 ---
 
 ## Props / Sub-components
@@ -69,16 +71,17 @@ Extends `DropdownItemSharedProps`.
 | `disabled`                | `boolean`                                                                  | `false`     | Whether disabled                                                                |
 | `open`                    | `boolean`                                                                  | -           | Controlled open state                                                           |
 | `activeIndex`             | `number \| null`                                                          | -           | Currently highlighted option index                                              |
-| `keyboardActiveIndex`     | `number \| null`                                                          | -           | **NEW in rc.8** — Index with keyboard focus ring styling                        |
+| `keyboardActiveIndex`     | `number \| null`                                                          | -           | Index with keyboard focus ring styling                                          |
 | `id`                      | `string`                                                                   | -           | Container DOM id                                                                |
 | `inputPosition`           | `DropdownInputPosition`                                                    | `'outside'` | Input position mode: `'outside'` (popup) / `'inside'` (inline)                 |
 | `isMatchInputValue`       | `boolean`                                                                  | `false`     | Whether to match input value and highlight option text                          |
 | `followText`              | `string`                                                                   | -           | Custom highlight match text (takes priority over auto-extraction from children) |
-| `placement`               | `PopperPlacement`                                                          | `'bottom-start'` | Popup placement (RC5: changed from 'bottom' to align with trigger)               |
+| `placement`               | `PopperPlacement`                                                          | `'bottom-start'` | Popup placement (aligns with trigger left edge)                                  |
 | `customWidth`             | `number \| string`                                                        | -           | Custom dropdown width (takes priority over `sameWidth`)                         |
 | `sameWidth`               | `boolean`                                                                  | `false`     | Whether to match trigger element width                                          |
 | `maxHeight`               | `number \| string`                                                        | -           | Max height of dropdown list (enables scrolling when set)                        |
-| `zIndex`                  | `number \| string`                                                        | `1`         | z-index                                                                         |
+| `minWidth`                | `number \| string`                                                        | spacing token `size-container-tiny` | Override the default min-width; pass `0` to remove constraint |
+| `zIndex`                  | `number \| string`                                                        | `-`         | z-index                                                                         |
 | `globalPortal`            | `boolean`                                                                  | `true`      | Whether to use Portal (only effective when `inputPosition='outside'`)           |
 | `listboxId`               | `string`                                                                   | -           | Listbox DOM id (for ARIA)                                                       |
 | `listboxLabel`            | `string`                                                                   | -           | Listbox aria-label                                                              |
@@ -111,8 +114,6 @@ Extends `DropdownItemSharedProps`.
 | `scrollbarDisabled`       | `boolean`                                                                  | `false`     | Disable custom scrollbar, use native scrolling                                  |
 | `scrollbarMaxWidth`       | `number \| string`                                                        | -           | Scrollbar container max width                                                   |
 | `scrollbarOptions`        | `PartialOptions`                                                           | -           | OverlayScrollbars additional options                                            |
-
-**Removed in rc.8**: `customWidth`, `emptyIcon`, `emptyText`, `globalPortal`, `listboxId`, `listboxLabel`, `loadingPosition`, `loadingText`, `maxHeight`, `onActionCancel`, `onActionClear`, `onActionConfirm`, `onActionCustom`, `onClose`, `onItemHover`, `onLeaveBottom`, `onOpen`, `onReachBottom`, `onSelect`, `open`, `options`, `placement`, `sameWidth`, `scrollbarDefer`, `scrollbarDisabled`, `scrollbarMaxWidth`, `scrollbarOptions`, `showActionShowTopBar`, `showDropdownActions`, `status`, `toggleCheckedOnClick`, `type`, `zIndex` — Most of these have been moved or refactored. Please refer to Storybook for current API.
 
 ---
 
@@ -503,7 +504,7 @@ function InfiniteScrollDropdown() {
 
 ## Behavior Notes
 
-- **Empty status with `loadingPosition='bottom'` (fixed in RC3)**: Previously, when `loadingPosition='bottom'` was set and `status='empty'`, the empty status did not display correctly. Since RC3, the empty status always renders as full-area regardless of `loadingPosition`, ensuring it is visible even when `loadingPosition='bottom'` is configured.
+- **Empty status with `loadingPosition='bottom'`**: When `loadingPosition='bottom'` is set and `status='empty'`, the empty status always renders as full-area regardless of `loadingPosition`, ensuring it is visible.
 
 ---
 
@@ -522,14 +523,14 @@ function InfiniteScrollDropdown() {
 
 ### 常見錯誤
 
-1. **位置變更未適應 (RC5 更新)**
+1. **預設位置對齊**
    ```tsx
-   // ❌ 舊版程式碼（RC3 預設為 'bottom'）
+   // ❌ 錯誤：明確指定舊版置中對齊
    <Dropdown placement="bottom" options={options}>
      <Button>Select</Button>
    </Dropdown>
 
-   // ✅ RC5 預設已改為 'bottom-start'，無需明確指定
+   // ✅ 正確：預設 'bottom-start' 自動對齊觸發元素左緣，無需明確指定
    <Dropdown options={options}>
      <Button>Select</Button>
    </Dropdown>
@@ -617,4 +618,4 @@ function InfiniteScrollDropdown() {
 6. **操作欄模式**: `onClear` 和 `onClick` 相互排斥，決定操作欄渲染模式（清空模式 vs 自訂模式 vs 預設模式）。
 7. **受控 vs 非受控**: 無 `open` 時為非受控（自動管理開閉）；有 `open` 時為受控。
 8. **低階元件**: 一般用途優先使用高階包裝元件如 `Select`。
-9. **RC5 位置變更**: 預設 placement 從 RC3 的 `'bottom'` 改為 `'bottom-start'`，與觸發元素左對齊。
+9. **預設位置**: 預設 `placement` 為 `'bottom-start'`，與觸發元素左對齊。

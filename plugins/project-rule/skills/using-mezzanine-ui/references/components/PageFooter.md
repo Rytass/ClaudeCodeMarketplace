@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/PageFooter`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/PageFooter) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/PageFooter) · Verified 1.0.0 (2026-04-02)
 
 Page footer component for displaying page-level action buttons and auxiliary information.
 

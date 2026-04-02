@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Toggle`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Toggle) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Toggle) · Verified 1.0.0 (2026-04-02)
 
 A toggle switch component for turning a single option on or off. Supports controlled and uncontrolled modes with optional label and supporting text.
 
@@ -26,7 +26,7 @@ Extends `NativeElementPropsWithoutKeyAndRef<'div'>`.
 | Property          | Type                      | Default | Description                              |
 | ----------------- | ------------------------- | ------- | ---------------------------------------- |
 | `checked`         | `boolean`                 | -       | Checked state (controlled mode)           |
-| `defaultChecked`  | `boolean`                 | `false` | Initial checked state (uncontrolled mode)|
+| `defaultChecked`  | `boolean`                 | `-`     | Initial checked state (uncontrolled mode)|
 | `disabled`        | `boolean`                 | `false` | Whether disabled                         |
 | `inputProps`      | `InputHTMLAttributes<HTMLInputElement>` | - | Native input attributes |
 | `label`           | `ReactNode`               | -       | Label text displayed beside toggle       |

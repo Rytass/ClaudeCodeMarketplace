@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/Alert Banner`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/AlertBanner) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/AlertBanner) · Verified 1.0.0 (2026-04-02)
 
 Alert banner component for displaying important system-level notifications. Supports both component-based and imperative APIs. Internally based on `createNotifier`, with sorting rules: non-info first, newest first. Renders using Portal `alert` level.
 
@@ -29,7 +29,7 @@ Extends `Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'children' | 'title'>`.
 | Property   | Type                  | Default | Description              |
 | ---------- | --------------------- | ------- | ------------------------ |
 | `actions`  | `AlertBannerAction[]` | -       | Action buttons (max 2)   |
-| `closable` | `boolean`             | `true`  | Whether closable         |
+| `closable` | `boolean`             | `-`     | Whether closable         |
 | `icon`     | `IconDefinition`      | -       | Custom icon              |
 | `message`  | `string`              | -       | Required, message content |
 | `onClose`  | `() => void`          | -       | Close callback           |

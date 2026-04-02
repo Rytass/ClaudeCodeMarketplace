@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Input`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Input) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Input) · Verified 1.0.0 (2026-04-02)
 
 A versatile input component supporting multiple variants for different use cases.
 

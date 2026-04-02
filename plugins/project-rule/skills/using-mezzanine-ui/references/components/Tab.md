@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Tab`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tab) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Tab) · Verified 1.0.0 (2026-04-02)
 
 Tab component for switching between different content views within the same area.
 
@@ -35,7 +35,7 @@ type TabsChild = ReactElement<TabItemProps>;
 | ------------------ | ----------------------------------------- | -------------- | -------------------- |
 | `activeKey`        | `Key`                                     | -              | Controlled active tab |
 | `children`         | `TabsChild \| TabsChild[]`               | **required**   | TabItem children     |
-| `defaultActiveKey` | `Key`                                     | `0`            | Default active tab   |
+| `defaultActiveKey` | `Key`                                     | `-`            | Default active tab   |
 | `direction`        | `'horizontal' \| 'vertical'`             | `'horizontal'` | Layout direction     |
 | `onChange`         | `(activeKey: Key, index: number) => void` | -              | Change event         |
 | `size`             | `'main' \| 'sub'`                         | `'main'`       | Tab group size (controls padding) |

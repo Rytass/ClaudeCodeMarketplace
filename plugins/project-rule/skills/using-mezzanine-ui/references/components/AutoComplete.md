@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-autocomplete--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified rc.8 (2026-03-27)
+> **Source**: Verified 1.0.0 (2026-04-02)
 
 Autocomplete component combining input with dropdown menu. Supports search filtering and dynamic option creation. Internally uses `Dropdown` and `SelectTrigger` composition.
 
@@ -37,7 +37,7 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | ---------------------------- | ------------------------------------------------------ | ---------------------- | ---------------------------------------- |
 | `addable`                    | `boolean`                                              | `false`                | Whether options can be dynamically added |
 | `asyncData`                  | `boolean`                                              | `false`                | Whether data is async                    |
-| `clearSearchText`            | `boolean`                                              | `true` **(RC.7 NEW)**  | Whether to clear search text on blur. When false, typed text persists after blur. In single mode, a clearable icon appears if user typed without selecting. |
+| `clearSearchText`            | `boolean`                                              | `true`                 | Whether to clear search text on blur. When false, typed text persists after blur. In single mode, a clearable icon appears if user typed without selecting. |
 | `createSeparators`           | `string[]`                                             | `[',', '+', '\n']`     | Separator characters for creating options |
 | `createActionText`           | `(text: string) => string`                             | -                      | Custom create button text function       |
 | `createActionTextTemplate`   | `string`                                               | `'建立 "{text}"'`      | Create button text template              |
@@ -55,21 +55,20 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `name`                       | `string`                                               | -                      | Input element name attribute             |
 | `onInsert`                   | `(text: string, currentOptions: SelectValue[]) => SelectValue[]` | -            | Insert option callback                   |
 | `onLeaveBottom`              | `() => void`                                           | -                      | Dropdown leave bottom callback           |
-| `onRemoveCreated`            | `(cleanedOptions: SelectValue[]) => void` **(RC.7 NEW)** | -                   | Callback on blur with cleaned created items (removes unsaved creations) |
-| `onRemoveCreated`            | `(cleanedOptions: SelectValue[]) => void` (NEW)        | -                      | Callback on blur with cleaned created items |
+| `onRemoveCreated`            | `(cleanedOptions: SelectValue[]) => void`              | -                      | Callback on blur with cleaned created items (removes unsaved creations) |
 | `onReachBottom`              | `() => void`                                           | -                      | Dropdown reach bottom callback           |
-| `onSearch`                   | `(input: string) => void \| Promise<void>`             | -                      | **RC.7 BEHAVIOR CHANGE**: Selection committed only on Enter/click or dropdown click, not on typing |
+| `onSearch`                   | `(input: string) => void \| Promise<void>`             | -                      | Search callback; selection is committed only on Enter/click or dropdown click, not on typing |
 | `onSearchTextChange`         | `(text: string) => void`                               | -                      | Input text change callback (no debounce) |
 | `onVisibilityChange`         | `(open: boolean) => void`                              | -                      | Dropdown visibility change callback      |
 | `open`                       | `boolean`                                              | -                      | Controlled dropdown open state           |
 | `options`                    | `SelectValue[]`                                        | **required**           | Options list                             |
-| `overflowStrategy` **(RC.7)** | `'counter' \| 'wrap'`                                  | `'wrap'` (multiple)    | Tag overflow strategy in multiple mode   |
+| `overflowStrategy`           | `'counter' \| 'wrap'`                                  | `'wrap'` (multiple)    | Tag overflow strategy in multiple mode   |
 | `placeholder`                | `string`                                               | `''`                   | Placeholder text                         |
 | `popperOptions`              | `PopperProps['options']`                               | -                      | Popper options                           |
 | `required`                   | `boolean`                                              | `false`                | Whether required                         |
 | `searchDebounceTime`         | `number`                                               | `300`                  | Search debounce time (ms)                |
 | `searchTextControlRef`       | `RefObject<{ reset: () => void; setSearchText: Dispatch<SetStateAction<string>> } \| undefined>` | - | Ref for external search text control |
-| `stepByStepBulkCreate` **(RC.7 NEW)** | `boolean`                                              | `false`                | Process bulk pasted text item-by-item vs all at once |
+| `stepByStepBulkCreate`       | `boolean`                                              | `false`                | Process bulk pasted text item-by-item vs all at once |
 | `trimOnCreate`               | `boolean`                                              | `true`                 | Whether to trim whitespace on create     |
 
 > Also inherits `SelectTriggerProps` (excluding `active`, `clearable`, `forceHideSuffixActionIcon`, `mode`, `onClick`, `onKeyDown`, `onChange`, `renderValue`, `inputProps`, `suffixActionIcon`, `value`), including `className`, `disabled`, `error`, `fullWidth`, `inputRef`, `onClear`, `prefix`, `size`, etc.
@@ -95,7 +94,7 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `mode`              | `'multiple'`                          | -           | Multiple mode (required) |
 | `value`             | `SelectValue[]`                       | -           | Selected values array |
 | `defaultValue`      | `SelectValue[]`                       | -           | Default values array |
-| `onChange`           | `(newOptions: SelectValue[]) => void` | -           | **RC.7 BEHAVIOR CHANGE**: Committed only on Enter/click or dropdown click, not on typing |
+| `onChange`           | `(newOptions: SelectValue[]) => void` | -           | Change callback; committed only on Enter/click or dropdown click, not on typing          |
 | `overflowStrategy`  | `'counter' \| 'wrap'`                | `'wrap'`    | Tag overflow strategy; shows "+N" with 'counter', displays all with 'wrap' |
 | `selector`          | `AutoCompleteSelector`                | `'input'`   | Input selector type  |
 
@@ -445,7 +444,7 @@ const handleSearch = async (input) => {
 
 ### 核心要點
 
-1. **選項提交時機改變（rc.6）**：選項僅在按下 Enter 或點擊時提交，不再在搜尋或輸入時自動提交
+1. **選項提交時機**：選項僅在按下 Enter 或點擊時提交，不再在搜尋或輸入時自動提交
 2. **內建文字預設值**：`emptyText` 和 `loadingText` 已有內建中文預設值（'沒有符合的項目'、'載入中...'），毋需額外設定
 3. **loadingPosition 預設值**：預設為 'bottom'
 4. **overflowStrategy 預設變更**：多重模式現預設為 'wrap'，更易見標籤

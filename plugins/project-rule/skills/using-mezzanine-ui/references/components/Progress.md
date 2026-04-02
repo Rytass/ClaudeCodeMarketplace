@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Progress`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Progress) · Verified rc.8 (2026-03-27)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Progress) · Verified 1.0.0 (2026-04-02)
 
 A progress bar component for displaying operation completion progress.
 

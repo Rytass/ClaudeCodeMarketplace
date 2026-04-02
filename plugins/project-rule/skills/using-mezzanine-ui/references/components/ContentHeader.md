@@ -1,14 +1,13 @@
 # ContentHeader Component
 
-> ⚠️ **DEPRECATED in rc.8**: This component is no longer exported from `@mezzanine-ui/react`.
+> **DEPRECATED in 1.0.0** — This component is no longer exported from `@mezzanine-ui/react`.
+> This component has been removed with no direct replacement. Migrate to a custom layout composition using PageHeader, Section, and utility components.
 
 > **Category**: Internal (internal component, not exported from main entry)
 >
 > **Storybook**: `Internal/ContentHeader`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/ContentHeader) · Verified rc.8 (2026-03-27)
-
-> ⚠️ **DEPRECATED in rc.8**: This component is no longer exported from `@mezzanine-ui/react`.
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/ContentHeader) · **Deprecated** in 1.0.0 (2026-04-02)
 
 Content header component for displaying title, description, filters, and action buttons.
 
