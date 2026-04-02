@@ -54,6 +54,7 @@ A single input trigger based on TextField, with FormattedInput support for forma
 | `errorMessages`   | `FormattedInputProps['errorMessages']`      | -        | Error message configuration    |
 | `format`          | `string`                                    | -        | Input format (e.g. `'YYYY-MM-DD'`) |
 | `fullWidth`       | `boolean`                                   | `true`   | Whether full width             |
+| `hoverValue`      | `string`                                    | -        | Pre-formatted date string to preview when input is empty and not focused |
 | `inputProps`      | `InputProps` (partial omit)                 | -        | Additional input props         |
 | `inputRef`        | `RefObject<HTMLInputElement \| null>`       | -        | Input ref                      |
 | `onChange`        | `ChangeEventHandler<HTMLInputElement>`      | -        | Input change callback          |
@@ -83,6 +84,7 @@ A dual input trigger based on TextField (left and right separated by a divider),
 | `formatLeft`            | `string`                                               | required | Left input format (e.g. `'YYYY-MM-DD'`)       |
 | `formatRight`           | `string`                                               | required | Right input format (e.g. `'HH:mm:ss'`)        |
 | `fullWidth`             | `boolean`                                              | `true`   | Whether full width                             |
+| `hoverValueLeft`        | `string`                                               | -        | Pre-formatted date string to preview in left input when empty and not focused |
 | `inputLeftProps`        | `InputProps` (partial omit)                            | -        | Left input additional props                    |
 | `inputLeftRef`          | `RefObject<HTMLInputElement \| null>`                  | -        | Left input ref                                 |
 | `inputRightProps`       | `InputProps` (partial omit)                            | -        | Right input additional props                   |
@@ -125,6 +127,8 @@ A dual input trigger based on TextField, used for range pickers (e.g. DateRangeP
 | `errorMessagesTo`        | `FormattedInputProps['errorMessages']`                   | -        | To field error messages        |
 | `format`                 | `string`                                                 | required | Input format                   |
 | `fullWidth`              | `boolean`                                                | `true`   | Whether full width (inherited from TextField) |
+| `hoverFromValue`         | `string`                                                 | -        | Pre-formatted date string to preview in 'from' input when empty and not focused |
+| `hoverToValue`           | `string`                                                 | -        | Pre-formatted date string to preview in 'to' input when empty and not focused |
 | `inputFromPlaceholder`   | `string`                                                 | -        | From field placeholder         |
 | `inputFromProps`         | `InputProps` (partial omit)                              | -        | From field additional props    |
 | `inputFromRef`           | `RefObject<HTMLInputElement \| null>`                    | -        | From field ref                 |

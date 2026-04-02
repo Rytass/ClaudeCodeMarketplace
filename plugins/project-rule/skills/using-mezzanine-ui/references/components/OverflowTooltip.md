@@ -35,8 +35,8 @@ Extends `NativeElementPropsWithoutKeyAndRef<'span'>` and `Pick<OverflowTooltipPr
 | `disabled`     | `boolean`                 | -       | Whether disabled             |
 | `onTagDismiss` | `(index: number) => void` | -       | Tag dismiss callback (required) |
 | `placement`    | `Placement`               | -       | Popup placement              |
-| `readOnly`     | `boolean` **(RC.7 NEW)**  | -       | Whether read-only            |
-| `tagSize`      | `TagProps['size']` **(RC.7 NEW)** | - | Tag size (new prop)          |
+| `readOnly`     | `boolean`                 | -       | Whether read-only            |
+| `tagSize`      | `TagProps['size']`        | -       | Tag size                     |
 | `tags`         | `string[]`                | `[]`    | Tag list                     |
 
 ### OverflowCounterTag Usage Example
@@ -66,8 +66,8 @@ import { OverflowCounterTag } from '@mezzanine-ui/react';
 | `onTagDismiss` | `(tagIndex: number) => void` | **required** | Tag dismiss callback |
 | `open`         | `boolean`                  | **required**  | Whether open         |
 | `placement`    | `Placement`                | `'top-start'` | Popup placement      |
-| `readOnly`     | `boolean` **(RC.7 NEW)**   | -             | Whether read-only    |
-| `tagSize`      | `TagProps['size']` **(RC.7 NEW)** | - | Tag size (new prop)           |
+| `readOnly`     | `boolean`                  | -             | Whether read-only    |
+| `tagSize`      | `TagProps['size']`         | -             | Tag size             |
 | `tags`         | `string[]`                 | **required**  | Tag list             |
 
 ---

@@ -131,7 +131,9 @@ import TimeRangePicker, {
 | `onFromFocus`       | `() => void`                                      | From field focus handler         |
 | `onInputFromChange` | `(formatted: string \| undefined) => void`        | From field input change          |
 | `onInputToChange`   | `(formatted: string \| undefined) => void`        | To field input change            |
+| `onPanelCancel`     | `() => void`                                      | Revert pending panel value and close |
 | `onPanelChange`     | `(newTime: DateType \| undefined) => void`        | Panel selection change           |
+| `onPanelConfirm`    | `() => void`                                      | Commit pending panel value       |
 | `onToFocus`         | `() => void`                                      | To field focus handler           |
 | `panelValue`        | `DateType \| undefined`                           | Current panel corresponding value |
 | `value`             | `TimeRangePickerValue`                            | Current internal value           |

@@ -45,9 +45,10 @@ Extends `Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'onChange'>`.
 | `defaultExpanded` | `boolean`                     | `false`  | Initial expanded state in uncontrolled mode                                                    |
 | `disabled`        | `boolean`                     | `false`  | Whether disabled (clicking title won't toggle when disabled)                                   |
 | `expanded`        | `boolean`                     | -        | Expanded state in controlled mode; setting this prop enables controlled mode                   |
+| `onChange`        | `(e: boolean) => void`        | -        | Callback fired when the expand/collapse state is changed                                       |
 | `size`            | `'main' \| 'sub'`            | `'main'` | Accordion size                                                                                 |
 | `title`           | `string`                      | -        | Shortcut for setting title text; when using this prop all `children` are treated as content     |
-| `actions`         | `AccordionActionsProps`       | -        | Action buttons on the right side of title (only effective when using `title` prop)              |
+| `actions`         | `AccordionTitleProps['actions']` | -     | Action buttons on the right side of title (only effective when using `title` prop)              |
 
 ---
 

@@ -44,7 +44,7 @@ An integrated form field component including label, input area, hint text, etc.
 | `layout`                 | `FormFieldLayout`          | `FormFieldLayout.HORIZONTAL`  | Layout direction                           |
 | `density`                | `FormFieldDensity`         | -                             | Density (label/data entry width ratio)     |
 | `controlFieldSlotLayout` | `ControlFieldSlotLayout`   | `ControlFieldSlotLayout.MAIN` | Control area layout                        |
-| `controlFieldSlotColumns` | `number`                   | `-`                           | Number of grid columns for control field slot layout. When set, the control area uses CSS grid with the specified column count. |
+| `controlFieldSlotColumns` | `ControlFieldSlotColumns`  | `-`                           | Number of grid columns for control field slot layout. When set, the control area uses CSS grid with the specified column count. |
 | `labelSpacing`           | `FormFieldLabelSpacing`    | `FormFieldLabelSpacing.MAIN`  | Label spacing (effective in horizontal/stretch mode) |
 | `required`               | `boolean`                  | `false`                       | Whether required                           |
 | `disabled`               | `boolean`                  | `false`                       | Whether disabled                           |

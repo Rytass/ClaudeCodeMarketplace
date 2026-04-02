@@ -78,7 +78,7 @@ Extends `ModalContainerProps` (excluding `children`) with partial `ModalHeaderPr
 | `size`                          | `'wide'`    | `'wide'` | Fixed to wide     |
 | `extendedSplitLeftSideContent`  | `ReactNode` | **Required** | Left content |
 | `extendedSplitRightSideContent` | `ReactNode` | **Required** | Right content|
-| `extendedSplitSidebarPosition`  | `'left' \| 'right'` | `'right'` | **RC.7 NEW**: Sidebar position (only for `modalType='extendedSplit'`) |
+| `extendedSplitSidebarPosition`  | `'left' \| 'right'` | `'right'` | Sidebar position (only for `modalType='extendedSplit'`) |
 
 ### Conditionally Required Props
 

@@ -89,10 +89,10 @@ The bottom action area supports three button slots: primary, secondary, and ghos
 | `filterAreaValue`               | `string`                                | -       | Controlled value of the radio group in filter area                                 |
 | `filterAreaOnRadioChange`       | `ChangeEventHandler<HTMLInputElement>`  | -       | Callback when the radio group value changes in filter area                         |
 | `filterAreaShowUnreadButton`    | `boolean`                               | `false` | Controls whether to display the unread button in filter area                       |
-| `filterAreaCustomButtonLabel`   | `string`                                | -       | Label of the custom button in filter area                                          |
+| `filterAreaCustomButtonLabel`   | `string`                                | `'全部已讀'` | Label of the custom button in filter area                                      |
 | `filterAreaOnCustomButtonClick` | `VoidFunction`                          | -       | Callback when the custom button is clicked in filter area                          |
-| `filterAreaIsEmpty`             | `boolean`                               | -       | Whether the filter area content is empty (for disabling custom button)             |
-| `filterAreaOptions`             | `DropdownOption[]`                      | -       | Options for the filter bar dropdown; replaces the right-side button with a Dropdown |
+| `filterAreaIsEmpty`             | `boolean`                               | `false` | Whether the filter area content is empty (for disabling custom button)             |
+| `filterAreaOptions`             | `DropdownOption[]`                      | `[]`    | Options for the filter bar dropdown; replaces the right-side button with a Dropdown |
 | `filterAreaOnSelect`            | `(option: DropdownOption) => void`      | -       | Callback when a filter bar dropdown option is selected                             |
 
 ---

@@ -29,7 +29,7 @@ Extends `Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'children' | 'title'>`.
 | Property   | Type                  | Default | Description              |
 | ---------- | --------------------- | ------- | ------------------------ |
 | `actions`  | `AlertBannerAction[]` | -       | Action buttons (max 2)   |
-| `closable` | `boolean`             | `-`     | Whether closable         |
+| `closable` | `boolean`             | `true`  | Whether closable         |
 | `icon`     | `IconDefinition`      | -       | Custom icon              |
 | `message`  | `string`              | -       | Required, message content |
 | `onClose`  | `() => void`          | -       | Close callback           |

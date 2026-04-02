@@ -49,7 +49,7 @@ import type {
 | `mode`           | `CheckboxMode`                         | `'default'` | Display mode                             |
 | `withEditInput`  | `boolean`                              | `false`     | Show editable input when checked. Auto-checks and auto-focuses input. |
 
-| `severity`       | `'info' \| 'error'`                    | -           | Severity state for validation feedback   |
+| `severity`       | `'info' \| 'error'`                    | `'info'`    | Severity state for validation feedback   |
 
 | `id`       | `string`                               | -           | Element ID                               |
 | `inputProps` | `InputHTMLAttributes<HTMLInputElement>` | -          | Native input attributes                  |

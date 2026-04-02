@@ -35,7 +35,7 @@ type TabsChild = ReactElement<TabItemProps>;
 | ------------------ | ----------------------------------------- | -------------- | -------------------- |
 | `activeKey`        | `Key`                                     | -              | Controlled active tab |
 | `children`         | `TabsChild \| TabsChild[]`               | **required**   | TabItem children     |
-| `defaultActiveKey` | `Key`                                     | `-`            | Default active tab   |
+| `defaultActiveKey` | `Key`                                     | `0`            | Default active tab   |
 | `direction`        | `'horizontal' \| 'vertical'`             | `'horizontal'` | Layout direction     |
 | `onChange`         | `(activeKey: Key, index: number) => void` | -              | Change event         |
 | `size`             | `'main' \| 'sub'`                         | `'main'`       | Tab group size (controls padding) |

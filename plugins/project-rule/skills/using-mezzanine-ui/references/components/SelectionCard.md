@@ -48,7 +48,7 @@ Base props interface, extends `Omit<NativeElementPropsWithoutKeyAndRef<'label'>,
 | `name`                | `string`                                                    | -              | Input name attribute           |
 | `onChange`            | `ChangeEventHandler<HTMLInputElement>`                      | -              | Change callback                |
 | `readonly`            | `boolean`                                                   | `false`        | Whether read-only              |
-| `selector`            | `SelectionCardType` (`'radio' \| 'checkbox'`)               | -              | Selector type (required)       |
+| `selector`            | `SelectionCardType` (`'radio' \| 'checkbox'`)               | `'radio'`      | Selector type                  |
 | `supportingText`      | `string`                                                    | -              | Supporting text                |
 | `supportingTextMaxWidth` | `CSSProperties['maxWidth']`                               | -              | Max width for supporting text  |
 | `text`                | `string`                                                    | **required**   | Primary text                   |

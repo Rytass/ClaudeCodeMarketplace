@@ -21,16 +21,14 @@ import type { ProgressProps } from '@mezzanine-ui/react';
 
 ## Progress Props
 
-| Property       | Type                                    | Default      | Description                      |
-| -------------- | --------------------------------------- | ------------ | -------------------------------- |
-| `error`        | `boolean`                               | `false`      | Whether in error state           |
-| `icons`        | `{ error?: IconDefinition; success?: IconDefinition }` | -  | Custom error/success icons       |
-| `percent`      | `number`                                | `0`          | Progress percentage (0-100)      |
-| `percentProps` | `Omit<TypographyProps, 'className' \| 'children'>` | - | Percentage text props            |
-| `status`       | `'enabled' \| 'success' \| 'error'`     | Auto-detect  | Force set status                 |
-| `success`      | `boolean`                               | `false`      | Whether in success state         |
-| `tick`         | `number`                                | `0`          | Tick mark position (0-100)       |
-| `type`         | `'progress' \| 'percent' \| 'icon'`     | `'progress'` | Display type                     |
+| Property       | Type                                                           | Default      | Description                      |
+| -------------- | -------------------------------------------------------------- | ------------ | -------------------------------- |
+| `icons`        | `{ error?: IconDefinition; success?: IconDefinition }`         | -            | Custom icons for error/success states |
+| `percent`      | `number`                                                       | `0`          | Progress percentage (0-100)      |
+| `percentProps` | `Omit<TypographyProps, 'className' \| 'children'>`             | -            | Percentage text props            |
+| `status`       | `ProgressStatus`                                               | Auto-detect  | Force set status; auto-detects from percent if omitted |
+| `tick`         | `number`                                                       | `0`          | Tick mark position (0-100)       |
+| `type`         | `ProgressType`                                                 | `'progress'` | Display type                     |
 
 ---
 

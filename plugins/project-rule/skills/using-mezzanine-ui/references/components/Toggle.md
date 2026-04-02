@@ -28,7 +28,7 @@ Extends `NativeElementPropsWithoutKeyAndRef<'div'>`.
 | `checked`         | `boolean`                 | -       | Checked state (controlled mode)           |
 | `defaultChecked`  | `boolean`                 | `-`     | Initial checked state (uncontrolled mode)|
 | `disabled`        | `boolean`                 | `false` | Whether disabled                         |
-| `inputProps`      | `InputHTMLAttributes<HTMLInputElement>` | - | Native input attributes |
+| `inputProps`      | `Omit<NativeElementPropsWithoutKeyAndRef<'input'>, 'checked' \| 'defaultChecked' \| 'disabled' \| 'onChange' \| 'placeholder' \| 'type' \| 'value' \| 'aria-disabled' \| 'aria-checked'>` | - | Native input attributes (excluding controlled props) |
 | `label`           | `string`                  | -       | Label text displayed beside toggle       |
 | `onChange`        | `ChangeEventHandler<HTMLInputElement>` | - | Change event handler |
 | `size`            | `'main' \| 'sub'`        | `'main'` | Toggle size                              |
