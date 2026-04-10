@@ -1,0 +1,22 @@
+{
+  "name": "protoforge",
+  "description": "LLM-driven admin prototype generator. Reads project planning documents (RFP, specs) and generates interactive Next.js + mezzanine-ui admin prototypes with mock data. Supports optional deployment to Cloudflare Pages and GitHub.",
+  "version": "0.1.1",
+  "license": "MIT",
+  "keywords": [
+    "prototype",
+    "mezzanine-ui",
+    "admin",
+    "code-generation",
+    "next.js",
+    "mock-data",
+    "rfp",
+    "rapid-prototyping",
+    "cloudflare-pages",
+    "github"
+  ],
+  "author": {
+    "name": "Rytass",
+    "email": "aspect.dev@gmail.com"
+  }
+}
