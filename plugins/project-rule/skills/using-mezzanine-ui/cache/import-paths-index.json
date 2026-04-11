@@ -336,6 +336,16 @@
           "path": "packages/react/src/Upload",
           "type": "component",
           "version": "1.0.0"
+        },
+        "Tooltip/useDelayMouseEnterLeave": {
+          "path": "packages/react/src/Tooltip/useDelayMouseEnterLeave",
+          "type": "component",
+          "version": "1.0.0"
+        },
+        "as": {
+          "path": "packages/react/src/as",
+          "type": "component",
+          "version": "1.0.0"
         }
       }
     }

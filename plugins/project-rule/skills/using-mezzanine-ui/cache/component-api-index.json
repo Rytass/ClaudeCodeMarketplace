@@ -1,9 +1,4 @@
 {
-  "_meta": {
-    "version": "1.0.0",
-    "generatedAt": "2026-04-02",
-    "description": "TypeScript props API index for Mezzanine UI v2"
-  },
   "Accordion": {
     "props": {
       "children": {
@@ -299,6 +294,61 @@
     "extends": [
       "Omit<NativeElementPropsWithoutKeyAndRef<'label'>, 'onChange'>,\n  CheckboxPropsBase"
     ]
+  },
+  "ClearActions": {
+    "props": {},
+    "sourceFile": "packages/react/src/ClearActions/ClearActions.tsx",
+    "propsType": "| ClearActionsEmbeddedProps\n  | ClearActionsStandardProps\n  | ClearActionsClearableProps",
+    "deprecated": true
+  },
+  "ContentHeader": {
+    "props": {
+      "actions": {
+        "type": "ButtonProps[]",
+        "required": false
+      },
+      "children": {
+        "type": "ContentHeaderChild[] | ContentHeaderChild",
+        "required": false
+      },
+      "description": {
+        "type": "string",
+        "required": false
+      },
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "titleComponent": {
+        "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'",
+        "required": false
+      },
+      "onBackClick": {
+        "type": "() => void",
+        "required": false
+      },
+      "size": {
+        "type": "'sub'",
+        "required": false
+      }
+    },
+    "sourceFile": "packages/react/src/ContentHeader/ContentHeader.tsx",
+    "subComponents": {
+      "ContentHeaderResponsiveProps": {
+        "props": {
+          "breakpoint": {
+            "type": "ResponsiveBreakpoint",
+            "required": true
+          },
+          "children": {
+            "type": "ReactNode",
+            "required": false
+          }
+        },
+        "sourceFile": "packages/react/src/ContentHeader/ContentHeaderResponsive.tsx"
+      }
+    },
+    "deprecated": true
   },
   "Cropper": {
     "props": {},
@@ -948,6 +998,11 @@
       "Omit<\n    ButtonProps,\n    'variant' | 'size' | 'className' | 'tooltipPosition'\n  >"
     ]
   },
+  "Form": {
+    "props": {},
+    "sourceFile": "packages/react/src/Form/Form.tsx",
+    "extends": []
+  },
   "Icon": {
     "props": {
       "color": {
@@ -1142,6 +1197,11 @@
     "sourceFile": "packages/react/src/NotificationCenter/NotificationCenter.tsx",
     "extends": []
   },
+  "Notifier": {
+    "props": {},
+    "sourceFile": "packages/react/src/Notifier/Notifier.tsx",
+    "extends": []
+  },
   "OverflowTooltip": {
     "props": {},
     "sourceFile": "packages/react/src/OverflowTooltip/OverflowTooltip.tsx",
@@ -1244,6 +1304,11 @@
     "extends": [
       "Omit<\n    DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>,\n    'onChange'\n  >"
     ]
+  },
+  "Picker": {
+    "props": {},
+    "sourceFile": "packages/react/src/Picker/Picker.tsx",
+    "extends": []
   },
   "Popper": {
     "props": {
@@ -1384,20 +1449,44 @@
       "NativeElementPropsWithoutKeyAndRef<'div'>"
     ]
   },
-  "Form": {
-    "props": {},
-    "sourceFile": "packages/react/src/Form/Form.tsx",
-    "extends": []
-  },
-  "Notifier": {
-    "props": {},
-    "sourceFile": "packages/react/src/Notifier/Notifier.tsx",
-    "extends": []
-  },
-  "Picker": {
-    "props": {},
-    "sourceFile": "packages/react/src/Picker/Picker.tsx",
-    "extends": []
+  "Scrollbar": {
+    "props": {
+      "children": {
+        "type": "ReactNode",
+        "required": false
+      },
+      "defer": {
+        "type": "boolean | object",
+        "required": false,
+        "default": "true"
+      },
+      "disabled": {
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      "maxHeight": {
+        "type": "CSSProperties['maxHeight']",
+        "required": false
+      },
+      "maxWidth": {
+        "type": "CSSProperties['maxWidth']",
+        "required": false
+      },
+      "options": {
+        "type": "PartialOptions",
+        "required": false
+      },
+      "events": {
+        "type": "OverlayScrollbarsComponentProps['events']",
+        "required": false
+      }
+    },
+    "sourceFile": "packages/react/src/Scrollbar/typings.ts",
+    "extends": [
+      "Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'children'>"
+    ],
+    "deprecated": true
   },
   "Section": {
     "props": {
@@ -1648,14 +1737,14 @@
     "sourceFile": "packages/react/src/Tag/Tag.tsx",
     "extends": []
   },
-  "Textarea": {
-    "props": {},
-    "sourceFile": "packages/react/src/Textarea/Textarea.tsx",
-    "extends": []
-  },
   "TextField": {
     "props": {},
     "sourceFile": "packages/react/src/TextField/TextField.tsx",
+    "extends": []
+  },
+  "Textarea": {
+    "props": {},
+    "sourceFile": "packages/react/src/Textarea/Textarea.tsx",
     "extends": []
   },
   "TimePanel": {
@@ -2048,98 +2137,9 @@
       "Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'onChange'>"
     ]
   },
-  "ClearActions": {
-    "props": {},
-    "sourceFile": "packages/react/src/ClearActions/ClearActions.tsx",
-    "propsType": "| ClearActionsEmbeddedProps\n  | ClearActionsStandardProps\n  | ClearActionsClearableProps",
-    "deprecated": true
-  },
-  "ContentHeader": {
-    "props": {
-      "actions": {
-        "type": "ButtonProps[]",
-        "required": false
-      },
-      "children": {
-        "type": "ContentHeaderChild[] | ContentHeaderChild",
-        "required": false
-      },
-      "description": {
-        "type": "string",
-        "required": false
-      },
-      "title": {
-        "type": "string",
-        "required": true
-      },
-      "titleComponent": {
-        "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'",
-        "required": false
-      },
-      "onBackClick": {
-        "type": "() => void",
-        "required": false
-      },
-      "size": {
-        "type": "'sub'",
-        "required": false
-      }
-    },
-    "sourceFile": "packages/react/src/ContentHeader/ContentHeader.tsx",
-    "subComponents": {
-      "ContentHeaderResponsiveProps": {
-        "props": {
-          "breakpoint": {
-            "type": "ResponsiveBreakpoint",
-            "required": true
-          },
-          "children": {
-            "type": "ReactNode",
-            "required": false
-          }
-        },
-        "sourceFile": "packages/react/src/ContentHeader/ContentHeaderResponsive.tsx"
-      }
-    },
-    "deprecated": true
-  },
-  "Scrollbar": {
-    "props": {
-      "children": {
-        "type": "ReactNode",
-        "required": false
-      },
-      "defer": {
-        "type": "boolean | object",
-        "required": false,
-        "default": "true"
-      },
-      "disabled": {
-        "type": "boolean",
-        "required": false,
-        "default": "false"
-      },
-      "maxHeight": {
-        "type": "CSSProperties['maxHeight']",
-        "required": false
-      },
-      "maxWidth": {
-        "type": "CSSProperties['maxWidth']",
-        "required": false
-      },
-      "options": {
-        "type": "PartialOptions",
-        "required": false
-      },
-      "events": {
-        "type": "OverlayScrollbarsComponentProps['events']",
-        "required": false
-      }
-    },
-    "sourceFile": "packages/react/src/Scrollbar/typings.ts",
-    "extends": [
-      "Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'children'>"
-    ],
-    "deprecated": true
+  "_meta": {
+    "version": "1.0.0",
+    "generatedAt": "2026-04-02",
+    "description": "TypeScript props API index for Mezzanine UI v2"
   }
 }
