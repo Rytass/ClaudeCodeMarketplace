@@ -248,6 +248,8 @@ When `hideSuffixWhenClearable` is `true`, the clear icon **overlays the suffix p
 
 This pattern is useful when suffix and clear icon should share the same space (e.g., DatePicker calendar icon / clear icon toggle).
 
+> Note: `ClearActions` is deprecated in 1.0.0. This is an internal implementation detail; the clear button is controlled via the `clearable` prop and `onClear` callback.
+
 ---
 
 ## Figma Mapping

@@ -18,6 +18,8 @@ A full-page layout component providing a main content area and resizable side pa
 | `Layout.RightPanel`  | Client | Resizable right side panel                     |
 
 > **Note**: `LayoutHost` is an internal component, not exported from the public API. `Layout` automatically creates `LayoutHost` to wrap children; manual wrapping is not needed.
+>
+> **Deprecation Note**: `Scrollbar` is deprecated in 1.0.0. The `scrollbarProps` property is available for backward compatibility but uses native browser scrolling internally.
 
 ## Import
 

@@ -648,6 +648,7 @@ import { TextField } from '@mezzanine-ui/react';
 import { SearchIcon } from '@mezzanine-ui/icons';
 
 <TextField prefix={<SearchIcon />} placeholder="Search" />
+```
 
 ---
 

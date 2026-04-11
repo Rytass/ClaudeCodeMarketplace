@@ -258,7 +258,7 @@ Notification list drawer component that displays notifications in a Drawer forma
 | `filterAreaCustomButtonLabel`    | `string`                                 | -                          | Custom button label                            |
 | `filterAreaOnCustomButtonClick`  | `() => void`                             | -                          | Custom button callback                         |
 | `filterAreaOptions`              | `DropdownOption[]`                       | -                          | Filter area dropdown options                   |
-| `filterAreaOnSelect`             | `(value: string) => void`                | -                          | Filter area dropdown select callback           |
+| `filterAreaOnSelect`             | `(option: DropdownOption) => void`       | -                          | Filter area dropdown select callback           |
 | `renderFilterArea`               | `(props) => ReactNode`                   | -                          | Custom filter area render                      |
 
 ---

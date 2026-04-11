@@ -182,6 +182,8 @@ import { InlineMessageGroup } from '@mezzanine-ui/react';
 
 This is because warning and error messages typically require user action to resolve and should not be directly dismissed.
 
+> Note: `ClearActions` is deprecated in 1.0.0. This is an internal implementation detail; users interact with the close button through the `onClose` prop.
+
 ---
 
 ## Figma Mapping

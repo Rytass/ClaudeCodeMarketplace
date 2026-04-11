@@ -90,8 +90,7 @@ interface TagPropsDismissable {
   active?: boolean;
   disabled?: boolean;
   onClose: MouseEventHandler<HTMLButtonElement>;  // Required
-  // The following are never: count, onClick
-  // RC.7: readOnly removed - no longer supported for dismissable type
+  // The following are never: count, onClick, readOnly
 }
 ```
 

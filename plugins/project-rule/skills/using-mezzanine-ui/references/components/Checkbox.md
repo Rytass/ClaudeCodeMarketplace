@@ -37,27 +37,25 @@ import type {
 
 ## Checkbox Props
 
-| Property         | Type                                   | Default     | Description                              |
-| ---------------- | -------------------------------------- | ----------- | ---------------------------------------- |
-| `checked`        | `boolean`                              | -           | Controlled checked state                 |
-| `defaultChecked` | `boolean`                              | `false`     | Default checked state                    |
-| `description`    | `string`                               | -           | Description text                         |
-| `disabled`       | `boolean`                              | `false`     | Whether disabled                         |
-| `editableInput`  | `Omit<BaseInputProps, 'variant'>`      | -           | Editable input configuration             |
-| `indeterminate`  | `boolean`                              | `false`     | Indeterminate state                      |
-| `label`          | `string`                               | -           | Label text                               |
-| `mode`           | `CheckboxMode`                         | `'default'` | Display mode                             |
-| `withEditInput`  | `boolean`                              | `false`     | Show editable input when checked. Auto-checks and auto-focuses input. |
-
-| `severity`       | `'info' \| 'error'`                    | `'info'`    | Severity state for validation feedback   |
-
-| `id`       | `string`                               | -           | Element ID                               |
-| `inputProps` | `InputHTMLAttributes<HTMLInputElement>` | -          | Native input attributes                  |
-| `inputRef` | `Ref<HTMLInputElement>`                | `-`         | Reference to underlying input element    |
-| `name`     | `string`                               | -           | Input name attribute                     |
-| `onChange`  | `ChangeEventHandler<HTMLInputElement>` | -           | Change event handler                     |
-| `size`     | `'main' \| 'sub'`                      | `'main'`    | Checkbox size                            |
-| `value`    | `string`                               | -           | Checkbox value                           |
+| Property         | Type                                                                                                                                                                                        | Default     | Description                                                           |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------- |
+| `checked`        | `boolean`                                                                                                                                                                                   | -           | Controlled checked state                                              |
+| `defaultChecked` | `boolean`                                                                                                                                                                                   | `false`     | Default checked state                                                 |
+| `description`    | `string`                                                                                                                                                                                    | -           | Description text                                                      |
+| `disabled`       | `boolean`                                                                                                                                                                                   | `false`     | Whether disabled                                                      |
+| `editableInput`  | `Omit<BaseInputProps, 'variant'>`                                                                                                                                                           | -           | Editable input configuration                                          |
+| `id`             | `string`                                                                                                                                                                                    | -           | Element ID                                                            |
+| `indeterminate`  | `boolean`                                                                                                                                                                                   | `false`     | Indeterminate state                                                   |
+| `inputProps`     | `Omit<NativeElementPropsWithoutKeyAndRef<'input'>, 'checked' \| 'defaultChecked' \| 'disabled' \| 'onChange' \| 'placeholder' \| 'type' \| 'value' \| 'aria-disabled' \| 'aria-checked'>` | -           | Native input element attributes (excludes controlled props)           |
+| `inputRef`       | `Ref<HTMLInputElement>`                                                                                                                                                                     | -           | Reference to underlying input element                                 |
+| `label`          | `string`                                                                                                                                                                                    | -           | Label text                                                            |
+| `mode`           | `CheckboxMode`                                                                                                                                                                              | `'default'` | Display mode                                                          |
+| `name`           | `string`                                                                                                                                                                                    | -           | Input name attribute                                                  |
+| `onChange`       | `ChangeEventHandler<HTMLInputElement>`                                                                                                                                                      | -           | Change event handler                                                  |
+| `severity`       | `'info' \| 'error'`                                                                                                                                                                         | `'info'`    | Severity state for validation feedback                                |
+| `size`           | `'main' \| 'sub' \| 'minor'`                                                                                                                                                               | `'main'`    | Checkbox size (`'minor'` only available in chip mode)                 |
+| `value`          | `string`                                                                                                                                                                                    | -           | Checkbox value                                                        |
+| `withEditInput`  | `boolean`                                                                                                                                                                                   | `false`     | Show editable input when checked. Auto-checks and auto-focuses input. |
 
 ---
 
