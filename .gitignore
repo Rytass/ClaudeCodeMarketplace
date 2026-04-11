@@ -4,3 +4,7 @@ __pycache__/
 .DS_Store
 node_modules/
 dist/
+
+# sync-mezzanine-ui workflow scratch files
+plugins/project-rule/skills/using-mezzanine-ui/scripts/FETCH_REPORT.md
+plugins/project-rule/skills/using-mezzanine-ui/scripts/source-payload.json
