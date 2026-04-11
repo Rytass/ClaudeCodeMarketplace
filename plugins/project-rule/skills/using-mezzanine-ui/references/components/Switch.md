@@ -9,14 +9,32 @@
 >
 > **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Toggle) · **Deprecated** in 1.0.0 (2026-04-02)
 
-Toggle switch component for switching between two states (on/off). In v2, renamed from `Toggle` to `Switch` (source directory remains `Toggle`, re-exported as `Switch` via `index.ts`).
+Toggle switch component for switching between two states (on/off). **In v2 (1.0.0), the `Switch` component was renamed to `Toggle`.** This document is retained for migration reference only — all new code should import and use `Toggle` directly. See [Toggle.md](Toggle.md) for the canonical 1.0.0 API.
 
-## Import
+## Migration from Switch to Toggle
 
 ```tsx
+// ❌ Before (v1 / deprecated in 1.0.0)
 import { Switch } from '@mezzanine-ui/react';
 import type { SwitchProps, SwitchSize } from '@mezzanine-ui/react';
-// Underlying type aliases: ToggleProps as SwitchProps, ToggleSize as SwitchSize
+
+<Switch checked={value} onChange={handleChange} />
+
+// ✅ After (1.0.0)
+import { Toggle } from '@mezzanine-ui/react';
+import type { ToggleProps, ToggleSize } from '@mezzanine-ui/react';
+
+<Toggle checked={value} onChange={handleChange} />
+```
+
+> **Note**: The API surface is identical between the removed `Switch` and the canonical `Toggle`. Only the component name and type names changed (`Switch`/`SwitchProps`/`SwitchSize` → `Toggle`/`ToggleProps`/`ToggleSize`). All prop names, defaults, and behaviors are preserved.
+
+## Import (Historical — No Longer Works in 1.0.0)
+
+```tsx
+// ⚠️ These imports no longer work in 1.0.0
+import { Switch } from '@mezzanine-ui/react';
+import type { SwitchProps, SwitchSize } from '@mezzanine-ui/react';
 ```
 
 ---
@@ -48,6 +66,8 @@ import type { SwitchProps, SwitchSize } from '@mezzanine-ui/react';
 ---
 
 ## Usage Examples
+
+> ⚠️ **Historical Reference Only** — The following examples use the deprecated `Switch` API and will **not compile** against 1.0.0. They are retained only to help migrate legacy v1 code. For working 1.0.0 examples, see [Toggle.md](Toggle.md).
 
 ### Basic Usage
 
