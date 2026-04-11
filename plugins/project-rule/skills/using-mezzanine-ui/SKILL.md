@@ -229,6 +229,7 @@ Data presentation and visualization components.
 | `Card`              | Card              | [Card.md](references/components/Card.md)                       |
 | `Description`       | Description list  | [Description.md](references/components/Description.md)         |
 | `Empty`             | Empty state       | [Empty.md](references/components/Empty.md)                     |
+| `OverflowTooltip`   | Overflow tooltip  | [OverflowTooltip.md](references/components/OverflowTooltip.md) |
 | `OverflowCounterTag`| Overflow counter  | [OverflowTooltip.md](references/components/OverflowTooltip.md) |
 | `Pagination`        | Pagination        | [Pagination.md](references/components/Pagination.md)           |
 | `Section`           | Section           | [Section.md](references/components/Section.md)                 |
