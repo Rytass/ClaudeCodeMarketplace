@@ -50,9 +50,9 @@ PageHeader only accepts the following child components:
 - **Breadcrumb**: Breadcrumb navigation (at most one)
 - **ContentHeader**: Content header (must have one)
 
-> **Note**: `ContentHeader` is not exported from the `@mezzanine-ui/react` main entry; it must be imported from `@mezzanine-ui/react/ContentHeader`.
+> **Note**: `ContentHeader` is not exported from the `@mezzanine-ui/react` main entry; it must be imported from the sub-path `@mezzanine-ui/react/ContentHeader`.
 >
-> **Deprecation Notice**: `ContentHeader` is deprecated in 1.0.0. See [ContentHeader.md](ContentHeader.md) for migration guidance. Consider using a custom composition with `PageHeader` + `Section` + utility components instead.
+> **ContentHeader status**: Marked deprecated in 1.0.0 because it is no longer exported from the main entry. It **remains required** by PageHeader — a PageHeader must contain exactly one ContentHeader child, enforced by the type `PageHeaderChild = ReactElement<BreadcrumbProps> | ReactElement<ContentHeaderProps>`. Import via sub-path and use as shown in the examples below. See [ContentHeader.md](ContentHeader.md) for the full API.
 
 Note: ContentHeader's `size` is automatically set to `'main'`.
 

@@ -177,12 +177,12 @@ import { InlineMessageGroup } from '@mezzanine-ui/react';
 
 ## Close Behavior
 
-- **severity="info"**: Displays close button (using ClearActions)
+- **severity="info"**: Displays a close button, controlled by the `onClose` prop
 - **severity="warning" / "error"**: No close button
 
 This is because warning and error messages typically require user action to resolve and should not be directly dismissed.
 
-> Note: `ClearActions` is deprecated in 1.0.0. This is an internal implementation detail; users interact with the close button through the `onClose` prop.
+> Implementation note: The close button is rendered internally using the deprecated `ClearActions` component (imported via sub-path). This is an internal detail — do not import or use `ClearActions` directly. Interact with the close button exclusively through the `onClose` prop.
 
 ---
 

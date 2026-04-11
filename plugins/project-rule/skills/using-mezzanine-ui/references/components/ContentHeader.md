@@ -1,7 +1,8 @@
 # ContentHeader Component
 
-> **DEPRECATED in 1.0.0** — This component is no longer exported from `@mezzanine-ui/react`.
-> This component has been removed with no direct replacement. Migrate to a custom layout composition using PageHeader, Section, and utility components.
+> **DEPRECATED in 1.0.0** — This component is no longer exported from the `@mezzanine-ui/react` main entry. Import it via the sub-path `@mezzanine-ui/react/ContentHeader` instead.
+>
+> **Caveat**: Although marked deprecated, ContentHeader **remains required** by [`Section`](Section.md) (via `contentHeader` prop) and [`PageHeader`](PageHeader.md) (as a required child). Both components enforce this via runtime type validation. Until a replacement API is introduced, continue using ContentHeader via sub-path import when composing pages with Section or PageHeader. Do not use ContentHeader standalone.
 
 > **Category**: Internal (internal component, not exported from main entry)
 >

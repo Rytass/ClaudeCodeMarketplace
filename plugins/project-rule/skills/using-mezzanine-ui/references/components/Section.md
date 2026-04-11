@@ -10,7 +10,7 @@
 
 Section container component for composing `ContentHeader`, `FilterArea`, `Tab`, and other sub-components to build structured page sections. The passed `contentHeader` and `filterArea` automatically receive `size="sub"`.
 
-> **Deprecation Notice**: `ContentHeader` is deprecated in 1.0.0. See [ContentHeader.md](ContentHeader.md) for migration guidance.
+> **ContentHeader note**: `ContentHeader` is marked deprecated in 1.0.0 because it is no longer exported from the `@mezzanine-ui/react` main entry. However, it **remains required** by Section's `contentHeader` prop — runtime validation rejects any other component type. Import `ContentHeader` via the sub-path `@mezzanine-ui/react/ContentHeader` and continue using it as shown in the examples below. See [ContentHeader.md](ContentHeader.md) for details.
 
 ## Import
 
