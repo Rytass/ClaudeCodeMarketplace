@@ -10,6 +10,24 @@ Generated prototypes use `@faker-js/faker` with `zh_TW` locale to produce realis
 }
 ```
 
+## Deterministic Seed
+
+Use `faker.seed()` to produce **deterministic** mock data. This ensures the same data appears across page reloads and is stable for demos and screenshots.
+
+Each entity hook should use a unique seed derived from the entity name. A simple approach:
+
+```tsx
+function hashCode(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash + str.charCodeAt(i)) | 0;
+  }
+  return Math.abs(hash);
+}
+```
+
+Call `faker.seed(hashCode('{EntityName}'))` **once** before generating `initialData`, so each entity has consistent but distinct data.
+
 ## Hook Pattern
 
 Each entity generates a `useMock{Entity}` hook:
@@ -20,6 +38,16 @@ Each entity generates a `useMock{Entity}` hook:
 import { useState, useCallback } from 'react';
 import { faker } from '@faker-js/faker/locale/zh_TW';
 import type { Mock{Entity} } from '@/types';
+
+function hashCode(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash + str.charCodeAt(i)) | 0;
+  }
+  return Math.abs(hash);
+}
+
+faker.seed(hashCode('{Entity}'));
 
 function createMock{Entity}(): Mock{Entity} {
   return {
@@ -80,6 +108,11 @@ export function useMock{Entity}(): {
 | `boolean` | `faker.datatype.boolean({ probability: 0.8 })` | true |
 | `enum` | `faker.helpers.arrayElement(['option1', 'option2'])` | "option1" |
 | `select` (ref) | Referenced entity's id from its mock data | "uuid-of-related" |
+| `multiselect` | `faker.helpers.arrayElements(options, { min: 1, max: 3 })` | ["緊急", "重要"] |
+| `image` | `faker.image.url({ width: 200, height: 200 })` | "https://picsum.photos/seed/.../200" |
+| `file` | `faker.system.commonFileName()` | "report.pdf" |
+| `password` | `faker.internet.password({ length: 12 })` | "aB3$xK9mP2qR" |
+| `autocomplete` | Same as `string` — choose contextually | "台北市" |
 
 ## Type Definition Pattern
 
@@ -111,6 +144,61 @@ The LLM should choose the most appropriate faker method based on the field's sem
 - Field named `quantity` or `count` → `faker.number.int({ min: 1, max: 1000 })`
 - Field named `description` or `note` → `faker.lorem.sentences(2)`
 - Field named `createdAt` or `updatedAt` → `faker.date.past().toISOString()`
+
+## Cross-Entity Referential Integrity
+
+When entity A has a `select` or `multiselect` field referencing entity B, the mock data must use **actual IDs** from entity B's data. Follow this pattern:
+
+### Generation Order
+
+Generate hooks for **reference/leaf entities first**, then entities that depend on them. The prototype-generator agent should:
+
+1. Topologically sort entities by their `select`/`multiselect` dependencies
+2. Generate independent entities first (no `relatedEntity` fields)
+3. Generate dependent entities after, importing from their dependencies
+
+### Cross-Reference Pattern
+
+```tsx
+// src/hooks/useMockOrder.ts
+'use client';
+
+import { useState, useCallback } from 'react';
+import { faker } from '@faker-js/faker/locale/zh_TW';
+import { mockProductData } from './useMockProduct';  // Import reference data
+import type { MockOrder } from '@/types';
+
+// ... hashCode + seed ...
+
+function createMockOrder(): MockOrder {
+  return {
+    id: faker.string.uuid(),
+    orderNo: faker.string.alphanumeric(8).toUpperCase(),
+    // Use actual product ID from reference data
+    productId: faker.helpers.arrayElement(mockProductData).id,
+    // ...
+  };
+}
+```
+
+### Exporting Reference Data
+
+Each hook should export its `initialData` for cross-referencing:
+
+```tsx
+// In useMockProduct.ts
+export const mockProductData: readonly MockProduct[] = Array.from(
+  { length: 50 },
+  createMockProduct,
+);
+
+export function useMockProduct() {
+  const [items, setItems] = useState<readonly MockProduct[]>(mockProductData);
+  // ...
+}
+```
+
+This way, `mockProductData` is a stable, importable constant that other hooks can reference.
 
 ## Initial Data Count
 

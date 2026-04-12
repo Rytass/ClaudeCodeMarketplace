@@ -29,7 +29,7 @@ interface FieldSpec {
   /** camelCase field name, e.g. "supplierName", "createdAt" */
   name: string;
   /** Field data type — determines which mezzanine-ui component to use */
-  type: 'string' | 'text' | 'number' | 'date' | 'datetime' | 'boolean' | 'enum' | 'select';
+  type: 'string' | 'text' | 'number' | 'date' | 'datetime' | 'boolean' | 'enum' | 'select' | 'multiselect' | 'image' | 'file' | 'password' | 'autocomplete';
   /** Whether this field is required in forms */
   required: boolean;
   /** Whether this field appears as a filter above the table */
@@ -40,8 +40,21 @@ interface FieldSpec {
   label: string;
   /** For enum type: available option values */
   enumOptions?: string[];
-  /** For select type: related entity name (PascalCase) */
+  /** For select/multiselect type: related entity name (PascalCase) */
   relatedEntity?: string;
+  /** For multiselect type with static options: available option values */
+  multiselectOptions?: string[];
+  /** Optional validation rules (beyond required) */
+  validation?: {
+    /** Minimum value (number) or minimum length (string/text) */
+    min?: number;
+    /** Maximum value (number) or maximum length (string/text) */
+    max?: number;
+    /** Regex pattern for validation */
+    pattern?: string;
+    /** Custom error message (Traditional Chinese) */
+    message?: string;
+  };
 }
 
 interface PageSpec {
@@ -55,6 +68,19 @@ interface PageSpec {
   entityRef: string;
   /** Available CRUD actions on this page */
   actions: ('create' | 'edit' | 'delete' | 'view' | 'export')[];
+  /** Tab grouping for detail pages — defines how fields are distributed across tabs */
+  tabs?: TabSpec[];
+  /** Whether this list page supports drag-and-drop row reordering */
+  orderable?: boolean;
+}
+
+interface TabSpec {
+  /** Tab display label (Traditional Chinese) */
+  label: string;
+  /** Field names to show in this tab (from the entity's fields) */
+  fields?: string[];
+  /** Show a related entity's data as a table in this tab */
+  relatedEntity?: string;
 }
 
 interface NavItem {

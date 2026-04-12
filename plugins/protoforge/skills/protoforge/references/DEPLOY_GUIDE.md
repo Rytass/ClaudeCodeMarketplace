@@ -100,3 +100,30 @@ npm run dev
 
 Open http://localhost:3000 to view the prototype.
 ```
+
+## Troubleshooting
+
+### GitHub CLI (`gh`)
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `gh auth login` hangs | Firewall/VPN blocking OAuth callback | Use `gh auth login --with-token` with a PAT instead |
+| `gh repo create` fails with 403 | Token lacks `repo` scope | Re-auth: `gh auth login -s repo` |
+| `gh repo create` fails with 422 | Repo name already exists in org | Choose a different `--name` or delete the existing repo first |
+
+### Wrangler CLI
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `wrangler login` browser popup not appearing | Headless/SSH environment | Use `CLOUDFLARE_API_TOKEN` env var instead of interactive login |
+| `wrangler pages deploy` fails with 401 | Token expired or wrong account | Re-auth: `npx wrangler login` |
+| `wrangler pages project create` fails | Project name contains invalid chars | Use kebab-case, lowercase only, no special chars |
+
+### Build Issues
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `Module not found: @mezzanine-ui/*` | `npm install` incomplete | Delete `node_modules` and re-run `npm install` |
+| Build fails with Node version error | Node < 18 | Upgrade Node to 18+ (`nvm use 18`) |
+| `out/` directory empty after build | Missing `output: 'export'` in config | Verify `next.config.js` has `output: 'export'` |
+| Cloudflare Pages 404 on subpages | Missing trailing-slash config | Add `trailingSlash: true` to `next.config.js` |

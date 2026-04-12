@@ -11,9 +11,14 @@ This mapping defines which mezzanine-ui component to use for each field type in 
 | `number` | `<Typography>{value.toLocaleString()}</Typography>` | `<InputField>` with `type="number"` | `<InputField>` with `type="number"` |
 | `date` | `format(value, 'yyyy/MM/dd')` | `<DatePickerField>` | `<DateRangePickerField>` |
 | `datetime` | `format(value, 'yyyy/MM/dd HH:mm')` | `<DateTimePickerField>` | `<DateRangePickerField>` |
-| `boolean` | `<Tag color={value ? 'success' : 'default'}>{value ? '是' : '否'}</Tag>` | `<RadioGroupField>` options: 是/否 | `<SingleSelectField>` options: 全部/是/否 |
-| `enum` | `<Tag>{enumLabel}</Tag>` | `<SingleSelectField>` | `<SingleSelectField>` |
+| `boolean` | `<Tag label={value ? '是' : '否'} />` | `<RadioGroupField>` options: 是/否 | `<SingleSelectField>` options: 全部/是/否 |
+| `enum` | `<Tag label={enumLabel} />` | `<SingleSelectField>` | `<SingleSelectField>` |
 | `select` | Related entity display name | `<SingleSelectField>` (options from related mock) | `<SingleSelectField>` |
+| `multiselect` | Comma-joined `<Tag>` list | `<MultiSelectField>` (options from related mock or static) | `<MultiSelectField>` |
+| `image` | `<img>` thumbnail (64×64) or placeholder | `<UploadImageField>` | — (not filterable) |
+| `file` | File name as `<Typography>` link | `<UploadFileField>` | — (not filterable) |
+| `password` | `<Typography>••••••</Typography>` (masked) | `<PasswordField>` | — (not filterable) |
+| `autocomplete` | `<Typography>{value}</Typography>` | `<AutoCompleteField>` (options from static list or related entity) | `<AutoCompleteField>` |
 
 ## Import Sources
 
@@ -32,6 +37,10 @@ import {
   DateTimePickerField,
   RadioGroupField,
   CheckboxField,
+  UploadImageField,
+  UploadFileField,
+  PasswordField,
+  AutoCompleteField,
 } from '@mezzanine-ui/react-hook-form-v2';
 
 // Icons for filter inputs
@@ -54,7 +63,7 @@ import { SearchIcon } from '@mezzanine-ui/icons';
   width: 120,
   align: 'end' as const,
   render: (source) => (
-    <Typography variant="body1">
+    <Typography variant="body">
       {source.price.toLocaleString()}
     </Typography>
   ),
@@ -80,9 +89,7 @@ import { format } from 'date-fns';
   title: '狀態',
   width: 100,
   render: (source) => (
-    <Tag color={source.isActive ? 'success' : 'default'}>
-      {source.isActive ? '啟用' : '停用'}
-    </Tag>
+    <Tag label={source.isActive ? '啟用' : '停用'} />
   ),
 }
 ```
@@ -100,7 +107,49 @@ const statusLabels: Record<string, string> = {
   title: '審核狀態',
   width: 120,
   render: (source) => (
-    <Tag>{statusLabels[source.status] ?? source.status}</Tag>
+    <Tag label={statusLabels[source.status] ?? source.status} />
+  ),
+}
+```
+
+### Multiselect Column (Tag list)
+
+```tsx
+{
+  title: '標籤',
+  width: 200,
+  render: (source) => (
+    <div style={{ display: 'flex', gap: 'var(--mzn-spacing-1)', flexWrap: 'wrap' }}>
+      {source.tags.map((tag: string) => (
+        <Tag key={tag} label={tag} />
+      ))}
+    </div>
+  ),
+}
+```
+
+### Image Column (Thumbnail)
+
+```tsx
+{
+  title: '圖片',
+  width: 80,
+  render: (source) => (
+    source.imageUrl
+      ? <img src={source.imageUrl} alt="" style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 'var(--mzn-spacing-1)' }} />
+      : <Typography color="text-neutral-light">—</Typography>
+  ),
+}
+```
+
+### File Column (Filename)
+
+```tsx
+{
+  title: '附件',
+  width: 150,
+  render: (source) => (
+    <Typography variant="body">{source.fileName || '—'}</Typography>
   ),
 }
 ```
@@ -137,6 +186,43 @@ const categoryOptions = [
 />
 ```
 
+### Multiselect Field (MultiSelectField)
+
+```tsx
+const tagOptions = [
+  { id: 'urgent', name: '緊急' },
+  { id: 'important', name: '重要' },
+  { id: 'low', name: '低優先' },
+];
+
+<MultiSelectField
+  registerName="tags"
+  label="標籤"
+  options={tagOptions}
+/>
+```
+
+### Image Field (UploadImageField)
+
+```tsx
+// In prototypes, UploadImageField is display-only (no real upload)
+// Use a mock URL as default value
+<UploadImageField
+  registerName="image"
+  label="商品圖片"
+/>
+```
+
+### File Field (UploadFileField)
+
+```tsx
+// In prototypes, UploadFileField is display-only (no real upload)
+<UploadFileField
+  registerName="attachment"
+  label="附件"
+/>
+```
+
 ### Related Entity Field (SingleSelectField with mock data)
 
 ```tsx
@@ -153,6 +239,57 @@ const warehouseOptions = mockWarehouses.map((w) => ({
   required
 />
 ```
+
+## Validation Rules
+
+When a `FieldSpec` has a `validation` property, map it to react-hook-form's `register` options via the `registerName` prop combined with `useForm`'s `rules`:
+
+```tsx
+// In the form component, pass validation rules through useForm
+const methods = useForm<FormValues>({
+  defaultValues: { /* ... */ },
+});
+
+// For string fields with min/max length:
+<InputField
+  registerName="name"
+  label="商品名稱"
+  required
+  maxLength={validation.max}    // maps to maxLength prop
+/>
+
+// For number fields with min/max value, use react-hook-form register options:
+// Pass via the form's resolver or inline validation
+<InputField
+  registerName="price"
+  label="單價"
+  type="number"
+  required
+/>
+
+// Register with validation in the form setup:
+methods.register('price', {
+  min: { value: 1, message: '單價不得小於 1' },
+  max: { value: 999999, message: '單價不得超過 999999' },
+});
+
+// For pattern validation:
+methods.register('email', {
+  pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: '請輸入有效的 Email' },
+});
+```
+
+### Validation Mapping Table
+
+| Field Type | validation.min/max meaning   | Implementation                                    |
+|------------|------------------------------|---------------------------------------------------|
+| `string`   | min/max character length     | `minLength` / `maxLength` props or register rules |
+| `text`     | min/max character length     | `minLength` / `maxLength` register rules          |
+| `number`   | min/max numeric value        | `min` / `max` register rules                     |
+| `date`     | not applicable               | —                                                |
+| `enum`     | not applicable               | —                                                |
+| any        | validation.pattern           | `pattern` register rule with regex                |
+| any        | validation.message           | Custom error message for the rule                 |
 
 ## Filter Form Pattern
 
@@ -192,7 +329,7 @@ function ProductFilters({ onFilter }: { onFilter: (values: FilterValues) => void
           registerName="dateRange"
           label="建立日期"
         />
-        <Button type="submit" variant="contained">搜尋</Button>
+        <Button type="submit" variant="base-primary">搜尋</Button>
       </div>
     </FormFieldsWrapper>
   );

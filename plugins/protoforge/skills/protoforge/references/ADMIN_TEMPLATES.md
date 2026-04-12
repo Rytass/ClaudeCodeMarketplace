@@ -7,7 +7,7 @@ Generated prototypes use `mezzanine-ui-admin-components` and `@mezzanine-ui/reac
 ```
 mezzanine-ui-admin-components  → AuthorizedAdminPageWrapper, PageWrapper, AdminTable, Sidebar, Header, DropdownActions, Information, UploadImagesWall, Divider, Hints
 @mezzanine-ui/react-hook-form-v2 → FormFieldsWrapper, InputField, TextAreaField, SelectField, SingleSelectField, MultiSelectField, DatePickerField, DateRangePickerField, DateTimePickerField, RadioGroupField, CheckboxField, CheckboxGroupField, SearchInputField, UploadImageField, UploadFileField, AutoCompleteField, SliderField, PasswordField, StaticField
-@mezzanine-ui/react            → Typography, Button, Icon, Tag, Modal, Tabs, TabPane, Tab, Navigation, NavigationOption, NavigationOptionCategory, cx
+@mezzanine-ui/react            → Typography, Button, Icon, Tag, Modal, ModalHeader, ModalFooter, Tab, TabItem, Navigation, NavigationOption, NavigationOptionCategory, cx
 @mezzanine-ui/icons            → All icon definitions (PlusIcon, SearchIcon, FolderIcon, etc.)
 @mezzanine-ui/core/table       → TableColumn, TableDataSourceWithID, TablePagination
 ```
@@ -312,11 +312,11 @@ Sidebar navigation uses mezzanine-ui's `Navigation` components:
 
 ```tsx
 import { NavigationOption, NavigationOptionCategory } from '@mezzanine-ui/react';
-import { FolderIcon, BoxIcon, FolderMoveIcon, HomeIcon } from '@mezzanine-ui/icons';
+import { BoxIcon, FolderMoveIcon, HomeIcon } from '@mezzanine-ui/icons';
 
 const navigationChildren = (
   <>
-    <NavigationOptionCategory title="主資料" icon={FolderIcon}>
+    <NavigationOptionCategory title="主資料">
       <NavigationOption id="/products" title="商品管理" icon={BoxIcon} />
       <NavigationOption id="/warehouses" title="倉庫管理" icon={FolderMoveIcon} />
     </NavigationOptionCategory>
@@ -325,4 +325,4 @@ const navigationChildren = (
 );
 ```
 
-The `id` prop doubles as the route path — `onPush(id)` is called when clicked.
+Note: `NavigationOptionCategory` only accepts `title` and `children` props — icons belong on `NavigationOption` only. The `id` prop on `NavigationOption` doubles as the route path — `onPush(id)` is called when clicked.
