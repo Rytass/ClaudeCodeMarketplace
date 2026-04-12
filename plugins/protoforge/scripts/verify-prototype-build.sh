@@ -4,17 +4,9 @@ set -euo pipefail
 # Verify that the generated prototype can build successfully
 # Event: SubagentStop | Matcher: prototype-generator | Action: VERIFY
 
-# Find the most recently created prototype directory
-# Search all subdirectories for package.json containing mezzanine-ui
-PROTO_DIR=""
+source "$(dirname "$0")/_lib.sh"
 
-for dir in */; do
-  if [ -f "${dir}package.json" ]; then
-    if grep -q 'mezzanine-ui' "${dir}package.json" 2>/dev/null; then
-      PROTO_DIR="${dir%/}"
-    fi
-  fi
-done
+PROTO_DIR=$(find_proto_dir 2>/dev/null || echo "")
 
 if [ -z "$PROTO_DIR" ]; then
   echo "⚠️ ProtoForge: 找不到生成的 prototype 目錄。請確認 prototype-generator agent 已完成生成。"

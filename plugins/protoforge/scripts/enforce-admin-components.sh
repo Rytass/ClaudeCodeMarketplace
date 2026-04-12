@@ -4,16 +4,9 @@ set -euo pipefail
 # Suggest using admin-components wrappers over raw mezzanine-ui components
 # Event: PostToolUse | Matcher: Write|Edit | Action: SOFT REMIND
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
-FILE_PATH=$(echo "$INPUT" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    print(data.get('toolInput', {}).get('file_path', ''))
-except:
-    print('')
-" 2>/dev/null || echo "")
+FILE_PATH=$(get_file_path)
 
 if [ -z "$FILE_PATH" ]; then
   exit 0
@@ -25,8 +18,12 @@ case "$FILE_PATH" in
   *) exit 0 ;;
 esac
 
+if is_skip_path "$FILE_PATH"; then
+  exit 0
+fi
+
 case "$FILE_PATH" in
-  */node_modules/*|*/dist/*|*/.next/*|*/out/*|*/_components/*) exit 0 ;;
+  */_components/*) exit 0 ;;
 esac
 
 if [ ! -f "$FILE_PATH" ]; then

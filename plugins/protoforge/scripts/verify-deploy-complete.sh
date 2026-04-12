@@ -4,16 +4,9 @@ set -euo pipefail
 # Verify deployment completed successfully
 # Event: SubagentStop | Matcher: prototype-deployer | Action: VERIFY
 
-# Simple verification — check if git remote exists (GitHub push) or out/ exists (CF Pages)
-PROTO_DIR=""
+source "$(dirname "$0")/_lib.sh"
 
-for dir in */; do
-  if [ -f "${dir}package.json" ]; then
-    if grep -q 'mezzanine-ui' "${dir}package.json" 2>/dev/null; then
-      PROTO_DIR="${dir%/}"
-    fi
-  fi
-done
+PROTO_DIR=$(find_proto_dir 2>/dev/null || echo "")
 
 if [ -z "$PROTO_DIR" ]; then
   echo "⚠️ ProtoForge: 找不到 prototype 目錄，無法驗證部署狀態。"

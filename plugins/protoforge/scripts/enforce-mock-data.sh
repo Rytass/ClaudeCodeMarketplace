@@ -4,16 +4,9 @@ set -euo pipefail
 # Ensure prototype uses mock data only — no real API calls
 # Event: PostToolUse | Matcher: Write|Edit | Action: SOFT REMIND
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
-FILE_PATH=$(echo "$INPUT" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    print(data.get('toolInput', {}).get('file_path', ''))
-except:
-    print('')
-" 2>/dev/null || echo "")
+FILE_PATH=$(get_file_path)
 
 if [ -z "$FILE_PATH" ]; then
   exit 0
@@ -25,9 +18,9 @@ case "$FILE_PATH" in
   *) exit 0 ;;
 esac
 
-case "$FILE_PATH" in
-  */node_modules/*|*/dist/*|*/.next/*|*/out/*) exit 0 ;;
-esac
+if is_skip_path "$FILE_PATH"; then
+  exit 0
+fi
 
 if [ ! -f "$FILE_PATH" ]; then
   exit 0
@@ -56,7 +49,7 @@ if grep -q 'useSWR' "$FILE_PATH" 2>/dev/null; then
 fi
 
 # Check for react-query / tanstack
-if grep -qE 'useQuery.*@tanstack|react-query' "$FILE_PATH" 2>/dev/null; then
+if grep -qE '@tanstack/react-query|from.*react-query' "$FILE_PATH" 2>/dev/null; then
   VIOLATIONS="${VIOLATIONS}\n  - react-query → 使用 useMock{Entity} hooks 替代"
 fi
 

@@ -30,6 +30,16 @@
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/scripts/enforce-mock-data.sh",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/enforce-use-client.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/enforce-typescript-strict.sh",
+            "timeout": 5
           }
         ]
       }
