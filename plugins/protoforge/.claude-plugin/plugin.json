@@ -1,7 +1,7 @@
 {
   "name": "protoforge",
   "description": "LLM-driven admin prototype generator. Reads project planning documents (RFP, specs) and generates interactive Next.js + mezzanine-ui admin prototypes with mock data. Supports optional deployment to Cloudflare Pages and GitHub.",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "license": "MIT",
   "keywords": [
     "prototype",
