@@ -1,6 +1,6 @@
 ---
 name: protoforge
-description: "LLM-driven admin prototype generator. Reads RFP/project specs and generates Next.js + mezzanine-ui admin prototypes with mock data. Use when user says generate prototype, create admin UI, proto from document, build admin from spec, scaffold prototype, or wants to turn requirements into a working admin interface."
+description: "LLM-driven admin prototype generator. Reads RFP/project specs and generates Next.js + mezzanine-ui admin prototypes with mock data. Use when user says /proto, generate prototype, create admin UI, proto from document, build admin from spec, scaffold prototype, protoforge, or wants to turn requirements into a working admin interface."
 user-invocable: true
 ---
 
@@ -32,6 +32,7 @@ ProtoForge transforms RFP / project specification documents into fully functiona
 | `references/PAGE_PATTERNS.md`     | Four page patterns (list, detail, form, dashboard) with code templates |
 | `references/MOCK_DATA.md`         | Mock data generation strategy with faker.js                           |
 | `references/DEPLOY_GUIDE.md`      | Cloudflare Pages + GitHub deployment guide                            |
+| `references/EXAMPLE_WALKTHROUGH.md` | End-to-end example: RFP → ProjectSpec → generated code → running prototype |
 
 ## Quick Start
 

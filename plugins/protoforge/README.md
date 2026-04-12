@@ -36,15 +36,23 @@ The `/proto` command guides you through:
 
 - **Next.js 15** project with static export (`output: 'export'`)
 - **mezzanine-ui** admin layout (AuthorizedAdminPageWrapper, PageWrapper, AdminTable)
-- **react-hook-form** with mezzanine-ui field components
-- **faker.js (zh_TW)** mock data with full CRUD via useState
+- **react-hook-form** with mezzanine-ui field components (incl. upload, multiselect, password, autocomplete)
+- **faker.js (zh_TW)** deterministic mock data with full CRUD via useState
 - **TypeScript strict** — no `any`, explicit return types
+- **CSV export** for list pages with export action
+- **Cross-entity referential integrity** in mock data
+
+For a complete example from RFP to running prototype, see `skills/protoforge/references/EXAMPLE_WALKTHROUGH.md`.
 
 ## Key constraints
 
 - No backend code (no API routes, no server actions, no database)
 - mezzanine-ui components only (no raw HTML elements)
 - Mock data only (no fetch, axios, or Apollo)
+
+## Hook Matchers
+
+`SubagentStop` hooks in `hooks.json` use the agent's `name` field from YAML frontmatter as the matcher value. If an agent is renamed, the corresponding `hooks.json` matcher must be updated to match.
 
 ## Components
 

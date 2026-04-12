@@ -26,8 +26,12 @@ When reporting prototype generation results, use this format:
 {end for}
 
 📁 Location: ./{projectName}/
-🚀 Start:    cd {projectName} && npm install && npm run dev
-🌐 Open:     http://localhost:3000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ▶ 立即預覽（在終端機執行以下指令）:
+    cd {projectName} && npm install && npm run dev
+  🌐 開啟: http://localhost:3000
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 {if deployed to github}
 📂 GitHub:   https://github.com/{org}/{projectName}

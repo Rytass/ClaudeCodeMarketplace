@@ -45,7 +45,12 @@ Map document descriptions to field types:
 | "日期時間", "時間戳記" | `datetime` |
 | "是否", "啟用", "有效" | `boolean` |
 | "狀態", "類別", "等級" (with finite options) | `enum` |
-| "所屬XX", "關聯XX", referencing another entity | `select` |
+| "所屬XX", "關聯XX", referencing another entity (single) | `select` |
+| "標籤", "多選XX", referencing multiple items | `multiselect` |
+| "圖片", "照片", "頭像", "封面" | `image` |
+| "附件", "檔案", "文件上傳" | `file` |
+| "密碼", "口令" | `password` |
+| "搜尋XX", "輸入並選擇", "自動完成" | `autocomplete` |
 
 ### Step 4: Plan Pages
 
@@ -64,7 +69,7 @@ Group pages into a sidebar navigation structure:
 
 ### Step 6: Output ProjectSpec
 
-Output the complete ProjectSpec as a JSON code block following the format in the `protoforge` skill's `references/PROJECT_SPEC.md`.
+Output the complete ProjectSpec as a JSON code block following the format in `../protoforge/references/PROJECT_SPEC.md` (the protoforge skill's PROJECT_SPEC reference).
 
 ### Step 7: Present Summary
 
