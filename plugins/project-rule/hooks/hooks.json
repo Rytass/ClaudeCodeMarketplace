@@ -87,6 +87,17 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Write(**/SKILL.md)|Edit(**/SKILL.md)",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/validate-skill-frontmatter.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "SubagentStop": [
