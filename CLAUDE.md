@@ -10,7 +10,8 @@ ClaudeCodeMarketplace/
 │   ├── project-rule/                 # Full-stack architecture patterns (v0.3.1)
 │   ├── boilerplate/                  # Project bootstrapper (v0.1.0)
 │   ├── react-performance/            # React/Next.js perf rules (v0.1.0)
-│   └── google-workspace-cli/         # Google Workspace CLI ops (v0.1.0)
+│   ├── google-workspace-cli/         # Google Workspace CLI ops (v0.1.0)
+│   └── protoforge/                   # Admin prototype generator (v0.2.0)
 ├── .mcp.json                         # MCP server registration (architecture-inspector)
 ├── README.md                         # Marketplace installation guide
 └── CLAUDE.md                         # This file

@@ -39,6 +39,7 @@ You can also install via the interactive UI: run `/plugin` → **Discover** tab 
 | [`react-performance`](./plugins/react-performance)| React and Next.js performance optimization rules from Vercel Engineering. 47 actionable rules.       |
 | [`boilerplate`](./plugins/boilerplate)            | Full-stack project bootstrapper with deployment-specific API (GKE, Cloudflare Workers, Supabase).    |
 | [`google-workspace-cli`](./plugins/google-workspace-cli) | Google Workspace CLI operations via gws, GAM, and clasp. Gmail, Drive, Calendar, Sheets, Docs, Chat, Meet, Tasks, Forms, Admin with full onboarding. |
+| [`protoforge`](./plugins/protoforge)                     | LLM-driven admin prototype generator. Reads project docs (RFP, specs) and generates interactive Next.js + mezzanine-ui admin prototypes with mock data. |
 
 ## Update
 

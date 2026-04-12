@@ -23,6 +23,11 @@
       "name": "google-workspace-cli",
       "source": "./plugins/google-workspace-cli",
       "description": "Google Workspace CLI operations via gws, GAM, and clasp. Gmail, Drive, Calendar, Sheets, Docs, Chat, Meet, Tasks, Forms, Admin."
+    },
+    {
+      "name": "protoforge",
+      "source": "./plugins/protoforge",
+      "description": "LLM-driven admin prototype generator. Reads project docs and generates interactive Next.js + mezzanine-ui admin prototypes with mock data."
     }
   ]
 }
