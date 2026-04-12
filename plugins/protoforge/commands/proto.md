@@ -99,10 +99,14 @@ Once confirmed, launch the `prototype-generator` agent with:
 
 - **projectSpec**: The confirmed ProjectSpec JSON
 - **projectName**: The chosen project name
-- **deploy**: Deployment options (none / github / cloudflare / both)
-- **githubOrg**: GitHub organization name (if applicable)
 
-If deployment is requested, launch the `prototype-deployer` agent after generation completes.
+If deployment is requested, launch the `prototype-deployer` agent **after generation completes** with:
+
+- **projectDir**: Absolute path to the generated prototype directory
+- **projectName**: The chosen project name
+- **deploy**: `github` | `cloudflare` | `both`
+- **githubOrg**: GitHub organization name (if applicable)
+- **repoVisibility**: `public` or `private` (default: `private`)
 
 ## Example Usage
 

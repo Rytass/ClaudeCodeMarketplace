@@ -1,7 +1,7 @@
 ---
 name: proto-deploy
 description: "Deploy a generated prototype to GitHub and/or Cloudflare Pages. Use when user says deploy prototype, push prototype, publish prototype, or /proto-deploy."
-argument-hint: "[--dir=<path>] [--github=<org>] [--cloudflare] [--name=<project-name>]"
+argument-hint: "[--dir=<path>] [--github=<org>] [--cloudflare] [--name=<project-name>] [--public]"
 ---
 
 # Deploy Prototype
@@ -17,6 +17,7 @@ Parse the user-provided arguments: `{{ args }}`
 - `--github=<org>`: Push to this GitHub organization
 - `--cloudflare`: Deploy to Cloudflare Pages
 - `--name=<name>`: Override the project name for deployment
+- `--public`: Create a public GitHub repo (default: private)
 {{/if}}
 
 ## Guided Workflow
@@ -50,7 +51,7 @@ Parse the user-provided arguments: `{{ args }}`
 部署設定:
   專案:     {projectName}
   來源:     {projectDir}
-  GitHub:   {orgName}/{projectName} (private)
+  GitHub:   {orgName}/{projectName} ({repoVisibility})
   CF Pages: {projectName}.pages.dev
 
 確認部署？
@@ -63,6 +64,7 @@ Launch the `prototype-deployer` agent with:
 - **projectName**: Project name
 - **deploy**: `github` | `cloudflare` | `both`
 - **githubOrg**: Organization name (if applicable)
+- **repoVisibility**: `public` or `private` (default: `private`, set to `public` if `--public` flag present)
 
 ## Example Usage
 
@@ -71,4 +73,5 @@ Launch the `prototype-deployer` agent with:
 /proto-deploy --dir=./warehouse-admin --github=my-org
 /proto-deploy --dir=./warehouse-admin --cloudflare
 /proto-deploy --dir=./warehouse-admin --github=my-org --cloudflare
+/proto-deploy --dir=./warehouse-admin --github=my-org --public
 ```

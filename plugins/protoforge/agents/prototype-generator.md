@@ -133,12 +133,16 @@ Each interface:
 
 For each entity in `projectSpec.entities`, generate `src/hooks/useMock{EntityName}.ts`.
 
+**Important — generation order**: Topologically sort entities by their `select`/`multiselect` field dependencies. Generate independent entities (no `relatedEntity` fields) first, then dependent entities that import from their references. See `references/MOCK_DATA.md` → "Cross-Entity Referential Integrity".
+
 Follow the pattern in `references/MOCK_DATA.md`:
 - Use `@faker-js/faker/locale/zh_TW`
+- Use `faker.seed(hashCode('{EntityName}'))` for deterministic data (see `references/MOCK_DATA.md` → "Deterministic Seed")
 - Choose faker methods based on field semantic meaning (see `references/MOCK_DATA.md` → "Contextual Faker Selection")
 - Generate 50 items for main entities, 5-10 for reference entities
 - Provide `useState`-based CRUD operations (create, update, remove)
-- Export the hook function
+- Export both the hook function and `initialData` constant (for cross-entity references)
+- For `select`/`multiselect` fields with `relatedEntity`, import the referenced entity's `initialData` and use `faker.helpers.arrayElement()` to pick real IDs
 
 Generate `src/hooks/index.ts` re-exporting all hooks.
 
@@ -180,7 +184,7 @@ For each page in `projectSpec.pages`, generate the page files following the patt
    - Read the error output
    - Fix the issues (missing imports, type errors, etc.)
    - Re-run `npm run build`
-   - Repeat until build succeeds
+   - Repeat up to 3 times. If the build still fails after 3 attempts, stop and report the errors to the user with a summary of what was tried, then ask for guidance
 4. Generate `README.md` with:
    - Project description
    - Getting started instructions (`npm install && npm run dev`)
