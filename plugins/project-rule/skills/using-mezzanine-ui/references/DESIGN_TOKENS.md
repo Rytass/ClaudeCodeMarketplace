@@ -1,14 +1,10 @@
-# Mezzanine-UI Design Tokens (v2)
+# Mezzanine-UI Design Tokens
 
-Foundation visual variable definitions for the design system. v2 uses a **Primitives + Semantic** two-layer architecture.
+Foundation visual variable definitions for the design system. Mezzanine-UI uses a **Primitives + Semantic** two-layer architecture.
 
-> **Source verification**: This document is based on [GitHub source code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/system/src)
+> Baseline: `@mezzanine-ui/*` `1.x` (1.0.0 stable). Last verified: 2026-04-02.
 >
-> ⚠️ This document is based on **v2** (npm `1.x` series, git branch `v2`, 1.0.0)
->
-> **Last verified**: 2026-04-02
->
-> **Version mapping**: Design file v1 = npm `0.x` (deprecated); Design file v2 = npm `1.x` (in use)
+> Source: [GitHub](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/system/src)
 
 ## Table of Contents
 

@@ -9,12 +9,12 @@
 >
 > **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Toggle) · **Deprecated** in 1.0.0 (2026-04-02)
 
-Toggle switch component for switching between two states (on/off). **In v2 (1.0.0), the `Switch` component was renamed to `Toggle`.** This document is retained for migration reference only — all new code should import and use `Toggle` directly. See [Toggle.md](Toggle.md) for the canonical 1.0.0 API.
+Toggle switch component for switching between two states (on/off). **The `Switch` component was renamed to `Toggle` in 1.0.0.** This document is retained for migration reference only — all new code should import and use `Toggle` directly. See [Toggle.md](Toggle.md) for the canonical 1.0.0 API.
 
 ## Migration from Switch to Toggle
 
 ```tsx
-// ❌ Before (v1 / deprecated in 1.0.0)
+// ❌ Before (deprecated, removed in 1.0.0)
 import { Switch } from '@mezzanine-ui/react';
 import type { SwitchProps, SwitchSize } from '@mezzanine-ui/react';
 

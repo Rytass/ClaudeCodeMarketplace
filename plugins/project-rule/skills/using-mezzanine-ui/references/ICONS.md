@@ -1,10 +1,10 @@
-# Mezzanine-UI Icon Reference (v2)
+# Mezzanine-UI Icon Reference
 
-Complete icon library list, based on `@mezzanine-ui/icons` v2 (1.0.0).
+Complete icon library list, based on `@mezzanine-ui/icons` `1.x` (1.0.0).
 
 **Last verified**: 2026-04-02
 
-> **Source verification**: This document is based on [GitHub source code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/icons/src)
+> Source: [GitHub](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/icons/src)
 
 ## Usage
 
@@ -210,7 +210,7 @@ Step indicator number icons.
 
 ## Legacy (Deprecated Icons)
 
-> ⚠️ The following are v1 legacy icon names, for migration reference only. These exports do not exist in v2 source code. Please use replacement icons.
+> ⚠️ The following icon names are deprecated and no longer exported from `@mezzanine-ui/icons`. Listed here for migration reference only — use the replacement icon instead.
 
 | Deprecated Icon                | Replacement                             |
 | ------------------------------ | --------------------------------------- |

@@ -1,12 +1,8 @@
-# Mezzanine-UI Common Usage Patterns (v2)
+# Mezzanine-UI Common Usage Patterns
 
 Common UI pattern implementation examples.
 
-> This document is based on **v2** (npm `1.x` series, git branch `v2`, stable release)
->
-> **Version mapping**: Design document v1 = npm `0.x` (deprecated); design document v2 = npm `1.x` (1.0.0 stable)
->
-> **Last verified**: 2026-04-02
+> Baseline: `@mezzanine-ui/*` `1.x` (1.0.0 stable). Last verified: 2026-04-02.
 
 ## Table of Contents
 

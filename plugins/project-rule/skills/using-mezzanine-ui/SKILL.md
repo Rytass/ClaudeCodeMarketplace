@@ -1,26 +1,15 @@
 ---
 name: using-mezzanine-ui
-description: Create, edit, or style React components using the Mezzanine-UI design system (v2, 1.0.0). Covers @mezzanine-ui/react, @mezzanine-ui/core, @mezzanine-ui/system, @mezzanine-ui/icons. Use when creating or modifying *.tsx, *.scss files that import from @mezzanine-ui/*, adding Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Menu, Navigation, Typography, Icon, Drawer, Upload, Toggle components, or setting up design tokens and theming. Trigger words — add component, build form, create page UI, mezzanine, mzn, design system, frontend component, UI layout.
+description: Create, edit, or style React components using the Mezzanine-UI design system (1.0.0). Covers @mezzanine-ui/react, @mezzanine-ui/core, @mezzanine-ui/system, @mezzanine-ui/icons. Use when creating or modifying *.tsx, *.scss files that import from @mezzanine-ui/*, adding Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Menu, Navigation, Typography, Icon, Drawer, Upload, Toggle components, or setting up design tokens and theming. Trigger words — add component, build form, create page UI, mezzanine, mzn, design system, frontend component, UI layout.
 ---
 
-# Mezzanine-UI Design System (v2)
+# Mezzanine-UI Design System
 
 **Core principle: All frontend development MUST prefer the Mezzanine-UI design system.**
 
-> v2 Stable Release, npm version `1.x` series
+> Baseline: `@mezzanine-ui/*` `1.x` (1.0.0 stable). Last verified: 2026-04-02.
 >
-> **Last verified**: 2026-04-02
-
-### Version Mapping
-
-| Design Docs / Storybook | npm Version | Git Branch | Status                 |
-| ----------------------- | ----------- | ---------- | ---------------------- |
-| v1 (Legacy)             | `0.x`       | main       | Deprecated             |
-| **v2 (Current)**        | **`1.x`**   | **v2**     | Stable (1.0.0)         |
-
-> This document is based on **v2** (npm `1.x` series, 1.0.0 stable).
->
-> Check latest version: `npm view @mezzanine-ui/react versions` or see [GitHub Releases](https://github.com/Mezzanine-UI/mezzanine/releases)
+> Check latest version: `npm view @mezzanine-ui/react versions` or see [GitHub Releases](https://github.com/Mezzanine-UI/mezzanine/releases).
 
 ## Resource Overview
 
@@ -111,9 +100,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 ---
 
-## What's New in v1.0.0
+## What's New in 1.0.0
 
-1.0.0 是 Mezzanine-UI v2 系列的**第一個正式穩定版本**，從 rc.8 升級至 stable。主要變更如下：
+1.0.0 是 Mezzanine-UI 的**第一個正式穩定版本**。主要變更如下：
 
 ### 元件移除（Breaking Changes）
 
@@ -138,13 +127,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 - **Upload** — 移除內建錯誤與刪除 handler，新增 `dropzoneHints` prop 供自訂提示
 - **Typography** — 新增 `align`、`color`、`display`、`ellipsis`、`noWrap`、`variant` props，排版控制更完整
 - **Popper** — 新增 `arrow`、`className`、`enabled`、`padding` props，定位控制更靈活
-
-<details>
-<summary>舊版：rc.8 發版說明</summary>
-
-rc.8 為 1.0.0 正式版的最後一個 Release Candidate。主要功能與架構已與 1.0.0 stable 相同。
-
-</details>
 
 ---
 
@@ -337,7 +319,7 @@ Internal components, not typically used directly but available for advanced cust
 
 ## Design Token System
 
-v2 uses a **Primitives + Semantic** two-layer architecture.
+Mezzanine-UI uses a **Primitives + Semantic** two-layer architecture.
 
 See [references/DESIGN_TOKENS.md](references/DESIGN_TOKENS.md) for detailed design tokens.
 

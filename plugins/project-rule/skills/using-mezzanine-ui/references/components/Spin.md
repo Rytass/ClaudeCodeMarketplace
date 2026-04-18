@@ -195,7 +195,7 @@ function ConditionalLoading() {
 
 ---
 
-## Migration Guide (v2 → v1.0.0)
+## Migration Guide (Upgrading to 1.0.0)
 
 ### Breaking Changes
 
@@ -205,12 +205,12 @@ The spinner animation system has been significantly refactored from Icon-based t
 - **Added**: `color` prop - Set custom spinner arc color via `--mzn-spin--color` CSS variable
 - **Added**: `trackColor` prop - Set custom track ring background color via `--mzn-spin--track-color` CSS variable
 
-**Before (v2)**:
+**Before (pre-1.0.0)**:
 ```tsx
 <Spin loading iconProps={{ color: 'primary', size: 32 }} />
 ```
 
-**After (v1.0.0)**:
+**After (1.0.0)**:
 ```tsx
 <Spin loading color="#1890ff" trackColor="#f0f0f0" />
 ```
