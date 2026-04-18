@@ -35,8 +35,8 @@ The `/proto` command guides you through:
 ## What gets generated
 
 - **Next.js 15** project with static export (`output: 'export'`)
-- **mezzanine-ui** admin layout (AuthorizedAdminPageWrapper, PageWrapper, AdminTable)
-- **react-hook-form** with mezzanine-ui field components (incl. upload, multiselect, password, autocomplete)
+- **Mezzanine-UI** admin layout composed from `@mezzanine-ui/react` primitives (`Navigation` + `Layout` + `PageHeader` + `Table` + `FormField`)
+- **react-hook-form + yup** forms using the manual `register()` binding pattern (supports text / number / password / textarea, plus `useController` for Select / DatePicker / Upload / AutoComplete / RadioGroup)
 - **faker.js (zh_TW)** deterministic mock data with full CRUD via useState
 - **TypeScript strict** — no `any`, explicit return types
 - **CSV export** for list pages with export action
@@ -47,7 +47,8 @@ For a complete example from RFP to running prototype, see `skills/protoforge/ref
 ## Key constraints
 
 - No backend code (no API routes, no server actions, no database)
-- mezzanine-ui components only (no raw HTML elements)
+- `@mezzanine-ui/react` only — no raw HTML elements; deprecated Mezzanine-UI companion packages are auto-blocked by the enforce hook
+- Forms use `FormField` + manual `register()` + `yup`; date/time components require a root `CalendarConfigProvider`
 - Mock data only (no fetch, axios, or Apollo)
 
 ## Hook Matchers
