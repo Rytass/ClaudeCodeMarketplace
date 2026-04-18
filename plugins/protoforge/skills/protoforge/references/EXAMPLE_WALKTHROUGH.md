@@ -134,7 +134,7 @@ warehouse-admin/
     │   ├── globals.scss
     │   ├── layout.tsx
     │   └── (admin)/
-    │       ├── layout.tsx                        # AuthorizedAdminPageWrapper + navigation
+    │       ├── layout.tsx                        # CalendarConfigProvider + Navigation + Layout
     │       ├── page.tsx                          # Dashboard (儀表板)
     │       ├── products/
     │       │   ├── page.tsx                      # Product list page
@@ -283,9 +283,16 @@ export const mockWarehouseData: readonly MockWarehouse[] = Array.from(
 'use client';
 
 import { useState, useMemo, useCallback } from 'react';
-import { PageWrapper, AdminTable } from 'mezzanine-ui-admin-components';
-import { TableColumn } from '@mezzanine-ui/core/table';
-import { Typography, Tag, Button, Icon } from '@mezzanine-ui/react';
+import {
+  Button,
+  Icon,
+  PageHeader,
+  Table,
+  Tag,
+  Typography,
+} from '@mezzanine-ui/react';
+import type { TableColumn } from '@mezzanine-ui/react';
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 import { DownloadIcon } from '@mezzanine-ui/icons';
 import { format } from 'date-fns';
 import { useMockProduct } from '@/hooks/useMockProduct';
@@ -300,35 +307,38 @@ export default function ProductListPage(): JSX.Element {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [editingItem, setEditingItem] = useState<MockProduct | null>(null);
 
-  // ... handlers (same as PAGE_PATTERNS template) ...
+  const handleCreate = useCallback((): void => { setEditingItem(null); setModalOpen(true); }, []);
+  const handleEdit = useCallback((source: MockProduct): void => { setEditingItem(source); setModalOpen(true); }, []);
+  const handleDelete = useCallback((source: MockProduct): void => { remove(source.id); }, [remove]);
+  const handleSubmit = useCallback((values: Omit<MockProduct, 'id'>): void => {
+    if (editingItem) { update(editingItem.id, values); } else { create(values); }
+    setModalOpen(false);
+  }, [editingItem, create, update]);
 
   const columns = useMemo((): TableColumn<MockProduct>[] => [
-    { title: '商品名稱', dataIndex: 'name', width: 200 },
-    { title: 'SKU', dataIndex: 'sku', width: 150 },
+    { key: 'name', title: '商品名稱', dataIndex: 'name', width: 200 },
+    { key: 'sku', title: 'SKU', dataIndex: 'sku', width: 150 },
     {
-      title: '分類', width: 100,
-      render: (source) => <Tag label={source.category} />,
+      key: 'category', title: '分類', width: 100,
+      render: (source) => <Tag>{source.category}</Tag>,
     },
     {
-      title: '單價', width: 120, align: 'end' as const,
+      key: 'price', title: '單價', width: 120, align: 'end',
       render: (source) => <Typography variant="body">{source.price.toLocaleString()}</Typography>,
     },
     {
-      title: '商品圖片', width: 80,
-      render: (source) => (
+      key: 'image', title: '商品圖片', width: 80,
+      render: (source) =>
         source.image
           ? <img src={source.image} alt="" style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 'var(--mzn-spacing-1)' }} />
-          : <Typography color="text-neutral-light">—</Typography>
-      ),
+          : <Typography color="text-neutral-light">—</Typography>,
     },
     {
-      title: '啟用狀態', width: 100,
-      render: (source) => (
-        <Tag label={source.isActive ? '啟用' : '停用'} />
-      ),
+      key: 'isActive', title: '啟用狀態', width: 100,
+      render: (source) => <Tag>{source.isActive ? '啟用' : '停用'}</Tag>,
     },
     {
-      title: '建立日期', width: 150,
+      key: 'createdAt', title: '建立日期', width: 150,
       render: (source) => format(new Date(source.createdAt), 'yyyy/MM/dd'),
     },
   ], []);
@@ -347,47 +357,47 @@ export default function ProductListPage(): JSX.Element {
   );
 
   return (
-    <PageWrapper
-      title="商品管理"
-      onCreate={() => { setEditingItem(null); setModalOpen(true); }}
-      createText="新增商品"
-      customizeActionComponent={
-        <Button
-          variant="base-secondary"
-          icon={DownloadIcon}
-          iconType="leading"
-          onClick={() => downloadCSV(items, exportColumns, 'products')}
-        >
-          匯出 CSV
-        </Button>
-      }
-    >
-      <AdminTable<MockProduct>
+    <div style={{ padding: 'var(--mzn-spacing-6)' }}>
+      <PageHeader>
+        <ContentHeader title="商品管理">
+          <Button
+            variant="base-secondary"
+            prefix={<Icon icon={DownloadIcon} />}
+            onClick={() => downloadCSV(items, exportColumns, 'products')}
+          >
+            匯出 CSV
+          </Button>
+          <Button onClick={handleCreate}>新增商品</Button>
+        </ContentHeader>
+      </PageHeader>
+
+      <Table<MockProduct>
+        fullWidth
         dataSource={paginatedData}
         columns={columns}
+        getRowKey={(row) => row.id}
+        actions={{
+          items: (source) => [
+            { key: 'edit', text: '編輯', onClick: () => handleEdit(source) },
+            { key: 'delete', text: '刪除', danger: true, onClick: () => handleDelete(source) },
+          ],
+        }}
         pagination={{
           total: items.length,
           current: page,
           onChange: setPage,
-          options: { pageSize },
+          pageSize,
         }}
-        actions={(source) => [
-          { text: '編輯', onClick: () => { setEditingItem(source); setModalOpen(true); } },
-          { text: '刪除', danger: true, onClick: () => remove(source.id) },
-        ]}
       />
+
       <ProductFormModal
         open={modalOpen}
+        loading={false}
+        product={editingItem}
         onClose={() => setModalOpen(false)}
-        onSubmit={(values) => {
-          if (editingItem) { update(editingItem.id, values); }
-          else { create(values); }
-          setModalOpen(false);
-        }}
-        defaultValues={editingItem}
-        mode={editingItem ? 'edit' : 'create'}
+        onSubmit={handleSubmit}
       />
-    </PageWrapper>
+    </div>
   );
 }
 ```

@@ -1,337 +1,225 @@
 # Field Type → Component Mapping
 
-This mapping defines which mezzanine-ui component to use for each field type in different contexts.
+This table maps each `FieldSpec.type` in a `ProjectSpec` to (a) the column renderer used inside `<Table>`, (b) the form primitive used with `react-hook-form`, and (c) the filter primitive used in list filters. All components are from `@mezzanine-ui/react`.
+
+> Component props / behaviour live in `plugin:project-rule:using-mezzanine-ui` → `components/*.md`. Only the orchestration patterns stay here.
 
 ## Mapping Table
 
-| Field Type | Table Column Render | Form Component | Filter Component |
-|------------|-------------------|----------------|-----------------|
-| `string` | `<Typography>{value}</Typography>` | `<InputField>` | `<InputField>` with `SearchIcon` |
-| `text` | `<Typography>` (max 50 chars + ellipsis) | `<TextAreaField>` | — (not filterable) |
-| `number` | `<Typography>{value.toLocaleString()}</Typography>` | `<InputField>` with `type="number"` | `<InputField>` with `type="number"` |
-| `date` | `format(value, 'yyyy/MM/dd')` | `<DatePickerField>` | `<DateRangePickerField>` |
-| `datetime` | `format(value, 'yyyy/MM/dd HH:mm')` | `<DateTimePickerField>` | `<DateRangePickerField>` |
-| `boolean` | `<Tag label={value ? '是' : '否'} />` | `<RadioGroupField>` options: 是/否 | `<SingleSelectField>` options: 全部/是/否 |
-| `enum` | `<Tag label={enumLabel} />` | `<SingleSelectField>` | `<SingleSelectField>` |
-| `select` | Related entity display name | `<SingleSelectField>` (options from related mock) | `<SingleSelectField>` |
-| `multiselect` | Comma-joined `<Tag>` list | `<MultiSelectField>` (options from related mock or static) | `<MultiSelectField>` |
-| `image` | `<img>` thumbnail (64×64) or placeholder | `<UploadImageField>` | — (not filterable) |
-| `file` | File name as `<Typography>` link | `<UploadFileField>` | — (not filterable) |
-| `password` | `<Typography>••••••</Typography>` (masked) | `<PasswordField>` | — (not filterable) |
-| `autocomplete` | `<Typography>{value}</Typography>` | `<AutoCompleteField>` (options from static list or related entity) | `<AutoCompleteField>` |
+| Field Type | Table Column Render | Form Primitive | Binding | Filter Primitive |
+|------------|---------------------|-----------------|---------|-------------------|
+| `string` | `<Typography>{value}</Typography>` | `<Input>` | manual `register('...')` | `<Input>` (with `prefix={<Icon icon={SearchIcon} />}`) |
+| `text` | `<Typography ellipsis>` | `<Textarea>` | manual `register('...')` | — (not filterable) |
+| `number` | `<Typography>{value.toLocaleString()}</Typography>` | `<Input type="number">` | manual `register('...', { valueAsNumber: true })` | `<Input type="number">` |
+| `date` | `format(value, 'yyyy/MM/dd')` | `<DatePicker>` | `useController` | `<DateRangePicker>` + `useController` |
+| `datetime` | `format(value, 'yyyy/MM/dd HH:mm')` | `<DateTimePicker>` | `useController` | `<DateRangePicker>` + `useController` |
+| `boolean` | `<Tag label={value ? '是' : '否'} />` | `<RadioGroup>` | `useController` | `<Select options={[全部/是/否]}>` |
+| `enum` | `<Tag label={enumLabel} />` | `<Select>` | `useController` | `<Select>` |
+| `select` | Related entity display name | `<Select>` (options from related mock) | `useController` | `<Select>` |
+| `multiselect` | Comma-joined `<Tag>` list | `<Select mode="multiple">` | `useController` | `<Select mode="multiple">` |
+| `image` | `<img>` thumbnail (64×64) or placeholder | `<Upload>` | `useController` | — (not filterable) |
+| `file` | File name as `<Typography>` | `<Upload>` | `useController` | — (not filterable) |
+| `password` | `<Typography>••••••</Typography>` (masked) | `<Input type="password">` | manual `register('...')` | — (not filterable) |
+| `autocomplete` | `<Typography>{value}</Typography>` | `<AutoComplete>` | `useController` | `<AutoComplete>` |
 
-## Import Sources
+## Imports
 
 ```tsx
-// Table rendering
-import { Typography, Tag } from '@mezzanine-ui/react';
-
-// Form fields (all from react-hook-form-v2)
+// Core primitives
 import {
-  InputField,
-  TextAreaField,
-  SingleSelectField,
-  MultiSelectField,
-  DatePickerField,
-  DateRangePickerField,
-  DateTimePickerField,
-  RadioGroupField,
-  CheckboxField,
-  UploadImageField,
-  UploadFileField,
-  PasswordField,
-  AutoCompleteField,
-} from '@mezzanine-ui/react-hook-form-v2';
-
-// Icons for filter inputs
+  Typography,
+  Tag,
+  Input,
+  Textarea,
+  Select,
+  RadioGroup,
+  AutoComplete,
+  Upload,
+  DatePicker,
+  DateRangePicker,
+  DateTimePicker,
+  Icon,
+} from '@mezzanine-ui/react';
+import FormField from '@mezzanine-ui/react/Form/FormField';
+import { FormFieldLayout } from '@mezzanine-ui/core/form';
 import { SearchIcon } from '@mezzanine-ui/icons';
+
+// react-hook-form + yup
+import { useForm, useController, type Control } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 ```
 
 ## Column Render Examples
 
-### String Column
+### String / Number / Date / Boolean / Enum / Multiselect / Image
 
 ```tsx
-{ title: '名稱', dataIndex: 'name', width: 200 }
-```
+// string
+{ key: 'name', title: '名稱', dataIndex: 'name', width: 200 }
 
-### Number Column (formatted)
-
-```tsx
+// number (formatted)
 {
-  title: '單價',
-  width: 120,
-  align: 'end' as const,
-  render: (source) => (
-    <Typography variant="body">
-      {source.price.toLocaleString()}
-    </Typography>
-  ),
+  key: 'price', title: '單價', width: 120, align: 'end',
+  render: (source) => <Typography variant="body">{source.price.toLocaleString()}</Typography>,
 }
-```
 
-### Date Column
-
-```tsx
-import { format } from 'date-fns';
-
+// date
 {
-  title: '建立日期',
-  width: 150,
+  key: 'createdAt', title: '建立日期', width: 150,
   render: (source) => format(new Date(source.createdAt), 'yyyy/MM/dd'),
 }
-```
 
-### Boolean Column (Tag)
-
-```tsx
+// boolean (Tag)
 {
-  title: '狀態',
-  width: 100,
-  render: (source) => (
-    <Tag label={source.isActive ? '啟用' : '停用'} />
-  ),
+  key: 'isActive', title: '狀態', width: 100,
+  render: (source) => <Tag>{source.isActive ? '啟用' : '停用'}</Tag>,
 }
-```
 
-### Enum Column (Tag with mapping)
-
-```tsx
+// enum
 const statusLabels: Record<string, string> = {
-  pending: '待處理',
-  approved: '已核准',
-  rejected: '已拒絕',
+  pending: '待處理', approved: '已核准', rejected: '已拒絕',
 };
-
 {
-  title: '審核狀態',
-  width: 120,
-  render: (source) => (
-    <Tag label={statusLabels[source.status] ?? source.status} />
-  ),
+  key: 'status', title: '審核狀態', width: 120,
+  render: (source) => <Tag>{statusLabels[source.status] ?? source.status}</Tag>,
 }
-```
 
-### Multiselect Column (Tag list)
-
-```tsx
+// multiselect
 {
-  title: '標籤',
-  width: 200,
+  key: 'tags', title: '標籤', width: 200,
   render: (source) => (
     <div style={{ display: 'flex', gap: 'var(--mzn-spacing-1)', flexWrap: 'wrap' }}>
-      {source.tags.map((tag: string) => (
-        <Tag key={tag} label={tag} />
-      ))}
+      {source.tags.map((tag: string) => <Tag key={tag}>{tag}</Tag>)}
     </div>
   ),
 }
-```
 
-### Image Column (Thumbnail)
-
-```tsx
+// image
 {
-  title: '圖片',
-  width: 80,
-  render: (source) => (
+  key: 'image', title: '圖片', width: 80,
+  render: (source) =>
     source.imageUrl
       ? <img src={source.imageUrl} alt="" style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 'var(--mzn-spacing-1)' }} />
-      : <Typography color="text-neutral-light">—</Typography>
-  ),
+      : <Typography color="text-neutral-light">—</Typography>,
 }
 ```
 
-### File Column (Filename)
+## Form Binding Examples
+
+> Text-like inputs use **manual register** (Mezzanine's `Input` / `Textarea` cannot accept `{...register()}` spread — see `plugin:project-rule:scaffolding-nextjs-page` → `FORM_MODAL_TEMPLATE.md`). Controlled inputs (`Select`, `DatePicker`, `Upload`, `AutoComplete`, `RadioGroup`) use **`useController`**.
+
+### String (manual register)
 
 ```tsx
-{
-  title: '附件',
-  width: 150,
-  render: (source) => (
-    <Typography variant="body">{source.fileName || '—'}</Typography>
-  ),
-}
-```
-
-## Form Field Examples
-
-### Enum Field (SingleSelectField)
-
-```tsx
-const categoryOptions = [
-  { id: 'raw', name: '原物料' },
-  { id: 'semi', name: '半成品' },
-  { id: 'finished', name: '成品' },
-];
-
-<SingleSelectField
-  registerName="category"
-  label="分類"
-  options={categoryOptions}
-  required
-/>
-```
-
-### Boolean Field (RadioGroupField)
-
-```tsx
-<RadioGroupField
-  registerName="isActive"
-  label="啟用狀態"
-  options={[
-    { id: 'true', name: '啟用' },
-    { id: 'false', name: '停用' },
-  ]}
-/>
-```
-
-### Multiselect Field (MultiSelectField)
-
-```tsx
-const tagOptions = [
-  { id: 'urgent', name: '緊急' },
-  { id: 'important', name: '重要' },
-  { id: 'low', name: '低優先' },
-];
-
-<MultiSelectField
-  registerName="tags"
-  label="標籤"
-  options={tagOptions}
-/>
-```
-
-### Image Field (UploadImageField)
-
-```tsx
-// In prototypes, UploadImageField is display-only (no real upload)
-// Use a mock URL as default value
-<UploadImageField
-  registerName="image"
-  label="商品圖片"
-/>
-```
-
-### File Field (UploadFileField)
-
-```tsx
-// In prototypes, UploadFileField is display-only (no real upload)
-<UploadFileField
-  registerName="attachment"
-  label="附件"
-/>
-```
-
-### Related Entity Field (SingleSelectField with mock data)
-
-```tsx
-// Options come from the related entity's mock data
-const warehouseOptions = mockWarehouses.map((w) => ({
-  id: w.id,
-  name: w.name,
-}));
-
-<SingleSelectField
-  registerName="warehouseId"
-  label="倉庫"
-  options={warehouseOptions}
-  required
-/>
-```
-
-## Validation Rules
-
-When a `FieldSpec` has a `validation` property, map it to react-hook-form's `register` options via the `registerName` prop combined with `useForm`'s `rules`:
-
-```tsx
-// In the form component, pass validation rules through useForm
-const methods = useForm<FormValues>({
-  defaultValues: { /* ... */ },
-});
-
-// For string fields with min/max length:
-<InputField
-  registerName="name"
+<FormField
+  name="name"
   label="商品名稱"
+  layout={FormFieldLayout.VERTICAL}
   required
-  maxLength={validation.max}    // maps to maxLength prop
-/>
-
-// For number fields with min/max value, use react-hook-form register options:
-// Pass via the form's resolver or inline validation
-<InputField
-  registerName="price"
-  label="單價"
-  type="number"
-  required
-/>
-
-// Register with validation in the form setup:
-methods.register('price', {
-  min: { value: 1, message: '單價不得小於 1' },
-  max: { value: 999999, message: '單價不得超過 999999' },
-});
-
-// For pattern validation:
-methods.register('email', {
-  pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: '請輸入有效的 Email' },
-});
+  severity={errors.name ? 'error' : 'info'}
+  hintText={errors.name?.message}
+>
+  <Input
+    fullWidth
+    placeholder="請輸入商品名稱"
+    error={!!errors.name}
+    name={register('name').name}
+    onChange={(e) => { void register('name').onChange(e); }}
+    onBlur={(e) => { void register('name').onBlur(e); }}
+    inputRef={register('name').ref}
+  />
+</FormField>
 ```
 
-### Validation Mapping Table
-
-| Field Type | validation.min/max meaning   | Implementation                                    |
-|------------|------------------------------|---------------------------------------------------|
-| `string`   | min/max character length     | `minLength` / `maxLength` props or register rules |
-| `text`     | min/max character length     | `minLength` / `maxLength` register rules          |
-| `number`   | min/max numeric value        | `min` / `max` register rules                     |
-| `date`     | not applicable               | —                                                |
-| `enum`     | not applicable               | —                                                |
-| any        | validation.pattern           | `pattern` register rule with regex                |
-| any        | validation.message           | Custom error message for the rule                 |
-
-## Filter Form Pattern
-
-Filters are rendered as a horizontal form row using `flex` layout:
+### Enum / Select (useController)
 
 ```tsx
-import { useForm } from 'react-hook-form';
-import { InputField, SingleSelectField, DateRangePickerField } from '@mezzanine-ui/react-hook-form-v2';
-import { Button, Icon } from '@mezzanine-ui/react';
-import { SearchIcon } from '@mezzanine-ui/icons';
+const { field: categoryField } = useController({ name: 'category', control });
 
-interface FilterValues {
-  keyword: string;
-  category: string;
-  dateRange: [string, string];
-}
-
-function ProductFilters({ onFilter }: { onFilter: (values: FilterValues) => void }) {
-  const methods = useForm<FilterValues>();
-
-  return (
-    <FormFieldsWrapper methods={methods} onSubmit={onFilter}>
-      <div style={{ display: 'flex', gap: 'var(--mzn-spacing-4)', alignItems: 'flex-end', flexWrap: 'wrap' }}>
-        <InputField
-          registerName="keyword"
-          label="關鍵字"
-          placeholder="搜尋名稱或 SKU"
-          prefix={<Icon icon={SearchIcon} />}
-        />
-        <SingleSelectField
-          registerName="category"
-          label="分類"
-          options={categoryOptions}
-          clearable
-        />
-        <DateRangePickerField
-          registerName="dateRange"
-          label="建立日期"
-        />
-        <Button type="submit" variant="base-primary">搜尋</Button>
-      </div>
-    </FormFieldsWrapper>
-  );
-}
+<FormField
+  name="category"
+  label="分類"
+  layout={FormFieldLayout.VERTICAL}
+  required
+  severity={errors.category ? 'error' : 'info'}
+  hintText={errors.category?.message}
+>
+  <Select
+    fullWidth
+    placeholder="請選擇分類"
+    value={categoryField.value}
+    onChange={categoryField.onChange}
+    options={[
+      { id: 'raw', name: '原物料' },
+      { id: 'semi', name: '半成品' },
+      { id: 'finished', name: '成品' },
+    ]}
+  />
+</FormField>
 ```
+
+> For any other primitive (`DatePicker`, `Upload`, `AutoComplete`, `RadioGroup`, `Textarea`…), read the corresponding `plugin:project-rule:using-mezzanine-ui` → `components/<Name>.md` file for exact props, then follow the same binding recipe above.
+
+## Yup Schema Example
+
+```tsx
+const productFormSchema = yup.object({
+  name: yup.string().required('請輸入商品名稱').max(100, '商品名稱不得超過 100 字'),
+  sku: yup.string().required('請輸入 SKU').matches(/^[A-Z0-9]{4,12}$/, 'SKU 須為 4-12 位大寫英數字'),
+  category: yup.string().required('請選擇分類').oneOf(['raw', 'semi', 'finished']),
+  price: yup.number().required('請輸入單價').min(1).max(999999),
+  isActive: yup.boolean().required(),
+});
+
+type ProductFormData = yup.InferType<typeof productFormSchema>;
+
+const {
+  register,
+  control,
+  handleSubmit,
+  reset,
+  formState: { errors },
+} = useForm<ProductFormData>({
+  resolver: yupResolver(productFormSchema),
+  defaultValues: { name: '', sku: '', category: 'raw', price: 1, isActive: true },
+});
+```
+
+## Filter Row Pattern
+
+Filter rows live **outside** any `<Table>` — render them in a flex container above the table. Use the same `FormField` + primitives pattern; the filter state is typically its own `useForm<FilterValues>()` and a "搜尋" button triggers `handleSubmit`.
+
+```tsx
+<form
+  onSubmit={filterMethods.handleSubmit(onFilter)}
+  style={{ display: 'flex', gap: 'var(--mzn-spacing-4)', alignItems: 'flex-end', flexWrap: 'wrap', padding: 'var(--mzn-spacing-4)' }}
+>
+  <FormField name="keyword" label="關鍵字" layout={FormFieldLayout.VERTICAL}>
+    <Input
+      fullWidth
+      placeholder="搜尋名稱或 SKU"
+      prefix={<Icon icon={SearchIcon} />}
+      name={filterMethods.register('keyword').name}
+      onChange={(e) => { void filterMethods.register('keyword').onChange(e); }}
+      onBlur={(e) => { void filterMethods.register('keyword').onBlur(e); }}
+      inputRef={filterMethods.register('keyword').ref}
+    />
+  </FormField>
+
+  {/* Additional filters: SingleSelect via useController, DateRangePicker via useController, ... */}
+
+  <Button type="submit" variant="base-primary">搜尋</Button>
+</form>
+```
+
+## Validation Mapping (when `FieldSpec.validation` is present)
+
+| Field Type | `validation.min/max` → | Where to enforce |
+|-----------|------------------------|-------------------|
+| `string`  | character length | `yup.string().min().max()` |
+| `text`    | character length | `yup.string().min().max()` |
+| `number`  | numeric value | `yup.number().min().max()` |
+| `date`    | — | — |
+| any       | `validation.pattern` | `yup.string().matches(regex, message)` |
+| any       | `validation.message` | second arg to the yup rule |

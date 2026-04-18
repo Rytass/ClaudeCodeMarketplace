@@ -1,12 +1,14 @@
 # Page Patterns
 
-Four page types are supported. Each pattern defines the complete file structure and component composition.
+Four page types are supported. Each pattern defines the complete file structure and component composition built from `@mezzanine-ui/react` primitives.
+
+> For any component's props / behaviour, consult `plugin:project-rule:using-mezzanine-ui` → `components/*.md`. The form modal binding convention is defined in `plugin:project-rule:scaffolding-nextjs-page` → `FORM_MODAL_TEMPLATE.md`.
 
 ---
 
 ## 1. List Page (most common)
 
-**Use for**: Entity management with table, filters, pagination, and CRUD modal.
+**Use for**: Entity management with table, optional tabs / filters, pagination, and CRUD modal.
 
 ### File Structure
 
@@ -23,29 +25,34 @@ app/(admin)/{route}/
 ```tsx
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
-// Also import `Key` from 'react' if using AdminTable with tabs
-import { PageWrapper } from 'mezzanine-ui-admin-components';
-import { AdminTable } from 'mezzanine-ui-admin-components';
-import { TableColumn } from '@mezzanine-ui/core/table';
-import { Typography, Tag } from '@mezzanine-ui/react';
+import { useCallback, useMemo, useState, type Key } from 'react';
+import {
+  Button,
+  PageHeader,
+  Table,
+  Tab,
+  TabItem,
+  Tag,
+  Typography,
+} from '@mezzanine-ui/react';
+import type { TableColumn } from '@mezzanine-ui/react';
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 import { useMock{Entity} } from '@/hooks/useMock{Entity}';
 import { {Entity}FormModal } from './_components/{Entity}FormModal';
 import type { Mock{Entity} } from '@/types';
 
 export default function {Entity}ListPage(): JSX.Element {
-  // Mock data
   const { items, create, update, remove } = useMock{Entity}();
 
-  // Pagination state
   const [page, setPage] = useState<number>(1);
   const pageSize = 10;
 
-  // Modal state
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [editingItem, setEditingItem] = useState<Mock{Entity} | null>(null);
 
-  // Handlers
+  // Optional: tabs state when the entity has a status tab strip
+  const [activeTab, setActiveTab] = useState<Key>('all');
+
   const handleCreate = useCallback((): void => {
     setEditingItem(null);
     setModalOpen(true);
@@ -74,133 +81,212 @@ export default function {Entity}ListPage(): JSX.Element {
     // ... columns derived from EntitySpec.fields where isTableColumn === true
   ], []);
 
-  // Paginated data
+  const filteredItems = useMemo(
+    () => items, // Apply tab / filter logic here when applicable
+    [items],
+  );
+
   const paginatedData = useMemo(
-    () => items.slice((page - 1) * pageSize, page * pageSize),
-    [items, page],
+    () => filteredItems.slice((page - 1) * pageSize, page * pageSize),
+    [filteredItems, page],
   );
 
   return (
-    <PageWrapper
-      title="{pageTitle}"
-      onCreate={handleCreate}
-      createText="新增{entityLabel}"
-    >
-      <AdminTable<Mock{Entity}>
+    <div style={{ padding: 'var(--mzn-spacing-6)' }}>
+      <PageHeader>
+        <ContentHeader title="{pageTitle}">
+          <Button onClick={handleCreate}>新增{entityLabel}</Button>
+        </ContentHeader>
+      </PageHeader>
+
+      {/* Optional tabs (render only when the entity has a status strip) */}
+      <Tab activeKey={activeTab} onChange={setActiveTab}>
+        <TabItem key="all">全部</TabItem>
+        <TabItem key="active">啟用中</TabItem>
+      </Tab>
+
+      {/* Filter row lives above the table — see COMPONENT_MAPPING.md → Filter Row Pattern */}
+
+      <Table<Mock{Entity}>
+        fullWidth
         dataSource={paginatedData}
         columns={columns}
+        getRowKey={(row) => row.id}
+        actions={{
+          items: (source) => [
+            { key: 'edit', text: '編輯', onClick: () => handleEdit(source) },
+            { key: 'delete', text: '刪除', danger: true, onClick: () => handleDelete(source) },
+          ],
+        }}
         pagination={{
-          total: items.length,
+          total: filteredItems.length,
           current: page,
           onChange: setPage,
-          options: { pageSize },
+          pageSize,
         }}
-        actions={(source) => [
-          { text: '編輯', onClick: () => handleEdit(source) },
-          { text: '刪除', danger: true, onClick: () => handleDelete(source) },
-        ]}
       />
 
       <{Entity}FormModal
         open={modalOpen}
+        loading={false}
+        {entity}={editingItem}
         onClose={() => setModalOpen(false)}
         onSubmit={handleSubmit}
-        defaultValues={editingItem}
-        mode={editingItem ? 'edit' : 'create'}
       />
-    </PageWrapper>
+    </div>
   );
 }
 ```
 
 ### FormModal Template
 
+Use the canonical manual-register pattern from `plugin:project-rule:scaffolding-nextjs-page/FORM_MODAL_TEMPLATE.md`. Skeleton:
+
 ```tsx
 'use client';
 
-import { FC, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { Modal, ModalHeader, ModalFooter } from '@mezzanine-ui/react';
-import { FormFieldsWrapper, InputField, SingleSelectField } from '@mezzanine-ui/react-hook-form-v2';
+import { useCallback, useEffect, type ReactNode } from 'react';
+import { useForm, useController } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Input, Modal, ModalFooter, ModalHeader, Select } from '@mezzanine-ui/react';
+import FormField from '@mezzanine-ui/react/Form/FormField';
+import { FormFieldLayout } from '@mezzanine-ui/core/form';
 import type { Mock{Entity} } from '@/types';
 
+const {entity}FormSchema = yup.object({
+  name: yup.string().required('請輸入名稱').max(100),
+  category: yup.string().required('請選擇分類'),
+});
+
+type {Entity}FormData = yup.InferType<typeof {entity}FormSchema>;
+
 interface {Entity}FormModalProps {
-  open: boolean;
-  onClose: () => void;
-  onSubmit: (values: Omit<Mock{Entity}, 'id'>) => void;
-  defaultValues: Mock{Entity} | null;
-  mode: 'create' | 'edit';
+  readonly open: boolean;
+  readonly {entity}: Mock{Entity} | null;
+  readonly loading: boolean;
+  readonly onClose: () => void;
+  readonly onSubmit: (data: {Entity}FormData) => void | Promise<void>;
 }
 
-export const {Entity}FormModal: FC<{Entity}FormModalProps> = ({
+export function {Entity}FormModal({
   open,
+  {entity},
+  loading,
   onClose,
   onSubmit,
-  defaultValues,
-  mode,
-}) => {
-  const methods = useForm<Omit<Mock{Entity}, 'id'>>({
-    defaultValues: defaultValues ?? {/* initial defaults */},
+}: {Entity}FormModalProps): ReactNode {
+  const isEditMode = {entity} !== null;
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<{Entity}FormData>({
+    resolver: yupResolver({entity}FormSchema),
+    defaultValues: { name: '', category: '' },
   });
 
   useEffect(() => {
-    if (defaultValues) {
-      methods.reset(defaultValues);
-    } else {
-      methods.reset({/* initial defaults */});
+    if (open && {entity}) {
+      reset({ name: {entity}.name, category: {entity}.category });
+    } else if (open) {
+      reset({ name: '', category: '' });
     }
-  }, [defaultValues, methods]);
+  }, [open, {entity}, reset]);
+
+  const { field: categoryField } = useController({ name: 'category', control });
+
+  const handleFormSubmit = useCallback(
+    async (data: {Entity}FormData): Promise<void> => {
+      await onSubmit(data);
+    },
+    [onSubmit],
+  );
 
   return (
-    <Modal open={open} onClose={onClose}>
-      <ModalHeader title={mode === 'create' ? '新增{entityLabel}' : '編輯{entityLabel}'} />
-      <FormFieldsWrapper methods={methods}>
-        {/* Fields derived from EntitySpec.fields */}
-        {/* See COMPONENT_MAPPING.md for field type → component mapping */}
-      </FormFieldsWrapper>
-      <ModalFooter
-        cancelText="取消"
-        confirmText="確認"
-        onCancel={onClose}
-        onConfirm={methods.handleSubmit(onSubmit)}
-      />
+    <Modal modalType="standard" open={open} onClose={onClose}>
+      <ModalHeader title={isEditMode ? '編輯{entityLabel}' : '新增{entityLabel}'} />
+      <form onSubmit={(e) => { void handleSubmit(handleFormSubmit)(e); }}>
+        <div style={{ minWidth: 400, padding: 'var(--mzn-spacing-5)', display: 'flex', flexDirection: 'column', gap: 'var(--mzn-spacing-4)' }}>
+          <FormField
+            name="name"
+            label="名稱"
+            layout={FormFieldLayout.VERTICAL}
+            required
+            severity={errors.name ? 'error' : 'info'}
+            hintText={errors.name?.message}
+          >
+            <Input
+              fullWidth
+              placeholder="請輸入名稱"
+              error={!!errors.name}
+              name={register('name').name}
+              onChange={(e) => { void register('name').onChange(e); }}
+              onBlur={(e) => { void register('name').onBlur(e); }}
+              inputRef={register('name').ref}
+            />
+          </FormField>
+
+          <FormField
+            name="category"
+            label="分類"
+            layout={FormFieldLayout.VERTICAL}
+            required
+            severity={errors.category ? 'error' : 'info'}
+            hintText={errors.category?.message}
+          >
+            <Select
+              fullWidth
+              placeholder="請選擇分類"
+              value={categoryField.value}
+              onChange={categoryField.onChange}
+              options={[
+                { id: 'raw', name: '原物料' },
+                { id: 'semi', name: '半成品' },
+                { id: 'finished', name: '成品' },
+              ]}
+            />
+          </FormField>
+
+          {/* Additional fields — see COMPONENT_MAPPING.md for per-type recipes */}
+        </div>
+        <ModalFooter
+          cancelText="取消"
+          confirmText={isEditMode ? '儲存' : '新增'}
+          onCancel={onClose}
+          cancelButtonProps={{ disabled: loading }}
+          confirmButtonProps={{ type: 'submit', loading }}
+        />
+      </form>
     </Modal>
   );
-};
+}
 ```
 
-### Orderable List Page Variant
+> Element props detail (`Input`, `Select`, `Modal`, `FormField`, `Textarea`, `DatePicker`, `Upload` …) — see `plugin:project-rule:using-mezzanine-ui` → `components/<Name>.md`.
 
-When `PageSpec.orderable` is `true`, add drag-and-drop reordering via `AdminTable`'s `draggable` prop:
+### Orderable List Variant
+
+When `PageSpec.orderable` is `true`, enable `<Table>`'s native `draggable`:
 
 ```tsx
-// Additional state for orderable list
-const [orderedItems, setOrderedItems] = useState<readonly Mock{Entity}[]>(items);
-
-// Sync with source data when items change
-useEffect(() => {
-  setOrderedItems(items);
-}, [items]);
-
-// Drag handler
-const handleDragEnd = useCallback((result: { sourceIndex: number; destinationIndex: number }): void => {
-  const { sourceIndex, destinationIndex } = result;
-  setOrderedItems((prev) => {
-    // Immutable reorder — no splice/mutation
-    const item = prev[sourceIndex];
-    const without = [...prev.slice(0, sourceIndex), ...prev.slice(sourceIndex + 1)];
-    return [...without.slice(0, destinationIndex), item, ...without.slice(destinationIndex)];
-  });
-}, []);
-
-// In AdminTable:
-<AdminTable<Mock{Entity}>
-  dataSource={paginatedData}
+<Table<Mock{Entity}>
+  fullWidth
+  dataSource={orderedItems}
   columns={columns}
+  getRowKey={(row) => row.id}
   draggable={{
-    onDragEnd: handleDragEnd,
+    onDragEnd: ({ sourceIndex, destinationIndex }) => {
+      setOrderedItems((prev) => {
+        const item = prev[sourceIndex];
+        const without = [...prev.slice(0, sourceIndex), ...prev.slice(sourceIndex + 1)];
+        return [...without.slice(0, destinationIndex), item, ...without.slice(destinationIndex)];
+      });
+    },
   }}
-  // ... other props
 />
 ```
 
@@ -208,7 +294,7 @@ const handleDragEnd = useCallback((result: { sourceIndex: number; destinationInd
 
 ## 2. Detail Page
 
-**Use for**: Single entity detail view with tabs for different information sections.
+**Use for**: Single entity detail view with optional tabs.
 
 ### File Structure
 
@@ -217,126 +303,91 @@ app/(admin)/{route}/[id]/
 └── page.tsx
 ```
 
-### Template (default — no tabs spec)
-
-When `PageSpec.tabs` is not provided, use the default two-tab layout:
+### Template
 
 ```tsx
 'use client';
 
-import { useState, useMemo, type Key } from 'react';
-import { useParams } from 'next/navigation';
-import { PageWrapper } from 'mezzanine-ui-admin-components';
-import { Tab, TabItem, Typography } from '@mezzanine-ui/react';
+import { useMemo, useState, type Key } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import {
+  PageHeader,
+  Tab,
+  TabItem,
+  Table,
+  Typography,
+} from '@mezzanine-ui/react';
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 import { useMock{Entity} } from '@/hooks/useMock{Entity}';
-
-export default function {Entity}DetailPage(): JSX.Element {
-  const params = useParams();
-  const { items } = useMock{Entity}();
-  const item = useMemo(
-    () => items.find((i) => i.id === params.id),
-    [items, params.id],
-  );
-  const [activeTab, setActiveTab] = useState<Key>('info');
-
-  if (!item) {
-    return <PageWrapper title="找不到資料" />;
-  }
-
-  return (
-    <PageWrapper title={`${item.name} 詳情`}>
-      <Tab activeKey={activeTab} onChange={(key) => setActiveTab(key)}>
-        <TabItem key="info">基本資訊</TabItem>
-        <TabItem key="related">相關紀錄</TabItem>
-      </Tab>
-      {activeTab === 'info' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--mzn-spacing-4)', padding: 'var(--mzn-spacing-4)' }}>
-          {/* Render each field as label: value pairs */}
-          <div>
-            <Typography variant="caption" color="text-neutral-light">欄位標題</Typography>
-            <Typography variant="body">{item.fieldName}</Typography>
-          </div>
-        </div>
-      )}
-      {activeTab === 'related' && (
-        <div style={{ padding: 'var(--mzn-spacing-4)' }}>
-          {/* Related data table if applicable */}
-        </div>
-      )}
-    </PageWrapper>
-  );
-}
-```
-
-### Template (with tabs spec)
-
-When `PageSpec.tabs` is provided, generate one `TabItem` per entry and conditionally render content panels:
-
-```tsx
-'use client';
-
-import { useState, useMemo, type Key } from 'react';
-import { useParams } from 'next/navigation';
-import { PageWrapper, AdminTable } from 'mezzanine-ui-admin-components';
-import { Tab, TabItem, Typography } from '@mezzanine-ui/react';
-import { useMock{Entity} } from '@/hooks/useMock{Entity}';
-// Import related entity hooks as needed
+// Import related entity hooks only when a tab uses relatedEntity:
 import { useMock{RelatedEntity} } from '@/hooks/useMock{RelatedEntity}';
 
 export default function {Entity}DetailPage(): JSX.Element {
   const params = useParams();
+  const router = useRouter();
   const { items } = useMock{Entity}();
   const item = useMemo(
     () => items.find((i) => i.id === params.id),
     [items, params.id],
   );
 
-  // For tabs with relatedEntity, filter related data
+  // Only for tabs with relatedEntity:
   const { items: relatedItems } = useMock{RelatedEntity}();
   const filteredRelated = useMemo(
     () => relatedItems.filter((r) => r.{entityRef}Id === params.id),
     [relatedItems, params.id],
   );
 
-  // Tab keys derived from PageSpec.tabs — use kebab-case labels as keys
   const [activeTab, setActiveTab] = useState<Key>('tab-0');
 
   if (!item) {
-    return <PageWrapper title="找不到資料" />;
+    return (
+      <div style={{ padding: 'var(--mzn-spacing-6)' }}>
+        <PageHeader>
+          <ContentHeader title="找不到資料" onBackClick={() => router.back()} />
+        </PageHeader>
+      </div>
+    );
   }
 
   return (
-    <PageWrapper title={`${item.name} 詳情`}>
-      <Tab activeKey={activeTab} onChange={(key) => setActiveTab(key)}>
-        {/* One TabItem per entry in PageSpec.tabs */}
-        <TabItem key="tab-0">{tabSpec.label}</TabItem>
-        <TabItem key="tab-1">{tabSpec.label}</TabItem>
+    <div style={{ padding: 'var(--mzn-spacing-6)' }}>
+      <PageHeader>
+        <ContentHeader
+          title={`${item.name} 詳情`}
+          onBackClick={() => router.back()}
+        />
+      </PageHeader>
+
+      <Tab activeKey={activeTab} onChange={setActiveTab}>
+        <TabItem key="tab-0">{tabSpec[0].label}</TabItem>
+        <TabItem key="tab-1">{tabSpec[1].label}</TabItem>
       </Tab>
 
-      {/* Tab with fields[] — render field label:value pairs */}
       {activeTab === 'tab-0' && (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--mzn-spacing-4)', padding: 'var(--mzn-spacing-4)' }}>
-          {/* Only render fields listed in tabSpec.fields */}
+          {/* Render one <div> per field in tabSpec.fields */}
           <div>
-            <Typography variant="caption" color="text-neutral-light">{field.label}</Typography>
-            <Typography variant="body">{item[field.name]}</Typography>
+            <Typography variant="caption" color="text-neutral-light">{fieldLabel}</Typography>
+            <Typography variant="body">{String(item[fieldName])}</Typography>
           </div>
         </div>
       )}
 
-      {/* Tab with relatedEntity — render AdminTable */}
       {activeTab === 'tab-1' && (
-        <AdminTable
+        <Table
+          fullWidth
           dataSource={filteredRelated}
           columns={relatedColumns}
+          getRowKey={(row) => row.id}
         />
       )}
-    </PageWrapper>
+    </div>
   );
 }
 ```
 
-**Fallback**: When `PageSpec.tabs` is absent, use the default template above with all fields in "基本資訊" tab and an empty "相關紀錄" tab.
+**Fallback when `PageSpec.tabs` is absent**: render a single "基本資訊" tab containing every entity field as a label/value pair.
 
 ---
 
@@ -356,36 +407,85 @@ app/(admin)/{route}/create/
 ```tsx
 'use client';
 
+import { useCallback, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { PageWrapper } from 'mezzanine-ui-admin-components';
-import { FormFieldsWrapper, InputField } from '@mezzanine-ui/react-hook-form-v2';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Button, Input, PageHeader } from '@mezzanine-ui/react';
+import FormField from '@mezzanine-ui/react/Form/FormField';
+import { FormFieldLayout } from '@mezzanine-ui/core/form';
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 import { useMock{Entity} } from '@/hooks/useMock{Entity}';
-import type { Mock{Entity} } from '@/types';
 
-export default function Create{Entity}Page(): JSX.Element {
+const {entity}FormSchema = yup.object({
+  name: yup.string().required('請輸入名稱'),
+});
+
+type {Entity}FormData = yup.InferType<typeof {entity}FormSchema>;
+
+export default function Create{Entity}Page(): ReactNode {
   const router = useRouter();
   const { create } = useMock{Entity}();
-  const methods = useForm<Omit<Mock{Entity}, 'id'>>();
 
-  const handleSubmit = (values: Omit<Mock{Entity}, 'id'>): void => {
-    create(values);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<{Entity}FormData>({
+    resolver: yupResolver({entity}FormSchema),
+    defaultValues: { name: '' },
+  });
+
+  const handleFormSubmit = useCallback((data: {Entity}FormData): void => {
+    create(data);
     router.push('/{route}');
-  };
+  }, [create, router]);
 
   return (
-    <PageWrapper title="新增{entityLabel}" isFormPage>
-      <FormFieldsWrapper
-        methods={methods}
-        onSubmit={handleSubmit}
-        haveFooter
-        submitButtonText="儲存"
-        cancelButtonText="取消"
-        onCancel={async () => router.back()}
+    <div style={{ padding: 'var(--mzn-spacing-6)' }}>
+      <PageHeader>
+        <ContentHeader title="新增{entityLabel}" onBackClick={() => router.back()} />
+      </PageHeader>
+
+      <form
+        onSubmit={(e) => { void handleSubmit(handleFormSubmit)(e); }}
+        style={{ display: 'flex', flexDirection: 'column', gap: 'var(--mzn-spacing-4)', maxWidth: 720, marginTop: 'var(--mzn-spacing-6)' }}
       >
-        {/* Form fields */}
-      </FormFieldsWrapper>
-    </PageWrapper>
+        <FormField
+          name="name"
+          label="名稱"
+          layout={FormFieldLayout.VERTICAL}
+          required
+          severity={errors.name ? 'error' : 'info'}
+          hintText={errors.name?.message}
+        >
+          <Input
+            fullWidth
+            placeholder="請輸入名稱"
+            error={!!errors.name}
+            name={register('name').name}
+            onChange={(e) => { void register('name').onChange(e); }}
+            onBlur={(e) => { void register('name').onBlur(e); }}
+            inputRef={register('name').ref}
+          />
+        </FormField>
+
+        {/* Additional fields — see COMPONENT_MAPPING.md */}
+
+        <div style={{ display: 'flex', gap: 'var(--mzn-spacing-3)', justifyContent: 'flex-end', marginTop: 'var(--mzn-spacing-4)' }}>
+          <Button
+            type="button"
+            variant="base-secondary"
+            onClick={() => router.back()}
+            disabled={isSubmitting}
+          >
+            取消
+          </Button>
+          <Button type="submit" loading={isSubmitting}>儲存</Button>
+        </div>
+      </form>
+    </div>
   );
 }
 ```
@@ -402,16 +502,20 @@ export default function Create{Entity}Page(): JSX.Element {
 'use client';
 
 import { useMemo, type ReactNode } from 'react';
-import { Typography, Icon, Tag } from '@mezzanine-ui/react';
-import { AdminTable, PageWrapper } from 'mezzanine-ui-admin-components';
-import { BoxIcon, FolderMoveIcon, CheckCircleIcon } from '@mezzanine-ui/icons';
-// Import one hook per entity in projectSpec.entities:
+import {
+  Icon,
+  PageHeader,
+  Table,
+  Tag,
+  Typography,
+} from '@mezzanine-ui/react';
+import type { TableColumn } from '@mezzanine-ui/react';
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
+import { BoxIcon, CheckCircleIcon, FolderMoveIcon } from '@mezzanine-ui/icons';
 import { useMockProduct } from '@/hooks/useMockProduct';
 import { useMockWarehouse } from '@/hooks/useMockWarehouse';
-// ... add more as needed
 
-// Stat card component (inline — simple enough to not need a separate file)
-function StatCard({ title, value, icon }: { title: string; value: string | number; icon: ReactNode }): JSX.Element {
+function StatCard({ title, value, icon }: { readonly title: string; readonly value: string | number; readonly icon: ReactNode }): ReactNode {
   return (
     <div style={{
       padding: 'var(--mzn-spacing-6)',
@@ -430,20 +534,16 @@ function StatCard({ title, value, icon }: { title: string; value: string | numbe
   );
 }
 
-export default function DashboardPage(): JSX.Element {
-  // Import mock data from all primary entities
+export default function DashboardPage(): ReactNode {
   const { items: products } = useMockProduct();
   const { items: warehouses } = useMockWarehouse();
-  // ... import all entity hooks
 
-  // Derive stat values from actual mock data
   const stats = useMemo(() => ({
     productCount: products.length,
     warehouseCount: warehouses.length,
     activeProducts: products.filter((p) => p.isActive).length,
   }), [products, warehouses]);
 
-  // Recent items — last 5 from each entity sorted by createdAt
   const recentProducts = useMemo(
     () => [...products].sort((a, b) =>
       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
@@ -451,29 +551,22 @@ export default function DashboardPage(): JSX.Element {
     [products],
   );
 
-  const recentWarehouses = useMemo(
-    () => [...warehouses].slice(0, 5),
-    [warehouses],
-  );
-
-  // Column definitions for recent tables (simplified — show key fields only)
-  const recentProductColumns = useMemo(() => [
-    { title: '商品名稱', dataIndex: 'name' as const, width: 200 },
-    { title: '分類', dataIndex: 'category' as const, width: 100 },
-  ], []);
-
-  const recentWarehouseColumns = useMemo(() => [
-    { title: '倉庫名稱', dataIndex: 'name' as const, width: 200 },
-    { title: '地址', dataIndex: 'location' as const, width: 200 },
+  const recentProductColumns = useMemo((): TableColumn<typeof products[number]>[] => [
+    { key: 'name', title: '商品名稱', dataIndex: 'name', width: 200 },
+    { key: 'category', title: '分類', dataIndex: 'category', width: 100 },
   ], []);
 
   return (
-    <PageWrapper title="總覽">
-      {/* Section 1: Stat Cards — derived from actual mock data counts */}
+    <div style={{ padding: 'var(--mzn-spacing-6)' }}>
+      <PageHeader>
+        <ContentHeader title="總覽" description="營運資訊快覽" />
+      </PageHeader>
+
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
         gap: 'var(--mzn-spacing-4)',
+        marginTop: 'var(--mzn-spacing-4)',
         marginBottom: 'var(--mzn-spacing-6)',
       }}>
         <StatCard title="商品總數" value={stats.productCount} icon={<Icon icon={BoxIcon} size={24} />} />
@@ -481,43 +574,20 @@ export default function DashboardPage(): JSX.Element {
         <StatCard title="啟用商品" value={stats.activeProducts} icon={<Icon icon={CheckCircleIcon} size={24} />} />
       </div>
 
-      {/* Section 2: Status Breakdown — for entities with enum/boolean status fields */}
-      <Typography variant="h5" style={{ marginBottom: 'var(--mzn-spacing-3)' }}>
-        狀態分佈
-      </Typography>
-      <div style={{
-        display: 'flex',
-        gap: 'var(--mzn-spacing-3)',
-        flexWrap: 'wrap',
-        marginBottom: 'var(--mzn-spacing-6)',
-      }}>
-        {/* For each enum status value, show count as a Tag */}
-        <Tag label={`啟用中: ${stats.activeProducts}`} />
-        <Tag label={`停用: ${stats.productCount - stats.activeProducts}`} />
-        {/* Repeat for other enum fields */}
+      <Typography variant="h5" style={{ marginBottom: 'var(--mzn-spacing-3)' }}>狀態分佈</Typography>
+      <div style={{ display: 'flex', gap: 'var(--mzn-spacing-3)', flexWrap: 'wrap', marginBottom: 'var(--mzn-spacing-6)' }}>
+        <Tag>{`啟用中: ${stats.activeProducts}`}</Tag>
+        <Tag>{`停用: ${stats.productCount - stats.activeProducts}`}</Tag>
       </div>
 
-      {/* Section 3: Recent Activity Tables — one per primary entity (5 rows each) */}
-      <Typography variant="h5" style={{ marginBottom: 'var(--mzn-spacing-3)' }}>
-        最近異動
-      </Typography>
-      <AdminTable
+      <Typography variant="h5" style={{ marginBottom: 'var(--mzn-spacing-3)' }}>最近異動</Typography>
+      <Table
+        fullWidth
         dataSource={recentProducts}
         columns={recentProductColumns}
+        getRowKey={(row) => row.id}
       />
 
-      {/* Add more recent tables for other entities with spacing */}
-      <div style={{ marginTop: 'var(--mzn-spacing-6)' }}>
-        <Typography variant="h5" style={{ marginBottom: 'var(--mzn-spacing-3)' }}>
-          最近倉庫紀錄
-        </Typography>
-        <AdminTable
-          dataSource={recentWarehouses}
-          columns={recentWarehouseColumns}
-        />
-      </div>
-
-      {/* Section 4: Chart Placeholder — reserved area for future chart integration */}
       <div style={{
         marginTop: 'var(--mzn-spacing-6)',
         padding: 'var(--mzn-spacing-8)',
@@ -528,11 +598,9 @@ export default function DashboardPage(): JSX.Element {
         justifyContent: 'center',
         minHeight: 200,
       }}>
-        <Typography color="text-neutral-light">
-          圖表區域（待整合）
-        </Typography>
+        <Typography color="text-neutral-light">圖表區域（待整合）</Typography>
       </div>
-    </PageWrapper>
+    </div>
   );
 }
 ```
@@ -541,11 +609,11 @@ export default function DashboardPage(): JSX.Element {
 
 ## 5. Export (CSV Download) Pattern
 
-**Use for**: Any list page with `'export'` in its `actions` array.
+**Use for**: Any list page whose `actions` array contains `'export'`.
 
 ### Utility Function
 
-Create `src/utils/downloadCSV.ts` (reusable across pages):
+Create `src/utils/downloadCSV.ts` once per project:
 
 ```tsx
 'use client';
@@ -568,7 +636,6 @@ export function downloadCSV<T extends Record<string, unknown>>(
         const value = col.render
           ? col.render(item)
           : String(col.dataIndex ? item[col.dataIndex] ?? '' : '');
-        // Escape CSV values containing commas or quotes
         return value.includes(',') || value.includes('"')
           ? `"${value.replace(/"/g, '""')}"`
           : value;
@@ -577,7 +644,7 @@ export function downloadCSV<T extends Record<string, unknown>>(
   );
 
   const csvContent = [header, ...rows].join('\n');
-  const BOM = '\uFEFF'; // UTF-8 BOM for Excel compatibility
+  const BOM = '\uFEFF';
   const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
 
@@ -591,58 +658,51 @@ export function downloadCSV<T extends Record<string, unknown>>(
 }
 ```
 
-### Integration with PageWrapper
+### Integration with PageHeader
 
-Use `customizeActionComponent` to add the export button alongside the create button:
+Put the export button inside `<ContentHeader>` alongside the primary create button:
 
 ```tsx
-import { Button, Icon } from '@mezzanine-ui/react';
+import { Button, Icon, PageHeader } from '@mezzanine-ui/react';
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 import { DownloadIcon } from '@mezzanine-ui/icons';
 import { downloadCSV } from '@/utils/downloadCSV';
 
-<PageWrapper
-  title="商品管理"
-  onCreate={handleCreate}
-  createText="新增商品"
-  customizeActionComponent={
+<PageHeader>
+  <ContentHeader title="商品管理">
     <Button
       variant="base-secondary"
-      icon={DownloadIcon}
-      iconType="leading"
+      prefix={<Icon icon={DownloadIcon} />}
       onClick={() => downloadCSV(items, exportColumns, 'products')}
     >
       匯出 CSV
     </Button>
-  }
->
+    <Button onClick={handleCreate}>新增商品</Button>
+  </ContentHeader>
+</PageHeader>
 ```
-
-Where `exportColumns` maps entity fields to CSV-friendly string renderers.
 
 ---
 
 ## Common Patterns
 
-### 'use client' Directive
+### `'use client'` Directive
 
-Every page and component file **must** start with `'use client'` since we use `useState`, `useCallback`, and other client hooks.
+Every page and component file **must** start with `'use client'` since every prototype uses `useState`, `useForm`, and other client hooks.
 
 ### Mezzanine-UI Spacing
 
 Use CSS variables for spacing, never hardcoded pixels:
-- `var(--mzn-spacing-1)` = 4px
-- `var(--mzn-spacing-2)` = 8px
-- `var(--mzn-spacing-3)` = 12px
-- `var(--mzn-spacing-4)` = 16px
-- `var(--mzn-spacing-5)` = 20px
-- `var(--mzn-spacing-6)` = 24px
-- `var(--mzn-spacing-8)` = 32px
+
+- `var(--mzn-spacing-1)` … `var(--mzn-spacing-8)`
 
 ### Date Formatting
-
-Use `date-fns` for date formatting (include in generated package.json):
 
 ```tsx
 import { format } from 'date-fns';
 format(new Date(value), 'yyyy/MM/dd');
 ```
+
+### Component Prop Details
+
+All primitive APIs live in `plugin:project-rule:using-mezzanine-ui` (`components/*.md`). When in doubt, open that skill rather than guessing prop names.

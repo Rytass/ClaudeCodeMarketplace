@@ -18,18 +18,20 @@ You will receive:
 ## Key Constraints
 
 - **No backend code**: No API routes, no server actions, no database connections
-- **mezzanine-ui only**: Use `mezzanine-ui-admin-components` and `@mezzanine-ui/react-hook-form-v2` — no raw HTML elements (`<input>`, `<button>`, `<table>`), no third-party UI libraries
-- **Admin components first**: Prefer `AdminTable` over raw `Table`, `PageWrapper` over custom headers, `FormFieldsWrapper` over raw `<form>`
+- **Mezzanine-UI only**: Use `@mezzanine-ui/react` primitives — no raw HTML elements (`<input>`, `<button>`, `<table>`), no third-party UI libraries, and **do not** add any deprecated Mezzanine-UI companion packages (the enforce hook will reject them)
+- **Component usage**: Follow the `plugin:project-rule:using-mezzanine-ui` skill for component APIs (`Navigation`, `Layout`, `Table`, `Tab`, `FormField`, `Input`, `Select`, `DatePicker`, `PageHeader`, etc.)
+- **Form binding**: Compose `<form>` + `FormField` + Mezzanine primitives with manual `register()` binding (or `useController` for `Select` / `DatePicker` / `AutoComplete` / `Upload`). Validate with `yup` via `@hookform/resolvers/yup`. Reference canonical pattern: `plugin:project-rule:scaffolding-nextjs-page` → `FORM_MODAL_TEMPLATE.md`
 - **Mock data only**: Use `@faker-js/faker` (zh_TW locale) + `useState` hooks for data — no fetch, axios, or Apollo
 - **Static export**: `next.config.js` must use `output: 'export'`
 - **'use client'**: Every page and component file must start with `'use client'`
 - **TypeScript strict**: No `any` type, explicit return types on all functions
 - **Mezzanine spacing**: Use `var(--mzn-spacing-*)` CSS variables, never hardcoded pixels
+- **Calendar provider**: If any date/time component appears anywhere in the prototype, the root layout MUST wrap children with `<CalendarConfigProvider methods={CalendarMethodsMoment}>` — otherwise pickers throw `Cannot find values in your context`
 
 ## Reference Files
 
 Read these skill files for templates and patterns:
-- `references/ADMIN_TEMPLATES.md` — Component API reference
+- `references/LAYOUT_TEMPLATE.md` — Admin layout skeleton (Navigation + Layout + CalendarConfigProvider)
 - `references/COMPONENT_MAPPING.md` — Field type → component mapping
 - `references/PAGE_PATTERNS.md` — Page templates (list, detail, form, dashboard)
 - `references/MOCK_DATA.md` — Mock data generation strategy
@@ -56,18 +58,19 @@ Execute the following 6 steps in order.
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.0",
-    "@mezzanine-ui/core": "^2.0.0-rc.8",
-    "@mezzanine-ui/icons": "^2.0.0-rc.8",
-    "@mezzanine-ui/react": "^2.0.0-rc.8",
-    "@mezzanine-ui/react-hook-form-v2": "latest",
-    "@mezzanine-ui/system": "^2.0.0-rc.8",
+    "@hookform/resolvers": "^3.9.0",
+    "@mezzanine-ui/core": "^1.0.0",
+    "@mezzanine-ui/icons": "^1.0.0",
+    "@mezzanine-ui/react": "^1.0.0",
+    "@mezzanine-ui/system": "^1.0.0",
     "date-fns": "^4.0.0",
     "lodash": "^4.17.21",
-    "mezzanine-ui-admin-components": "latest",
+    "moment": "^2.30.0",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.54.0"
+    "react-hook-form": "^7.54.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.0",
@@ -91,33 +94,47 @@ Execute the following 6 steps in order.
 
 ### Step 2: Create Layout and Theme
 
-1. Generate `src/app/globals.scss`:
+1. Generate `src/app/globals.scss` following the v1 setup (palette / common variables + `@include mzn-core.styles()`):
 
 ```scss
-@use '@mezzanine-ui/system/palette' as palette;
-@use '@mezzanine-ui/system/spacing' as spacing;
-@use '@mezzanine-ui/system/typography' as typography;
+@use '~@mezzanine-ui/system' as mzn-system;
+@use '~@mezzanine-ui/core' as mzn-core;
 
 :root {
-  @include palette.root();
-  @include spacing.root();
-  @include typography.root();
+  @include mzn-system.palette-variables(light);
+  @include mzn-system.common-variables(default);
 }
+
+[data-theme='dark'] {
+  @include mzn-system.palette-variables(dark);
+}
+
+@include mzn-core.styles();
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+html, body {
+  height: 100%;
+}
 ```
 
 2. Generate `src/app/layout.tsx` — Root layout with `<html>`, `<body>`, globals.scss import
-3. Generate `src/app/(admin)/layout.tsx`:
-   - Import `AuthorizedAdminPageWrapper` from `mezzanine-ui-admin-components`
-   - Import navigation icons from `@mezzanine-ui/icons`
-   - Build `navigationChildren` from `projectSpec.navigation` using `NavigationOptionCategory` and `NavigationOption`
-   - Use `useRouter` from `next/navigation` for `onPush`
-   - Provide mock user data (name, role, account) to the wrapper
+3. Generate `src/app/(admin)/layout.tsx` — directly compose primitives (no extra shell component):
+   - Mark `'use client'`
+   - Wrap the entire tree in `<CalendarConfigProvider methods={CalendarMethodsMoment}>` (imported from `@mezzanine-ui/react` + `@mezzanine-ui/core/calendar`)
+   - Render `<Navigation>` with `NavigationHeader`, `NavigationOptionCategory` / `NavigationOption` built from `projectSpec.navigation`
+     - Derive `activatedPath` from `usePathname()` by splitting on `/` and filtering empties
+     - Use `useRouter().push(href)` inside `onOptionClick` (or attach `href` directly to `NavigationOption`)
+     - Icons come from `@mezzanine-ui/icons` based on each nav entry's `icon` field
+   - Render `<Layout><Layout.Main>{children}</Layout.Main></Layout>` alongside the navigation
+   - Place `<Navigation>` and `<Layout>` side-by-side inside a flex container so the sidebar stays left-docked
+4. Confirm every `.tsx` that uses a date/time picker is reachable from this layout — otherwise `CalendarConfigProvider` is missing and pickers will error at runtime
+
+See `references/LAYOUT_TEMPLATE.md` for the concrete template.
 
 ### Step 3: Generate Type Definitions
 
@@ -155,26 +172,34 @@ For each page in `projectSpec.pages`, generate the page files following the patt
    - Mock data hook integration
    - Pagination state (`useState<number>(1)`)
    - Modal state for create/edit
+   - Page header rendered via `<PageHeader><ContentHeader title="..." onBackClick?>{actionButtons}</ContentHeader></PageHeader>` (import `ContentHeader` from `@mezzanine-ui/react/ContentHeader`)
+   - Optional `<Tab>` above the table when the entity has status-based tabs
+   - Optional filter row (see `PAGE_PATTERNS.md`)
    - Column definitions using `references/COMPONENT_MAPPING.md` rules
-   - `PageWrapper` + `AdminTable` + `{Entity}FormModal`
+   - `<Table>` from `@mezzanine-ui/react` with native `actions`, `pagination`, and (when orderable) `draggable` props
 2. Create `_components/{Entity}FormModal.tsx`:
-   - Modal with `FormFieldsWrapper`
-   - Form fields mapped from entity fields (exclude `id`, `createdAt`, `updatedAt`)
-   - `useForm` with proper default values
-   - `useEffect` to reset form on `defaultValues` change
+   - `<Modal>` + `<ModalHeader>` + `<form onSubmit={handleSubmit(...)}>`
+   - Yup schema (`{entity}FormSchema`) + `useForm({ resolver: yupResolver(...) })`
+   - Fields wrapped in `<FormField name label severity hintText>` with the appropriate Mezzanine primitive bound via manual `register()` (text / number / password / textarea) or `useController` (select / date / upload / autocomplete)
+   - `useEffect` to `reset(...)` on `defaultValues` / open change
+   - `<ModalFooter confirmButtonProps={{ type: 'submit', loading }} cancelButtonProps={{ disabled: loading }} />`
 
 **For `detail` pages** (`app/(admin)/{route}/[id]/page.tsx`):
-- Use `useParams` to get the entity ID
-- Find the item from mock data
-- Display fields in a two-column grid using `Typography`
+- `<PageHeader>` + `<ContentHeader title onBackClick>` header
+- Use `useParams` to get the entity ID, find the item from mock data
+- Render fields in a two-column grid using `<Typography>`
+- Multi-tab layouts: use `<Tab activeKey onChange>` with `<TabItem key>` then conditionally render each tab body (field grid or related `<Table>`)
 
 **For `form` pages** (`app/(admin)/{route}/create/page.tsx`):
-- `PageWrapper` with `isFormPage`
-- `FormFieldsWrapper` with footer (submit/cancel)
+- `<PageHeader>` + `<ContentHeader title>`
+- `<form onSubmit={handleSubmit(onSubmit)}>` with `FormField` + primitives (yup schema as in the modal)
+- Bottom action row: `<Button variant="base-secondary" onClick={() => router.back()}>取消</Button>` + `<Button type="submit">儲存</Button>`
 
 **For `dashboard` pages** (`app/(admin)/page.tsx`):
-- Stat cards derived from mock data counts
-- Recent items table using `AdminTable`
+- `<PageHeader>` + `<ContentHeader title="總覽">` header
+- Stat cards derived from mock data counts (custom `<div>` + `<Typography>` + `<Icon>`)
+- Recent items sections using `<Table>` from `@mezzanine-ui/react`
+- Optional chart placeholder with dashed border `<div>`
 
 ### Step 6: Verify Build
 
@@ -214,8 +239,10 @@ After completing each step, report progress:
 - Do NOT create `app/api/` routes or server-side data fetching
 - Do NOT use `fetch()`, `axios`, or any HTTP client
 - Do NOT hardcode pixel values — use `var(--mzn-spacing-*)` or mezzanine-ui component props
+- Do NOT add any deprecated Mezzanine-UI companion packages (admin-components wrappers, react-hook-form field packs, etc.); compose primitives from `@mezzanine-ui/react` directly
 - All entity data types must have `id: string` field
-- `dataSource` for `AdminTable` must satisfy `TableDataSourceWithID` (requires `id` field)
+- `<Table>` columns require a `key` string; map entity `id` to `rowKey` using `getRowKey={(row) => row.id}` (see `plugin:project-rule:using-mezzanine-ui` → `components/Table.md`)
 - Use `useMemo` for column definitions and derived data
 - Use `useCallback` for event handlers passed as props
-- Select options must use `{ id: string; name: string }` shape
+- Select option objects use Mezzanine's `{ id: string; name: string }` shape (`Select` / `AutoComplete`); radio / checkbox groups use the component's native option format — consult the using-mezzanine-ui component docs before assuming
+- Forms with date/time fields depend on the root `CalendarConfigProvider` (see Step 2)
