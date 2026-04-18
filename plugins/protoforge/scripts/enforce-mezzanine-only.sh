@@ -36,9 +36,9 @@ fi
 # Check for raw HTML elements that should be mezzanine-ui components
 VIOLATIONS=""
 
-# Raw <input> (should be InputField, SearchInputField, etc.)
+# Raw <input> (should be Input wrapped in FormField)
 if grep -qE '<input[^A-Z]' "$FILE_PATH" 2>/dev/null; then
-  VIOLATIONS="${VIOLATIONS}\n  - <input> → 使用 InputField, SearchInputField (@mezzanine-ui/react-hook-form-v2)"
+  VIOLATIONS="${VIOLATIONS}\n  - <input> → 使用 FormField + Input (@mezzanine-ui/react)，以手動 register() 綁定 react-hook-form"
 fi
 
 # Raw <button> (should be Button from @mezzanine-ui/react)
@@ -46,24 +46,19 @@ if grep -qE '<button[^A-Z]' "$FILE_PATH" 2>/dev/null; then
   VIOLATIONS="${VIOLATIONS}\n  - <button> → 使用 Button (@mezzanine-ui/react)"
 fi
 
-# Raw <table> (should be AdminTable or Table)
+# Raw <table> (should be Table from @mezzanine-ui/react)
 if grep -qE '<table[^A-Z]' "$FILE_PATH" 2>/dev/null; then
-  VIOLATIONS="${VIOLATIONS}\n  - <table> → 使用 AdminTable (mezzanine-ui-admin-components)"
+  VIOLATIONS="${VIOLATIONS}\n  - <table> → 使用 Table (@mezzanine-ui/react)，內建 actions / pagination / draggable"
 fi
 
-# Raw <select> (should be SelectField, SingleSelectField)
+# Raw <select> (should be Select from @mezzanine-ui/react)
 if grep -qE '<select[^A-Z]' "$FILE_PATH" 2>/dev/null; then
-  VIOLATIONS="${VIOLATIONS}\n  - <select> → 使用 SingleSelectField (@mezzanine-ui/react-hook-form-v2)"
+  VIOLATIONS="${VIOLATIONS}\n  - <select> → 使用 FormField + Select (@mezzanine-ui/react)，搭配 useController"
 fi
 
-# Raw <textarea> (should be TextAreaField)
+# Raw <textarea> (should be Textarea from @mezzanine-ui/react)
 if grep -qE '<textarea[^A-Z]' "$FILE_PATH" 2>/dev/null; then
-  VIOLATIONS="${VIOLATIONS}\n  - <textarea> → 使用 TextAreaField (@mezzanine-ui/react-hook-form-v2)"
-fi
-
-# Raw <form> (should be FormFieldsWrapper)
-if grep -qE '<form[^A-Z]' "$FILE_PATH" 2>/dev/null; then
-  VIOLATIONS="${VIOLATIONS}\n  - <form> → 使用 FormFieldsWrapper (@mezzanine-ui/react-hook-form-v2)"
+  VIOLATIONS="${VIOLATIONS}\n  - <textarea> → 使用 FormField + Textarea (@mezzanine-ui/react)，以手動 register() 綁定"
 fi
 
 if [ -n "$VIOLATIONS" ]; then

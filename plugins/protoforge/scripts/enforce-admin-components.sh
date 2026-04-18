@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Suggest using admin-components wrappers over raw mezzanine-ui components
-# Event: PostToolUse | Matcher: Write|Edit | Action: SOFT REMIND
+# Block imports of deprecated Mezzanine-UI companion packages.
+# The admin prototype must compose @mezzanine-ui/react primitives directly.
+# Event: PostToolUse | Matcher: Write|Edit | Action: HARD BLOCK
 
 source "$(dirname "$0")/_lib.sh"
 
@@ -12,9 +13,8 @@ if [ -z "$FILE_PATH" ]; then
   exit 0
 fi
 
-# Only check .tsx page files (not _components)
 case "$FILE_PATH" in
-  *.tsx) ;;
+  *.tsx|*.ts) ;;
   *) exit 0 ;;
 esac
 
@@ -22,34 +22,25 @@ if is_skip_path "$FILE_PATH"; then
   exit 0
 fi
 
-case "$FILE_PATH" in
-  */_components/*) exit 0 ;;
-esac
-
 if [ ! -f "$FILE_PATH" ]; then
   exit 0
 fi
 
-SUGGESTIONS=""
+VIOLATIONS=""
 
-# Using raw Table instead of AdminTable (in page files)
-if grep -q "from '@mezzanine-ui/react'" "$FILE_PATH" 2>/dev/null; then
-  if grep -qE "import.*\bTable\b.*from '@mezzanine-ui/react'" "$FILE_PATH" 2>/dev/null; then
-    if ! grep -q "from 'mezzanine-ui-admin-components'" "$FILE_PATH" 2>/dev/null; then
-      SUGGESTIONS="${SUGGESTIONS}\n  - Table → 建議使用 AdminTable (mezzanine-ui-admin-components)，內建 filters、tabs、分頁、行動下拉"
-    fi
-  fi
+# Deprecated admin-components wrapper — removed, use @mezzanine-ui/react primitives
+if grep -qE "from ['\"]mezzanine-ui-admin-components['\"]" "$FILE_PATH" 2>/dev/null; then
+  VIOLATIONS="${VIOLATIONS}\n  - 偵測到已棄用的 admin-components 封裝套件 → 改用 @mezzanine-ui/react 的 Navigation / Layout / PageHeader / Table"
 fi
 
-# Check if page has Typography h1 but not PageWrapper (custom header instead of PageWrapper)
-if grep -qE "variant=['\"]h1['\"]" "$FILE_PATH" 2>/dev/null; then
-  if ! grep -q "PageWrapper" "$FILE_PATH" 2>/dev/null; then
-    SUGGESTIONS="${SUGGESTIONS}\n  - 頁面標題 → 建議使用 PageWrapper (mezzanine-ui-admin-components)，內建標題 + 新增按鈕"
-  fi
+# Deprecated react-hook-form field-wrapper pack — removed, use FormField + primitives + manual register
+if grep -qE "from ['\"]@mezzanine-ui/react-hook-form-v2['\"]" "$FILE_PATH" 2>/dev/null; then
+  VIOLATIONS="${VIOLATIONS}\n  - 偵測到已棄用的 react-hook-form 欄位封裝套件 → 改用 FormField + Input/Select/Textarea/... + 手動 register() (見 plugin:project-rule:scaffolding-nextjs-page → FORM_MODAL_TEMPLATE.md)"
 fi
 
-if [ -n "$SUGGESTIONS" ]; then
-  echo -e "💡 ProtoForge: 建議使用 admin-components 封裝元件以簡化開發：${SUGGESTIONS}"
+if [ -n "$VIOLATIONS" ]; then
+  echo -e "⛔ ProtoForge: 偵測到已棄用的 Mezzanine-UI 配套套件，不相容於當前 @mezzanine-ui/react：${VIOLATIONS}\n\n請參考 plugin:project-rule:using-mezzanine-ui 與 plugins/protoforge/skills/protoforge/references/ 下的最新模板。" >&2
+  exit 2
 fi
 
 exit 0
