@@ -1,13 +1,13 @@
 ---
 name: using-mezzanine-ui
-description: Create, edit, or style React components using the Mezzanine-UI design system (1.0.0). Covers @mezzanine-ui/react, @mezzanine-ui/core, @mezzanine-ui/system, @mezzanine-ui/icons. Use when creating or modifying *.tsx, *.scss files that import from @mezzanine-ui/*, adding Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Menu, Navigation, Typography, Icon, Drawer, Upload, Toggle components, or setting up design tokens and theming. Trigger words — add component, build form, create page UI, mezzanine, mzn, design system, frontend component, UI layout.
+description: Create, edit, or style React components using the Mezzanine-UI design system (1.0.3). Covers @mezzanine-ui/react, @mezzanine-ui/core, @mezzanine-ui/system, @mezzanine-ui/icons. Use when creating or modifying *.tsx, *.scss files that import from @mezzanine-ui/*, adding Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Menu, Navigation, Typography, Icon, Drawer, Upload, Toggle components, or setting up design tokens and theming. Trigger words — add component, build form, create page UI, mezzanine, mzn, design system, frontend component, UI layout.
 ---
 
 # Mezzanine-UI Design System
 
 **Core principle: All frontend development MUST prefer the Mezzanine-UI design system.**
 
-> Baseline: `@mezzanine-ui/*` `1.x` (1.0.0 stable). Last verified: 2026-04-02.
+> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.0.3`, icons/system `1.0.2`). Last verified: 2026-04-21.
 >
 > Check latest version: `npm view @mezzanine-ui/react versions` or see [GitHub Releases](https://github.com/Mezzanine-UI/mezzanine/releases).
 
@@ -97,6 +97,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```
 
 > 也可使用 `CalendarConfigProviderMoment` 或 `CalendarConfigProviderDayjs` 便捷封裝（從 `@mezzanine-ui/react/Calendar` 匯入）。
+
+---
+
+## Patch Releases (1.0.1 – 1.0.3)
+
+> **No public API changes** in this range — existing usage does not need to be modified. Upgrade is a straightforward `yarn upgrade @mezzanine-ui/*`.
+
+### `@mezzanine-ui/react` 1.0.3 (2026-04-21)
+
+- **Chore** — bump `@mezzanine-ui/core` dependency to `1.0.3`.
+
+### `@mezzanine-ui/react` 1.0.2 (2026-04-17)
+
+- **Fix** — `Badge`: correct `utils` import path to use a relative path. Internal only; no surface change.
+
+### `@mezzanine-ui/react` 1.0.1 (2026-04-14)
+
+- **Fix** — `Notifier`: lazy-init `createRoot` to fix React 19 event delegation. Required if the host app is on React 19 — previously `Notifier` toast handlers could silently fail to fire. No API change.
+
+### `@mezzanine-ui/core` 1.0.3 (2026-04-21)
+
+- **Feat** — `core/calendar`: separate ISO and locale week-year format tokens. Internal formatting utility; does **not** change Calendar / DatePicker React props. Only relevant if you consume `@mezzanine-ui/core/calendar` week-year format helpers directly.
+
+### `@mezzanine-ui/icons` 1.0.2 · `@mezzanine-ui/system` 1.0.2 (2026-04-17)
+
+- Monorepo-sync version bump only. No code change.
 
 ---
 
@@ -395,7 +421,7 @@ document.documentElement.setAttribute('data-density', 'compact');
 When Mezzanine-UI releases a new version, use the `/sync-mezzanine-ui` command to refresh all skill content:
 
 ```
-/sync-mezzanine-ui 1.0.0
+/sync-mezzanine-ui 1.0.3
 ```
 
 This orchestrates a team of agents to:

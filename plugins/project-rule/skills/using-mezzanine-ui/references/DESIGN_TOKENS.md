@@ -2,7 +2,7 @@
 
 Foundation visual variable definitions for the design system. Mezzanine-UI uses a **Primitives + Semantic** two-layer architecture.
 
-> Baseline: `@mezzanine-ui/*` `1.x` (1.0.0 stable). Last verified: 2026-04-02.
+> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.0.3`, icons/system `1.0.2`). Last verified: 2026-04-21.
 >
 > Source: [GitHub](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/system/src)
 

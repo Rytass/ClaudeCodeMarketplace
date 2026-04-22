@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Notification Center`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/NotificationCenter)  · Verified 1.0.0 (2026-04-02)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/NotificationCenter)  · Verified 1.0.3 (2026-04-21)
 
 Notification center component for displaying global notifications. Supports both popup notification and drawer list modes.
 

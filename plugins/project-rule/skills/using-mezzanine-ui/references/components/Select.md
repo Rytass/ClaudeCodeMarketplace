@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Select`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Select) · Verified 1.0.0 (2026-04-02)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Select) · Verified 1.0.3 (2026-04-21)
 
 Dropdown select component supporting single-select and multi-select modes. Internally uses the Dropdown component to render the option list.
 

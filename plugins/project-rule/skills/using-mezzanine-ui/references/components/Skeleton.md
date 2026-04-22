@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Skeleton`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Skeleton) · Verified 1.0.0 (2026-04-02)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Skeleton) · Verified 1.0.3 (2026-04-21)
 
 Skeleton screen component for providing placeholder effects while content is loading.
 

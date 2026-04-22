@@ -2,7 +2,7 @@
 
 Common UI pattern implementation examples.
 
-> Baseline: `@mezzanine-ui/*` `1.x` (1.0.0 stable). Last verified: 2026-04-02.
+> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.0.3`, icons/system `1.0.2`). Last verified: 2026-04-21.
 
 ## Table of Contents
 

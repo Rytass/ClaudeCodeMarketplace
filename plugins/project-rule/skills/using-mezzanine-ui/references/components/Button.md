@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Button`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Button) · Verified 1.0.0 (2026-04-02)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Button) · Verified 1.0.3 (2026-04-21)
 
 The most commonly used interactive element, supporting multiple variants and sizes.
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Navigation`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Navigation) · Verified 1.0.0 (2026-04-02)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Navigation) · Verified 1.0.3 (2026-04-21)
 
 Side navigation component supporting expand/collapse, multi-level, categories, search, and more.
 

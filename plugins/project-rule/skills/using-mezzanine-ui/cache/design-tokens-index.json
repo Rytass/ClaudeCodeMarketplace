@@ -999,7 +999,7 @@
     }
   },
   "meta": {
-    "generatedAt": "2026-04-02",
+    "generatedAt": "2026-04-21",
     "sourceFiles": {
       "typescriptPalette": "packages/system/src/palette/typings.ts",
       "typescriptSpacing": "packages/system/src/spacing/typings.ts",
@@ -1034,7 +1034,7 @@
         ]
       }
     },
-    "version": "1.0.0"
+    "version": "1.0.2"
   },
-  "lastUpdated": "2026-03-27T07:25:42Z"
+  "lastUpdated": "2026-04-21T00:00:00Z"
 }

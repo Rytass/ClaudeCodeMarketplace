@@ -2138,8 +2138,8 @@
     ]
   },
   "_meta": {
-    "version": "1.0.0",
-    "generatedAt": "2026-04-02",
+    "version": "1.0.3",
+    "generatedAt": "2026-04-21",
     "description": "TypeScript props API index for Mezzanine UI v2"
   }
 }

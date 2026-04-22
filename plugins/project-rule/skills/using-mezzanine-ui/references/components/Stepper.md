@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Stepper`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Stepper) · Verified 1.0.0 (2026-04-02)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Stepper) · Verified 1.0.3 (2026-04-21)
 
 Stepper component for guiding users through multi-step processes.
 
