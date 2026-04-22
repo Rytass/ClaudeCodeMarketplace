@@ -1,0 +1,524 @@
+{
+  "meta": {
+    "version": "1.0.0-rc.3",
+    "sourceVersion": "1.0.0-rc.3",
+    "generatedAt": "2026-04-21",
+    "description": "Import path mappings for @mezzanine-ui/ng components, services, and tokens"
+  },
+  "packages": {
+    "@mezzanine-ui/ng": {
+      "meta": {
+        "version": "1.0.0-rc.3",
+        "exportPath": "packages/ng/<per-dir>/public-api.ts",
+        "pattern": "sub-path only — main barrel only exports VERSION"
+      },
+      "exports": {
+        "MznAccordion": {
+          "subPath": "@mezzanine-ui/ng/accordion",
+          "sourceDir": "packages/ng/accordion",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznAlertBannerContainer": {
+          "subPath": "@mezzanine-ui/ng/alert-banner",
+          "sourceDir": "packages/ng/alert-banner",
+          "type": "component",
+          "version": "1.0.0-rc.3"
+        },
+        "MznAnchorGroup": {
+          "subPath": "@mezzanine-ui/ng/anchor",
+          "sourceDir": "packages/ng/anchor",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznAutocompletePrefix": {
+          "subPath": "@mezzanine-ui/ng/autocomplete",
+          "sourceDir": "packages/ng/autocomplete",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznBackdrop": {
+          "subPath": "@mezzanine-ui/ng/backdrop",
+          "sourceDir": "packages/ng/backdrop",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznBadge": {
+          "subPath": "@mezzanine-ui/ng/badge",
+          "sourceDir": "packages/ng/badge",
+          "type": "component",
+          "version": "1.0.0-rc.3"
+        },
+        "MznBreadcrumb": {
+          "subPath": "@mezzanine-ui/ng/breadcrumb",
+          "sourceDir": "packages/ng/breadcrumb",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznButton": {
+          "subPath": "@mezzanine-ui/ng/button",
+          "sourceDir": "packages/ng/button",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznCalendarHalfYears": {
+          "subPath": "@mezzanine-ui/ng/calendar",
+          "sourceDir": "packages/ng/calendar",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznCardGroup": {
+          "subPath": "@mezzanine-ui/ng/card",
+          "sourceDir": "packages/ng/card",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznCascaderPanel": {
+          "subPath": "@mezzanine-ui/ng/cascader",
+          "sourceDir": "packages/ng/cascader",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznCheckbox": {
+          "subPath": "@mezzanine-ui/ng/checkbox",
+          "sourceDir": "packages/ng/checkbox",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznClearActions": {
+          "subPath": "@mezzanine-ui/ng/clear-actions",
+          "sourceDir": "packages/ng/clear-actions",
+          "type": "component",
+          "version": "1.0.0-rc.3"
+        },
+        "MznContentHeader": {
+          "subPath": "@mezzanine-ui/ng/content-header",
+          "sourceDir": "packages/ng/content-header",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznCropper": {
+          "subPath": "@mezzanine-ui/ng/cropper",
+          "sourceDir": "packages/ng/cropper",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznDatePickerPanel": {
+          "subPath": "@mezzanine-ui/ng/date-picker",
+          "sourceDir": "packages/ng/date-picker",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznDateRangePicker": {
+          "subPath": "@mezzanine-ui/ng/date-range-picker",
+          "sourceDir": "packages/ng/date-range-picker",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznDateTimePicker": {
+          "subPath": "@mezzanine-ui/ng/date-time-picker",
+          "sourceDir": "packages/ng/date-time-picker",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznDateTimeRangePicker": {
+          "subPath": "@mezzanine-ui/ng/date-time-range-picker",
+          "sourceDir": "packages/ng/date-time-range-picker",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznDescriptionGroup": {
+          "subPath": "@mezzanine-ui/ng/description",
+          "sourceDir": "packages/ng/description",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznDrawer": {
+          "subPath": "@mezzanine-ui/ng/drawer",
+          "sourceDir": "packages/ng/drawer",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznDropdown": {
+          "subPath": "@mezzanine-ui/ng/dropdown",
+          "sourceDir": "packages/ng/dropdown",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznEmpty": {
+          "subPath": "@mezzanine-ui/ng/empty",
+          "sourceDir": "packages/ng/empty",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznFilterArea": {
+          "subPath": "@mezzanine-ui/ng/filter-area",
+          "sourceDir": "packages/ng/filter-area",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznFloatingButton": {
+          "subPath": "@mezzanine-ui/ng/floating-button",
+          "sourceDir": "packages/ng/floating-button",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznForm": {
+          "subPath": "@mezzanine-ui/ng/form",
+          "sourceDir": "packages/ng/form",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznFourThumbnailCard": {
+          "subPath": "@mezzanine-ui/ng/four-thumbnail-card",
+          "sourceDir": "packages/ng/four-thumbnail-card",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznIcon": {
+          "subPath": "@mezzanine-ui/ng/icon",
+          "sourceDir": "packages/ng/icon",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznInlineMessage": {
+          "subPath": "@mezzanine-ui/ng/inline-message",
+          "sourceDir": "packages/ng/inline-message",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznInput": {
+          "subPath": "@mezzanine-ui/ng/input",
+          "sourceDir": "packages/ng/input",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznLayout": {
+          "subPath": "@mezzanine-ui/ng/layout",
+          "sourceDir": "packages/ng/layout",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznMediaPreviewModal": {
+          "subPath": "@mezzanine-ui/ng/media-preview-modal",
+          "sourceDir": "packages/ng/media-preview-modal",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznMessage": {
+          "subPath": "@mezzanine-ui/ng/message",
+          "sourceDir": "packages/ng/message",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznModal": {
+          "subPath": "@mezzanine-ui/ng/modal",
+          "sourceDir": "packages/ng/modal",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznMultipleDatePicker": {
+          "subPath": "@mezzanine-ui/ng/multiple-date-picker",
+          "sourceDir": "packages/ng/multiple-date-picker",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznNavigation": {
+          "subPath": "@mezzanine-ui/ng/navigation",
+          "sourceDir": "packages/ng/navigation",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznNotificationCenter": {
+          "subPath": "@mezzanine-ui/ng/notification-center",
+          "sourceDir": "packages/ng/notification-center",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznOverflowTooltip": {
+          "subPath": "@mezzanine-ui/ng/overflow-tooltip",
+          "sourceDir": "packages/ng/overflow-tooltip",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznPageFooter": {
+          "subPath": "@mezzanine-ui/ng/page-footer",
+          "sourceDir": "packages/ng/page-footer",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznPageHeader": {
+          "subPath": "@mezzanine-ui/ng/page-header",
+          "sourceDir": "packages/ng/page-header",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznPagination": {
+          "subPath": "@mezzanine-ui/ng/pagination",
+          "sourceDir": "packages/ng/pagination",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznPickerPanel": {
+          "subPath": "@mezzanine-ui/ng/picker",
+          "sourceDir": "packages/ng/picker",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznPopper": {
+          "subPath": "@mezzanine-ui/ng/popper",
+          "sourceDir": "packages/ng/popper",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznPortal": {
+          "subPath": "@mezzanine-ui/ng/portal",
+          "sourceDir": "packages/ng/portal",
+          "type": "component",
+          "version": "1.0.0-rc.3"
+        },
+        "MznProgress": {
+          "subPath": "@mezzanine-ui/ng/progress",
+          "sourceDir": "packages/ng/progress",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznRadio": {
+          "subPath": "@mezzanine-ui/ng/radio",
+          "sourceDir": "packages/ng/radio",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznResultState": {
+          "subPath": "@mezzanine-ui/ng/result-state",
+          "sourceDir": "packages/ng/result-state",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznScrollbar": {
+          "subPath": "@mezzanine-ui/ng/scrollbar",
+          "sourceDir": "packages/ng/scrollbar",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznSection": {
+          "subPath": "@mezzanine-ui/ng/section",
+          "sourceDir": "packages/ng/section",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznSelectTrigger": {
+          "subPath": "@mezzanine-ui/ng/select",
+          "sourceDir": "packages/ng/select",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznSelectionCard": {
+          "subPath": "@mezzanine-ui/ng/selection-card",
+          "sourceDir": "packages/ng/selection-card",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznSeparator": {
+          "subPath": "@mezzanine-ui/ng/separator",
+          "sourceDir": "packages/ng/separator",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznSingleThumbnailCard": {
+          "subPath": "@mezzanine-ui/ng/single-thumbnail-card",
+          "sourceDir": "packages/ng/single-thumbnail-card",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznSkeleton": {
+          "subPath": "@mezzanine-ui/ng/skeleton",
+          "sourceDir": "packages/ng/skeleton",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznSlider": {
+          "subPath": "@mezzanine-ui/ng/slider",
+          "sourceDir": "packages/ng/slider",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznSpin": {
+          "subPath": "@mezzanine-ui/ng/spin",
+          "sourceDir": "packages/ng/spin",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznStepper": {
+          "subPath": "@mezzanine-ui/ng/stepper",
+          "sourceDir": "packages/ng/stepper",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznTabGroup": {
+          "subPath": "@mezzanine-ui/ng/tab",
+          "sourceDir": "packages/ng/tab",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznTableContainer": {
+          "subPath": "@mezzanine-ui/ng/table",
+          "sourceDir": "packages/ng/table",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznTag": {
+          "subPath": "@mezzanine-ui/ng/tag",
+          "sourceDir": "packages/ng/tag",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznTextField": {
+          "subPath": "@mezzanine-ui/ng/text-field",
+          "sourceDir": "packages/ng/text-field",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznTextarea": {
+          "subPath": "@mezzanine-ui/ng/textarea",
+          "sourceDir": "packages/ng/textarea",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznThumbnail": {
+          "subPath": "@mezzanine-ui/ng/thumbnail",
+          "sourceDir": "packages/ng/thumbnail",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznThumbnailCardInfo": {
+          "subPath": "@mezzanine-ui/ng/thumbnail-card-info",
+          "sourceDir": "packages/ng/thumbnail-card-info",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznTimePanel": {
+          "subPath": "@mezzanine-ui/ng/time-panel",
+          "sourceDir": "packages/ng/time-panel",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznTimePickerPanel": {
+          "subPath": "@mezzanine-ui/ng/time-picker",
+          "sourceDir": "packages/ng/time-picker",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznTimeRangePicker": {
+          "subPath": "@mezzanine-ui/ng/time-range-picker",
+          "sourceDir": "packages/ng/time-range-picker",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznToggle": {
+          "subPath": "@mezzanine-ui/ng/toggle",
+          "sourceDir": "packages/ng/toggle",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznTooltip": {
+          "subPath": "@mezzanine-ui/ng/tooltip",
+          "sourceDir": "packages/ng/tooltip",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznScale": {
+          "subPath": "@mezzanine-ui/ng/transition",
+          "sourceDir": "packages/ng/transition",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznTypography": {
+          "subPath": "@mezzanine-ui/ng/typography",
+          "sourceDir": "packages/ng/typography",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        },
+        "MznUploader": {
+          "subPath": "@mezzanine-ui/ng/upload",
+          "sourceDir": "packages/ng/upload",
+          "type": "directive",
+          "version": "1.0.0-rc.3"
+        }
+      }
+    },
+    "@mezzanine-ui/ng/services": {
+      "meta": {
+        "version": "1.0.0-rc.3"
+      },
+      "exports": {
+        "ClickAwayService": {
+          "subPath": "@mezzanine-ui/ng/services",
+          "sourceDir": "packages/ng/services",
+          "type": "service",
+          "version": "1.0.0-rc.3"
+        },
+        "EscapeKeyService": {
+          "subPath": "@mezzanine-ui/ng/services",
+          "sourceDir": "packages/ng/services",
+          "type": "service",
+          "version": "1.0.0-rc.3"
+        },
+        "ScrollLockService": {
+          "subPath": "@mezzanine-ui/ng/services",
+          "sourceDir": "packages/ng/services",
+          "type": "service",
+          "version": "1.0.0-rc.3"
+        },
+        "TopStackService": {
+          "subPath": "@mezzanine-ui/ng/services",
+          "sourceDir": "packages/ng/services",
+          "type": "service",
+          "version": "1.0.0-rc.3"
+        },
+        "WindowWidthService": {
+          "subPath": "@mezzanine-ui/ng/services",
+          "sourceDir": "packages/ng/services",
+          "type": "service",
+          "version": "1.0.0-rc.3"
+        }
+      }
+    },
+    "@mezzanine-ui/core": {
+      "meta": {
+        "version": "1.0.3"
+      },
+      "exports": {
+        "FormFieldLayout": {
+          "subPath": "@mezzanine-ui/core/form",
+          "sourceDir": "packages/core/form",
+          "type": "enum",
+          "version": "1.0.3"
+        },
+        "ButtonVariant": {
+          "subPath": "@mezzanine-ui/core/button",
+          "sourceDir": "packages/core/button",
+          "type": "enum",
+          "version": "1.0.3"
+        },
+        "ButtonSize": {
+          "subPath": "@mezzanine-ui/core/button",
+          "sourceDir": "packages/core/button",
+          "type": "enum",
+          "version": "1.0.3"
+        }
+      }
+    },
+    "@mezzanine-ui/icons": {
+      "meta": {
+        "version": "1.0.2",
+        "exportPath": "packages/icons/src/index.ts"
+      }
+    },
+    "@mezzanine-ui/system": {
+      "meta": {
+        "version": "1.0.2"
+      }
+    }
+  }
+}

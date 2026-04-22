@@ -1,0 +1,38 @@
+{
+  "version": "1.0.0-rc.3",
+  "lastUpdated": "2026-04-21T00:00:00Z",
+  "services": {
+    "ClickAwayService": {
+      "sourceFile": "packages/ng/services/click-away.service.ts",
+      "purpose": "Detect clicks outside an element tree",
+      "importPath": "@mezzanine-ui/ng/services"
+    },
+    "EscapeKeyService": {
+      "sourceFile": "packages/ng/services/escape-key.service.ts",
+      "purpose": "Detect escape key press events",
+      "importPath": "@mezzanine-ui/ng/services"
+    },
+    "ScrollLockService": {
+      "sourceFile": "packages/ng/services/scroll-lock.service.ts",
+      "purpose": "Manage document scroll lock state",
+      "importPath": "@mezzanine-ui/ng/services"
+    },
+    "TopStackService": {
+      "sourceFile": "packages/ng/services/top-stack.service.ts",
+      "purpose": "Manage z-index stacking context",
+      "importPath": "@mezzanine-ui/ng/services"
+    },
+    "WindowWidthService": {
+      "sourceFile": "packages/ng/services/window-width.service.ts",
+      "purpose": "Track window resize and width changes",
+      "importPath": "@mezzanine-ui/ng/services"
+    }
+  },
+  "tokens": {
+    "MZN_CALENDAR_CONFIG": {
+      "sourceFile": "packages/ng/calendar/calendar-config.token.ts",
+      "importPath": "@mezzanine-ui/ng/calendar",
+      "providerFactory": "MznCalendarConfigProvider"
+    }
+  }
+}
