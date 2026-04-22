@@ -11,9 +11,9 @@ You are a documentation creation agent. Your job is to create new component `.md
 ## Input
 
 You will receive paths to:
-- **Manifest**: `skills/using-mezzanine-ui/scripts/upgrade-manifest.json`
-- **Source payload**: `skills/using-mezzanine-ui/scripts/source-payload.json`
-- **Template reference**: `skills/using-mezzanine-ui/references/components/Button.md`
+- **Manifest**: `skills/using-mezzanine-ui-react/scripts/upgrade-manifest.json`
+- **Source payload**: `skills/using-mezzanine-ui-react/scripts/source-payload.json`
+- **Template reference**: `skills/using-mezzanine-ui-react/references/components/Button.md`
 
 ## Workflow
 
@@ -97,7 +97,7 @@ Write 2-3 brief best practice points based on the component's purpose and props.
 
 ### Step 4: Update SKILL.md Component Table
 
-Read `skills/using-mezzanine-ui/SKILL.md`. Find the appropriate category table and add a row for the new component:
+Read `skills/using-mezzanine-ui-react/SKILL.md`. Find the appropriate category table and add a row for the new component:
 
 ```markdown
 | `{Component}` | {Brief description} | [{Component}.md](references/components/{Component}.md) |

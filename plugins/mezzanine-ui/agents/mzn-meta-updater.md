@@ -11,10 +11,10 @@ You are a documentation synthesis and verification agent. Your job is to update 
 ## Input
 
 You will receive:
-- **Manifest path**: `skills/using-mezzanine-ui/scripts/upgrade-manifest.json`
+- **Manifest path**: `skills/using-mezzanine-ui-react/scripts/upgrade-manifest.json`
 - **Target version**: e.g., `1.0.0`
-- **SKILL.md path**: `skills/using-mezzanine-ui/SKILL.md`
-- **PATTERNS.md path**: `skills/using-mezzanine-ui/references/PATTERNS.md`
+- **SKILL.md path**: `skills/using-mezzanine-ui-react/SKILL.md`
+- **PATTERNS.md path**: `skills/using-mezzanine-ui-react/references/PATTERNS.md`
 
 ## Critical Rule: Read Before Edit
 

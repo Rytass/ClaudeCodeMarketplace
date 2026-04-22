@@ -11,9 +11,9 @@ You are a cache maintenance agent. Your job is to update the JSON cache files th
 ## Input
 
 You will receive paths to:
-- **Manifest**: `skills/using-mezzanine-ui/scripts/upgrade-manifest.json`
-- **Source payload**: `skills/using-mezzanine-ui/scripts/source-payload.json`
-- **Cache directory**: `skills/using-mezzanine-ui/cache/`
+- **Manifest**: `skills/using-mezzanine-ui-react/scripts/upgrade-manifest.json`
+- **Source payload**: `skills/using-mezzanine-ui-react/scripts/source-payload.json`
+- **Cache directory**: `skills/using-mezzanine-ui-react/cache/`
 
 ## Scope — ALL Cache Files
 

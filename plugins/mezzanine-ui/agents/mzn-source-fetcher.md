@@ -12,8 +12,8 @@ You are a data extraction agent. Your job is to fetch TypeScript source code fro
 
 You will receive:
 - **Target version** (e.g., `1.0.0`)
-- **Manifest path**: `skills/using-mezzanine-ui/scripts/upgrade-manifest.json`
-- **Output path**: `skills/using-mezzanine-ui/scripts/source-payload.json`
+- **Manifest path**: `skills/using-mezzanine-ui-react/scripts/upgrade-manifest.json`
+- **Output path**: `skills/using-mezzanine-ui-react/scripts/source-payload.json`
 
 ## Workflow
 

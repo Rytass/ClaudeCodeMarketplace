@@ -11,9 +11,9 @@ You are a documentation updater agent. Your job is to update existing component 
 ## Input
 
 You will receive paths to:
-- **Manifest**: `skills/using-mezzanine-ui/scripts/upgrade-manifest.json`
-- **Source payload**: `skills/using-mezzanine-ui/scripts/source-payload.json`
-- **Component docs directory**: `skills/using-mezzanine-ui/references/components/`
+- **Manifest**: `skills/using-mezzanine-ui-react/scripts/upgrade-manifest.json`
+- **Source payload**: `skills/using-mezzanine-ui-react/scripts/source-payload.json`
+- **Component docs directory**: `skills/using-mezzanine-ui-react/references/components/`
 
 ## Scope — Simple Components Only
 

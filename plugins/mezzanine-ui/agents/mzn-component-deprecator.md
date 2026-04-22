@@ -11,8 +11,8 @@ You are a documentation deprecation agent. Your job is to mark components as dep
 ## Input
 
 You will receive paths to:
-- **Manifest**: `skills/using-mezzanine-ui/scripts/upgrade-manifest.json`
-- **SKILL.md**: `skills/using-mezzanine-ui/SKILL.md`
+- **Manifest**: `skills/using-mezzanine-ui-react/scripts/upgrade-manifest.json`
+- **SKILL.md**: `skills/using-mezzanine-ui-react/SKILL.md`
 
 ## Critical Rule: Read Before Edit
 

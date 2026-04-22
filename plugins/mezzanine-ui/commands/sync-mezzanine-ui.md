@@ -6,16 +6,16 @@ argument-hint: "<target-version>"
 
 # Sync Mezzanine-UI Skill
 
-Orchestrate a team of agents to sync the `using-mezzanine-ui` skill content against the actual Mezzanine-UI source code. This ensures all component documentation reflects real TypeScript interfaces and Storybook usage patterns, reducing hallucination.
+Orchestrate a team of agents to sync the `using-mezzanine-ui-react` skill content against the actual Mezzanine-UI source code. This ensures all component documentation reflects real TypeScript interfaces and Storybook usage patterns, reducing hallucination.
 
 ## Paths
 
 All paths below are relative to the plugin root:
 
-- **Skill root**: `skills/using-mezzanine-ui/`
-- **Component docs**: `skills/using-mezzanine-ui/references/components/`
-- **Cache files**: `skills/using-mezzanine-ui/cache/`
-- **Scripts**: `skills/using-mezzanine-ui/scripts/`
+- **Skill root**: `skills/using-mezzanine-ui-react/`
+- **Component docs**: `skills/using-mezzanine-ui-react/references/components/`
+- **Cache files**: `skills/using-mezzanine-ui-react/cache/`
+- **Scripts**: `skills/using-mezzanine-ui-react/scripts/`
 - **Agents**: `agents/mzn-*.md`
 
 ## Phase 0 — Argument Parsing & Prerequisites
@@ -30,7 +30,7 @@ Ask the user: **What version are you upgrading to?** (e.g., `1.0.0-rc.9`, `1.0.0
 
 ### Detect Current Version
 
-Read `skills/using-mezzanine-ui/cache/component-api-index.json` and extract the `._meta.version` field to determine the current documented version.
+Read `skills/using-mezzanine-ui-react/cache/component-api-index.json` and extract the `._meta.version` field to determine the current documented version.
 
 If the current version equals the target version, warn the user:
 > "Skill is already documented at this version. Re-run anyway to refresh all content?"
@@ -42,7 +42,7 @@ Wait for confirmation before continuing.
 Run the existing shell script to produce an upgrade manifest:
 
 ```bash
-cd skills/using-mezzanine-ui
+cd skills/using-mezzanine-ui-react
 bash scripts/upgrade-version.sh --from {current_version} --to {target_version}
 ```
 
@@ -73,8 +73,8 @@ Launch the `mzn-source-fetcher` agent.
 
 Pass it the following context:
 - Target version: `{target_version}`
-- Manifest path: `skills/using-mezzanine-ui/scripts/upgrade-manifest.json`
-- Output path: `skills/using-mezzanine-ui/scripts/source-payload.json`
+- Manifest path: `skills/using-mezzanine-ui-react/scripts/upgrade-manifest.json`
+- Output path: `skills/using-mezzanine-ui-react/scripts/source-payload.json`
 
 **Wait for completion** before proceeding — all subsequent agents depend on this output.
 
@@ -104,7 +104,7 @@ If `componentDiff.added` in the manifest is non-empty, launch `mzn-component-cre
 Pass it:
 - Manifest path
 - Source payload path
-- Template reference: `skills/using-mezzanine-ui/references/components/Button.md`
+- Template reference: `skills/using-mezzanine-ui-react/references/components/Button.md`
 
 ### 3d. Component Deprecator
 
@@ -217,7 +217,7 @@ If any FAIL is found:
 
 Delete the intermediate build artifact:
 ```bash
-rm -f skills/using-mezzanine-ui/scripts/source-payload.json
+rm -f skills/using-mezzanine-ui-react/scripts/source-payload.json
 ```
 
 This file is ~700KB and only needed during the sync process. It should NOT be committed.
