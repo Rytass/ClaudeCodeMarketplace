@@ -83,7 +83,7 @@ If `pnpm codegen` is unavailable, try `npx graphql-codegen`.
 - Follow project's existing SCSS conventions
 - Use Mezzanine CSS variables (`--mzn-spacing-*`)
 
-Refer to `using-mezzanine-ui` skill for component usage.
+Refer to `using-mezzanine-ui-react` skill for component usage.
 
 ### Step 6: Create Table Component
 

@@ -1,6 +1,6 @@
 ---
 name: using-mezzanine-ui-ng
-description: Create, edit, or style Angular standalone components using the @mezzanine-ui/ng library (1.0.0-rc.3) on Angular 21+. Covers directive-based selectors (mznButton, mznInput, mznSelect, mznTextField, mznFormField, mznModal, mznTable, mznNavigation), ControlValueAccessor integration with ReactiveFormsModule, DI services (ClickAwayService, EscapeKeyService, MZN_CALENDAR_CONFIG), sub-path imports, design tokens. Use when creating or modifying *.component.ts, *.component.html, *.component.scss files that import from @mezzanine-ui/ng/*, building Angular forms with mznFormField + formControlName, wiring Mezzanine directives into standalone components, or setting up Angular global SCSS with @mezzanine-ui/system. Trigger words — angular component, standalone component, mzn directive, ControlValueAccessor, ReactiveForms with mezzanine, mezzanine-ui/ng, ng form, ng select, ng table, ng modal, ng layout.
+description: Angular 21+ Mezzanine-UI skill — create, edit, or style standalone Angular components with @mezzanine-ui/ng (1.0.0-rc.3, RC tier) directives. Covers directive-based selectors (mznButton, mznInput, mznSelect, mznTextField, mznFormField, mznModal, mznTable, mznNavigation), ControlValueAccessor + ReactiveFormsModule integration, DI services (ClickAwayService, EscapeKeyService, MZN_CALENDAR_CONFIG), sub-path imports, design tokens. Use when working on *.component.ts, *.component.html, *.component.scss files that import from @mezzanine-ui/ng/*, building Angular reactive forms with mznFormField + formControlName, wiring Mezzanine directives into standalone components, or configuring Angular global SCSS. Trigger — Angular, standalone component, mzn directive, ControlValueAccessor, ReactiveForms, mezzanine-ui/ng, ng form, ng select, ng table, ng modal. For React / Next.js projects use the sibling using-mezzanine-ui-react skill instead.
 ---
 
 # Mezzanine-UI Angular (`@mezzanine-ui/ng`)
@@ -11,7 +11,7 @@ description: Create, edit, or style Angular standalone components using the @mez
 >
 > **⚠️ RC tier** — `@mezzanine-ui/ng` is in Release Candidate. API may still shift minor details before `1.0.0` stable. Check `npm view @mezzanine-ui/ng versions` for the latest.
 
-> **For React (Next.js) projects** see the companion skill [`using-mezzanine-ui`](../using-mezzanine-ui/SKILL.md). Design tokens, icons, and Figma mappings are shared.
+> **For React (Next.js) projects** see the companion skill [`using-mezzanine-ui-react`](../using-mezzanine-ui-react/SKILL.md). Design tokens, icons, and Figma mappings are shared.
 
 ## Resource Overview
 
@@ -405,7 +405,7 @@ Components that exist in `@mezzanine-ui/ng` but **not** `@mezzanine-ui/react`:
 
 ---
 
-## Shared Resources (synced from `using-mezzanine-ui`)
+## Shared Resources (synced from `using-mezzanine-ui-react`)
 
 Design tokens, icon catalog, and Figma mappings are identical across React and Angular. They're copied into this skill so each can be used independently:
 
@@ -439,4 +439,4 @@ When `@mezzanine-ui/ng` releases a new version, run the sync orchestrator:
 
 The orchestrator shares infrastructure with the React sync: fetches TypeScript from GitHub, regenerates cache JSON, refreshes shared design-token / icon / figma-mapping docs.
 
-See companion skill `using-mezzanine-ui` for the React side.
+See companion skill `using-mezzanine-ui-react` for the React side.

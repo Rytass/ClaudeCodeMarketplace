@@ -1,6 +1,6 @@
 ---
-name: using-mezzanine-ui
-description: Create, edit, or style React components using the Mezzanine-UI design system (1.0.3). Covers @mezzanine-ui/react, @mezzanine-ui/core, @mezzanine-ui/system, @mezzanine-ui/icons. Use when creating or modifying *.tsx, *.scss files that import from @mezzanine-ui/*, adding Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Menu, Navigation, Typography, Icon, Drawer, Upload, Toggle components, or setting up design tokens and theming. Trigger words — add component, build form, create page UI, mezzanine, mzn, design system, frontend component, UI layout.
+name: using-mezzanine-ui-react
+description: React / Next.js Mezzanine-UI skill — create, edit, or style JSX components with @mezzanine-ui/react (1.0.3). Covers Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Navigation, Typography, Icon, Drawer, Upload, Toggle, design tokens, theming, and CalendarConfigProvider. Use when working on *.tsx, *.scss files with @mezzanine-ui/react imports, building React forms, or configuring Mezzanine styles in a React codebase. Trigger — React, Next.js, tsx, JSX, mezzanine-ui/react, add mezzanine component, build form, create page UI, design tokens, mzn. For Angular projects use the sibling using-mezzanine-ui-ng skill instead.
 ---
 
 # Mezzanine-UI Design System
