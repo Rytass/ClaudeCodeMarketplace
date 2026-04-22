@@ -2,7 +2,7 @@
 
 This table maps each `FieldSpec.type` in a `ProjectSpec` to (a) the column renderer used inside `<Table>`, (b) the form primitive used with `react-hook-form`, and (c) the filter primitive used in list filters. All components are from `@mezzanine-ui/react`.
 
-> Component props / behaviour live in `plugin:project-rule:using-mezzanine-ui-react` → `components/*.md`. Only the orchestration patterns stay here.
+> Component props / behaviour live in `plugin:mezzanine-ui:using-mezzanine-ui-react` → `components/*.md`. Only the orchestration patterns stay here.
 
 ## Mapping Table
 
@@ -159,7 +159,7 @@ const { field: categoryField } = useController({ name: 'category', control });
 </FormField>
 ```
 
-> For any other primitive (`DatePicker`, `Upload`, `AutoComplete`, `RadioGroup`, `Textarea`…), read the corresponding `plugin:project-rule:using-mezzanine-ui-react` → `components/<Name>.md` file for exact props, then follow the same binding recipe above.
+> For any other primitive (`DatePicker`, `Upload`, `AutoComplete`, `RadioGroup`, `Textarea`…), read the corresponding `plugin:mezzanine-ui:using-mezzanine-ui-react` → `components/<Name>.md` file for exact props, then follow the same binding recipe above.
 
 ## Yup Schema Example
 

@@ -39,7 +39,7 @@ if grep -qE "from ['\"]@mezzanine-ui/react-hook-form-v2['\"]" "$FILE_PATH" 2>/de
 fi
 
 if [ -n "$VIOLATIONS" ]; then
-  echo -e "⛔ ProtoForge: 偵測到已棄用的 Mezzanine-UI 配套套件，不相容於當前 @mezzanine-ui/react：${VIOLATIONS}\n\n請參考 plugin:project-rule:using-mezzanine-ui 與 plugins/protoforge/skills/protoforge/references/ 下的最新模板。" >&2
+  echo -e "⛔ ProtoForge: 偵測到已棄用的 Mezzanine-UI 配套套件，不相容於當前 @mezzanine-ui/react：${VIOLATIONS}\n\n請參考 plugin:mezzanine-ui:using-mezzanine-ui 與 plugins/protoforge/skills/protoforge/references/ 下的最新模板。" >&2
   exit 2
 fi
 

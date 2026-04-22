@@ -19,7 +19,7 @@ You will receive:
 
 - **No backend code**: No API routes, no server actions, no database connections
 - **Mezzanine-UI only**: Use `@mezzanine-ui/react` primitives — no raw HTML elements (`<input>`, `<button>`, `<table>`), no third-party UI libraries, and **do not** add any deprecated Mezzanine-UI companion packages (the enforce hook will reject them)
-- **Component usage**: Follow the `plugin:project-rule:using-mezzanine-ui-react` skill for component APIs (`Navigation`, `Layout`, `Table`, `Tab`, `FormField`, `Input`, `Select`, `DatePicker`, `PageHeader`, etc.)
+- **Component usage**: Follow the `plugin:mezzanine-ui:using-mezzanine-ui-react` skill for component APIs (`Navigation`, `Layout`, `Table`, `Tab`, `FormField`, `Input`, `Select`, `DatePicker`, `PageHeader`, etc.)
 - **Form binding**: Compose `<form>` + `FormField` + Mezzanine primitives with manual `register()` binding (or `useController` for `Select` / `DatePicker` / `AutoComplete` / `Upload`). Validate with `yup` via `@hookform/resolvers/yup`. Reference canonical pattern: `plugin:project-rule:scaffolding-nextjs-page` → `FORM_MODAL_TEMPLATE.md`
 - **Mock data only**: Use `@faker-js/faker` (zh_TW locale) + `useState` hooks for data — no fetch, axios, or Apollo
 - **Static export**: `next.config.js` must use `output: 'export'`
@@ -241,7 +241,7 @@ After completing each step, report progress:
 - Do NOT hardcode pixel values — use `var(--mzn-spacing-*)` or mezzanine-ui component props
 - Do NOT add any deprecated Mezzanine-UI companion packages (admin-components wrappers, react-hook-form field packs, etc.); compose primitives from `@mezzanine-ui/react` directly
 - All entity data types must have `id: string` field
-- `<Table>` columns require a `key` string; map entity `id` to `rowKey` using `getRowKey={(row) => row.id}` (see `plugin:project-rule:using-mezzanine-ui-react` → `components/Table.md`)
+- `<Table>` columns require a `key` string; map entity `id` to `rowKey` using `getRowKey={(row) => row.id}` (see `plugin:mezzanine-ui:using-mezzanine-ui-react` → `components/Table.md`)
 - Use `useMemo` for column definitions and derived data
 - Use `useCallback` for event handlers passed as props
 - Select option objects use Mezzanine's `{ id: string; name: string }` shape (`Select` / `AutoComplete`); radio / checkbox groups use the component's native option format — consult the using-mezzanine-ui-react component docs before assuming

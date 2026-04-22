@@ -2,7 +2,7 @@
 
 Four page types are supported. Each pattern defines the complete file structure and component composition built from `@mezzanine-ui/react` primitives.
 
-> For any component's props / behaviour, consult `plugin:project-rule:using-mezzanine-ui-react` → `components/*.md`. The form modal binding convention is defined in `plugin:project-rule:scaffolding-nextjs-page` → `FORM_MODAL_TEMPLATE.md`.
+> For any component's props / behaviour, consult `plugin:mezzanine-ui:using-mezzanine-ui-react` → `components/*.md`. The form modal binding convention is defined in `plugin:project-rule:scaffolding-nextjs-page` → `FORM_MODAL_TEMPLATE.md`.
 
 ---
 
@@ -266,7 +266,7 @@ export function {Entity}FormModal({
 }
 ```
 
-> Element props detail (`Input`, `Select`, `Modal`, `FormField`, `Textarea`, `DatePicker`, `Upload` …) — see `plugin:project-rule:using-mezzanine-ui-react` → `components/<Name>.md`.
+> Element props detail (`Input`, `Select`, `Modal`, `FormField`, `Textarea`, `DatePicker`, `Upload` …) — see `plugin:mezzanine-ui:using-mezzanine-ui-react` → `components/<Name>.md`.
 
 ### Orderable List Variant
 
@@ -705,4 +705,4 @@ format(new Date(value), 'yyyy/MM/dd');
 
 ### Component Prop Details
 
-All primitive APIs live in `plugin:project-rule:using-mezzanine-ui-react` (`components/*.md`). When in doubt, open that skill rather than guessing prop names.
+All primitive APIs live in `plugin:mezzanine-ui:using-mezzanine-ui-react` (`components/*.md`). When in doubt, open that skill rather than guessing prop names.

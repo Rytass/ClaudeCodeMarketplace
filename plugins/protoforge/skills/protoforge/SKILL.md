@@ -16,7 +16,7 @@ ProtoForge transforms RFP / project specification documents into fully functiona
 - **@faker-js/faker (zh_TW)** for realistic mock data
 - **useState-based CRUD** for full interactivity without a backend
 
-Component APIs are not repeated here — defer to `plugin:project-rule:using-mezzanine-ui-react` for all primitives.
+Component APIs are not repeated here — defer to `plugin:mezzanine-ui:using-mezzanine-ui-react` for all primitives.
 
 ## Workflow
 
