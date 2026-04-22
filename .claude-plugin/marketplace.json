@@ -10,6 +10,11 @@
       "description": "Full-stack project architecture convention plugin for Claude Code."
     },
     {
+      "name": "mezzanine-ui",
+      "source": "./plugins/mezzanine-ui",
+      "description": "Mezzanine-UI design system skills for React/Next.js and Angular 21+. Source-verified component docs, DI services, CVA/ReactiveForms patterns, plus /sync-mezzanine-ui orchestrator."
+    },
+    {
       "name": "react-performance",
       "source": "./plugins/react-performance",
       "description": "React and Next.js performance optimization rules from Vercel Engineering."
