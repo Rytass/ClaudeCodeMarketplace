@@ -2,7 +2,7 @@
 
 Generated prototypes compose the admin shell directly inside `app/(admin)/layout.tsx` using primitives from `@mezzanine-ui/react`. No companion shell packages are used.
 
-> For any component's props / behaviour, consult the `plugin:project-rule:using-mezzanine-ui` skill. Key docs:
+> For any component's props / behaviour, consult the `plugin:project-rule:using-mezzanine-ui-react` skill. Key docs:
 >
 > - `components/Navigation.md` — `Navigation`, `NavigationHeader`, `NavigationOption`, `NavigationOptionCategory`, `NavigationFooter`, `NavigationUserMenu`
 > - `components/Layout.md` — compound `Layout` / `Layout.Main`
