@@ -1,19 +1,23 @@
 {
   "meta": {
-    "fromVersion": "1.0.0-rc.8",
-    "toVersion": "1.0.0",
-    "generatedAt": "2026-04-02T00:00:00Z",
-    "description": "Mezzanine-UI upgrade work manifest"
+    "framework": "react",
+    "branch": "main",
+    "packagePath": "packages/react/src",
+    "fromVersion": "1.0.3",
+    "toVersion": "1.1.0",
+    "generatedAt": "2026-04-24T11:24:16Z",
+    "description": "Mezzanine-UI upgrade work manifest. Consume this file to drive .md documentation updates."
   },
   "summary": {
     "componentsAdded": 0,
     "componentsRemoved": 4,
     "componentsUnchanged": 65,
-    "componentsWithPropChanges": 0,
-    "releasesCovered": 0,
-    "workItemsTotal": 69,
-    "workItemsHigh": 4,
-    "workItemsMedium": 65,
+    "componentsWithPropChanges": 14,
+    "componentsWithAngularChanges": 0,
+    "releasesCovered": 2,
+    "workItemsTotal": 18,
+    "workItemsHigh": 18,
+    "workItemsMedium": 0,
     "workItemsLow": 0
   },
   "componentDiff": {
@@ -92,8 +96,286 @@
       "Upload"
     ]
   },
-  "changelog": [],
-  "propsDiff": [],
+  "changelog": [
+    {
+      "tag": "@mezzanine-ui/react@1.1.0",
+      "name": "@mezzanine-ui/react@1.1.0",
+      "published": "2026-04-24T05:43:57Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.1.0",
+      "body": "## `@mezzanine-ui/react@1.1.0`\r\n\r\n> Minor release: `SelectButton` gains a new `closeOnSelect` prop and closes its dropdown on option click by default. Also fixes an SSR hydration mismatch in `Table` and restores keyboard navigation across the portalled picker family — completing the portal migration started in `1.0.4`.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`SelectButton`** — New `closeOnSelect` prop (defaults to `true`) closes the dropdown after an option click, matching single-select UX expectations. The internal `Dropdown` is now controlled via `open` / `onVisibilityChange` so the behaviour is deterministic across controlled and uncontrolled call sites. Consumers who relied on the dropdown staying open after selection can opt out per call site with `closeOnSelect={false}` — a dedicated story demonstrates this.\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Table`** — Fixes an SSR hydration mismatch that affected Next.js / Remix consumers. Row height was being resolved via `getComputedStyle` inside `useMemo` at render time, which returned `0` on the server and the real pixel value on the client, causing React to warn (and in strict mode, throw) during hydration. The CSS-variable read is now deferred to `useIsomorphicLayoutEffect` so the first render is deterministic across server and client, and the measured height is applied on the next paint.\r\n- **`DatePicker` / `DateRangePicker` / `TimePicker` / `DateTimePicker` / `DateTimeRangePicker` / `TimeRangePicker` / `MultipleDatePicker`** — Restores `Tab` / `Shift+Tab` navigation between the trigger input and the calendar / time panel after the popper was portalled out in `1.0.4`. Because the portal severs natural DOM traversal order, the popper now establishes an explicit logical focus loop (trigger → popper → trigger). The implementation uses ref-mirrored handlers to avoid closure staleness in the document-level `keydown` listeners, plus a direct `keydown` binding on the trigger so focus cycling stays reliable inside a `Modal` focus trap.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.0.4, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.0.4...@mezzanine-ui/react@1.1.0"
+    },
+    {
+      "tag": "@mezzanine-ui/react@1.0.4",
+      "name": "@mezzanine-ui/react@1.0.4",
+      "published": "2026-04-22T08:52:57Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.0.4",
+      "body": "## `@mezzanine-ui/react@1.0.4`\r\n\r\n> Fixes the entire picker family (`DatePicker`, `DateRangePicker`, `TimePicker`, `DateTimePicker`, `DateTimeRangePicker`, `TimeRangePicker`, `MultipleDatePicker`) when rendered inside a `Modal` or near the viewport bottom edge. Restores behaviour parity with `@mezzanine-ui/ng`'s picker popper.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`DatePicker` / `DateRangePicker` / `TimePicker` / `DateTimePicker` / `DateTimeRangePicker` / `TimeRangePicker` / `MultipleDatePicker`** — The popup no longer gets visually clipped when the picker sits inside a `Modal` (or any ancestor with `overflow: hidden`). The internal `InputTriggerPopper` previously hard-coded `disablePortal`, leaving the popup in the same stacking/clipping subtree as the modal body. The popper now portals out by default, so `z-index: popover (1005)` actually wins against `Modal (1004)`. Consumers who relied on the old inline rendering can opt back in per call-site with `popperProps={{ disablePortal: true }}`.\r\n- **`DatePicker` / `DateRangePicker` / `TimePicker` / `DateTimePicker` / `DateTimeRangePicker` / `TimeRangePicker` / `MultipleDatePicker`** — The popup now flips above the trigger when there isn't enough room below. The popper was previously anchored to `bottom-start` with no flip middleware, so a picker near the viewport bottom had its popup cut off by the window edge. Floating UI's `flip` middleware is now enabled with `padding: 8` and `fallbackAxisSideDirection: 'end'` so the panel re-opens upward (or sideways) before grazing the edge.\r\n- **`DatePicker` / `DateRangePicker`** — Internal hover-based interactions (the `onMouseLeave` overlay inside the calendar body) now receive mouse events correctly once the popup is portalled *(via `core@1.0.4`)*. The default portal container is `pointer-events: none` so the rest of the page stays interactive; children must opt back in, which was missing for the picker popper class.\r\n\r\n### 🏗 Internal\r\n\r\n- **`DatePicker`** — New Storybook regression stories `InsideModal` and `NearViewportEdge` guard the two fixes above. They mirror the `DrawerModalSelectLayering` story added earlier for `Select` / `Dropdown`, so every family of portalled popup now has a layering regression guard.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.0.4, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.0.3...@mezzanine-ui/react@1.0.4"
+    }
+  ],
+  "propsDiff": [
+    {
+      "component": "Accordion",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "onChange"
+      ]
+    },
+    {
+      "component": "Calendar",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "calendarHalfYearsProps",
+        "calendarQuartersProps",
+        "calendarWeeksProps",
+        "calendarYearsProps",
+        "disabledFooterControl",
+        "disabledMonthSwitch",
+        "disabledYearSwitch",
+        "mode",
+        "onChange",
+        "onDoubleNext",
+        "onDoublePrev",
+        "onMonthControlClick",
+        "onNext",
+        "onPrev",
+        "onYearControlClick",
+        "quickSelect",
+        "referenceDate",
+        "value"
+      ]
+    },
+    {
+      "component": "Checkbox",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "id",
+        "inputProps",
+        "inputRef",
+        "name",
+        "onChange",
+        "size",
+        "value"
+      ]
+    },
+    {
+      "component": "DateRangePicker",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "defaultValue",
+        "format",
+        "onCalendarToggle",
+        "onChange",
+        "referenceDate",
+        "value"
+      ]
+    },
+    {
+      "component": "DateTimePicker",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "value"
+      ]
+    },
+    {
+      "component": "Drawer",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "bottomOnSecondaryActionClick",
+        "bottomPrimaryActionDisabled",
+        "bottomPrimaryActionIcon",
+        "bottomPrimaryActionIconType",
+        "bottomPrimaryActionLoading",
+        "bottomPrimaryActionSize",
+        "bottomPrimaryActionText",
+        "bottomPrimaryActionVariant",
+        "bottomSecondaryActionDisabled",
+        "bottomSecondaryActionIcon",
+        "bottomSecondaryActionIconType",
+        "bottomSecondaryActionLoading",
+        "bottomSecondaryActionSize",
+        "bottomSecondaryActionText",
+        "bottomSecondaryActionVariant",
+        "disableCloseOnEscapeKeyDown",
+        "filterAreaAllRadioLabel",
+        "filterAreaCustomButtonLabel",
+        "filterAreaDefaultValue",
+        "filterAreaIsEmpty",
+        "filterAreaOnCustomButtonClick",
+        "filterAreaOnRadioChange",
+        "filterAreaOnSelect",
+        "filterAreaOptions",
+        "filterAreaReadRadioLabel",
+        "filterAreaShow",
+        "filterAreaShowUnreadButton",
+        "filterAreaUnreadRadioLabel",
+        "filterAreaValue",
+        "headerTitle",
+        "isBottomDisplay",
+        "isHeaderDisplay",
+        "size"
+      ]
+    },
+    {
+      "component": "Dropdown",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "computed",
+        "customWidth",
+        "emptyIcon",
+        "emptyText",
+        "globalPortal",
+        "listboxId",
+        "listboxLabel",
+        "loadingPosition",
+        "loadingText",
+        "maxHeight",
+        "minWidth",
+        "onActionCancel",
+        "onActionClear",
+        "onActionConfirm",
+        "onActionCustom",
+        "onClose",
+        "onItemHover",
+        "onLeaveBottom",
+        "onOpen",
+        "onReachBottom",
+        "onScroll",
+        "onSelect",
+        "onVisibilityChange",
+        "open",
+        "options",
+        "placement",
+        "sameWidth",
+        "scrollbarDefer",
+        "scrollbarDisabled",
+        "scrollbarMaxWidth",
+        "scrollbarOptions",
+        "showActionShowTopBar",
+        "showDropdownActions",
+        "status",
+        "target",
+        "toggleCheckedOnClick",
+        "type",
+        "zIndex"
+      ]
+    },
+    {
+      "component": "MultipleDatePicker",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "onCalendarToggle",
+        "onChange",
+        "placeholder",
+        "popperProps",
+        "referenceDate",
+        "required",
+        "value"
+      ]
+    },
+    {
+      "component": "Pagination",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "renderPageSizeOptionName",
+        "renderResultSummary",
+        "showJumper",
+        "showPageSizeOptions",
+        "siblingCount",
+        "total"
+      ]
+    },
+    {
+      "component": "Portal",
+      "propsAdded": [
+        "container"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "ResultState",
+      "propsAdded": [
+        "children"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "SelectionCard",
+      "propsAdded": [
+        "onClick"
+      ],
+      "propsRemoved": [
+        "inputRef",
+        "onChange",
+        "readonly",
+        "supportingText",
+        "supportingTextMaxWidth",
+        "value"
+      ]
+    },
+    {
+      "component": "Typography",
+      "propsAdded": [
+        "align",
+        "color",
+        "display",
+        "ellipsis",
+        "noWrap",
+        "variant"
+      ],
+      "propsRemoved": [
+        ""
+      ]
+    },
+    {
+      "component": "Upload",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "ariaLabels",
+        "currentCount",
+        "errorIcon",
+        "errorMessage",
+        "multiple",
+        "name",
+        "onChange",
+        "onDelete",
+        "onDownload",
+        "onMaxFilesExceeded",
+        "onReload",
+        "onUpload",
+        "onZoomIn",
+        "selectedCount",
+        "setProgress",
+        "showFileSize",
+        "size",
+        "uploaderLabel"
+      ]
+    }
+  ],
+  "angularSpecific": [],
   "workItems": [
     {
       "component": "ClearActions",
@@ -121,393 +403,306 @@
     },
     {
       "component": "Accordion",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "AlertBanner",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Anchor",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "AutoComplete",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Backdrop",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Badge",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Breadcrumb",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Button",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: ; Props removed: onChange",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "onChange"
+      ]
     },
     {
       "component": "Calendar",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Card",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Cascader",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: ; Props removed: calendarHalfYearsProps, calendarQuartersProps, calendarWeeksProps, calendarYearsProps, disabledFooterControl, disabledMonthSwitch, disabledYearSwitch, mode, onChange, onDoubleNext, onDoublePrev, onMonthControlClick, onNext, onPrev, onYearControlClick, quickSelect, referenceDate, value",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "calendarHalfYearsProps",
+        "calendarQuartersProps",
+        "calendarWeeksProps",
+        "calendarYearsProps",
+        "disabledFooterControl",
+        "disabledMonthSwitch",
+        "disabledYearSwitch",
+        "mode",
+        "onChange",
+        "onDoubleNext",
+        "onDoublePrev",
+        "onMonthControlClick",
+        "onNext",
+        "onPrev",
+        "onYearControlClick",
+        "quickSelect",
+        "referenceDate",
+        "value"
+      ]
     },
     {
       "component": "Checkbox",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Cropper",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "DatePicker",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: ; Props removed: id, inputProps, inputRef, name, onChange, size, value",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "id",
+        "inputProps",
+        "inputRef",
+        "name",
+        "onChange",
+        "size",
+        "value"
+      ]
     },
     {
       "component": "DateRangePicker",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: ; Props removed: defaultValue, format, onCalendarToggle, onChange, referenceDate, value",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "defaultValue",
+        "format",
+        "onCalendarToggle",
+        "onChange",
+        "referenceDate",
+        "value"
+      ]
     },
     {
       "component": "DateTimePicker",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "DateTimeRangePicker",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Description",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: ; Props removed: value",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "value"
+      ]
     },
     {
       "component": "Drawer",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: ; Props removed: bottomOnSecondaryActionClick, bottomPrimaryActionDisabled, bottomPrimaryActionIcon, bottomPrimaryActionIconType, bottomPrimaryActionLoading, bottomPrimaryActionSize, bottomPrimaryActionText, bottomPrimaryActionVariant, bottomSecondaryActionDisabled, bottomSecondaryActionIcon, bottomSecondaryActionIconType, bottomSecondaryActionLoading, bottomSecondaryActionSize, bottomSecondaryActionText, bottomSecondaryActionVariant, disableCloseOnEscapeKeyDown, filterAreaAllRadioLabel, filterAreaCustomButtonLabel, filterAreaDefaultValue, filterAreaIsEmpty, filterAreaOnCustomButtonClick, filterAreaOnRadioChange, filterAreaOnSelect, filterAreaOptions, filterAreaReadRadioLabel, filterAreaShow, filterAreaShowUnreadButton, filterAreaUnreadRadioLabel, filterAreaValue, headerTitle, isBottomDisplay, isHeaderDisplay, size",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "bottomOnSecondaryActionClick",
+        "bottomPrimaryActionDisabled",
+        "bottomPrimaryActionIcon",
+        "bottomPrimaryActionIconType",
+        "bottomPrimaryActionLoading",
+        "bottomPrimaryActionSize",
+        "bottomPrimaryActionText",
+        "bottomPrimaryActionVariant",
+        "bottomSecondaryActionDisabled",
+        "bottomSecondaryActionIcon",
+        "bottomSecondaryActionIconType",
+        "bottomSecondaryActionLoading",
+        "bottomSecondaryActionSize",
+        "bottomSecondaryActionText",
+        "bottomSecondaryActionVariant",
+        "disableCloseOnEscapeKeyDown",
+        "filterAreaAllRadioLabel",
+        "filterAreaCustomButtonLabel",
+        "filterAreaDefaultValue",
+        "filterAreaIsEmpty",
+        "filterAreaOnCustomButtonClick",
+        "filterAreaOnRadioChange",
+        "filterAreaOnSelect",
+        "filterAreaOptions",
+        "filterAreaReadRadioLabel",
+        "filterAreaShow",
+        "filterAreaShowUnreadButton",
+        "filterAreaUnreadRadioLabel",
+        "filterAreaValue",
+        "headerTitle",
+        "isBottomDisplay",
+        "isHeaderDisplay",
+        "size"
+      ]
     },
     {
       "component": "Dropdown",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Empty",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "FilterArea",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "FloatingButton",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Form",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Icon",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "InlineMessage",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Input",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Layout",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Message",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Modal",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: ; Props removed: computed, customWidth, emptyIcon, emptyText, globalPortal, listboxId, listboxLabel, loadingPosition, loadingText, maxHeight, minWidth, onActionCancel, onActionClear, onActionConfirm, onActionCustom, onClose, onItemHover, onLeaveBottom, onOpen, onReachBottom, onScroll, onSelect, onVisibilityChange, open, options, placement, sameWidth, scrollbarDefer, scrollbarDisabled, scrollbarMaxWidth, scrollbarOptions, showActionShowTopBar, showDropdownActions, status, target, toggleCheckedOnClick, type, zIndex",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "computed",
+        "customWidth",
+        "emptyIcon",
+        "emptyText",
+        "globalPortal",
+        "listboxId",
+        "listboxLabel",
+        "loadingPosition",
+        "loadingText",
+        "maxHeight",
+        "minWidth",
+        "onActionCancel",
+        "onActionClear",
+        "onActionConfirm",
+        "onActionCustom",
+        "onClose",
+        "onItemHover",
+        "onLeaveBottom",
+        "onOpen",
+        "onReachBottom",
+        "onScroll",
+        "onSelect",
+        "onVisibilityChange",
+        "open",
+        "options",
+        "placement",
+        "sameWidth",
+        "scrollbarDefer",
+        "scrollbarDisabled",
+        "scrollbarMaxWidth",
+        "scrollbarOptions",
+        "showActionShowTopBar",
+        "showDropdownActions",
+        "status",
+        "target",
+        "toggleCheckedOnClick",
+        "type",
+        "zIndex"
+      ]
     },
     {
       "component": "MultipleDatePicker",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Navigation",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "NotificationCenter",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Notifier",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "OverflowTooltip",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "PageFooter",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "PageHeader",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: ; Props removed: onCalendarToggle, onChange, placeholder, popperProps, referenceDate, required, value",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "onCalendarToggle",
+        "onChange",
+        "placeholder",
+        "popperProps",
+        "referenceDate",
+        "required",
+        "value"
+      ]
     },
     {
       "component": "Pagination",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Picker",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Popper",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: ; Props removed: renderPageSizeOptionName, renderResultSummary, showJumper, showPageSizeOptions, siblingCount, total",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "renderPageSizeOptionName",
+        "renderResultSummary",
+        "showJumper",
+        "showPageSizeOptions",
+        "siblingCount",
+        "total"
+      ]
     },
     {
       "component": "Portal",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Progress",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Radio",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: container; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "container"
+      ],
+      "propsRemoved": [
+        ""
+      ]
     },
     {
       "component": "ResultState",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Section",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Select",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: children; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "children"
+      ],
+      "propsRemoved": [
+        ""
+      ]
     },
     {
       "component": "SelectionCard",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Separator",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Skeleton",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Slider",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Spin",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Stepper",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Tab",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Table",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Tag",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Textarea",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "TextField",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "TimePanel",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "TimePicker",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "TimeRangePicker",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Toggle",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Tooltip",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
-    },
-    {
-      "component": "Transition",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: onClick; Props removed: inputRef, onChange, readonly, supportingText, supportingTextMaxWidth, value",
+      "priority": "HIGH",
+      "propsAdded": [
+        "onClick"
+      ],
+      "propsRemoved": [
+        "inputRef",
+        "onChange",
+        "readonly",
+        "supportingText",
+        "supportingTextMaxWidth",
+        "value"
+      ]
     },
     {
       "component": "Typography",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: align, color, display, ellipsis, noWrap, variant; Props removed: ",
+      "priority": "HIGH",
+      "propsAdded": [
+        "align",
+        "color",
+        "display",
+        "ellipsis",
+        "noWrap",
+        "variant"
+      ],
+      "propsRemoved": [
+        ""
+      ]
     },
     {
       "component": "Upload",
-      "action": "UPDATE",
-      "reason": "Verify props against 1.0.0 stable source",
-      "priority": "MEDIUM"
+      "action": "UPDATE_PROPS",
+      "reason": "Props added: ; Props removed: ariaLabels, currentCount, errorIcon, errorMessage, multiple, name, onChange, onDelete, onDownload, onMaxFilesExceeded, onReload, onUpload, onZoomIn, selectedCount, setProgress, showFileSize, size, uploaderLabel",
+      "priority": "HIGH",
+      "propsAdded": [
+        ""
+      ],
+      "propsRemoved": [
+        "ariaLabels",
+        "currentCount",
+        "errorIcon",
+        "errorMessage",
+        "multiple",
+        "name",
+        "onChange",
+        "onDelete",
+        "onDownload",
+        "onMaxFilesExceeded",
+        "onReload",
+        "onUpload",
+        "onZoomIn",
+        "selectedCount",
+        "setProgress",
+        "showFileSize",
+        "size",
+        "uploaderLabel"
+      ]
     }
   ]
 }

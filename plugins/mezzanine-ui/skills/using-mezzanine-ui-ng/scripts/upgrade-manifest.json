@@ -1,0 +1,1705 @@
+{
+  "meta": {
+    "framework": "ng",
+    "branch": "main",
+    "packagePath": "packages/ng",
+    "fromVersion": "1.0.0-rc.3",
+    "toVersion": "1.0.0-rc.4",
+    "generatedAt": "2026-04-24T12:42:26Z",
+    "description": "Mezzanine-UI upgrade work manifest. Consume this file to drive .md documentation updates."
+  },
+  "summary": {
+    "componentsAdded": 94,
+    "componentsRemoved": 12,
+    "componentsUnchanged": 59,
+    "componentsWithPropChanges": 0,
+    "componentsWithAngularChanges": 46,
+    "releasesCovered": 1,
+    "workItemsTotal": 63,
+    "workItemsHigh": 12,
+    "workItemsMedium": 51,
+    "workItemsLow": 0
+  },
+  "componentDiff": {
+    "added": [
+      "AccordionActions",
+      "AccordionContent",
+      "AccordionGroup",
+      "AccordionTitle",
+      "AlertBannerContainer",
+      "AnchorGroup",
+      "BadgeContainer",
+      "BaseCardSkeleton",
+      "BreadcrumbItem",
+      "BreadcrumbOverflowMenu",
+      "BreadcrumbOverflowMenuItem",
+      "ButtonGroup",
+      "CalendarCell",
+      "CalendarConfigProvider",
+      "CalendarControls",
+      "CalendarDayOfWeek",
+      "CalendarDays",
+      "CalendarHalfYears",
+      "CalendarMonths",
+      "CalendarQuarters",
+      "CalendarWeeks",
+      "CalendarYears",
+      "CardGroup",
+      "CascaderPanel",
+      "CheckAll",
+      "CheckboxGroup",
+      "Collapse",
+      "CropperElement",
+      "CropperModal",
+      "DatePickerCalendar",
+      "DateRangePickerCalendar",
+      "DescriptionContent",
+      "DescriptionGroup",
+      "DescriptionTitle",
+      "DropdownItemCard",
+      "Fade",
+      "Filter",
+      "FilterLine",
+      "FormattedInput",
+      "FormField",
+      "FormGroup",
+      "FormHintText",
+      "FormLabel",
+      "FourThumbnailCard",
+      "FourThumbnailCardSkeleton",
+      "InlineMessageGroup",
+      "LayoutLeftPanel",
+      "LayoutMain",
+      "LayoutRightPanel",
+      "ModalBodyContainer",
+      "ModalBodyForVerification",
+      "ModalFooter",
+      "ModalHeader",
+      "MultipleDatePickerTrigger",
+      "NavigationFooter",
+      "NavigationHeader",
+      "NavigationIconButton",
+      "NavigationOption",
+      "NavigationOptionCategory",
+      "NavigationUserMenu",
+      "NotificationCenterContainer",
+      "NotificationCenterDrawer",
+      "OverflowCounterTag",
+      "PaginationItem",
+      "PaginationJumper",
+      "PaginationPageSize",
+      "PickerTrigger",
+      "PickerTriggerWithSeparator",
+      "PortalRegistry",
+      "QuickActionCard",
+      "QuickActionCardSkeleton",
+      "RadioGroup",
+      "RangeCalendar",
+      "RangePickerTrigger",
+      "Rotate",
+      "Scale",
+      "SelectTrigger",
+      "SelectTriggerTags",
+      "SingleThumbnailCard",
+      "SingleThumbnailCardSkeleton",
+      "Slide",
+      "StepperState",
+      "TabItem",
+      "TableCellRender",
+      "Tabs",
+      "TagGroup",
+      "TextFieldHost",
+      "TimePanelColumn",
+      "TimePickerPanel",
+      "Translate",
+      "Uploader",
+      "UploadItem",
+      "UploadMediaPreviewModal",
+      "UploadPictureCard"
+    ],
+    "removed": [
+      "Anchor",
+      "AutoComplete",
+      "Card",
+      "ContentHeader",
+      "Form",
+      "MediaPreviewModal",
+      "Notifier",
+      "Picker",
+      "Popper",
+      "Tab",
+      "ThumbnailCards",
+      "Transition"
+    ],
+    "unchanged": [
+      "Accordion",
+      "AlertBanner",
+      "Backdrop",
+      "Badge",
+      "Breadcrumb",
+      "Button",
+      "Calendar",
+      "Cascader",
+      "Checkbox",
+      "ClearActions",
+      "Cropper",
+      "DatePicker",
+      "DateRangePicker",
+      "DateTimePicker",
+      "DateTimeRangePicker",
+      "Description",
+      "Drawer",
+      "Dropdown",
+      "Empty",
+      "FilterArea",
+      "FloatingButton",
+      "Icon",
+      "InlineMessage",
+      "Input",
+      "Layout",
+      "Message",
+      "Modal",
+      "MultipleDatePicker",
+      "Navigation",
+      "NotificationCenter",
+      "OverflowTooltip",
+      "PageFooter",
+      "PageHeader",
+      "Pagination",
+      "Portal",
+      "Progress",
+      "Radio",
+      "ResultState",
+      "Scrollbar",
+      "Section",
+      "Select",
+      "SelectionCard",
+      "Separator",
+      "Skeleton",
+      "Slider",
+      "Spin",
+      "Stepper",
+      "Table",
+      "Tag",
+      "Textarea",
+      "TextField",
+      "Thumbnail",
+      "TimePanel",
+      "TimePicker",
+      "TimeRangePicker",
+      "Toggle",
+      "Tooltip",
+      "Typography",
+      "Upload"
+    ]
+  },
+  "changelog": [
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.4",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.4",
+      "published": "2026-04-22T08:52:05Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.4",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.4`\r\n\r\n> Compatibility bump paired with `@mezzanine-ui/core@1.0.4`. No Angular source changed — `MznInputTriggerPopper` already ships with `globalPortal=true` and `MznPopper` already enables `flip()` by default, so the React-side picker fixes in this release cycle do not introduce behaviour changes on the Angular side. Pick this version up together with `core@1.0.4` to stay aligned.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.0.4, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.3...@mezzanine-ui/ng@1.0.0-rc.4"
+    }
+  ],
+  "propsDiff": [],
+  "angularSpecific": [
+    {
+      "component": "Accordion",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [
+          "MZN_ACCORDION_CONTROL"
+        ],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznAccordionTitle"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "AlertBanner",
+      "selectorChanged": {
+        "from": "mzn-alert-banner-container",
+        "to": "[mznAlertBanner]",
+        "typeChanged": true
+      },
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznButton",
+          "MznClearActions",
+          "MznIcon",
+          "MznPortal"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Backdrop",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznFade",
+          "MznPortal"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Breadcrumb",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznBreadcrumbItem",
+          "MznBreadcrumbOverflowMenu",
+          "MznIcon"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Calendar",
+      "selectorChanged": {
+        "from": "[mznCalendarHalfYears]",
+        "to": "[mznCalendar]",
+        "typeChanged": false
+      },
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznCalendarControls",
+          "MznCalendarDays",
+          "MznCalendarFooterControl",
+          "MznCalendarHalfYears",
+          "MznCalendarMonths",
+          "MznCalendarQuarters",
+          "MznCalendarQuickSelect",
+          "MznCalendarWeeks",
+          "MznCalendarYears"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Cascader",
+      "selectorChanged": {
+        "from": "[mznCascaderPanel]",
+        "to": "[mznCascader]",
+        "typeChanged": false
+      },
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznCascaderPanel",
+          "MznInputTriggerPopper",
+          "MznSelectTrigger",
+          "MznTranslate"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Checkbox",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon",
+          "MznTextField",
+          "MznTypography"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "ClearActions",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "DatePicker",
+      "selectorChanged": {
+        "from": "[mznDatePickerPanel]",
+        "to": "[mznDatePicker]",
+        "typeChanged": false
+      },
+      "cvaChange": "added",
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznDatePickerCalendar",
+          "MznIcon",
+          "MznPickerTrigger"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "DateRangePicker",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznDateRangePickerCalendar",
+          "MznRangePickerTrigger"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "DateTimePicker",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznClearActions",
+          "MznDatePickerCalendar",
+          "MznFormattedInput",
+          "MznIcon",
+          "MznTimePickerPanel"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "DateTimeRangePicker",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznDateTimePicker",
+          "MznIcon"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Description",
+      "selectorChanged": {
+        "from": "[mznDescriptionGroup]",
+        "to": "[mznDescription]",
+        "typeChanged": false
+      },
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [
+          "MZN_DESCRIPTION_CONTEXT"
+        ],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznDescriptionTitle"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Drawer",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "FormsModule",
+          "MznBackdrop",
+          "MznButton",
+          "MznClearActions",
+          "MznDropdown",
+          "MznIcon",
+          "MznRadio",
+          "MznRadioGroup",
+          "MznSlide"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Dropdown",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznDropdownItem",
+          "MznPopper",
+          "MznPortal",
+          "MznTranslate"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Empty",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznButton",
+          "MznButtonGroup",
+          "MznEmptyMainInitialDataIcon",
+          "MznEmptyMainNotificationIcon",
+          "MznEmptyMainResultIcon",
+          "MznEmptyMainSystemIcon",
+          "MznIcon"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "FilterArea",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [
+          "MZN_FILTER_AREA_CONTEXT"
+        ],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznButton",
+          "MznIcon"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "FloatingButton",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznButton",
+          "MznIcon"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "InlineMessage",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznClearActions",
+          "MznIcon"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Input",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon",
+          "MznInputActionButton",
+          "MznInputSelectButton",
+          "MznInputSpinnerButton",
+          "MznPasswordStrengthIndicator",
+          "MznTextField"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Message",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon",
+          "MznSpin"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Modal",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [
+          "MZN_MODAL_CONTEXT"
+        ],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznBackdrop",
+          "MznClearActions",
+          "MznScale"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "MultipleDatePicker",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznCalendar",
+          "MznCalendarFooterActions",
+          "MznMultipleDatePickerTrigger",
+          "MznPopper"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Navigation",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [
+          "MZN_NAVIGATION_ACTIVATED",
+          "MZN_NAVIGATION_OPTION_LEVEL"
+        ],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznInput",
+          "MznNavigationOption",
+          "MznNavigationOptionCategory",
+          "MznScrollbar"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "NotificationCenter",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznBadge",
+          "MznButton",
+          "MznButtonGroup",
+          "MznDropdown",
+          "MznIcon",
+          "MznPopper",
+          "MznTypography"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "OverflowTooltip",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznFade",
+          "MznPopper",
+          "MznTag"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "PageFooter",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznButton",
+          "MznIcon"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Pagination",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznPaginationItem",
+          "MznPaginationJumper",
+          "MznPaginationPageSize",
+          "MznTypography"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Portal",
+      "selectorChanged": {
+        "from": "ng-container",
+        "to": "[mznPortal]",
+        "typeChanged": true
+      },
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [],
+        "removed": []
+      }
+    },
+    {
+      "component": "Progress",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon",
+          "MznTypography"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Radio",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon",
+          "MznInput"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "ResultState",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznButtonGroup",
+          "MznIcon"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Select",
+      "selectorChanged": {
+        "from": "[mznSelectTrigger]",
+        "to": "[mznSelect]",
+        "typeChanged": false
+      },
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznDropdownItemCard",
+          "MznInputTriggerPopper",
+          "MznSelectTrigger",
+          "MznSelectTriggerTags",
+          "MznSpin",
+          "MznTranslate"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "SelectionCard",
+      "selectorChanged": null,
+      "cvaChange": "added",
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon",
+          "MznTypography"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Slider",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon",
+          "MznInput",
+          "MznTooltip"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Spin",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznBackdrop"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Stepper",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [
+          "MZN_STEPPER_CONTEXT"
+        ],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [],
+        "removed": []
+      }
+    },
+    {
+      "component": "Table",
+      "selectorChanged": {
+        "from": "[mznTableContainer]",
+        "to": "[mznTable]",
+        "typeChanged": false
+      },
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [
+          "MZN_TABLE_CONTEXT"
+        ],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "CdkDrag",
+          "CdkDragHandle",
+          "CdkDropList",
+          "FormsModule",
+          "MznButton",
+          "MznCheckbox",
+          "MznDropdown",
+          "MznEmpty",
+          "MznIcon",
+          "MznPagination",
+          "MznPortal",
+          "MznRadio",
+          "MznScrollbar",
+          "MznSkeleton",
+          "MznToggle",
+          "MznTooltip"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Tag",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznBadge",
+          "MznIcon"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Textarea",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon",
+          "MznTextField"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "TextField",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznClearActions"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "TimePanel",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznCalendarFooterActions",
+          "MznTimePanelColumn"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "TimePicker",
+      "selectorChanged": {
+        "from": "[mznTimePickerPanel]",
+        "to": "[mznTimePicker]",
+        "typeChanged": false
+      },
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon",
+          "MznPickerTrigger",
+          "MznTimePickerPanel"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "TimeRangePicker",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon",
+          "MznPopper",
+          "MznRangePickerTrigger",
+          "MznTimePanel"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Toggle",
+      "selectorChanged": null,
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznTypography"
+        ],
+        "removed": []
+      }
+    },
+    {
+      "component": "Upload",
+      "selectorChanged": {
+        "from": "[mznUploader]",
+        "to": "[mznUpload]",
+        "typeChanged": false
+      },
+      "cvaChange": null,
+      "providersTokensChanged": {
+        "added": [],
+        "removed": []
+      },
+      "standaloneImportsChanged": {
+        "added": [
+          "MznIcon",
+          "MznUploader",
+          "MznUploadItem",
+          "MznUploadMediaPreviewModal",
+          "MznUploadPictureCard"
+        ],
+        "removed": []
+      }
+    }
+  ],
+  "workItems": [
+    {
+      "component": "Accordion",
+      "action": "UPDATE_PROVIDERS_TOKENS",
+      "reason": "DI tokens added (1)",
+      "priority": "MEDIUM",
+      "tokens": [
+        "MZN_ACCORDION_CONTROL"
+      ]
+    },
+    {
+      "component": "Accordion",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (1)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznAccordionTitle"
+      ]
+    },
+    {
+      "component": "AlertBanner",
+      "action": "UPDATE_SELECTOR",
+      "reason": "Selector changed: mzn-alert-banner-container -> [mznAlertBanner] (kind change: attribute<->tag)",
+      "priority": "HIGH"
+    },
+    {
+      "component": "AlertBanner",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (4)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznButton",
+        "MznClearActions",
+        "MznIcon",
+        "MznPortal"
+      ]
+    },
+    {
+      "component": "Backdrop",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznFade",
+        "MznPortal"
+      ]
+    },
+    {
+      "component": "Breadcrumb",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (3)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznBreadcrumbItem",
+        "MznBreadcrumbOverflowMenu",
+        "MznIcon"
+      ]
+    },
+    {
+      "component": "Calendar",
+      "action": "UPDATE_SELECTOR",
+      "reason": "Selector changed: [mznCalendarHalfYears] -> [mznCalendar]",
+      "priority": "HIGH"
+    },
+    {
+      "component": "Calendar",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (9)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznCalendarControls",
+        "MznCalendarDays",
+        "MznCalendarFooterControl",
+        "MznCalendarHalfYears",
+        "MznCalendarMonths",
+        "MznCalendarQuarters",
+        "MznCalendarQuickSelect",
+        "MznCalendarWeeks",
+        "MznCalendarYears"
+      ]
+    },
+    {
+      "component": "Cascader",
+      "action": "UPDATE_SELECTOR",
+      "reason": "Selector changed: [mznCascaderPanel] -> [mznCascader]",
+      "priority": "HIGH"
+    },
+    {
+      "component": "Cascader",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (4)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznCascaderPanel",
+        "MznInputTriggerPopper",
+        "MznSelectTrigger",
+        "MznTranslate"
+      ]
+    },
+    {
+      "component": "Checkbox",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (3)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon",
+        "MznTextField",
+        "MznTypography"
+      ]
+    },
+    {
+      "component": "ClearActions",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (1)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon"
+      ]
+    },
+    {
+      "component": "DatePicker",
+      "action": "UPDATE_SELECTOR",
+      "reason": "Selector changed: [mznDatePickerPanel] -> [mznDatePicker]",
+      "priority": "HIGH"
+    },
+    {
+      "component": "DatePicker",
+      "action": "UPDATE_CVA",
+      "reason": "ControlValueAccessor added - affects Reactive Forms integration docs",
+      "priority": "HIGH"
+    },
+    {
+      "component": "DatePicker",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (3)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznDatePickerCalendar",
+        "MznIcon",
+        "MznPickerTrigger"
+      ]
+    },
+    {
+      "component": "DateRangePicker",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznDateRangePickerCalendar",
+        "MznRangePickerTrigger"
+      ]
+    },
+    {
+      "component": "DateTimePicker",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (5)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznClearActions",
+        "MznDatePickerCalendar",
+        "MznFormattedInput",
+        "MznIcon",
+        "MznTimePickerPanel"
+      ]
+    },
+    {
+      "component": "DateTimeRangePicker",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznDateTimePicker",
+        "MznIcon"
+      ]
+    },
+    {
+      "component": "Description",
+      "action": "UPDATE_SELECTOR",
+      "reason": "Selector changed: [mznDescriptionGroup] -> [mznDescription]",
+      "priority": "HIGH"
+    },
+    {
+      "component": "Description",
+      "action": "UPDATE_PROVIDERS_TOKENS",
+      "reason": "DI tokens added (1)",
+      "priority": "MEDIUM",
+      "tokens": [
+        "MZN_DESCRIPTION_CONTEXT"
+      ]
+    },
+    {
+      "component": "Description",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (1)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznDescriptionTitle"
+      ]
+    },
+    {
+      "component": "Drawer",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (9)",
+      "priority": "MEDIUM",
+      "imports": [
+        "FormsModule",
+        "MznBackdrop",
+        "MznButton",
+        "MznClearActions",
+        "MznDropdown",
+        "MznIcon",
+        "MznRadio",
+        "MznRadioGroup",
+        "MznSlide"
+      ]
+    },
+    {
+      "component": "Dropdown",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (4)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznDropdownItem",
+        "MznPopper",
+        "MznPortal",
+        "MznTranslate"
+      ]
+    },
+    {
+      "component": "Empty",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (7)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznButton",
+        "MznButtonGroup",
+        "MznEmptyMainInitialDataIcon",
+        "MznEmptyMainNotificationIcon",
+        "MznEmptyMainResultIcon",
+        "MznEmptyMainSystemIcon",
+        "MznIcon"
+      ]
+    },
+    {
+      "component": "FilterArea",
+      "action": "UPDATE_PROVIDERS_TOKENS",
+      "reason": "DI tokens added (1)",
+      "priority": "MEDIUM",
+      "tokens": [
+        "MZN_FILTER_AREA_CONTEXT"
+      ]
+    },
+    {
+      "component": "FilterArea",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznButton",
+        "MznIcon"
+      ]
+    },
+    {
+      "component": "FloatingButton",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznButton",
+        "MznIcon"
+      ]
+    },
+    {
+      "component": "InlineMessage",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznClearActions",
+        "MznIcon"
+      ]
+    },
+    {
+      "component": "Input",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (6)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon",
+        "MznInputActionButton",
+        "MznInputSelectButton",
+        "MznInputSpinnerButton",
+        "MznPasswordStrengthIndicator",
+        "MznTextField"
+      ]
+    },
+    {
+      "component": "Message",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon",
+        "MznSpin"
+      ]
+    },
+    {
+      "component": "Modal",
+      "action": "UPDATE_PROVIDERS_TOKENS",
+      "reason": "DI tokens added (1)",
+      "priority": "MEDIUM",
+      "tokens": [
+        "MZN_MODAL_CONTEXT"
+      ]
+    },
+    {
+      "component": "Modal",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (3)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznBackdrop",
+        "MznClearActions",
+        "MznScale"
+      ]
+    },
+    {
+      "component": "MultipleDatePicker",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (4)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznCalendar",
+        "MznCalendarFooterActions",
+        "MznMultipleDatePickerTrigger",
+        "MznPopper"
+      ]
+    },
+    {
+      "component": "Navigation",
+      "action": "UPDATE_PROVIDERS_TOKENS",
+      "reason": "DI tokens added (2)",
+      "priority": "MEDIUM",
+      "tokens": [
+        "MZN_NAVIGATION_ACTIVATED",
+        "MZN_NAVIGATION_OPTION_LEVEL"
+      ]
+    },
+    {
+      "component": "Navigation",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (4)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznInput",
+        "MznNavigationOption",
+        "MznNavigationOptionCategory",
+        "MznScrollbar"
+      ]
+    },
+    {
+      "component": "NotificationCenter",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (7)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznBadge",
+        "MznButton",
+        "MznButtonGroup",
+        "MznDropdown",
+        "MznIcon",
+        "MznPopper",
+        "MznTypography"
+      ]
+    },
+    {
+      "component": "OverflowTooltip",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (3)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznFade",
+        "MznPopper",
+        "MznTag"
+      ]
+    },
+    {
+      "component": "PageFooter",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznButton",
+        "MznIcon"
+      ]
+    },
+    {
+      "component": "Pagination",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (4)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznPaginationItem",
+        "MznPaginationJumper",
+        "MznPaginationPageSize",
+        "MznTypography"
+      ]
+    },
+    {
+      "component": "Portal",
+      "action": "UPDATE_SELECTOR",
+      "reason": "Selector changed: ng-container -> [mznPortal] (kind change: attribute<->tag)",
+      "priority": "HIGH"
+    },
+    {
+      "component": "Progress",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon",
+        "MznTypography"
+      ]
+    },
+    {
+      "component": "Radio",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon",
+        "MznInput"
+      ]
+    },
+    {
+      "component": "ResultState",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznButtonGroup",
+        "MznIcon"
+      ]
+    },
+    {
+      "component": "Select",
+      "action": "UPDATE_SELECTOR",
+      "reason": "Selector changed: [mznSelectTrigger] -> [mznSelect]",
+      "priority": "HIGH"
+    },
+    {
+      "component": "Select",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (6)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznDropdownItemCard",
+        "MznInputTriggerPopper",
+        "MznSelectTrigger",
+        "MznSelectTriggerTags",
+        "MznSpin",
+        "MznTranslate"
+      ]
+    },
+    {
+      "component": "SelectionCard",
+      "action": "UPDATE_CVA",
+      "reason": "ControlValueAccessor added - affects Reactive Forms integration docs",
+      "priority": "HIGH"
+    },
+    {
+      "component": "SelectionCard",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon",
+        "MznTypography"
+      ]
+    },
+    {
+      "component": "Slider",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (3)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon",
+        "MznInput",
+        "MznTooltip"
+      ]
+    },
+    {
+      "component": "Spin",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (1)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznBackdrop"
+      ]
+    },
+    {
+      "component": "Stepper",
+      "action": "UPDATE_PROVIDERS_TOKENS",
+      "reason": "DI tokens added (1)",
+      "priority": "MEDIUM",
+      "tokens": [
+        "MZN_STEPPER_CONTEXT"
+      ]
+    },
+    {
+      "component": "Table",
+      "action": "UPDATE_SELECTOR",
+      "reason": "Selector changed: [mznTableContainer] -> [mznTable]",
+      "priority": "HIGH"
+    },
+    {
+      "component": "Table",
+      "action": "UPDATE_PROVIDERS_TOKENS",
+      "reason": "DI tokens added (1)",
+      "priority": "MEDIUM",
+      "tokens": [
+        "MZN_TABLE_CONTEXT"
+      ]
+    },
+    {
+      "component": "Table",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (16)",
+      "priority": "MEDIUM",
+      "imports": [
+        "CdkDrag",
+        "CdkDragHandle",
+        "CdkDropList",
+        "FormsModule",
+        "MznButton",
+        "MznCheckbox",
+        "MznDropdown",
+        "MznEmpty",
+        "MznIcon",
+        "MznPagination",
+        "MznPortal",
+        "MznRadio",
+        "MznScrollbar",
+        "MznSkeleton",
+        "MznToggle",
+        "MznTooltip"
+      ]
+    },
+    {
+      "component": "Tag",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznBadge",
+        "MznIcon"
+      ]
+    },
+    {
+      "component": "Textarea",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon",
+        "MznTextField"
+      ]
+    },
+    {
+      "component": "TextField",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (1)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznClearActions"
+      ]
+    },
+    {
+      "component": "TimePanel",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (2)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznCalendarFooterActions",
+        "MznTimePanelColumn"
+      ]
+    },
+    {
+      "component": "TimePicker",
+      "action": "UPDATE_SELECTOR",
+      "reason": "Selector changed: [mznTimePickerPanel] -> [mznTimePicker]",
+      "priority": "HIGH"
+    },
+    {
+      "component": "TimePicker",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (3)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon",
+        "MznPickerTrigger",
+        "MznTimePickerPanel"
+      ]
+    },
+    {
+      "component": "TimeRangePicker",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (4)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon",
+        "MznPopper",
+        "MznRangePickerTrigger",
+        "MznTimePanel"
+      ]
+    },
+    {
+      "component": "Toggle",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (1)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznTypography"
+      ]
+    },
+    {
+      "component": "Upload",
+      "action": "UPDATE_SELECTOR",
+      "reason": "Selector changed: [mznUploader] -> [mznUpload]",
+      "priority": "HIGH"
+    },
+    {
+      "component": "Upload",
+      "action": "UPDATE_STANDALONE_IMPORTS",
+      "reason": "Imports added (5)",
+      "priority": "MEDIUM",
+      "imports": [
+        "MznIcon",
+        "MznUploader",
+        "MznUploadItem",
+        "MznUploadMediaPreviewModal",
+        "MznUploadPictureCard"
+      ]
+    }
+  ]
+}
