@@ -2,7 +2,7 @@
 
 > ⚠️ **Public but low-level** — `MznDropdown` and `MznDropdownItemCard` are exported from `@mezzanine-ui/ng/dropdown` and used internally by `MznSelect`, `MznAutocomplete`, `MznNavigation`, and other components. `MznDropdownItem`, `MznDropdownAction`, and `MznDropdownStatus` are **internal** building blocks (not exported from `index.ts`) — do not import them directly.
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/dropdown) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/dropdown) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Floating dropdown list positioned relative to an anchor element. Uses `MznPopper` internally. Supports single and multiple selection modes.
 

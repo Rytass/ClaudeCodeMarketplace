@@ -1,6 +1,6 @@
 # FilterArea
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/filter-area) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/filter-area) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Multi-row filter form container with built-in expand/collapse and submit/reset actions. Composes `MznFilterLine` rows (each containing `MznFilter` field wrappers). By default only the first row is visible; additional rows are revealed with an expand toggle.
 

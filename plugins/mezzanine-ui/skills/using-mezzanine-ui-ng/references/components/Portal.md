@@ -1,6 +1,6 @@
 # Portal
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/portal) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/portal) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Teleports projected content to a global container outside the component tree. Backed by `MznPortalRegistry` which manages two stacking layers (`default` and `alert`) mounted on `document.body`. Used internally by modals, drawers, and other overlay components.
 

@@ -1,6 +1,6 @@
 # Mezzanine-UI Angular Component Reference
 
-> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.3` · Last verified 2026-04-21.
+> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.4` · Last verified 2026-04-24.
 
 Consolidated flat API index. For deeper examples see
 [PATTERNS.md](PATTERNS.md) and `references/components/`.
@@ -1410,7 +1410,9 @@ Image/video thumbnail container with overlay actions.
 
 ---
 
-### MznSingleThumbnailCard
+### MznSingleThumbnailCard *(已廢棄 v1.0.0-rc.4)*
+
+> **已廢棄** — `thumbnail-cards` package removed in v1.0.0-rc.4. These components still resolve from their individual sub-paths but the shared `thumbnail-cards` entry point is gone. Prefer the individual packages listed below or migrate to `MznQuickActionCard`.
 
 **Import**: `@mezzanine-ui/ng/single-thumbnail-card`
 
@@ -1424,7 +1426,7 @@ Card layout with a single `16:9` thumbnail. Includes
 
 ---
 
-### MznFourThumbnailCard
+### MznFourThumbnailCard *(已廢棄 v1.0.0-rc.4)*
 
 **Import**: `@mezzanine-ui/ng/four-thumbnail-card`
 
@@ -1437,7 +1439,7 @@ Card layout with a 2×2 thumbnail grid. Includes
 
 ---
 
-### MznThumbnailCardInfo
+### MznThumbnailCardInfo *(已廢棄 v1.0.0-rc.4)*
 
 **Selector**: `[mznThumbnailCardInfo]`
 **Import**: `@mezzanine-ui/ng/thumbnail-card-info`

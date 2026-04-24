@@ -1,23 +1,43 @@
 ---
 name: using-mezzanine-ui-ng
-description: Angular 21+ Mezzanine-UI skill — create, edit, or style standalone Angular components with @mezzanine-ui/ng (1.0.0-rc.3, RC tier) directives. Covers directive-based selectors (mznButton, mznInput, mznSelect, mznTextField, mznFormField, mznModal, mznTable, mznNavigation), ControlValueAccessor + ReactiveFormsModule integration, DI services (ClickAwayService, EscapeKeyService, MZN_CALENDAR_CONFIG), sub-path imports, design tokens. Use when working on *.component.ts, *.component.html, *.component.scss files that import from @mezzanine-ui/ng/*, building Angular reactive forms with mznFormField + formControlName, wiring Mezzanine directives into standalone components, or configuring Angular global SCSS. Trigger — Angular, standalone component, mzn directive, ControlValueAccessor, ReactiveForms, mezzanine-ui/ng, ng form, ng select, ng table, ng modal. For React / Next.js projects use the sibling using-mezzanine-ui-react skill instead.
+description: Angular 21+ Mezzanine-UI skill — create, edit, or style standalone Angular components with @mezzanine-ui/ng (1.0.0-rc.4, RC tier) directives. Covers directive-based selectors (mznButton, mznInput, mznSelect, mznTextField, mznFormField, mznModal, mznTable, mznNavigation), ControlValueAccessor + ReactiveFormsModule integration, DI services (ClickAwayService, EscapeKeyService, MZN_CALENDAR_CONFIG), sub-path imports, design tokens. Use when working on *.component.ts, *.component.html, *.component.scss files that import from @mezzanine-ui/ng/*, building Angular reactive forms with mznFormField + formControlName, wiring Mezzanine directives into standalone components, or configuring Angular global SCSS. Trigger — Angular, standalone component, mzn directive, ControlValueAccessor, ReactiveForms, mezzanine-ui/ng, ng form, ng select, ng table, ng modal. For React / Next.js projects use the sibling using-mezzanine-ui-react skill instead.
 ---
 
 # Mezzanine-UI Angular (`@mezzanine-ui/ng`)
 
 **Core principle: For Angular 21+ standalone projects, prefer `@mezzanine-ui/ng` directives over custom Angular implementations.**
 
-> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.3` · `@mezzanine-ui/core` `1.0.3` · `@mezzanine-ui/system` `1.0.2` · `@mezzanine-ui/icons` `1.0.2`. Last verified: 2026-04-21.
+> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.4` · `@mezzanine-ui/core` `1.0.4` · `@mezzanine-ui/system` `1.0.2` · `@mezzanine-ui/icons` `1.0.2`. Last verified: 2026-04-24.
 >
 > **⚠️ RC tier** — `@mezzanine-ui/ng` is in Release Candidate. API may still shift minor details before `1.0.0` stable. Check `npm view @mezzanine-ui/ng versions` for the latest.
 
 > **For React (Next.js) projects** see the companion skill [`using-mezzanine-ui-react`](../using-mezzanine-ui-react/SKILL.md). Design tokens, icons, and Figma mappings are shared.
 
+## What's New in 1.0.0-rc.4
+
+**純版本對齊（No Angular source changes）**
+
+`@mezzanine-ui/ng@1.0.0-rc.4` is a compatibility bump paired with `@mezzanine-ui/core@1.0.4`. Zero Angular source files changed in this cycle.
+
+- **Pair with `@mezzanine-ui/core@1.0.4`** — the core release fixed React-side picker positioning (globalPortal + flip). Angular was already correct: `MznInputTriggerPopper` ships with `globalPortal=true` and `MznPopper` enables `flip()` by default, so no behaviour change on the Angular side.
+- **No prop changes** — 0 component APIs modified.
+- **Deprecation: `ThumbnailCards`** — the `thumbnail-cards` package is removed. Use the individual replacement components instead:
+  - `MznSingleThumbnailCard` (`@mezzanine-ui/ng/single-thumbnail-card`)
+  - `MznFourThumbnailCard` (`@mezzanine-ui/ng/four-thumbnail-card`)
+  - `MznSingleThumbnailCardSkeleton` / `MznFourThumbnailCardSkeleton`
+  - `MznQuickActionCard` (`@mezzanine-ui/ng/quick-action-card`)
+
+**升級方式 (upgrade)**:
+
+```bash
+yarn add @mezzanine-ui/ng@1.0.0-rc.4 @mezzanine-ui/core@1.0.4
+```
+
 ## Resource Overview
 
 | Type                 | Resource                                                                | Purpose                                |
 | -------------------- | ----------------------------------------------------------------------- | -------------------------------------- |
-| **Frontend Package** | [GitHub — packages/ng](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng) | Angular component source       |
+| **Frontend Package** | [GitHub — packages/ng](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng) | Angular component source       |
 | **Angular Storybook** | [storybook-ng.mezzanine-ui.org](https://storybook-ng.mezzanine-ui.org) | Angular component examples (if hosted) |
 | **Figma Components** | [Component File](https://www.figma.com/design/gjGdP49GQZzOeQf0bNOFlt)   | Shared with React — canonical design   |
 
@@ -241,6 +261,19 @@ Imported from `@mezzanine-ui/ng/services`:
 
 See [references/SERVICES.md](references/SERVICES.md).
 
+### Utilities
+
+Imported from `@mezzanine-ui/ng/utils`:
+
+| Export | Purpose |
+| ------ | ------- |
+| `getCSSVariablePixelValue` | Read a `:root` CSS var and resolve to px (handles `rem`/`px`/unitless) |
+| `highlightText` / `HighlightSegment` | Split text into segments around a keyword for search-result highlighting |
+| `provideValueAccessor` | `NG_VALUE_ACCESSOR` multi-provider shorthand for custom `ControlValueAccessor` components |
+| `formatNumberWithCommas` / `parseNumberWithCommas` | Locale-aware comma formatting / parsing for numeric inputs |
+
+See [references/PATTERNS.md → Utilities](references/PATTERNS.md#utilities).
+
 ---
 
 ## Import Convention (Sub-path only)
@@ -320,7 +353,7 @@ import { UserIcon, SearchIcon } from '@mezzanine-ui/icons';
 
 | Directive / Component | Import path | Reference |
 | --------------------- | ----------- | --------- |
-| `MznAutocomplete`        | `@mezzanine-ui/ng/autocomplete`            | [AutoComplete.md](references/components/AutoComplete.md) |
+| `MznAutocomplete`        | `@mezzanine-ui/ng/autocomplete`            | [Autocomplete.md](references/components/Autocomplete.md) |
 | `MznCascader`            | `@mezzanine-ui/ng/cascader`                | [Cascader.md](references/components/Cascader.md) |
 | `MznCheckbox`            | `@mezzanine-ui/ng/checkbox`                | [Checkbox.md](references/components/Checkbox.md) |
 | `MznDatePicker`          | `@mezzanine-ui/ng/date-picker`             | [DatePicker.md](references/components/DatePicker.md) |
@@ -378,9 +411,9 @@ Components that exist in `@mezzanine-ui/ng` but **not** `@mezzanine-ui/react`:
 | Directive / Component | Import path | Reference |
 | --------------------- | ----------- | --------- |
 | `MznThumbnail`             | `@mezzanine-ui/ng/thumbnail`                | [Thumbnail.md](references/components/Thumbnail.md) |
-| `MznSingleThumbnailCard`   | `@mezzanine-ui/ng/single-thumbnail-card`    | [ThumbnailCards.md](references/components/ThumbnailCards.md) |
-| `MznFourThumbnailCard`     | `@mezzanine-ui/ng/four-thumbnail-card`      | [ThumbnailCards.md](references/components/ThumbnailCards.md) |
-| `MznThumbnailCardInfo`     | `@mezzanine-ui/ng/thumbnail-card-info`      | [ThumbnailCards.md](references/components/ThumbnailCards.md) |
+| `MznSingleThumbnailCard` *(已廢棄 v1.0.0-rc.4)*   | `@mezzanine-ui/ng/single-thumbnail-card`    | [SingleThumbnailCard.md](references/components/SingleThumbnailCard.md) |
+| `MznFourThumbnailCard` *(已廢棄 v1.0.0-rc.4)*     | `@mezzanine-ui/ng/four-thumbnail-card`      | [FourThumbnailCard.md](references/components/FourThumbnailCard.md) |
+| `MznThumbnailCardInfo` *(已廢棄 v1.0.0-rc.4)*     | `@mezzanine-ui/ng/thumbnail-card-info`      | [ThumbnailCardInfo.md](references/components/ThumbnailCardInfo.md) |
 | `MznMediaPreviewModal`     | `@mezzanine-ui/ng/media-preview-modal`      | [MediaPreviewModal.md](references/components/MediaPreviewModal.md) |
 
 ### Utility

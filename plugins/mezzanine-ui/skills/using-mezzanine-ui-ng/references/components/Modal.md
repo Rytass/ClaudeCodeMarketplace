@@ -1,6 +1,6 @@
 # Modal
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/modal) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/modal) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Dialog overlay component backed by a `MznBackdrop`. Provides `MznModalHeader` and `MznModalFooter` as companion components, both reading state from the `MZN_MODAL_CONTEXT` injection token. Escape-key handling is mediated by `EscapeKeyService` + `TopStackService` so only the top-most modal closes.
 

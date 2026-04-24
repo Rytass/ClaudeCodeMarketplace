@@ -2,7 +2,7 @@
 
 > ⚠️ Internal helper — `MznScrollbar` is a thin wrapper around [OverlayScrollbars](https://kingsora.github.io/OverlayScrollbars/) used internally by `MznLayoutMain`, `MznNavigation`, and `MznTable`. **Not recommended for direct usage.** If you need custom scrolling behaviour in a layout area, use `MznLayoutMain` which exposes `scrollbarDisabled`, `scrollbarMaxHeight`, and `scrollbarMaxWidth` inputs.
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/scrollbar) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/scrollbar) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Custom scrollbar component backed by OverlayScrollbars. Applies styled scrollbars that match the Mezzanine design tokens.
 

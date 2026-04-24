@@ -1,6 +1,6 @@
 # Popper
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/popper) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/popper) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Low-level floating positioning component backed by `@floating-ui/dom`. Used internally by `MznDropdown`, `MznOverflowTooltip`, and other overlay components. You would typically use `MznPopper` only when building custom overlay components.
 
@@ -8,6 +8,12 @@ Low-level floating positioning component backed by `@floating-ui/dom`. Used inte
 
 ```ts
 import { MznPopper } from '@mezzanine-ui/ng/popper';
+import type {
+  PopperPlacement,
+  PopperPositionStrategy,
+  PopperArrowOptions,
+  PopperOffsetOptions,
+} from '@mezzanine-ui/ng/popper';
 import type { Middleware, Placement } from '@floating-ui/dom';
 ```
 

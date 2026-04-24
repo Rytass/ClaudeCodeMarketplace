@@ -1,6 +1,6 @@
 # DateTimeRangePicker
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/date-time-range-picker) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/date-time-range-picker) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Combines two `MznDateTimePicker` components (start and end) with a directional arrow separator. Implements `ControlValueAccessor` for use with `formControl` / `ngModel`. Requires `MZN_CALENDAR_CONFIG`.
 

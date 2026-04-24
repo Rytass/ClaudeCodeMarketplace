@@ -1,13 +1,13 @@
 # TimePanel
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/time-panel) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/time-panel) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Scrollable time column panel for hour, minute, and second selection. Used internally by `MznTimePicker` and `MznTimeRangePicker`. Requires `MZN_CALENDAR_CONFIG` for date manipulation.
 
 ## Import
 
 ```ts
-import { MznTimePanel } from '@mezzanine-ui/ng/time-panel';
+import { MznTimePanel, MznTimePanelColumn } from '@mezzanine-ui/ng/time-panel';
 // Also requires:
 import { MZN_CALENDAR_CONFIG, createCalendarConfig } from '@mezzanine-ui/ng/calendar';
 ```
@@ -72,6 +72,32 @@ onConfirm(): void {
   console.log('Time confirmed:', this.selectedTime);
 }
 ```
+
+## Subcomponents
+
+### MznTimePanelColumn
+
+A single scrollable column (hour, minute, or second) inside `MznTimePanel`. Renders a button per `TimePanelUnit`, auto-scrolls to the active unit, and emits on selection. Use directly only when composing a custom time panel layout — `MznTimePanel` wires three of these together for you.
+
+#### Selector
+
+`[mznTimePanelColumn]` — attribute-directive component
+
+#### Inputs — MznTimePanelColumn
+
+| Input        | Type                                | Default                                              | Description                                              |
+| ------------ | ----------------------------------- | ---------------------------------------------------- | -------------------------------------------------------- |
+| `units`      | `ReadonlyArray<TimePanelUnit>` **(required)** | —                                          | List of selectable units rendered in this column         |
+| `activeUnit` | `number \| undefined`               | —                                                    | Currently selected unit value; drives auto-scroll        |
+| `cellHeight` | `number`                            | `getCSSVariablePixelValue('--mzn-spacing-size-element-loose', 32)` | Per-cell pixel height used for scroll positioning |
+
+#### Outputs — MznTimePanelColumn
+
+| Output        | Type                                    | Description                                              |
+| ------------- | --------------------------------------- | -------------------------------------------------------- |
+| `unitChanged` | `OutputEmitterRef<TimePanelUnit>`       | Fires when a unit button is clicked                      |
+
+The column uses `requestAnimationFrame` + `setTimeout` to schedule scrolling after layout, so it also works when rendered inside a `display: none` popper; the first scroll uses `behavior: 'auto'` and subsequent updates use `behavior: 'smooth'`.
 
 ## Notes
 

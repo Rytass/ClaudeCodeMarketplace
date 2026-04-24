@@ -1,6 +1,6 @@
 # NotificationCenter
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/notification-center) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/notification-center) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Per-item notification component (`MznNotificationCenter`) and drawer container (`MznNotificationCenterDrawer`). The item component supports two rendering modes: `type='notification'` (floating toast with slide-in animation) and `type='drawer'` (list item in a notification drawer with timestamp and dropdown actions).
 

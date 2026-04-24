@@ -1,13 +1,18 @@
 # Pagination
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/pagination) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/pagination) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Navigation control for paged datasets. Automatically computes page items (previous, number pages, ellipses, next) from `total`, `pageSize`, `current`, `boundaryCount` and `siblingCount`. Optionally renders a page-size selector and a jump-to-page input.
 
 ## Import
 
 ```ts
-import { MznPagination } from '@mezzanine-ui/ng/pagination';
+import {
+  MznPagination,
+  MznPaginationItem,
+  MznPaginationJumper,
+  MznPaginationPageSize,
+} from '@mezzanine-ui/ng/pagination';
 import type { PaginationItem } from '@mezzanine-ui/ng/pagination';
 ```
 
@@ -97,6 +102,82 @@ formatSummary(from: number, to: number, total: number): string {
   return `顯示 ${from}–${to}，共 ${total} 筆`;
 }
 ```
+
+## Subcomponents
+
+These primitives back the equivalent React pagination children. `MznPagination` composes them internally; export them directly for fully custom pagination shells.
+
+### MznPaginationItem
+
+Renders a single pagination button — a page number, `'previous'` / `'next'` chevron, or an `'ellipsis'` marker.
+
+#### Selector
+
+`[mznPaginationItem]` — attribute-directive component
+
+#### Inputs — MznPaginationItem
+
+| Input      | Type                  | Default  | Description                                      |
+| ---------- | --------------------- | -------- | ------------------------------------------------ |
+| `active`   | `boolean`             | `false`  | Marks the current page (sets `aria-current`)     |
+| `disabled` | `boolean`             | `false`  | Disabled state                                   |
+| `page`     | `number`              | `1`      | Page number label (ignored for non-`page` types) |
+| `type`     | `PaginationItemType`  | `'page'` | `'page' \| 'previous' \| 'next' \| 'ellipsis'`   |
+
+#### Outputs — MznPaginationItem
+
+| Output      | Type                     | Description                                             |
+| ----------- | ------------------------ | ------------------------------------------------------- |
+| `itemClick` | `OutputEmitterRef<void>` | Emitted on click; suppressed for `ellipsis` / disabled  |
+
+### MznPaginationJumper
+
+Jump-to-page control — a numeric input plus a submit button. Emits `pageChanged` only for integers inside `[1, totalPages]`, where `totalPages = ceil(total / pageSize)`. The input is cleared after every submit attempt (valid or not).
+
+#### Selector
+
+`[mznPaginationJumper]` — attribute-directive component
+
+#### Inputs — MznPaginationJumper
+
+| Input              | Type                    | Default  | Description                                  |
+| ------------------ | ----------------------- | -------- | -------------------------------------------- |
+| `buttonText`       | `string \| undefined`   | —        | Submit button label                          |
+| `disabled`         | `boolean`               | `false`  | Disabled state                               |
+| `hintText`         | `string \| undefined`   | —        | Prefix hint text rendered before the input   |
+| `inputPlaceholder` | `string \| undefined`   | —        | Placeholder for the numeric input            |
+| `pageSize`         | `number`                | `10`     | Records per page; used to compute page count |
+| `total`            | `number`                | `0`      | Total record count                           |
+
+#### Outputs — MznPaginationJumper
+
+| Output        | Type                       | Description                                          |
+| ------------- | -------------------------- | ---------------------------------------------------- |
+| `pageChanged` | `OutputEmitterRef<number>` | Fires when the user submits a valid page number      |
+
+### MznPaginationPageSize
+
+Per-page size selector — renders an optional label and a `MznSelect` dropdown.
+
+#### Selector
+
+`[mznPaginationPageSize]` — attribute-directive component
+
+#### Inputs — MznPaginationPageSize
+
+| Input              | Type                                            | Default  | Description                                     |
+| ------------------ | ----------------------------------------------- | -------- | ----------------------------------------------- |
+| `disabled`         | `boolean`                                       | `false`  | Disabled state                                  |
+| `label`            | `string \| undefined`                           | —        | Text rendered before the select                 |
+| `options`          | `ReadonlyArray<number> \| undefined`            | —        | Available page sizes; falls back to `[10, 20, 50, 100]` |
+| `renderOptionName` | `((pageSize: number) => string) \| undefined`   | —        | Custom formatter for each option's display name |
+| `value`            | `number`                                        | `10`     | Currently selected page size                    |
+
+#### Outputs — MznPaginationPageSize
+
+| Output            | Type                       | Description                                  |
+| ----------------- | -------------------------- | -------------------------------------------- |
+| `pageSizeChanged` | `OutputEmitterRef<number>` | Fires when the selected page size changes    |
 
 ## Notes
 

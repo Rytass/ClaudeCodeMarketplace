@@ -2,7 +2,7 @@
 
 > ⚠️ Internal helper — `MznContentHeader` is used internally by `MznSection` and `MznPageHeader` to render a titled header row. You can use it directly when composing a `mznSection`, but avoid using it as a standalone component outside that context.
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/content-header) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/content-header) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Section/page header with title, optional description, and content projection slots for actions and breadcrumbs.
 

@@ -1,6 +1,6 @@
 # Button
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/button) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/button) · Verified 1.0.0-rc.4 (2026-04-24)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/foundation-button--docs
 
@@ -9,12 +9,17 @@
 ## Import
 
 ```ts
-import { MznButton, MznButtonGroup } from '@mezzanine-ui/ng/button';
+import {
+  MznButton,
+  MznButtonGroup,
+  MZN_BUTTON_GROUP,
+} from '@mezzanine-ui/ng/button';
 import type {
   ButtonVariant,
   ButtonSize,
   ButtonIconType,
   ButtonGroupOrientation,
+  MznButtonGroupContext,
 } from '@mezzanine-ui/ng/button';
 // ButtonVariant 完整清單見下方
 // ButtonSize: 'main' | 'sub' | 'minor'
@@ -70,6 +75,20 @@ import type {
 | `orientation` | `ButtonGroupOrientation`  | `'horizontal'` | `'horizontal' \| 'vertical'` — 按鈕排列方向       |
 
 > `MznButtonGroup` 透過 `MZN_BUTTON_GROUP` DI token 向子 `MznButton` 提供預設值；子按鈕若自行指定 `variant`/`size`/`disabled`，則優先使用自身值。
+
+### `MznButtonGroupContext` (context shape)
+
+`MZN_BUTTON_GROUP` is an `InjectionToken<MznButtonGroupContext>` provided by `MznButtonGroup` via a factory that returns live getters bound to the group's signal inputs. Custom components can inject it to read the enclosing group's current `variant`, `size`, and `disabled` values.
+
+```ts
+interface MznButtonGroupContext {
+  readonly variant: ButtonVariant;
+  readonly size: ButtonSize;
+  readonly disabled: boolean;
+}
+```
+
+Source: `button-group.component.ts` (provider factory, lines 38–53) returns the shape above with getters reading `group.variant()`, `group.size()`, `group.disabled()` on every access, so consumers always observe the latest input values.
 
 ## Usage
 

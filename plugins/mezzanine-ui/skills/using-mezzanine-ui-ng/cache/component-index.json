@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0-rc.3",
-  "lastUpdated": "2026-04-21T00:00:00Z",
+  "version": "1.0.0-rc.4",
+  "lastUpdated": "2026-04-24",
   "framework": "angular",
   "sourcePackage": "@mezzanine-ui/ng",
   "componentCount": 72,
@@ -273,7 +273,7 @@
       "selector": "[mznFourThumbnailCard]",
       "category": "angular-only",
       "cva": false,
-      "referenceDoc": "references/components/ThumbnailCards.md"
+      "referenceDoc": "references/components/FourThumbnailCard.md"
     },
     "Icon": {
       "symbol": "MznIcon",
@@ -533,7 +533,7 @@
       "selector": "[mznSingleThumbnailCard]",
       "category": "angular-only",
       "cva": false,
-      "referenceDoc": "references/components/ThumbnailCards.md"
+      "referenceDoc": "references/components/SingleThumbnailCard.md"
     },
     "Skeleton": {
       "symbol": "MznSkeleton",
@@ -643,7 +643,7 @@
       "selector": "[mznThumbnailCardInfo]",
       "category": "angular-only",
       "cva": false,
-      "referenceDoc": "references/components/ThumbnailCards.md"
+      "referenceDoc": "references/components/ThumbnailCardInfo.md"
     },
     "TimePanel": {
       "symbol": "MznTimePanel",

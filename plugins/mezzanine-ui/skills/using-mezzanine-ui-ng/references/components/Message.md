@@ -1,6 +1,6 @@
 # Message
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/message) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/message) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Global toast notification system. The primary API is `MznMessageService` (injectable singleton) which corresponds to React's `Message.success()` / `Message.error()` static methods. `MznMessage` is the individual toast component rendered by the notifier system.
 

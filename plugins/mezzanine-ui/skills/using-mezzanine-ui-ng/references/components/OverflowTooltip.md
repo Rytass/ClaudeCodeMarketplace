@@ -1,6 +1,6 @@
 # OverflowTooltip
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/overflow-tooltip) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/overflow-tooltip) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Floating tag panel that appears near an anchor element to display a list of tags that have overflowed their container. Uses `MznPopper` for positioning and `MznFade` for enter/exit animation. Tags can be dismissable or read-only.
 

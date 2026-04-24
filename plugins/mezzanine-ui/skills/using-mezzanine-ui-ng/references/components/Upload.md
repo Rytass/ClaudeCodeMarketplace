@@ -1,6 +1,6 @@
 # Upload
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/upload) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/upload) · Verified 1.0.0-rc.4 (2026-04-24)
 
 File upload component with drag-and-drop support, file list rendering, progress tracking, and card modes. Manages `UploadFile[]` state externally — the component emits events and the parent updates the list. Provides `MznUpload` (orchestrator), `MznUploader` (dropzone), `MznUploadPictureCard` (card tile), `MznUploadItem` (list item), and `MznUploadMediaPreviewModal` (preview overlay).
 
@@ -13,6 +13,10 @@ import {
   MznUploadPictureCard,
   MznUploadItem,
   MznUploadMediaPreviewModal,
+  // Value helpers — re-exported from @mezzanine-ui/ng/upload/upload-utils
+  isImageFile,            // (file: File) => boolean — true when MIME type starts with 'image/'
+  resolveFileType,        // resolves a File/URL into a display-friendly file type label
+  extractFileNameFromUrl, // derives the trailing file name segment from a URL string
 } from '@mezzanine-ui/ng/upload';
 import type {
   UploadFile,
@@ -21,6 +25,9 @@ import type {
   UploaderLabelConfig,
   UploadAriaLabels,
   UploadPictureCardAriaLabels,
+  UploadItemSize,
+  UploadPictureCardImageFit,
+  UploadPictureCardSize,
 } from '@mezzanine-ui/ng/upload';
 
 // `UploadFileActionEvent` and `UploadMaxFilesExceededEvent` are NOT

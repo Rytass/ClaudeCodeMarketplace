@@ -1,6 +1,6 @@
 # Radio
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/radio) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/radio) · Verified 1.0.0-rc.4 (2026-04-24)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-radio--docs
 
@@ -128,7 +128,18 @@ export class PlanSelectorComponent {
 
 ## Notes
 
-- When radios are inside a group, the group's `MZN_RADIO_GROUP` DI token provides shared state. The radio's `select(value)` call on change bubbles up through the group's CVA `onChange`.
+- When radios are inside a group, the group's `MZN_RADIO_GROUP` DI token provides shared state. The radio's `select(value)` call on change bubbles up through the group's CVA `onChange`. The injected value has the shape:
+
+  ```ts
+  interface RadioGroupContextValue {
+    readonly disabled: Signal<boolean>;
+    readonly name: Signal<string>;
+    readonly size: Signal<InputCheckSize>;
+    readonly type: Signal<RadioType>;
+    readonly value: Signal<string>;
+    readonly select: (val: string) => void;
+  }
+  ```
 - For `segment` type, icons can be provided via the `icon` input (individual radio) or the `icon` field in `RadioGroupOption`.
 - `withInputConfig` shows an adjacent `MznInput` (base variant) that auto-focuses when the radio is selected. This is a React parity feature for "Other: [input]" patterns.
 - Unlike `MznCheckboxGroup` which binds `string[]`, `MznRadioGroup` binds a single `string` — reflecting radio's mutually exclusive selection.

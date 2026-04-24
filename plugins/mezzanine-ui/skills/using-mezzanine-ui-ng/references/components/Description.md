@@ -1,6 +1,6 @@
 # Description
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/description) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/description) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Key–value pair display. `MznDescription` wraps a `MznDescriptionTitle` (label) and a projected `MznDescriptionContent` (value). Group multiple pairs with `MznDescriptionGroup`.
 
@@ -12,7 +12,9 @@ import {
   MznDescriptionGroup,
   MznDescriptionTitle,
   MznDescriptionContent,
+  MZN_DESCRIPTION_CONTEXT,
 } from '@mezzanine-ui/ng/description';
+import type { DescriptionContextValue } from '@mezzanine-ui/ng/description';
 
 import type {
   DescriptionContentVariant,
@@ -100,6 +102,18 @@ No.
   <div mznDescription title="收件地址"><span mznDescriptionContent>台北市信義區...</span></div>
 </div>
 ```
+
+## DI Tokens
+
+`MZN_DESCRIPTION_CONTEXT` is an `InjectionToken<DescriptionContextValue>` provided by `MznDescription` via a factory that returns live getters bound to the root's `size()` signal. Child components (e.g. `MznDescriptionContent`, `MznDescriptionTitle`) inject it to resolve the size when their own `size` input is not explicitly set.
+
+```ts
+interface DescriptionContextValue {
+  readonly size: DescriptionSize; // 'main' | 'sub'
+}
+```
+
+Source: `description.component.ts` (provider factory, lines 45–53) returns `{ get size() { return self.size(); } }`, so consumers always read the current input value.
 
 ## Notes
 

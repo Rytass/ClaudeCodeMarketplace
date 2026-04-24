@@ -1,6 +1,6 @@
 # Picker
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/picker) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/picker) · Verified 1.0.0-rc.4 (2026-04-24)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-picker--docs
 
@@ -178,6 +178,59 @@ Dual-field trigger for date range pickers (from / to), separated by a right-arro
 | `ariaMultiline` | `boolean \| undefined`      | —       | `aria-multiline` on the inner `<input>`           |
 | `ariaReadonly`  | `boolean \| undefined`      | —       | `aria-readonly` on the inner `<input>`            |
 | `ariaRequired`  | `boolean \| undefined`      | —       | `aria-required` on the inner `<input>`            |
+
+---
+
+## MaskFormat (utility class)
+
+Pure TypeScript class (no Angular decorator) exported from `@mezzanine-ui/ng/picker`. Parses a format string such as `'YYYY-MM-DD'` or `'HH:mm:ss'` into a list of `Cell` objects — one per editable mask key and one per literal separator — that `MznFormattedInput` uses to drive its character-by-character masking. Instantiate directly in a service or component when implementing a custom picker primitive.
+
+### Constructor
+
+```ts
+new MaskFormat(format: string)
+```
+
+### Public surface
+
+| Member         | Type                          | Description                                                                 |
+| -------------- | ----------------------------- | --------------------------------------------------------------------------- |
+| `cells`        | `readonly Cell[]`             | All cells including separators, in order                                    |
+| `maskCells`    | `readonly Cell[]`             | Only editable (mask) cells — excludes literal separators                    |
+| `match(text)`  | `(text: string) => boolean`   | Validates whether `text` structurally matches the format (length, digits per mask slot, literal separators) |
+
+Each `Cell` has the shape:
+
+```ts
+interface Cell {
+  readonly text: string;     // literal text or mask key (e.g. 'YYYY')
+  readonly mask?: string;    // the mask key when editable; undefined for separators
+  readonly start: number;    // inclusive start offset in formatted string
+  readonly end: number;      // exclusive end offset in formatted string
+}
+```
+
+The package also re-exports `FORMAT_KEYS` and `getMaskRange(key)` helpers — see source for the full list of supported mask keys (`YYYY`, `gggg`, `GGGG`, `WW`, `MM`, `DD`, `HH`, `mm`, `ss`, `SSS`, `Q`).
+
+### Usage example
+
+```ts
+import { MaskFormat } from '@mezzanine-ui/ng/picker';
+
+const mask = new MaskFormat('YYYY-MM-DD');
+
+mask.maskCells;
+// [
+//   { text: 'YYYY', mask: 'YYYY', start: 0, end: 4 },
+//   { text: 'MM',   mask: 'MM',   start: 5, end: 7 },
+//   { text: 'DD',   mask: 'DD',   start: 8, end: 10 },
+// ]
+
+mask.match('2024-01-15'); // true
+mask.match('2024-1-5');   // false (wrong literal width)
+```
+
+Inside `MznFormattedInput`, `MaskFormat` is built from the `format` input and used to locate the current edit slot, validate pasted ISO values, and drive caret navigation between cells.
 
 ---
 

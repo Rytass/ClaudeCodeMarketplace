@@ -2,7 +2,7 @@
 
 > ℹ️ Angular-only — no direct React equivalent.
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/media-preview-modal) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/media-preview-modal) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Full-screen media gallery modal with prev/next navigation, circular browsing, and automatic adjacent-image preloading. Supports both string URLs and `TemplateRef` items for custom content. Uses `EscapeKeyService`, `TopStackService`, and `ScrollLockService` like `MznModal`.
 

@@ -1,6 +1,6 @@
 # Calendar
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/calendar) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/calendar) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Standalone calendar panel for date selection. Supports multiple modes (day, week, month, quarter, half-year, year) and range selection. All date operations are delegated to the injected `MZN_CALENDAR_CONFIG` token — you must provide a `CalendarConfigs` instance (typically backed by `dayjs`) at the application root.
 
@@ -14,8 +14,23 @@ import {
   CalendarLocale,
 } from '@mezzanine-ui/ng/calendar';
 import type {
+  CalendarConfigs,
+  CalendarConfigOptions,
   CalendarDayAnnotation,
   CalendarQuickSelectOption,
+} from '@mezzanine-ui/ng/calendar';
+
+// Internal / advanced — exposed for custom-layout compositions only
+import {
+  MznCalendarCell,
+  MznCalendarControls,
+  MznCalendarDayOfWeek,
+  MznCalendarDays,
+  MznCalendarHalfYears,
+  MznCalendarMonths,
+  MznCalendarQuarters,
+  MznCalendarWeeks,
+  MznCalendarYears,
 } from '@mezzanine-ui/ng/calendar';
 
 // Dayjs adapter (most common):
@@ -274,6 +289,26 @@ Attribute directive that provides `CalendarConfigs` to all descendant calendar/p
   <mzn-date-picker [(ngModel)]="date" />
 </div>
 ```
+
+---
+
+## Internal sub-components
+
+These are internal pieces normally composed inside `MznCalendar` / `MznRangeCalendar`; exposed for advanced custom-layout use cases only. Prefer using `MznCalendar` directly.
+
+| Class                   | Selector                 | Role                                                                |
+| ----------------------- | ------------------------ | ------------------------------------------------------------------- |
+| `MznCalendarCell`       | `[mznCalendarCell]`      | Single day/month/year cell (active / today / disabled states)       |
+| `MznCalendarControls`   | `[mznCalendarControls]`  | Header control row with prev/next + skip arrows                     |
+| `MznCalendarDayOfWeek`  | `[mznCalendarDayOfWeek]` | Row of weekday name labels (Sun/Mon/…)                              |
+| `MznCalendarDays`       | `[mznCalendarDays]`      | Day-mode panel — one month of date cells                            |
+| `MznCalendarWeeks`      | `[mznCalendarWeeks]`     | Week-mode panel — rows of week-ranges                               |
+| `MznCalendarMonths`     | `[mznCalendarMonths]`    | Month-mode panel — 12 month cells                                   |
+| `MznCalendarQuarters`   | `[mznCalendarQuarters]`  | Quarter-mode panel — 3 years × 4 quarters grid                      |
+| `MznCalendarHalfYears`  | `[mznCalendarHalfYears]` | Half-year-mode panel — 5 years × 2 halves grid                      |
+| `MznCalendarYears`      | `[mznCalendarYears]`     | Year-mode panel — 20-year grid                                      |
+
+`CalendarConfigs` / `CalendarConfigOptions` types (imported above) describe the value supplied to `MZN_CALENDAR_CONFIG` / `createCalendarConfig` — useful when you need to accept or re-expose the config from your own service.
 
 ---
 

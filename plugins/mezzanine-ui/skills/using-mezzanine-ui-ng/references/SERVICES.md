@@ -1,6 +1,6 @@
 # Mezzanine-UI Angular Services & DI Tokens
 
-> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.3` · Last verified 2026-04-21.
+> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.4` · Last verified 2026-04-24.
 
 Angular DI services exported from `@mezzanine-ui/ng/services`. They replace
 React's hook abstractions (`useClickAway`, `useWindowWidth`, etc.) with

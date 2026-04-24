@@ -1,20 +1,42 @@
 # Table
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/table) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/table) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Full-featured data table with sortable columns, sticky headers, pinnable columns, row selection (checkbox / radio), drag-and-drop row reordering, row expansion, collectable (star/pin) rows, toggle rows, bulk actions, pagination, and optional column resizing. Built on CDK DragDrop for row reordering.
 
 ## Import
 
 ```ts
-import { MznTable, MznTableCellRender, useTableDataSource } from '@mezzanine-ui/ng/table';
+// Components / directives / helpers
+import {
+  MznTable,
+  MznTableCellRender,
+  useTableDataSource,
+  getRowKey,
+} from '@mezzanine-ui/ng/table';
 
+// DI tokens
+import { MZN_TABLE_CONTEXT } from '@mezzanine-ui/ng/table';
+
+// Context & cell-render types
+import type {
+  TableContextValue,
+  MznTableCellRenderContext,
+} from '@mezzanine-ui/ng/table';
+
+// useTableDataSource option/return types
+import type {
+  UseTableDataSourceOptions,
+  UseTableDataSourceReturn,
+  UpdateDataSourceOptions,
+} from '@mezzanine-ui/ng/table';
+
+// Column / data-source / row config types
 import type {
   TableColumn,
   TableDataSource,
   TableActions,
-  TableActionButtonItem,
-  TableActionDropdownItem,
+  TableActionItem,
   TableBulkActions,
   TableBulkGeneralAction,
   TableBulkOverflowAction,
@@ -32,13 +54,23 @@ import type {
   TableScroll,
   TableEmptyProps,
   TableTransitionState,
-  TableColumnTitleMenu,
+  TableRowState,
+} from '@mezzanine-ui/ng/table';
+
+// Variant / alignment / mode types
+import type {
+  ColumnAlign,
+  TableActionVariant,
   SortOrder,
   TableSize,
   HighlightMode,
   RowHeightPreset,
 } from '@mezzanine-ui/ng/table';
 ```
+
+### DI Tokens / Context
+
+`MZN_TABLE_CONTEXT` is an `InjectionToken<TableContextValue>` exposed by `MznTable` to its descendants (custom cell renderers, action dropdowns, etc.). Advanced composition can inject it to read the current row set, selection state, or data-source signals without prop-drilling. `TableContextValue` describes the injected object's shape. Most consumers do not need to touch these directly — they exist for custom sub-components that extend the built-in table surface.
 
 ## Selector
 
@@ -139,7 +171,7 @@ readonly columns: readonly TableColumn[] = [
 | `sortOrder`  | `SortOrder`                  | `'ascend' \| 'descend' \| null \| undefined`   |
 | `onSort`     | `(key, order) => void`       | Sort callback                                   |
 | `titleHelp`  | `string`                     | Tooltip shown next to header text               |
-| `titleMenu`  | `TableColumnTitleMenu`       | Dropdown menu in header cell                    |
+| `titleMenu`  | `{ options: DropdownOption[]; ... }` *(inline)* | Dropdown menu in header cell (shape is internal; not separately exported) |
 
 ## TableScroll
 

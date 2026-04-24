@@ -2,7 +2,7 @@
 
 > ℹ️ Angular-only — no direct React equivalent.
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/thumbnail) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/thumbnail) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Attribute directive component that adds the thumbnail CSS class and an optional hover overlay to any host element (`<div>`, `<a>`, `<button>`, etc.). Used as the image cell inside `MznFourThumbnailCard` and `MznSingleThumbnailCard`.
 

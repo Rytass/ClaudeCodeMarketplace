@@ -1,6 +1,6 @@
 # Notifier
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/notifier) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/notifier) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Low-level notification queue manager. `MznNotifierService` is the singleton backbone used by `MznMessageService` and `MznAlertBannerService`. It manages a displayed list and a queue, enforcing `maxCount` with automatic promotion.
 

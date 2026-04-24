@@ -8,7 +8,7 @@ Canonical source: ../../../using-mezzanine-ui-react/references/FIGMA_MAPPING.md
 
 Maps Figma design file components to React code.
 
-> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.0.3`, icons/system `1.0.2`). Last verified: 2026-04-21.
+> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.0.4`, icons/system `1.0.2`). Last verified: 2026-04-24.
 
 ## Table of Contents
 

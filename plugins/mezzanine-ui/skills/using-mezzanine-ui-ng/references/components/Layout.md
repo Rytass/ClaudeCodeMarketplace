@@ -1,6 +1,6 @@
 # Layout
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/layout) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/layout) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Application shell layout container. Slots a `MznNavigation`, optional left/right side panels, and the main content area. Uses named `ng-content` projections to position each zone.
 

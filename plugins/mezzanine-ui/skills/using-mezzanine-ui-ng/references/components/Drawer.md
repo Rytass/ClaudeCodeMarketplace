@@ -1,6 +1,6 @@
 # Drawer
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/drawer) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/drawer) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Slide-in panel from the right side of the screen. All header, footer, and filter-area features are flat props — no sub-component nesting required. Escape-key handling uses `EscapeKeyService` + `TopStackService` identical to `MznModal`.
 

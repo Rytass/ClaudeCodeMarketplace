@@ -2,7 +2,7 @@
 
 > ⚠️ Internal helper — `MznClearActions` is used internally by `MznSelect`, `MznInput`, `MznTextField`, `MznModal`, and other components to render close/clear icons. **Not recommended for direct usage.** Prefer using the `clearable` or `showDismissButton` inputs on the parent component instead.
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/clear-actions) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/clear-actions) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Small button component for close, clear, or dismiss interactions. Renders a `CloseIcon` (standard/embedded) or `DangerousFilledIcon` (clearable) depending on `type`.
 

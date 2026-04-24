@@ -1,6 +1,6 @@
 # MultipleDatePicker
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/multiple-date-picker) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/multiple-date-picker) · Verified 1.0.0-rc.4 (2026-04-24)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-multiple-date-picker--docs
 
@@ -151,6 +151,43 @@ export class BlackoutScheduleComponent {
   }
 }
 ```
+
+## Subcomponents
+
+### MznMultipleDatePickerTrigger
+
+The read-only trigger field rendered inside `MznMultipleDatePicker`. Displays each pending date as a dismissable `MznTag` and exposes a calendar suffix icon. Handles overflow via `overflowStrategy`: `'counter'` mode uses a `ResizeObserver` against a hidden "fake DOM" container to compute how many tags fit, then shows `+N` via `MznOverflowCounterTag`; `'wrap'` mode renders every tag. Use directly only when composing a custom multiple-date picker — otherwise it is instantiated internally by `MznMultipleDatePicker`.
+
+#### Selector
+
+`[mznMultipleDatePickerTrigger]` — attribute-directive component
+
+The trigger accepts its items as `ReadonlyArray<DateValue>`, where each `DateValue` carries `{ id: string; name: string; date: DateType }` — `id` is the tag key, `name` is the formatted label, `date` is the original value that round-trips back in `(tagClosed)`.
+
+#### Inputs — MznMultipleDatePickerTrigger
+
+| Input              | Type                          | Default      | Description                                              |
+| ------------------ | ----------------------------- | ------------ | -------------------------------------------------------- |
+| `active`           | `boolean`                     | `false`      | Active (open) styling                                    |
+| `clearable`        | `boolean`                     | `true`       | Show clear button when there is a value                  |
+| `disabled`         | `boolean`                     | `false`      | Disabled state                                           |
+| `error`            | `boolean`                     | `false`      | Error state styling                                      |
+| `fullWidth`        | `boolean`                     | `false`      | Stretch to container width                               |
+| `overflowStrategy` | `'counter' \| 'wrap'`         | `'counter'`  | How overflow tags are rendered                           |
+| `placeholder`      | `string`                      | `''`         | Placeholder shown when value is empty                    |
+| `readOnly`         | `boolean`                     | `false`      | Read-only state (tags render as static)                  |
+| `required`         | `boolean`                     | `false`      | Required state (`aria-required`)                         |
+| `size`             | `TextFieldSize`               | `'main'`     | `'main' \| 'sub'`                                        |
+| `value`            | `ReadonlyArray<DateValue>`    | `[]`         | Selected date values (id / name / original `DateType`)   |
+
+#### Outputs — MznMultipleDatePickerTrigger
+
+| Output          | Type                          | Description                                              |
+| --------------- | ----------------------------- | -------------------------------------------------------- |
+| `cleared`       | `OutputEmitterRef<MouseEvent>`| Clear button clicked                                     |
+| `focused`       | `OutputEmitterRef<void>`      | Inner wrapper clicked (used to open the panel)           |
+| `suffixClicked` | `OutputEmitterRef<Event>`     | Calendar suffix icon clicked                             |
+| `tagClosed`     | `OutputEmitterRef<DateType>`  | A tag (visible or inside the overflow menu) was dismissed; payload is the original `DateType` |
 
 ## Notes
 

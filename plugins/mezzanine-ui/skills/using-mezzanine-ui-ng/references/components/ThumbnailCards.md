@@ -1,13 +1,20 @@
 # ThumbnailCards
 
+> ⚠️ **DEPRECATED in @mezzanine-ui/ng 1.0.0-rc.4** — This component has been decomposed into individual replacements. Use the following per-component references instead:
+> - [SingleThumbnailCard.md](./SingleThumbnailCard.md) — `MznSingleThumbnailCard` + `MznSingleThumbnailCardSkeleton`
+> - [FourThumbnailCard.md](./FourThumbnailCard.md) — `MznFourThumbnailCard` + `MznFourThumbnailCardSkeleton`
+> - [ThumbnailCardInfo.md](./ThumbnailCardInfo.md) — `MznThumbnailCardInfo`
+>
+> You may also consider `QuickActionCard` as an alternative layout.
+
 > ℹ️ Angular-only — no direct React equivalent. These card types are Angular-specific implementations not present in `@mezzanine-ui/react`.
 
-> **Sources**:
+> **Sources** (deprecated):
 > - `single-thumbnail-card/` — `MznSingleThumbnailCard`
 > - `four-thumbnail-card/` — `MznFourThumbnailCard`
 > - `thumbnail-card-info/` — `MznThumbnailCardInfo`
 >
-> Verified 1.0.0-rc.3 (2026-04-21)
+> **Verified** 1.0.0-rc.3 (2026-04-21) · **Deprecated** in 1.0.0-rc.4 (2026-04-24)
 
 Three companion components for displaying media/file cards with thumbnail previews. `MznSingleThumbnailCard` shows one image alongside file info. `MznFourThumbnailCard` renders a 2×2 thumbnail grid. `MznThumbnailCardInfo` is the shared info section used by both.
 

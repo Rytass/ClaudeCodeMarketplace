@@ -1,6 +1,6 @@
 # Navigation
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/navigation) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/navigation) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Side navigation bar with collapsible state, multi-level options, category groups, and icon-only collapsed mode. Sub-components communicate via `MZN_NAVIGATION_ACTIVATED` and `MZN_NAVIGATION_OPTION_LEVEL` injection tokens.
 
@@ -17,9 +17,10 @@ import {
   MznNavigationIconButton,
 } from '@mezzanine-ui/ng/navigation';
 
-import type { NavigationItemConfig, NavigationOptionConfig, NavigationCategoryConfig } from '@mezzanine-ui/ng/navigation';
 import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 ```
+
+> **Note:** The item/option/category config *shapes* used by the `[items]` input (e.g. `NavigationItemConfig`, `NavigationOptionConfig`, `NavigationCategoryConfig`) are **internal convenience types** — they are not publicly exported from `@mezzanine-ui/ng/navigation`. Consumers should either use the template-based API (nested `<mzn-navigation-option>` elements) or define their own interface matching the `MznNavigation` `[items]` input's expected shape (see the inline shape in the Config-based example below).
 
 ## Sub-components
 
@@ -42,7 +43,7 @@ import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 | `collapsed`          | `boolean \| undefined`            | —            | Controlled collapse state                                |
 | `activatedPath`      | `readonly string[]`               | —            | Array of active option IDs (path to active item)         |
 | `filter`             | `boolean`                         | `false`      | Show search/filter input inside the nav                  |
-| `items`              | `readonly NavigationItemConfig[]` | —            | Declarative config-based option list                     |
+| `items`              | `ReadonlyArray<NavItem>` *(see shape below)* | —  | Declarative config-based option list                     |
 | `exactActivatedMatch`| `boolean`                         | `false`      | Match active path exactly (vs prefix match)              |
 | `collapsedPlacement` | `'right' \| 'left' \| 'top' \| 'bottom'` | `'right'` | Tooltip placement for icon-only mode          |
 
@@ -153,12 +154,35 @@ No.
 
 ### Config-based (`[items]` input)
 
+The `[items]` input accepts an array of option nodes and/or category nodes.
+`NavigationItemConfig` / `NavigationOptionConfig` / `NavigationCategoryConfig` are **not exported** — define the shape inline (or as your own local interface):
+
 ```ts
 import { MznNavigation } from '@mezzanine-ui/ng/navigation';
-import type { NavigationItemConfig } from '@mezzanine-ui/ng/navigation';
+import type { IconDefinition } from '@mezzanine-ui/icons';
 import { HomeIcon, UsersIcon } from '@mezzanine-ui/icons';
 
-readonly navItems: readonly NavigationItemConfig[] = [
+// Local shape that matches what the [items] input expects.
+// Option node (no `type`) OR category node (`type: 'category'`).
+interface NavOptionItem {
+  readonly title: string;
+  readonly id?: string;
+  readonly href?: string;
+  readonly icon?: IconDefinition;
+  readonly active?: boolean;
+  readonly defaultOpen?: boolean;
+  readonly children?: ReadonlyArray<NavOptionItem>;
+}
+
+interface NavCategoryItem {
+  readonly type: 'category';
+  readonly title: string;
+  readonly children?: ReadonlyArray<NavOptionItem>;
+}
+
+type NavItem = NavOptionItem | NavCategoryItem;
+
+readonly navItems: ReadonlyArray<NavItem> = [
   { title: '儀表板', id: 'dashboard', href: '/dashboard', icon: HomeIcon },
   {
     title: '使用者管理',

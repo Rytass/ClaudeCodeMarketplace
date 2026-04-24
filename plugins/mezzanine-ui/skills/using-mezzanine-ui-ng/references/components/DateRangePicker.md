@@ -1,6 +1,6 @@
 # DateRangePicker
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/date-range-picker) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/date-range-picker) · Verified 1.0.0-rc.4 (2026-04-24)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-date-range-picker--docs
 
@@ -144,6 +144,63 @@ export class ReportFormComponent {
   }
 }
 ```
+
+## Subcomponents
+
+### MznDateRangePickerCalendar
+
+Standalone range-calendar popper that wraps `MznRangeCalendar` inside `MznPopper`. A thin pass-through — use it when building a custom range-picker shell that needs the dual-calendar panel attached to an arbitrary trigger element. `MznDateRangePicker` uses this internally.
+
+#### Selector
+
+`[mznDateRangePickerCalendar]` — attribute-directive component
+
+#### Inputs — MznDateRangePickerCalendar
+
+| Input                  | Type                                                              | Default             | Description                                              |
+| ---------------------- | ----------------------------------------------------------------- | ------------------- | -------------------------------------------------------- |
+| `anchor`               | `HTMLElement \| ElementRef<HTMLElement> \| null`                  | `null`              | Element the popper attaches to                           |
+| `offsetOptions`        | `PopperOffsetOptions`                                             | `{ mainAxis: 4 }`   | Popper offset configuration                              |
+| `open`                 | `boolean`                                                         | `false`             | Whether the calendar panel is visible                    |
+| `placement`            | `PopperPlacement`                                                 | `'bottom-start'`    | Popper placement                                         |
+| `referenceDate`        | `DateType`                                                        | `''`                | Initial reference date for the left calendar             |
+| `value`                | `DateType \| ReadonlyArray<DateType> \| undefined`                | —                   | Currently selected or in-progress range value            |
+| `mode`                 | `CalendarMode`                                                    | `'day'`             | Calendar mode                                            |
+| `disabledMonthSwitch`  | `boolean`                                                         | `false`             | Disable month navigation                                 |
+| `disabledYearSwitch`   | `boolean`                                                         | `false`             | Disable year navigation                                  |
+| `disableOnNext`        | `boolean`                                                         | `false`             | Disable right calendar's "next" button                   |
+| `disableOnPrev`        | `boolean`                                                         | `false`             | Disable left calendar's "previous" button                |
+| `disableOnDoubleNext`  | `boolean`                                                         | `false`             | Disable right calendar's "double next" button            |
+| `disableOnDoublePrev`  | `boolean`                                                         | `false`             | Disable left calendar's "double previous" button         |
+| `displayMonthLocale`   | `string \| undefined`                                             | —                   | Locale for month labels                                  |
+| `displayWeekDayLocale` | `string \| undefined`                                             | —                   | Locale for weekday labels                                |
+| `isDateDisabled`       | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate to disable specific dates                      |
+| `isDateInRange`        | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate marking dates in-range                         |
+| `isMonthDisabled`      | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate to disable months                              |
+| `isMonthInRange`       | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate marking months in-range                        |
+| `isYearDisabled`       | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate to disable years                               |
+| `isYearInRange`        | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate marking years in-range                         |
+| `isWeekDisabled`       | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate to disable weeks                               |
+| `isWeekInRange`        | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate marking weeks in-range                         |
+| `isQuarterDisabled`    | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate to disable quarters                            |
+| `isQuarterInRange`     | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate marking quarters in-range                      |
+| `isHalfYearDisabled`   | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate to disable half-years                          |
+| `isHalfYearInRange`    | `((date: DateType) => boolean) \| undefined`                      | —                   | Predicate marking half-years in-range                    |
+| `quickSelect`          | `{ activeId?: string; options: ReadonlyArray<CalendarQuickSelectOption> } \| undefined` | — | Quick-select shortcut configuration              |
+| `renderAnnotations`    | `((date: DateType) => CalendarDayAnnotation) \| undefined`        | —                   | Per-date annotation render function                      |
+| `showFooterActions`    | `boolean`                                                         | `false`             | Show footer Cancel/Ok buttons                            |
+
+#### Outputs — MznDateRangePickerCalendar
+
+| Output         | Type                                                | Description                                                    |
+| -------------- | --------------------------------------------------- | -------------------------------------------------------------- |
+| `rangeChanged` | `OutputEmitterRef<[DateType, DateType \| undefined]>` | Emitted when the range is completed or start date updates    |
+| `cellHover`    | `OutputEmitterRef<DateType>`                        | Emitted when the mouse hovers over a day cell                  |
+| `mouseLeave`   | `OutputEmitterRef<void>`                            | Emitted when the mouse leaves the calendar panel               |
+| `confirmed`    | `OutputEmitterRef<void>`                            | Footer confirm button clicked (when `showFooterActions=true`)  |
+| `cancelled`    | `OutputEmitterRef<void>`                            | Footer cancel button clicked (when `showFooterActions=true`)   |
+
+The component also exposes a public method `resetPickingState()` that forwards to the inner `MznRangeCalendar`, clearing any in-progress hover/picking state.
 
 ## Notes
 

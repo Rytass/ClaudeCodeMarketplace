@@ -1,6 +1,6 @@
 # Mezzanine-UI Angular Usage Patterns
 
-> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.3` · Last verified 2026-04-21.
+> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.4` · Last verified 2026-04-24.
 > Real-world source: TYGForm admin app (Nx monorepo, Angular 21, standalone components).
 
 ## Table of Contents
@@ -15,6 +15,7 @@
 - [Theme + Dark-Mode Patterns](#theme--dark-mode-patterns)
 - [Calendar / Date Patterns](#calendar--date-patterns)
 - [File Structure Conventions](#file-structure-conventions)
+- [Utilities](#utilities)
 
 ---
 
@@ -1103,3 +1104,93 @@ directly in the `imports` array — no `NgModule` declarations needed.
 })
 export class ExampleComponent { }
 ```
+
+---
+
+## Utilities
+
+User-facing helpers exported from `@mezzanine-ui/ng/utils`. These cover common
+formatting / CVA-wiring chores and mirror what React apps pull from
+`@mezzanine-ui/react-utils`.
+
+```ts
+import {
+  getCSSVariablePixelValue,
+  highlightText,
+  provideValueAccessor,
+  formatNumberWithCommas,
+  parseNumberWithCommas,
+  type HighlightSegment,
+} from '@mezzanine-ui/ng/utils';
+```
+
+| Export | Signature | Purpose |
+| ------ | --------- | ------- |
+| `getCSSVariablePixelValue` | `(variableName: string, fallback?: number) => number` | Reads a `:root` CSS custom property (e.g. `--mzn-spacing-size-element-loose`) and resolves it to a pixel number. Supports `rem` (16px base), `px`, and unitless values; returns `fallback` (default `0`) when `document` is undefined or the value cannot be parsed. |
+| `highlightText` | `(text: string, keyword?: string) => ReadonlyArray<HighlightSegment>` | Splits `text` into `{ text, highlight }` segments around every case-insensitive match of `keyword`. Regex metacharacters in the keyword are escaped. Use to render AutoComplete / Search results with `<mark>`. |
+| `HighlightSegment` | `{ readonly text: string; readonly highlight: boolean }` | Return element type of `highlightText`. |
+| `provideValueAccessor` | `(component: Type<unknown>) => { provide: typeof NG_VALUE_ACCESSOR; useExisting: Type<unknown>; multi: true }` | Shorthand for the standard `NG_VALUE_ACCESSOR` multi-provider with `forwardRef`. Use in custom form-control components that implement `ControlValueAccessor`. |
+| `formatNumberWithCommas` | `(input: number \| string, locale?: string, options?: Intl.NumberFormatOptions) => string` | Formats a number (or numeric string) with locale-aware thousands separators via `Intl.NumberFormat`. Default locale `'en-US'`; defaults `maximumFractionDigits: 20`. Returns `''` for non-finite or empty input. |
+| `parseNumberWithCommas` | `(input: string, strict?: boolean) => number \| null` | Parses a comma-formatted numeric string back to a `number`. When `strict=true`, only inputs matching `/^-?\d{1,3}(?:,\d{3})*(?:\.\d+)?$/` are accepted. Returns `null` on empty / invalid input. |
+
+### Example — `highlightText` in a template
+
+```ts
+import { Component, input } from '@angular/core';
+import { highlightText } from '@mezzanine-ui/ng/utils';
+
+@Component({
+  selector: 'app-highlight',
+  standalone: true,
+  template: `
+    @for (seg of segments(); track $index) {
+      @if (seg.highlight) { <mark>{{ seg.text }}</mark> }
+      @else { <span>{{ seg.text }}</span> }
+    }
+  `,
+})
+export class HighlightComponent {
+  readonly text = input.required<string>();
+  readonly keyword = input<string>('');
+
+  protected readonly segments = () => highlightText(this.text(), this.keyword());
+}
+```
+
+### Example — `provideValueAccessor` in a custom control
+
+```ts
+import { Component, forwardRef } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
+import { provideValueAccessor } from '@mezzanine-ui/ng/utils';
+
+@Component({
+  selector: 'app-toggle',
+  standalone: true,
+  providers: [provideValueAccessor(ToggleComponent)],
+  template: `...`,
+})
+export class ToggleComponent implements ControlValueAccessor {
+  writeValue(value: boolean): void { /* ... */ }
+  registerOnChange(fn: (value: boolean) => void): void { /* ... */ }
+  registerOnTouched(fn: () => void): void { /* ... */ }
+  setDisabledState?(isDisabled: boolean): void { /* ... */ }
+}
+```
+
+### Example — comma formatting in a price input
+
+```ts
+import { formatNumberWithCommas, parseNumberWithCommas } from '@mezzanine-ui/ng/utils';
+
+formatNumberWithCommas(1234567.89);            // '1,234,567.89'
+formatNumberWithCommas('1000000', 'zh-TW');    // '1,000,000'
+parseNumberWithCommas('1,234.5');              // 1234.5
+parseNumberWithCommas('1,23,4', true);         // null (strict rejects bad grouping)
+```
+
+> **Not user-facing (internal plumbing, omitted from public exports in
+> `utils/index.ts`)**: `arrayMove`, `getElement`, `getScrollbarWidth`, and the
+> `PickRenameMulti` / `ExtendedProperties` type helpers in `general.ts`. Do not
+> import from their file paths directly — they are consumed by library
+> internals and may be relocated without notice.

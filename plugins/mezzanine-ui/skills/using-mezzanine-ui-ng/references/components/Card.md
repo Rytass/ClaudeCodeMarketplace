@@ -1,6 +1,6 @@
 # Card
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/card) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/card) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Card family for content containers. Includes `MznBaseCard` (titled card with optional action / overflow / toggle in the header), `MznQuickActionCard` (icon + title entry point), and `MznCardGroup` (CSS Grid layout wrapper with built-in skeleton loading).
 

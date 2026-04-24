@@ -1,6 +1,6 @@
 # Cropper
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/cropper) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/cropper) · Verified 1.0.0-rc.4 (2026-04-24)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/media-cropper--docs
 
@@ -216,6 +216,7 @@ export class AvatarUploadComponent {
 - `MznCropperElement` 的 `cropChange` 回傳 image pixel 座標的 `CropArea`，可直接傳入 `cropToBlob({ imageSrc, cropArea })` 等工具函式。
 - `cropToBlob`、`cropToDataURL`、`cropToFile` 全部接受單一 `CropToBlobOptions` 物件（**非**兩個位置參數），`imageSrc` 和 `cropArea` 為必填欄位。
 - `cropToFile(options, filename)` 接受第二個位置參數 `filename: string`（回傳 `Promise<File>`）。
+- `loadImage(source)` 接受 `string | File | Blob`，回傳 `Promise<HTMLImageElement>`（內部使用 `crossOrigin='anonymous'` 和 `URL.createObjectURL` 處理 File/Blob 來源）；適合需要先取得圖片實體以便量測或 pre-crop 計算時使用。
 - 使用者只能拖曳平移圖片，裁切框本身不可 resize（固定由 `aspectRatio`/`initialCropArea` 決定）。
 - `MznCropperModalService.open()` 回傳 `Promise<CropperModalResult | null>`；使用者取消或關閉時回傳 `null`（不是 `undefined`）。
 - 不同於 React 版有 `<CropperModal>` 元件，Angular 版推薦優先使用 `MznCropperModalService` 的命令式 API。

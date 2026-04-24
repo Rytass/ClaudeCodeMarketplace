@@ -1,6 +1,6 @@
 # Section
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/section) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/section) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Layout container that composes a `MznContentHeader`, an optional `MznFilterArea`, optional tabs, and the main content area. Uses named `ng-content` selectors to position each child in the correct slot.
 

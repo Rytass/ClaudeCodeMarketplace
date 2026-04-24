@@ -1,6 +1,6 @@
 # Tooltip
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/tooltip) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/tooltip) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Attribute directive that renders a floating tooltip on mouse hover. Uses `@floating-ui/dom` for positioning (with `flip` + `shift` middleware) and renders an SVG arrow indicator by default. Mounts the tooltip element to `document.body` (portal mode) unless `tooltipDisablePortal` is set.
 

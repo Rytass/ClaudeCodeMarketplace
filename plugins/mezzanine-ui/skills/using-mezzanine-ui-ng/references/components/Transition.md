@@ -1,33 +1,61 @@
 # Transition
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/ng/transition) · Verified 1.0.0-rc.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/transition) · Verified 1.0.0-rc.4 (2026-04-24)
 
 Collection of transition directives that animate CSS properties on their host element. All directives apply styles directly to the host — no wrapper element is introduced. Also exports Angular animation triggers (for use with `@trigger` syntax) and utility functions.
 
 ## Import
 
 ```ts
-// Directives
-import { MznFade }     from '@mezzanine-ui/ng/transition';
-import { MznScale }    from '@mezzanine-ui/ng/transition';
-import { MznCollapse } from '@mezzanine-ui/ng/transition';
-import { MznRotate }   from '@mezzanine-ui/ng/transition';
-import { MznSlide }    from '@mezzanine-ui/ng/transition';
-import { MznTranslate } from '@mezzanine-ui/ng/transition';
-
-// Animation triggers
+// Directives / component wrappers
 import {
-  mznFadeAnimation,
-  mznScaleAnimation,
+  MznFade,
+  MznScale,
+  MznCollapse,
+  MznRotate,
+  MznSlide,
+  MznTranslate,
+} from '@mezzanine-ui/ng/transition';
+
+// Directive type-enums (direction / origin literals)
+import type { SlideFrom, TranslateFrom } from '@mezzanine-ui/ng/transition';
+
+// Animation triggers (for @trigger syntax)
+import {
   mznCollapseAnimation,
+  mznFadeAnimation,
+  mznRotateAnimation,
+  mznScaleAnimation,
   mznSlideRightAnimation,
   mznSlideTopAnimation,
   mznTranslateBottomAnimation,
+  mznTranslateLeftAnimation,
+  mznTranslateRightAnimation,
+  mznTranslateTopAnimation,
 } from '@mezzanine-ui/ng/transition';
 
-// Utilities
-import { buildTransitionString, getAutoSizeDuration } from '@mezzanine-ui/ng/transition';
-import type { TransitionDuration, TransitionEasing, TransitionDelay } from '@mezzanine-ui/ng/transition';
+// Type aliases
+import type {
+  TransitionDelay,
+  TransitionDuration,
+  TransitionEasing,
+  TransitionEnterHandler,
+  TransitionExitHandler,
+  TransitionMode,
+  TransitionState,
+  TransitionStyleProps,
+} from '@mezzanine-ui/ng/transition';
+
+// Util helpers
+import {
+  buildTransitionString,
+  getAutoSizeDuration,
+  getTransitionDelay,
+  getTransitionDuration,
+  getTransitionStyleProps,
+  getTransitionTimingFunction,
+  reflow,
+} from '@mezzanine-ui/ng/transition';
 ```
 
 ## Common Inputs (MznFade, MznScale, MznSlide)
@@ -178,6 +206,22 @@ export class MyComponent {
   isVisible = false;
 }
 ```
+
+## Util helpers
+
+Utility functions exported from `@mezzanine-ui/ng/transition`. Useful when you're building a custom directive that mimics the built-in ones (e.g. an alert-banner or notification-center with its own timing rules).
+
+| Function                       | Purpose                                                                                              |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| `buildTransitionString`        | Compose a `transition:` CSS string for the given `mode`/properties/duration/easing/delay inputs.     |
+| `getAutoSizeDuration`          | Derive a duration (ms) from a content height — used by `MznCollapse` when `duration='auto'`.         |
+| `getTransitionDuration`        | Resolve the enter or exit `TransitionDuration` value for the given mode (falling back to tokens).    |
+| `getTransitionDelay`           | Resolve the enter or exit `TransitionDelay` value for the given mode.                                |
+| `getTransitionTimingFunction`  | Resolve the enter or exit CSS easing string for the given mode from `TransitionEasing`.              |
+| `getTransitionStyleProps`      | Return a `TransitionStyleProps` record of CSS style props (`transitionDuration`, `transitionDelay`, `transitionTimingFunction`). |
+| `reflow`                       | Force a synchronous layout reflow on a node so a subsequent style change triggers a transition.     |
+
+> Most applications will never need these — they're used internally by `MznFade`, `MznScale`, `MznSlide`, `MznTranslate`, `MznCollapse`, and `MznNotificationCenter`. Reach for them only when authoring a bespoke transition directive.
 
 ## Notes
 
