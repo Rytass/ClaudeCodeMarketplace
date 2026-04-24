@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/PageHeader`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/PageHeader) · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/PageHeader) · Verified 1.1.0 (2026-04-24)
 
 Page header component for displaying page-level navigation and titles. Contains breadcrumb and content header.
 

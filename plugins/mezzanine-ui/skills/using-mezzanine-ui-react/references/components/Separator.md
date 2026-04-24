@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Separator`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Separator) · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Separator) · Verified 1.1.0 (2026-04-24)
 
 Separator component for visually dividing content sections. Supports horizontal and vertical orientations, rendering as an `<hr>` element.
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Input`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Input) · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Input) · Verified 1.1.0 (2026-04-24)
 
 A versatile input component supporting multiple variants for different use cases.
 
@@ -173,7 +173,22 @@ type SelectInputProps = InputBaseProps & {
   dropdownMaxHeight?: number | string;  // Default 114
   dropdownPlacement?: PopperPlacement;  // Default 'bottom-start'
 };
+
+// SelectButtonProps (from packages/react/src/Input/SelectButton)
+type SelectButtonProps = {
+  closeOnSelect?: boolean;              // Default true (v1.1.0+): close dropdown on option click
+  disabled?: boolean;
+  dropdownWidth?: number | string;
+  dropdownMaxHeight?: number | string;
+  dropdownPlacement?: PopperPlacement;
+  options?: DropdownOption[];
+  onSelect?: (value: string) => void;
+  size?: InputSize;                     // Default 'main'
+  value?: string;
+};
 ```
+
+> **v1.1.0 新增**：`closeOnSelect` prop（預設 `true`）。選項點擊後自動關閉下拉選單，符合單選 UX 預期。需要保持舊行為（選後不關閉）時，於呼叫端傳 `closeOnSelect={false}`。
 
 ### Password Input
 

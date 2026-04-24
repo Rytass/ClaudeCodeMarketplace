@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-autocomplete--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/AutoComplete) · Verified 1.1.0 (2026-04-24)
 
 Autocomplete component combining input with dropdown menu. Supports search filtering and dynamic option creation. Internally uses `Dropdown` and `SelectTrigger` composition.
 
@@ -62,7 +62,7 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `onVisibilityChange`         | `(open: boolean) => void`                              | -                      | Dropdown visibility change callback      |
 | `open`                       | `boolean`                                              | -                      | Controlled dropdown open state           |
 | `options`                    | `SelectValue[]`                                        | **required**           | Options list                             |
-| `overflowStrategy`           | `'counter' \| 'wrap'`                                  | `'wrap'` (multiple)    | Tag overflow strategy in multiple mode   |
+| `overflowStrategy`           | `'counter' \| 'wrap'`                                  | `'counter'` (multiple) | Tag overflow strategy in multiple mode   |
 | `placeholder`                | `string`                                               | `''`                   | Placeholder text                         |
 | `popperOptions`              | `PopperProps['options']`                               | -                      | Popper options                           |
 | `required`                   | `boolean`                                              | `false`                | Whether required                         |
@@ -95,7 +95,7 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `value`             | `SelectValue[]`                       | -           | Selected values array |
 | `defaultValue`      | `SelectValue[]`                       | -           | Default values array |
 | `onChange`           | `(newOptions: SelectValue[]) => void` | -           | Change callback; committed only on Enter/click or dropdown click, not on typing          |
-| `overflowStrategy`  | `'counter' \| 'wrap'`                | `'wrap'`    | Tag overflow strategy; shows "+N" with 'counter', displays all with 'wrap' |
+| `overflowStrategy`  | `'counter' \| 'wrap'`                | `'counter'` | Tag overflow strategy; shows "+N" with 'counter', displays all with 'wrap' |
 | `selector`          | `AutoCompleteSelector`                | `'input'`   | Input selector type  |
 
 ---
@@ -447,5 +447,5 @@ const handleSearch = async (input) => {
 1. **選項提交時機**：選項僅在按下 Enter 或點擊時提交，不再在搜尋或輸入時自動提交
 2. **內建文字預設值**：`emptyText` 和 `loadingText` 已有內建中文預設值（'沒有符合的項目'、'載入中...'），毋需額外設定
 3. **loadingPosition 預設值**：預設為 'bottom'
-4. **overflowStrategy 預設變更**：多重模式現預設為 'wrap'，更易見標籤
+4. **overflowStrategy 預設值**：多重模式預設為 'counter'（顯示 "+N"），若需顯示所有標籤改為 'wrap'
 5. **新增 onRemoveCreated**：允許在模糊時自動清理未選中的已建立項目

@@ -299,7 +299,8 @@
     "props": {},
     "sourceFile": "packages/react/src/ClearActions/ClearActions.tsx",
     "propsType": "| ClearActionsEmbeddedProps\n  | ClearActionsStandardProps\n  | ClearActionsClearableProps",
-    "deprecated": true
+    "deprecated": true,
+    "deprecationReason": "Component no longer exported from @mezzanine-ui/react index.ts as of v1.1.0"
   },
   "ContentHeader": {
     "props": {
@@ -348,7 +349,8 @@
         "sourceFile": "packages/react/src/ContentHeader/ContentHeaderResponsive.tsx"
       }
     },
-    "deprecated": true
+    "deprecated": true,
+    "deprecationReason": "Component no longer exported from @mezzanine-ui/react index.ts as of v1.1.0"
   },
   "Cropper": {
     "props": {},
@@ -1357,6 +1359,12 @@
         "type": "ReactNode",
         "required": false
       },
+      "container": {
+        "type": "HTMLElement | RefObject<HTMLElement | null> | RefObject<HTMLElement> | null",
+        "required": false,
+        "default": "null",
+        "description": "Custom portal destination container (new in v1.1.0)"
+      },
       "disablePortal": {
         "type": "boolean",
         "required": false,
@@ -1425,6 +1433,11 @@
         "type": "ResultStateActions",
         "required": false
       },
+      "children": {
+        "type": "ReactElement<ButtonProps> | [ReactElement<ButtonProps>] | [ReactElement<ButtonProps>, ReactElement<ButtonProps>]",
+        "required": false,
+        "description": "Button children (new in v1.1.0)"
+      },
       "description": {
         "type": "string",
         "required": false
@@ -1486,7 +1499,8 @@
     "extends": [
       "Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'children'>"
     ],
-    "deprecated": true
+    "deprecated": true,
+    "deprecationReason": "Component no longer exported from @mezzanine-ui/react index.ts as of v1.1.0"
   },
   "Section": {
     "props": {
@@ -1594,6 +1608,11 @@
       "onChange": {
         "type": "ChangeEventHandler<HTMLInputElement>",
         "required": false
+      },
+      "onClick": {
+        "type": "(event: MouseEvent<HTMLLabelElement>) => void",
+        "required": false,
+        "description": "Click handler (new in v1.1.0)"
       }
     },
     "sourceFile": "packages/react/src/SelectionCard/SelectionCard.tsx",
@@ -1611,6 +1630,13 @@
     "extends": [
       "NativeElementPropsWithoutKeyAndRef<'hr'>"
     ]
+  },
+  "Switch": {
+    "props": {},
+    "sourceFile": "packages/react/src/Switch/Switch.tsx",
+    "extends": [],
+    "deprecated": true,
+    "deprecationReason": "Component no longer exported from @mezzanine-ui/react index.ts as of v1.1.0"
   },
   "Skeleton": {
     "props": {
@@ -2004,7 +2030,41 @@
     "extends": []
   },
   "Typography": {
-    "props": {},
+    "props": {
+      "align": {
+        "type": "TypographyAlign",
+        "required": false,
+        "description": "Text alignment (new in v1.1.0)"
+      },
+      "color": {
+        "type": "TypographyColor",
+        "required": false,
+        "description": "Semantic color from palette (new in v1.1.0)"
+      },
+      "display": {
+        "type": "string",
+        "required": false,
+        "description": "CSS display property (new in v1.1.0)"
+      },
+      "ellipsis": {
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Single-line truncation (new in v1.1.0)"
+      },
+      "noWrap": {
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Prevents wrapping (new in v1.1.0)"
+      },
+      "variant": {
+        "type": "TypographySemanticType",
+        "required": false,
+        "default": "body",
+        "description": "Typography semantic type (new in v1.1.0)"
+      }
+    },
     "sourceFile": "packages/react/src/Typography/Typography.tsx",
     "extends": []
   },
@@ -2138,8 +2198,8 @@
     ]
   },
   "_meta": {
-    "version": "1.0.3",
-    "generatedAt": "2026-04-21",
+    "version": "1.1.0",
+    "generatedAt": "2026-04-24",
     "description": "TypeScript props API index for Mezzanine UI v2"
   }
 }

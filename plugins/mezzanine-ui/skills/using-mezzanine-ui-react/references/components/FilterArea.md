@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/FilterArea`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/FilterArea) | Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/FilterArea) · Verified 1.1.0 (2026-04-24)
 
 A filter area component for building search and filter forms. Contains three sub-components: FilterArea, FilterLine, and Filter. Expand/collapse buttons use `ChevronDownIcon` / `ChevronUpIcon`.
 

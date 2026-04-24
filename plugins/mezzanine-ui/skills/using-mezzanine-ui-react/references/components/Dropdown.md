@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Internal/Dropdown`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Dropdown) · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Dropdown) · Verified 1.1.0 (2026-04-24)
 
 A low-level dropdown component for displaying option lists. Typically used as the internal implementation of higher-level components like Select and AutoComplete, but can also be used independently with Button or Input. Supports flat list, grouped, and tree structures, with built-in scrolling, loading states, keyboard shortcuts, and action buttons.
 
@@ -49,7 +49,7 @@ import type { DropdownLoadingPosition } from '@mezzanine-ui/core/dropdown';
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/internal-dropdown--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
-> **Note**: The `scrollbar*` props in Dropdown are for internal dropdown scrolling configuration. `Scrollbar` itself is deprecated in 1.0.0; use native scrolling or CSS-based styling.
+> **Note**: The `scrollbar*` props in Dropdown are for internal dropdown scrolling configuration. `Scrollbar` itself is deprecated in 1.1.0; use native scrolling or CSS-based styling.
 
 ---
 

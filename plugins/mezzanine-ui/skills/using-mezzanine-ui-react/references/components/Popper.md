@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Popper`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Popper) · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Popper) · Verified 1.1.0 (2026-04-24)
 
 A positioned popup layer component based on @floating-ui/react-dom, used as the underlying positioning for Tooltip, Dropdown, Select, and other components.
 

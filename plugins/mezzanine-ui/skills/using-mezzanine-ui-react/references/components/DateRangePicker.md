@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-daterangepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DateRangePicker) · Verified 1.1.0 (2026-04-24)
 
 A date range picker for selecting start and end dates. Must be used with `CalendarContext`. Internally composed of `DateRangePickerCalendar` and `RangePickerTrigger`.
 
@@ -108,6 +108,24 @@ import type {
 > **confirmMode behavior**:
 > - `'immediate'` (default): Automatically triggers onChange and closes the calendar after selecting two dates
 > - `'manual'`: Requires clicking the confirm button to trigger; if `actions` is not provided, confirm/cancel buttons are auto-generated
+
+---
+
+## Portal Behavior (v1.0.4+)
+
+Since v1.0.4 the calendar popper portals out of the DOM subtree by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors and enabling viewport-edge flip. To restore inline (non-portal) rendering per call site:
+
+```tsx
+<DateRangePicker
+  popperProps={{ disablePortal: true }}
+  value={value}
+  onChange={setValue}
+/>
+```
+
+### Keyboard Navigation (v1.1.0+)
+
+`Tab` / `Shift+Tab` navigation between the trigger inputs and the portalled calendar is restored in v1.1.0 via an explicit logical focus loop, reliable even inside a `Modal` focus trap.
 
 ---
 

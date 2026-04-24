@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Cropper`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Cropper) · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Cropper) · Verified 1.1.0 (2026-04-24)
 
 Image cropping component providing interactive image cropping functionality. Includes the base container `Cropper`, the cropping canvas `CropperElement`, the Modal wrapper `CropperModal`, and utility functions `cropToBlob`, `cropToFile`, and `cropToDataURL`.
 

@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-timepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified 1.0.3 (2026-04-21)
+> **Source**: Verified 1.1.0 (2026-04-24)
 
 Time picker for selecting time. Must be used with `CalendarContext`.
 
@@ -86,6 +86,24 @@ import type { TimePickerProps, TimePickerPanelProps } from '@mezzanine-ui/react'
 | `readOnly`      | `boolean`          | -       | Whether read-only    |
 | `required`      | `boolean`          | `false` | Whether required     |
 | `size`          | `'main' \| 'sub'`  | -       | Size                 |
+
+---
+
+## Portal Behavior (v1.0.4+)
+
+Since v1.0.4 the time panel portals out of the DOM subtree by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors and enabling viewport-edge flip. To restore inline rendering per call site:
+
+```tsx
+<TimePicker
+  popperProps={{ disablePortal: true }}
+  value={value}
+  onChange={setValue}
+/>
+```
+
+### Keyboard Navigation (v1.1.0+)
+
+`Tab` / `Shift+Tab` navigation between the trigger input and the portalled time panel is restored in v1.1.0 via an explicit logical focus loop, reliable even inside a `Modal` focus trap.
 
 ---
 

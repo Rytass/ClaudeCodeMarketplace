@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-datepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DatePicker) · Verified 1.1.0 (2026-04-24)
 
 Date picker component supporting multiple modes (day, week, month, quarter, half-year, year). Requires `CalendarContext`. Internally composed of `PickerTrigger` and `DatePickerCalendar`.
 
@@ -110,6 +110,26 @@ import type { DatePickerProps, DatePickerCalendarProps } from '@mezzanine-ui/rea
 | `quarter`   | Quarter     | `YYYY-[Q]Q`    |
 | `half-year` | Half-year   | `YYYY-[H]n`    |
 | `year`      | Year        | `YYYY`         |
+
+---
+
+## Portal Behavior (v1.0.4+)
+
+Since v1.0.4 the calendar popper portals out of the DOM subtree by default, so `z-index: popover (1005)` wins against `Modal (1004)`. This fixes clipping when the picker is inside a `Modal` or any ancestor with `overflow: hidden`, and enables viewport-edge flip.
+
+To restore the previous inline (non-portal) rendering per call site:
+
+```tsx
+<DatePicker
+  popperProps={{ disablePortal: true }}
+  value={value}
+  onChange={setValue}
+/>
+```
+
+### Keyboard Navigation (v1.1.0+)
+
+`Tab` / `Shift+Tab` navigation between the trigger input and the portalled calendar is restored in v1.1.0. The popper establishes an explicit logical focus loop so the browser does not skip the calendar when the portal severs natural DOM order. This is particularly reliable inside a `Modal` focus trap.
 
 ---
 

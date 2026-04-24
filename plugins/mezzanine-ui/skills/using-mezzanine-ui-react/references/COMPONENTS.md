@@ -2,7 +2,7 @@
 
 Complete component API reference documentation.
 
-> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.0.3`, icons/system `1.0.2`). Last verified: 2026-04-21.
+> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.1.0`, icons/system `1.0.2`). Last verified: 2026-04-24.
 
 ## Table of Contents
 
@@ -345,6 +345,8 @@ const data = [
 | ---------- | --------------------------------------------------------------------- | ------- | ---------------------------------------------------- |
 | `rowState` | `TableRowState \| ((rowData: T) => TableRowState \| undefined)` | -       | Row-level semantic styling: `'added'` \| `'deleted'` \| `'disabled'` |
 
+> **v1.1.0 SSR fix**: Row height is now resolved via `useIsomorphicLayoutEffect` instead of `useMemo`, eliminating hydration mismatches in Next.js / Remix apps.
+
 ---
 
 ### Card
@@ -571,20 +573,20 @@ Groups multiple Section components with consistent spacing.
 ```tsx
 import { SectionGroup, Section } from '@mezzanine-ui/react';
 
-// v1.0.0: ContentHeader is deprecated — use Typography or custom elements for section titles
+// ContentHeader is removed as of v1.1.0 — pass title directly to Section or compose a custom header element
 <SectionGroup direction="vertical">
   <Section title="Section 1">Content 1</Section>
   <Section title="Section 2">Content 2</Section>
 </SectionGroup>
 ```
 
-> **Note (v1.0.0)**: `ContentHeader` is removed. Pass `title` directly to `Section` or compose a custom header element.
+> **Note (v1.1.0)**: `ContentHeader` is removed. Pass `title` directly to `Section` or compose a custom header element.
 
 ---
 
-### ⚠️ ContentHeader *(已廢棄)*
+### ⚠️ ContentHeader *(已廢棄 v1.1.0)*
 
-**Deprecated in v1.0.0**: ContentHeader is no longer exported. Use alternative layout patterns for section headers.
+**Removed in v1.1.0**: ContentHeader is no longer exported. Use `PageHeader` + `Section` or custom elements for section headers.
 
 ---
 
@@ -660,9 +662,9 @@ import { Toggle } from '@mezzanine-ui/react';
 
 ---
 
-### ⚠️ Switch (Deprecated)
+### ⚠️ Switch *(已廢棄 v1.1.0)*
 
-**Deprecated in v1.0.0**: Use Toggle component instead.
+**Removed in v1.1.0**: Use Toggle component instead.
 
 ```tsx
 import { Switch } from '@mezzanine-ui/react';
@@ -1297,15 +1299,15 @@ import type { Notifier } from '@mezzanine-ui/react';
 
 > The following are internal components, exported only for advanced customization.
 
-### ⚠️ ClearActions *(已廢棄)*
+### ⚠️ ClearActions *(已廢棄 v1.1.0)*
 
-**Deprecated in v1.0.0**: ClearActions component is no longer exported.
+**Removed in v1.1.0**: ClearActions component is no longer exported. Implement close/clear buttons using a composition pattern.
 
 ---
 
-### ⚠️ Scrollbar *(已廢棄)*
+### ⚠️ Scrollbar *(已廢棄 v1.1.0)*
 
-**Deprecated in v1.0.0**: Scrollbar component is no longer exported. Use native scrolling or alternative scroll libraries.
+**Removed in v1.1.0**: Scrollbar component is no longer exported. Use native scrolling or CSS custom scrollbar styles.
 
 ---
 

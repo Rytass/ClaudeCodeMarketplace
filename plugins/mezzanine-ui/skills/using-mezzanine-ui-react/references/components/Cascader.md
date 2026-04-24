@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-cascader--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Cascader) · Verified 1.1.0 (2026-04-24)
 
 A hierarchical dropdown selector that lets users drill through multi-level option trees. The selected path (from root to leaf) is represented as an array of `CascaderOption` objects. Selection is only committed when a leaf node is clicked or confirmed via keyboard. Overflow handling uses automatic path truncation and tooltip display.
 
@@ -185,7 +185,7 @@ When the selected path is too long to fit in the trigger input width, the Cascad
 
 **Scrollable Panels**: Panel columns use scrolling styles when `menuMaxHeight` is set and options exceed the available height.
 
-> **Note**: `Scrollbar` is deprecated in 1.0.0. This component's internal scrolling behavior is handled by native browser scrolling.
+> **Note**: `Scrollbar` is deprecated in 1.1.0. This component's internal scrolling behavior is handled by native browser scrolling.
 
 ### Example with Long Path
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Description`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Description) · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Description) · Verified 1.1.0 (2026-04-24)
 
 Description component for displaying structured information in title-content pairs.
 

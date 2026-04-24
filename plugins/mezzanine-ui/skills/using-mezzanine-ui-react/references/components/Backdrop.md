@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/Backdrop`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Backdrop) · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Backdrop) · Verified 1.1.0 (2026-04-24)
 
 Backdrop overlay component for creating backgrounds for modals, drawers, and other overlay layers.
 

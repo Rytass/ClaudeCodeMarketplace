@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Portal`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Portal) · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Portal) · Verified 1.1.0 (2026-04-24)
 
 A portal component that renders children to a different location in the DOM. Used by Modal, Drawer, Tooltip, and other components that need to escape the parent DOM structure.
 
@@ -30,7 +30,7 @@ import { initializePortals } from '@mezzanine-ui/react/Portal';
 | Property        | Type                                     | Default     | Description        |
 | --------------- | ---------------------------------------- | ----------- | ------------------ |
 | `children`      | `ReactNode`                              | -           | Child content      |
-| `container`     | `HTMLElement \| RefObject<HTMLElement \| null> \| null` | - | Target container |
+| `container`     | `HTMLElement \| RefObject<HTMLElement \| null> \| RefObject<HTMLElement> \| null` | - | Target container |
 | `disablePortal` | `boolean`                                | `false`     | Disable Portal     |
 | `layer`         | `'default' \| 'alert'`                   | `'default'` | Portal layer       |
 

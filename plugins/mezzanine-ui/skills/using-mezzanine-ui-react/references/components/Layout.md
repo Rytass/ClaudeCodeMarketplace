@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Layout/Layout`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Layout) · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Layout) · Verified 1.1.0 (2026-04-24)
 
 A full-page layout component providing a main content area and resizable side panels. Uses the compound component pattern; `Layout` internally creates a `LayoutHost` context provider.
 
@@ -19,7 +19,7 @@ A full-page layout component providing a main content area and resizable side pa
 
 > **Note**: `LayoutHost` is an internal component, not exported from the public API. `Layout` automatically creates `LayoutHost` to wrap children; manual wrapping is not needed.
 >
-> **Deprecation Note**: `Scrollbar` is deprecated in 1.0.0. The `scrollbarProps` property is available for backward compatibility but uses native browser scrolling internally.
+> **Deprecation Note**: `Scrollbar` is deprecated in 1.1.0. The `scrollbarProps` property is available for backward compatibility but uses native browser scrolling internally.
 
 ## Import
 

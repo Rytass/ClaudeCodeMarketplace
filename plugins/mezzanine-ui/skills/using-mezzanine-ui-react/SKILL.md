@@ -1,13 +1,13 @@
 ---
 name: using-mezzanine-ui-react
-description: React / Next.js Mezzanine-UI skill — create, edit, or style JSX components with @mezzanine-ui/react (1.0.3). Covers Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Navigation, Typography, Icon, Drawer, Upload, Toggle, design tokens, theming, and CalendarConfigProvider. Use when working on *.tsx, *.scss files with @mezzanine-ui/react imports, building React forms, or configuring Mezzanine styles in a React codebase. Trigger — React, Next.js, tsx, JSX, mezzanine-ui/react, add mezzanine component, build form, create page UI, design tokens, mzn. For Angular projects use the sibling using-mezzanine-ui-ng skill instead.
+description: React / Next.js Mezzanine-UI skill — create, edit, or style JSX components with @mezzanine-ui/react (1.1.0). Covers Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Navigation, Typography, Icon, Drawer, Upload, Toggle, design tokens, theming, and CalendarConfigProvider. Use when working on *.tsx, *.scss files with @mezzanine-ui/react imports, building React forms, or configuring Mezzanine styles in a React codebase. Trigger — React, Next.js, tsx, JSX, mezzanine-ui/react, add mezzanine component, build form, create page UI, design tokens, mzn. For Angular projects use the sibling using-mezzanine-ui-ng skill instead.
 ---
 
 # Mezzanine-UI Design System
 
 **Core principle: All frontend development MUST prefer the Mezzanine-UI design system.**
 
-> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.0.3`, icons/system `1.0.2`). Last verified: 2026-04-21.
+> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.1.0`, icons/system `1.0.2`). Last verified: 2026-04-24.
 >
 > Check latest version: `npm view @mezzanine-ui/react versions` or see [GitHub Releases](https://github.com/Mezzanine-UI/mezzanine/releases).
 
@@ -100,9 +100,42 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 ---
 
+## What's New in 1.1.0
+
+### 新增功能 (Improvements)
+
+- **`Input` 的 `SelectButton` 子元件**（用於 `Input` 的 `select` variant，見 `packages/react/src/Input/SelectButton/`）新增 `closeOnSelect` prop（預設值 `true`）：選取選項後自動關閉下拉選單，符合單選 UX 預期。若需保持舊行為（選後不關閉），可在呼叫端傳入 `closeOnSelect={false}`。詳見 [Input.md](./references/components/Input.md#select-input)。
+
+### 錯誤修正 (Bug Fixes)
+
+- **`Table`** — 修正 SSR hydration mismatch 問題。列高原本在 `useMemo` 中透過 `getComputedStyle` 讀取，伺服器端回傳 `0`、客戶端回傳實際 pixel，導致 React 18/19 strict mode 下發出 hydration 警告甚至拋錯。現改為在 `useIsomorphicLayoutEffect` 中延遲讀取，首次 render 結果在 SSR 與 CSR 之間完全一致。Next.js / Remix 使用者建議升級。
+- **Picker 家族鍵盤導覽** (`DatePicker`、`DateRangePicker`、`TimePicker`、`DateTimePicker`、`DateTimeRangePicker`、`TimeRangePicker`、`MultipleDatePicker`) — 修復 1.0.4 portal 遷移後 Tab / Shift+Tab 無法在觸發輸入框與日曆/時間面板之間循環的問題。Popper 現在建立明確的邏輯焦點迴圈，並在 `Modal` focus trap 內亦可正常運作。
+
+### 元件移除 (Removed)
+
+> 以下元件已從 `@mezzanine-ui/react` 公開 API 移除，請在升級前完成遷移：
+
+| 元件            | 遷移指引                                                                    |
+| --------------- | --------------------------------------------------------------------------- |
+| `ClearActions`  | 無直接替代品，改以組合模式自行實作關閉按鈕                                  |
+| `ContentHeader` | 改以 `PageHeader` + `Section` + 自訂元素組合取代                            |
+| `Scrollbar`     | 改用原生滾動或 CSS 自訂捲軸樣式                                             |
+| `Switch`        | 已由 `Toggle` 正式取代，所有用法請直接改用 `<Toggle>`                       |
+
+**相依套件要求**：`@mezzanine-ui/core` ≥ 1.0.4、`@mezzanine-ui/system` ≥ 1.0.2、`@mezzanine-ui/icons` ≥ 1.0.2
+
+---
+
+<details>
+<summary>Previous: What's New in 1.0.4 / Patch Releases (1.0.1 – 1.0.3)</summary>
+
 ## Patch Releases (1.0.1 – 1.0.3)
 
 > **No public API changes** in this range — existing usage does not need to be modified. Upgrade is a straightforward `yarn upgrade @mezzanine-ui/*`.
+
+### `@mezzanine-ui/react` 1.0.4 (2026-04-22)
+
+- **Fix** — Picker 家族（DatePicker、DateRangePicker、TimePicker、DateTimePicker、DateTimeRangePicker、TimeRangePicker、MultipleDatePicker）在 Modal 或視窗底部附近渲染時，下拉 popup 不再被裁切。`InputTriggerPopper` 預設改為 portal 模式（`z-index: 1005` 高於 `Modal: 1004`）。同時啟用 Floating UI 的 `flip` middleware，面板會在空間不足時自動翻轉方向。
 
 ### `@mezzanine-ui/react` 1.0.3 (2026-04-21)
 
@@ -123,6 +156,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ### `@mezzanine-ui/icons` 1.0.2 · `@mezzanine-ui/system` 1.0.2 (2026-04-17)
 
 - Monorepo-sync version bump only. No code change.
+
+</details>
 
 ---
 
@@ -269,7 +304,7 @@ Form and user input components.
 | `Select`              | Select dropdown      | [Select.md](references/components/Select.md)                           |
 | `SelectionCard`       | Selection card       | [SelectionCard.md](references/components/SelectionCard.md)             |
 | `Slider`              | Slider               | [Slider.md](references/components/Slider.md)                           |
-| `Switch` *(已廢棄)*   | Switch toggle — 請改用 Toggle | [Switch.md](references/components/Switch.md)               |
+| `Switch` *(已廢棄 v1.1.0)* | Switch toggle — 請改用 Toggle | [Switch.md](references/components/Switch.md)               |
 | `Textarea`            | Textarea             | [Textarea.md](references/components/Textarea.md)                       |
 | `TextField`           | Text field           | [TextField.md](references/components/TextField.md)                     |
 | `TimePicker`          | Time picker          | [TimePicker.md](references/components/TimePicker.md)                   |
@@ -334,12 +369,12 @@ Utility components and transition animations.
 
 Internal components, not typically used directly but available for advanced customization.
 
-| Component                    | Description                          | Export                | Reference                                                    |
-| ---------------------------- | ------------------------------------ | --------------------- | ------------------------------------------------------------ |
-| `ClearActions` *(已廢棄)*    | Clear/close button                   | sub-path only         | [ClearActions.md](references/components/ClearActions.md)     |
-| `ContentHeader` *(已廢棄)*   | Content section header               | sub-path only         | [ContentHeader.md](references/components/ContentHeader.md)   |
-| `Dropdown`                   | Dropdown container (API 已重構)      | `@mezzanine-ui/react` | [Dropdown.md](references/components/Dropdown.md)             |
-| `Scrollbar` *(已廢棄)*       | Custom scrollbar                     | sub-path only         | [Scrollbar.md](references/components/Scrollbar.md)           |
+| Component                         | Description                          | Export                | Reference                                                    |
+| --------------------------------- | ------------------------------------ | --------------------- | ------------------------------------------------------------ |
+| `ClearActions` *(已廢棄 v1.1.0)* | Clear/close button                   | sub-path only         | [ClearActions.md](references/components/ClearActions.md)     |
+| `ContentHeader` *(已廢棄 v1.1.0)*| Content section header               | sub-path only         | [ContentHeader.md](references/components/ContentHeader.md)   |
+| `Dropdown`                        | Dropdown container (API 已重構)      | `@mezzanine-ui/react` | [Dropdown.md](references/components/Dropdown.md)             |
+| `Scrollbar` *(已廢棄 v1.1.0)*    | Custom scrollbar                     | sub-path only         | [Scrollbar.md](references/components/Scrollbar.md)           |
 
 ---
 
@@ -421,7 +456,7 @@ document.documentElement.setAttribute('data-density', 'compact');
 When Mezzanine-UI releases a new version, use the `/sync-mezzanine-ui` command to refresh all skill content:
 
 ```
-/sync-mezzanine-ui 1.0.3
+/sync-mezzanine-ui 1.1.0
 ```
 
 This orchestrates a team of agents to:

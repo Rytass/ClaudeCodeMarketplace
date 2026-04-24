@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-datetimepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DateTimePicker) · Verified 1.1.0 (2026-04-24)
 
 A date-time picker that allows selecting both date and time simultaneously. Must be used with `CalendarContext`. Internally composed of `DatePickerCalendar`, `TimePickerPanel`, and `PickerTriggerWithSeparator`.
 
@@ -114,6 +114,16 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 | `readOnly`         | `boolean`          | -       | Whether read-only        |
 | `required`         | `boolean`          | `false` | Whether required         |
 | `size`             | `'main' \| 'sub'`  | -       | Size                     |
+
+---
+
+## Portal Behavior (v1.0.4+)
+
+Since v1.0.4 the calendar and time pickers portal out by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors. To restore inline rendering per call site use `popperProps={{ disablePortal: true }}` (for the calendar) or `popperPropsTime={{ disablePortal: true }}` (for the time panel).
+
+### Keyboard Navigation (v1.1.0+)
+
+`Tab` / `Shift+Tab` navigation between the trigger inputs and the portalled panels is restored in v1.1.0 via an explicit logical focus loop, reliable even inside a `Modal` focus trap.
 
 ---
 

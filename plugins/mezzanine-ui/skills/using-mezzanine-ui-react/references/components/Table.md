@@ -4,9 +4,11 @@
 >
 > **Storybook**: `Data Display/Table`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Table)  · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Table)  · Verified 1.1.0 (2026-04-24)
 
 High-performance data table component supporting virtual scrolling, column resizing, fixed columns, row selection, sorting, expandable rows, drag-and-drop reordering, pinning, toggleable columns, collectable columns, and more.
+
+> **v1.1.0 SSR fix**: Row height is now read via `useIsomorphicLayoutEffect` instead of `useMemo`, so the first render is deterministic across server and client. Next.js / Remix consumers no longer see React hydration mismatch warnings caused by `getComputedStyle` returning `0` on the server. No public API change.
 
 ## Import
 

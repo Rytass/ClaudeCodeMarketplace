@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-multipledatepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/MultipleDatePicker) · Verified 1.1.0 (2026-04-24)
 
 A multiple date picker that allows selecting multiple dates from a calendar, displaying selected dates as Tags. Requires manual confirmation before triggering onChange. Must be used with `CalendarContext`.
 
@@ -134,6 +134,24 @@ Extends `TextFieldProps` (excluding `active`, `children`, `defaultChecked`, `dis
 | `getConfirmValue` | `() => MultipleDatePickerValue`           | Get confirmed value (for onChange)        |
 | `revertToValue`   | `() => void`                              | Revert to original controlled value (cancel) |
 | `formatDate`      | `(date: DateType) => string`              | Format date to display string            |
+
+---
+
+## Portal Behavior (v1.0.4+)
+
+Since v1.0.4 the calendar popper portals out by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors. To restore inline rendering per call site:
+
+```tsx
+<MultipleDatePicker
+  popperProps={{ disablePortal: true }}
+  value={value}
+  onChange={setValue}
+/>
+```
+
+### Keyboard Navigation (v1.1.0+)
+
+`Tab` / `Shift+Tab` navigation between the trigger and the portalled calendar is restored in v1.1.0 via an explicit logical focus loop.
 
 ---
 

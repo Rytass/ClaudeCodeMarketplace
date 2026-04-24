@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-datetimerangepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DateTimeRangePicker) · Verified 1.1.0 (2026-04-24)
 
 A date-time range picker that combines two DateTimePickers to select start and end date-times. Must be used with `CalendarContext`. The direction icon switches between `LongTailArrowRightIcon` / `LongTailArrowDownIcon` based on the `direction` prop.
 
@@ -101,6 +101,16 @@ import type {
 | `required`             | `boolean`                                      | `false`         | Whether required         |
 | `secondStep`           | `number`                                       | -               | Second step              |
 | `size`                 | `'main' \| 'sub'`                              | -               | Size                     |
+
+---
+
+## Portal Behavior (v1.0.4+)
+
+Since v1.0.4 the calendar and time pickers inside each DateTimePicker portal out by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors. To restore inline rendering, pass `popperProps={{ disablePortal: true }}` or `popperPropsTime={{ disablePortal: true }}` — these are applied to both inner DateTimePickers simultaneously.
+
+### Keyboard Navigation (v1.1.0+)
+
+`Tab` / `Shift+Tab` navigation between trigger inputs and portalled panels is restored in v1.1.0 via an explicit logical focus loop, reliable inside a `Modal` focus trap.
 
 ---
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Section`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/Section) · Verified 1.0.3 (2026-04-21)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Section) · Verified 1.1.0 (2026-04-24)
 >
 > **Migration Note**: Module resolution fix changed barrel file extension from `.tsx` → `.ts`. No API changes.
 
