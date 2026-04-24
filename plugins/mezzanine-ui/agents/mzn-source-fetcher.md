@@ -32,7 +32,7 @@ Build a deduplicated list of all component names that need source fetching.
 Use WebFetch to retrieve the main export file:
 
 ```
-https://raw.githubusercontent.com/Mezzanine-UI/mezzanine/v2/packages/react/src/index.ts
+https://raw.githubusercontent.com/Mezzanine-UI/mezzanine/main/packages/react/src/index.ts
 ```
 
 Save the raw content — this is the authoritative list of what the library exports.
@@ -43,17 +43,17 @@ For each component in the work list, fetch its source files. Try these URL patte
 
 **Primary — React component file:**
 ```
-https://raw.githubusercontent.com/Mezzanine-UI/mezzanine/v2/packages/react/src/{Component}/{Component}.tsx
+https://raw.githubusercontent.com/Mezzanine-UI/mezzanine/main/packages/react/src/{Component}/{Component}.tsx
 ```
 
 **Fallback — Some components use index.ts:**
 ```
-https://raw.githubusercontent.com/Mezzanine-UI/mezzanine/v2/packages/react/src/{Component}/index.ts
+https://raw.githubusercontent.com/Mezzanine-UI/mezzanine/main/packages/react/src/{Component}/index.ts
 ```
 
 **Core types (if the component has a core package counterpart):**
 ```
-https://raw.githubusercontent.com/Mezzanine-UI/mezzanine/v2/packages/core/src/{component}/{component}.ts
+https://raw.githubusercontent.com/Mezzanine-UI/mezzanine/main/packages/core/src/{component}/{component}.ts
 ```
 (Note: core paths use kebab-case, e.g., `date-picker/date-picker.ts`)
 

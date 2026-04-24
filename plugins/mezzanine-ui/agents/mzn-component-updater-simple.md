@@ -123,7 +123,7 @@ Verify the import code block matches what's actually exported:
 
 Update the source verification line to:
 ```
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/{Component}) · Verified {target_version} ({today's date YYYY-MM-DD})
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/{Component}) · Verified {target_version} ({today's date YYYY-MM-DD})
 ```
 
 #### 2i. Validate Usage Examples

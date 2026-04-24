@@ -59,7 +59,7 @@ Using the template structure, create `references/components/{Component}.md`:
 >
 > **Storybook**: `{Category}/{Component}`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/v2/packages/react/src/{Component}) · Verified {target_version} ({today's date})
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/{Component}) · Verified {target_version} ({today's date})
 
 {Brief description from source code JSDoc comments or interface comments}
 ```
