@@ -106,3 +106,30 @@ export class ProductEditComponent {
 - 實際的標題文字、Breadcrumb、操作按鈕均由放入 `<ng-content>` 的子元件負責（通常是 `MznBreadcrumb` 和 `MznContentHeader`）。
 - Angular 版的 `MznPageHeader` 對應 React 版的 `<PageHeader>` 包裝容器概念，但不需要傳入任何 props，完全靠 content projection 組合內容。
 - 使用 `<header>` 作為 host element 比 `<div>` 更符合語意，搭配 `role="banner"` 能讓螢幕閱讀器正確識別。
+
+## Container & Body Alignment (重要 — 容易忽略)
+
+`MznPageHeader` 內建水平/垂直 padding（CSS：`padding: spacious spacious 0`，水平對應 `--mzn-spacing-padding-horizontal-spacious`，預設 16px / compact 14px）。**這個 padding 來自 `_page-header-styles.scss`，在 inputs / template 上完全看不到**，是頁面排版最容易踩到的隱性陷阱。
+
+頁面骨架請遵循：
+
+1. **外層 container 不可加水平 padding** — `<header mznPageHeader>` 必須能貼齊版面邊緣。在外層加 `padding` / `padding-inline` 會造成 PageHeader 雙重內縮。
+2. **下方主要內容需用 wrapper 套上相同水平 padding** — 通常是 `padding-inline: var(--mzn-spacing-padding-horizontal-spacious)`，讓表格 / 卡片 / 表單的左緣對齊 `MznContentHeader` 的標題文字。
+
+```html
+<!-- ✅ 正確 -->
+<div class="page">                          <!-- 無 padding -->
+  <header mznPageHeader>...</header>        <!-- 自己貼邊 -->
+  <div class="page__body">                  <!-- 套水平 padding 對齊 -->
+    <div mznTable ...></div>
+  </div>
+</div>
+```
+
+```scss
+.page__body {
+  padding-inline: var(--mzn-spacing-padding-horizontal-spacious);
+}
+```
+
+詳見 [PATTERNS.md → Page Body Alignment with MznPageHeader](../PATTERNS.md#page-body-alignment-with-mznpageheader-重要--容易忽略)。

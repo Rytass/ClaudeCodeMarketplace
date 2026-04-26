@@ -144,6 +144,60 @@ export const appConfig: ApplicationConfig = {
 
 ## Page Scaffolding Patterns
 
+### Page Body Alignment with MznPageHeader (重要 — 容易忽略)
+
+`MznPageHeader` 內建水平/垂直 padding（核心 CSS 為 `padding: spacious spacious 0`，水平對應 `--mzn-spacing-padding-horizontal-spacious`，預設 16px / compact 14px）。`MznPageHeader` 沒有任何 inputs，這個 padding **完全來自元件內部 SCSS**，光看 template / 型別看不出來。因此頁面骨架要遵循：
+
+1. **頁面最外層 container 不可加水平 padding** — 讓 `<header mznPageHeader>` 自己貼齊版面邊緣，padding 由元件內建提供。
+2. **下方主要內容必須包一層 wrapper，套上相同的水平 padding** — 通常是 `padding-inline: var(--mzn-spacing-padding-horizontal-spacious)`，讓表格 / 卡片 / 表單的左緣對齊 `MznContentHeader` 的標題文字。
+
+```html
+<!-- ✅ 正確：外層無 padding，PageHeader 直接貼邊；body 用 wrapper 對齊 -->
+<div class="page">
+  <header mznPageHeader>
+    <nav mznBreadcrumb [items]="breadcrumb()"></nav>
+    <header mznContentHeader title="商品管理" description="管理所有商品">
+      <div actions>
+        <button mznButton variant="base-primary" (click)="create()">新增</button>
+      </div>
+    </header>
+  </header>
+
+  <div class="page__body">
+    <div mznTable [columns]="columns" [dataSource]="data()"></div>
+    <div mznPagination [total]="total()" [current]="page()"
+         (pageChange)="onPageChange($event)"></div>
+  </div>
+</div>
+```
+
+```scss
+// feature.page.scss
+.page {
+  // ❌ 不要在這裡加 padding-inline / padding-left / padding-right
+  // MznPageHeader 已內建水平 padding，外層再加會造成 PageHeader 雙重內縮
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__body {
+    // ✅ 對齊 MznPageHeader 的水平 padding，讓表格 / 卡片左緣對齊標題文字
+    padding-inline: var(--mzn-spacing-padding-horizontal-spacious);
+    padding-bottom: var(--mzn-spacing-padding-vertical-spacious);
+  }
+}
+```
+
+```html
+<!-- ❌ 反例：外層加了 padding，導致 PageHeader 雙重內縮 -->
+<div style="padding: 24px;">       <!-- PageHeader 比版面少 24px + 內建 16px = 40px -->
+  <header mznPageHeader>...</header>
+  <div mznTable ...></div>
+</div>
+```
+
+> **為什麼這個 pattern 容易被忽略**：`MznPageHeader` 是極簡的 shell（無 inputs / outputs），padding 由 `_page-header-styles.scss` 注入。代理或開發者不檢查源碼時，自然會在外層 container 套上一致的 padding，反而造成視覺錯位。**搭配 `MznPageFooter` 時，footer 同樣有自己的 padding，遵循相同規則處理。**
+
 ### Standalone Page Component Skeleton
 
 ```ts
@@ -169,12 +223,26 @@ export class FeaturePage {}
   <header mznContentHeader title="功能頁面" description="頁面描述文字。"></header>
 </header>
 
+<!--
+  feature-page__body 是必要的 wrapper：
+  PageHeader 內建水平 padding，下方內容必須套上相同 padding 才能對齊標題文字。
+  詳見上方「Page Body Alignment with MznPageHeader」。
+-->
 <div class="feature-page__body">
   <div mznSection>
     <header mznContentHeader title="區段標題" size="sub" description="區段說明。"></header>
     <!-- page content here -->
   </div>
 </div>
+```
+
+```scss
+// feature.page.scss
+.feature-page {
+  &__body {
+    padding-inline: var(--mzn-spacing-padding-horizontal-spacious);
+  }
+}
 ```
 
 ### ContentHeader sizes
