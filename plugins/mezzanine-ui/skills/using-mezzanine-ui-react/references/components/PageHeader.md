@@ -174,6 +174,31 @@ import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 
 ## Best Practices (最佳實踐)
 
+### 容器與內容對齊 (Container & Body Alignment) — 重要
+
+`PageHeader` 內建水平/垂直 padding（CSS：`padding: spacious spacious 0`，水平對應 `--mzn-spacing-padding-horizontal-spacious`，預設 16px / compact 14px）。**這個 padding 從 React props 上看不到**，因此頁面骨架要遵循：
+
+1. **外層 container 不可加水平 padding** — `PageHeader` 必須能貼齊版面邊緣。在外層加 `padding` / `padding-inline` 會造成 PageHeader 雙重內縮。
+2. **下方主要內容需用 wrapper 套上相同水平 padding** — 通常是 `padding-inline: var(--mzn-spacing-padding-horizontal-spacious)`，讓表格 / 卡片 / 表單的左緣對齊 PageHeader 的標題文字。
+
+```tsx
+// ✅ 正確
+<div className={styles.page}>             {/* 無 padding */}
+  <PageHeader>...</PageHeader>            {/* 自己貼邊 */}
+  <div className={styles.body}>           {/* 套水平 padding 對齊 */}
+    <Table ... />
+  </div>
+</div>
+```
+
+```scss
+.body {
+  padding-inline: var(--mzn-spacing-padding-horizontal-spacious);
+}
+```
+
+詳見 [PATTERNS.md → Page Body Alignment with PageHeader](../PATTERNS.md#page-body-alignment-with-pageheader-重要--容易忽略)。
+
 ### 場景推薦 (Scenario Recommendations)
 
 | 場景 | 推薦做法 | 相關元件 |
@@ -212,6 +237,11 @@ import ContentHeader from '@mezzanine-ui/react/ContentHeader';
    - ❌ 誤：操作按鈕放在 `Breadcrumb` 下方
    - ✅ 正確：操作按鈕放在 `ContentHeader` children
    - 範例：`<ContentHeader><Button /></ContentHeader>`
+
+6. **外層 container 加水平 padding 導致 PageHeader 雙重內縮**
+   - ❌ 誤：`<div style={{ padding: 24 }}><PageHeader />...</div>` → PageHeader 比版面少 24px + 內建 16px
+   - ✅ 正確：外層 container 不加水平 padding，下方內容用 wrapper 套 `padding-inline: var(--mzn-spacing-padding-horizontal-spacious)` 對齊
+   - 影響：標題文字與下方表格 / 表單左緣會錯開，視覺破裂
 
 ### 核心建議 (Core Recommendations)
 

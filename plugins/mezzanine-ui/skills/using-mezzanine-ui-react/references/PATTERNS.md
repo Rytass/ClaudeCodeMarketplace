@@ -19,6 +19,61 @@ Common UI pattern implementation examples.
 
 ## Layout Patterns
 
+### Page Body Alignment with PageHeader (重要 — 容易忽略)
+
+`PageHeader` 內建水平/垂直 padding（CSS 為 `padding: spacious spacious 0`，對應 `--mzn-spacing-padding-horizontal-spacious`，預設 16px / compact 14px）。因此頁面骨架要遵循以下兩條規則，否則會出現「PageHeader 比下方內容還要內縮」或「下方內容貼齊邊緣但 PageHeader 多了 16px」這類視覺錯位：
+
+1. **頁面最外層 container 不可加水平 padding** — 讓 `PageHeader` 自己貼齊版面邊緣，padding 由元件內建提供。
+2. **下方主要內容必須包一層 wrapper，套用與 PageHeader 相同的水平 padding** — 通常是 `padding-inline: var(--mzn-spacing-padding-horizontal-spacious)`，讓內容文字左緣對齊 PageHeader 的標題文字。
+
+```tsx
+// ✅ 正確：外層無 padding，PageHeader 直接貼邊；內容用 wrapper 對齊
+function ProductListPage() {
+  return (
+    <div className={styles.page}>
+      <PageHeader>
+        <Breadcrumb items={[{ name: 'Home', href: '/' }, { name: 'Products' }]} />
+        <ContentHeader title="Product Management" description="管理所有商品">
+          <Button>Add Product</Button>
+        </ContentHeader>
+      </PageHeader>
+
+      <div className={styles.body}>
+        <Table columns={columns} dataSource={data} />
+        <Pagination {...pagination} />
+      </div>
+    </div>
+  );
+}
+```
+
+```scss
+// page.module.scss
+.page {
+  // ❌ 不要在這裡加 padding-inline / padding-left / padding-right
+  // PageHeader 已內建水平 padding，這裡加會導致 PageHeader 雙重內縮
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.body {
+  // ✅ 對齊 PageHeader 的水平 padding，讓表格 / 卡片左緣對齊標題文字
+  padding-inline: var(--mzn-spacing-padding-horizontal-spacious);
+  padding-bottom: var(--mzn-spacing-padding-vertical-spacious);
+}
+```
+
+```tsx
+// ❌ 反例：外層加了 padding，讓 PageHeader 雙重內縮
+<div style={{ padding: 24 }}>      {/* PageHeader 會被推進 24px + 內建 16px = 40px */}
+  <PageHeader>...</PageHeader>
+  <Table ... />
+</div>
+```
+
+> **為什麼這個 pattern 容易被忽略**：`PageHeader` 的 padding 由元件內部 CSS 注入，從 React props / TypeScript 型別上看不出來。代理或開發者不檢查 SCSS 原始碼時，自然會在外層 container 套上一致的 padding，反而造成視覺錯位。
+
 ### Full Page Layout + Side Panel
 
 ```tsx
