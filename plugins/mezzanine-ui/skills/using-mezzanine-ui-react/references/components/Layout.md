@@ -49,6 +49,55 @@ import type { LayoutHostProps } from '@mezzanine-ui/react/Layout';
 
 ---
 
+## Children Validation (重要 — 靜默過濾)
+
+`Layout` 在 runtime 透過 `isValidElement` + `child.type === Layout.Main / Layout.LeftPanel / Layout.RightPanel / Navigation` 將 children 分配到對應 slot，**任何不在白名單內的子元件都會被靜默丟棄**（不會 console.warn）。
+
+### 接受的直接子代
+
+| 元件 | 用途 |
+| --- | --- |
+| `Layout.Main` (= `LayoutMain`) | 主內容區域（建議只放一個） |
+| `Layout.LeftPanel` (= `LayoutLeftPanel`) | 可調寬度左側欄 |
+| `Layout.RightPanel` (= `LayoutRightPanel`) | 可調寬度右側欄 |
+| `Navigation` | 全域側邊導覽（搭配 `navigationClassName`） |
+
+### 常見錯誤（無 warning）
+
+```tsx
+// ❌ 自訂 wrapper 包住 slot — slot 內容完全不顯示
+<Layout>
+  <div className={styles.shell}>
+    <Layout.LeftPanel>...</Layout.LeftPanel>
+    <Layout.Main>...</Layout.Main>
+  </div>
+</Layout>
+
+// ❌ 直接放純文字 / 自訂 div
+<Layout>
+  <header>標題</header>          {/* 靜默丟棄 */}
+  <Layout.Main>...</Layout.Main>
+</Layout>
+
+// ❌ 條件渲染包了 Fragment 又混入 placeholder
+<Layout>
+  {showLeft ? <Layout.LeftPanel>...</Layout.LeftPanel> : <div />}
+  <Layout.Main>...</Layout.Main>
+</Layout>
+
+// ✅ slot 必須是 Layout 直接子代
+<Layout>
+  <Navigation>...</Navigation>
+  <Layout.LeftPanel open={leftOpen}>...</Layout.LeftPanel>
+  <Layout.Main>...</Layout.Main>
+  <Layout.RightPanel open={rightOpen}>...</Layout.RightPanel>
+</Layout>
+```
+
+> 如果版面有「整個側欄消失」但 console 沒有錯誤，第一個檢查點是中間是否多了一層 wrapper / Fragment 之外的元件。
+
+---
+
 ## Layout Props
 
 Outermost layout container.
@@ -57,7 +106,7 @@ Extends `NativeElementPropsWithoutKeyAndRef<'div'>` (all native `<div>` attribut
 
 | Property                   | Type        | Default | Description                                                                  |
 | -------------------------- | ----------- | ------- | ---------------------------------------------------------------------------- |
-| `children`                 | `ReactNode` | -       | Children (`Layout.Main`, `Layout.LeftPanel`, and `Layout.RightPanel`)        |
+| `children`                 | `ReactNode` | -       | Children — must be `Layout.Main` / `Layout.LeftPanel` / `Layout.RightPanel` / `Navigation` direct elements; other children are **silently dropped** |
 | `contentWrapperClassName`  | `string`    | -       | Additional class name applied to the content wrapper element                 |
 | `navigationClassName`      | `string`    | -       | Additional class name for the navigation wrapper (only if Navigation is used)|
 

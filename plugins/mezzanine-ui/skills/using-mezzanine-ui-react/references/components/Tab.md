@@ -27,6 +27,42 @@ type TabsChild = ReactElement<TabItemProps>;
 
 ---
 
+## Children Validation (重要 — 靜默過濾)
+
+`Tab` 在 runtime 透過 `Children.map` 檢查每個子元素的 `child.type !== TabItem`，**靜默丟棄非 `<TabItem>` 的元素**。**不會在 console 印出任何 warning**，這是常見的「JSX 寫了但畫面空白」陷阱。
+
+```tsx
+// ❌ 包一層 div：所有 TabItem 不渲染（無 warning）
+<Tab>
+  <div className={styles.wrapper}>
+    <TabItem key="a">A</TabItem>
+    <TabItem key="b">B</TabItem>
+  </div>
+</Tab>
+
+// ❌ Fragment 中夾雜文字 / 自訂元件：非 TabItem 部分被丟棄
+<Tab>
+  <>
+    <TabItem key="a">A</TabItem>
+    <span>分隔</span>          {/* 靜默丟棄 */}
+    <CustomItem />              {/* 靜默丟棄 */}
+  </>
+</Tab>
+
+// ✅ 直接放 TabItem，可使用陣列 / 條件渲染 / map
+<Tab>
+  <TabItem key="a">A</TabItem>
+  {showB && <TabItem key="b">B</TabItem>}
+  {tabs.map((t) => (
+    <TabItem key={t.id}>{t.label}</TabItem>
+  ))}
+</Tab>
+```
+
+> Tab 內容（每個分頁的 body）**不要**寫在 Tab 內部，請依照 controlled 模式於 Tab 之外依 `activeKey` 切換顯示。
+
+---
+
 ## Tab Props
 
 > Extends `NativeElementPropsWithoutKeyAndRef<'div'>` (excluding `onChange` and `children`).

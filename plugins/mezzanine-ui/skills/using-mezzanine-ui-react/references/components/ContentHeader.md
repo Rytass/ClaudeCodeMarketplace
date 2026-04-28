@@ -38,13 +38,69 @@ import type { ContentHeaderProps } from '@mezzanine-ui/react/ContentHeader';
 
 ---
 
-## Supported children Types
+## Children Validation (重要 — 過濾並警告)
 
-- **Back button**: Element with `href` attribute (e.g., `<a>` or `<Link>`)
-- **Filter component**: SearchInput, Select, SegmentedControl, Toggle, Checkbox
-- **Action buttons**: Button (auto-sorted by variant)
-- **Utility buttons**: Button with icon (icon-only)
-- **Dropdown menu**: Dropdown (for overflow actions)
+ContentHeader 會在 runtime 透過 `isValidElement` 檢查每個子元素的 `type` 與 props，**只渲染白名單內的元件**，其他子元件 **不會出現在畫面上**，並在 console 印出 warning。常見「ContentHeader 寫了但右側按鈕區空白」的根因都是 children 不合法。
+
+### 接受的 children 種類
+
+| 類別 | 規則 | 例外/限制 |
+| --- | --- | --- |
+| 返回鈕 | `type === 'a'` 或 props 含 `href`（如 `<a>`、`<Link>`） | 也可改用 `onBackClick` prop（互斥） |
+| Filter 元件 | `Input variant="search"` / `Select` / `Toggle` / `Checkbox` | `SegmentedControl` 寫在型別但目前**未實作**，使用會被丟棄並 warning |
+| Action 按鈕 | `Button` | `variant` 必須是 `base-primary` / `base-secondary` / `destructive-secondary` 或 `undefined`；其他 variant 不渲染 |
+| Utility 按鈕 | `Button` 且 `iconType="icon-only"` | 一般文字按鈕不算 utility |
+| Overflow 下拉 | `Dropdown`，且其 trigger 必須是 icon-only `Button` | 非 icon-only Button trigger 會 warning + 丟棄 |
+| 響應式版型 | 內部 `ContentHeaderResponsive`（一般使用不會直接寫） | - |
+
+### 會被丟棄並警告的常見錯誤
+
+```tsx
+// ❌ 自訂 wrapper：div / Fragment 內外都不被認得
+<ContentHeader title="X">
+  <div className={styles.actions}>
+    <Button>Save</Button>
+  </div>
+</ContentHeader>
+
+// ❌ 純文字 / Typography
+<ContentHeader title="X">
+  <Typography>說明</Typography>   {/* warning + drop，請改用 description prop */}
+  <Button>Save</Button>
+</ContentHeader>
+
+// ❌ 不合法的 Button variant
+<ContentHeader title="X">
+  <Button variant="text">Cancel</Button>           {/* drop */}
+  <Button variant="destructive-primary">Delete</Button>  {/* drop（只允許 destructive-secondary）*/}
+  <Button>Save</Button>
+</ContentHeader>
+
+// ❌ Dropdown trigger 不是 icon-only Button
+<ContentHeader title="X">
+  <Dropdown options={[...]}>
+    <Button>Menu</Button>           {/* warning + drop */}
+  </Dropdown>
+</ContentHeader>
+
+// ✅ 正確：合法 variant + icon-only trigger
+<ContentHeader title="X">
+  <Button variant="base-secondary">Cancel</Button>
+  <Button>Save</Button>
+  <Dropdown options={[...]}>
+    <Button icon={DotHorizontalIcon} iconType="icon-only" />
+  </Dropdown>
+</ContentHeader>
+```
+
+### Button variant 排序
+
+合法 Button 會自動依 variant 排序：
+1. `destructive-secondary` → 最左
+2. `base-secondary` → 中間
+3. `base-primary` / undefined → 最右
+
+> 不要嘗試以 `<div style={{ order }}>` 或 Fragment 控制順序 — 包裝層會被過濾掉，按鈕反而會被丟棄。
 
 ---
 

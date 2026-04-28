@@ -65,6 +65,45 @@ type NavigationOptionChildren = NavigationOptionChild | NavigationOptionChild[];
 
 ---
 
+## Children Validation (重要 — 過濾並警告)
+
+Navigation 系列在 runtime 透過 `isValidElement` + `switch (child.type)` 檢查直接子代，**只渲染白名單內的元件**，其餘 console.warn 並丟棄：
+
+| 容器 | 接受的直接 children | 失敗模式 |
+| --- | --- | --- |
+| `Navigation` | `NavigationHeader` / `NavigationFooter` / `NavigationOptionCategory` / `NavigationOption` | console.warn + 不渲染 |
+| `NavigationOption`（巢狀層） | `NavigationOption`（子層）/ `Badge` | 不渲染 |
+| `NavigationOptionCategory` | 只接受 `NavigationOption` | 不渲染 |
+
+```tsx
+// ❌ 用原生 a / li / 自訂元件
+<Navigation>
+  <a href="/x">外部連結</a>           {/* drop */}
+  <li>raw item</li>                    {/* drop */}
+</Navigation>
+
+// ❌ 在 NavigationOptionCategory 裡放非 NavigationOption
+<NavigationOptionCategory title="Group">
+  <a href="/x">link</a>                {/* drop */}
+  <NavigationOption title="X" href="/x" />
+</NavigationOptionCategory>
+
+// ✅ 用內建元件 + anchorComponent 整合 router
+<Navigation optionsAnchorComponent={Link}>
+  <NavigationHeader title="App" />
+  <NavigationOptionCategory title="Group">
+    <NavigationOption title="X" href="/x" />
+  </NavigationOptionCategory>
+  <NavigationFooter>
+    <NavigationUserMenu>User</NavigationUserMenu>
+  </NavigationFooter>
+</Navigation>
+```
+
+> 若需要客製連結元件（如 Next.js `Link`），請使用 `optionsAnchorComponent` prop 或 `NavigationOption.anchorComponent`，**不要**在 children 直接寫原生 `<a>`。
+
+---
+
 ## Navigation Props
 
 > Extends `NativeElementPropsWithoutKeyAndRef<'ul'>` (excluding `onClick`).

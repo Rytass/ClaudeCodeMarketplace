@@ -31,6 +31,59 @@ import type {
 
 ---
 
+## Children Validation (重要 — 自動包裝 / 警告 / 丟棄)
+
+`Accordion` 在 runtime 透過 `isValidElement` + `child.type === AccordionTitle / AccordionContent` 對 children 做三段處理：
+
+| 子元件 | 行為 |
+| --- | --- |
+| 一個 `AccordionTitle` + 一個 `AccordionContent` | 正常渲染（推薦寫法） |
+| 重複的 `AccordionTitle` 或 `AccordionContent` | 第一個保留，其餘 console.warn 並丟棄 |
+| 任何非 `AccordionTitle` / `AccordionContent` 的 ReactNode | **自動包成 `AccordionContent`** 顯示在內容區（與 title prop 行為一致） |
+
+```tsx
+// ✅ 顯式組合
+<Accordion>
+  <AccordionTitle>標題</AccordionTitle>
+  <AccordionContent>內容</AccordionContent>
+</Accordion>
+
+// ✅ 直接放內容（自動包成 AccordionContent）
+<Accordion title="標題">
+  <p>內容會被自動包進 AccordionContent</p>
+</Accordion>
+
+// ⚠️ 重複 AccordionTitle：第二個會被警告並丟棄
+<Accordion>
+  <AccordionTitle>主標</AccordionTitle>
+  <AccordionTitle>副標</AccordionTitle>   {/* warning + drop */}
+  <AccordionContent>內容</AccordionContent>
+</Accordion>
+```
+
+### AccordionActions
+
+`AccordionActions` 內部以 `ButtonGroup` 渲染，**只接受 `Button` 或 `Dropdown` 作為 children**，其他元件不渲染：
+
+```tsx
+// ❌ Typography / div 都會被丟棄
+<AccordionActions>
+  <Typography>註記</Typography>          {/* drop */}
+  <Button>確認</Button>
+</AccordionActions>
+
+// ✅
+<AccordionActions>
+  <Button variant="base-secondary">取消</Button>
+  <Button>確認</Button>
+  <Dropdown options={[...]}>
+    <Button icon={DotHorizontalIcon} iconType="icon-only" />
+  </Dropdown>
+</AccordionActions>
+```
+
+---
+
 ## Props / Sub-components
 
 ### Accordion
