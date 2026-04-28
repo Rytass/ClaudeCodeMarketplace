@@ -20,6 +20,38 @@ import type { TabsContext } from '@mezzanine-ui/ng/tab';
 
 `<button mznTabItem [key]="'tab1'">` — 單一 tab item，host element 必須為 `<button>`
 
+## Children Validation (重要)
+
+`MznTabs` 透過 `contentChildren(MznTabItem)` 蒐集子代，並依靠注入 `MZN_TABS_CONTEXT` 給每個 `MznTabItem` 取得 active state。**只有「直接子代」且 host 為 `<button mznTabItem>` 才會被識別**。
+
+### 常見靜默失敗
+
+```html
+<!-- ❌ 包一層 div：mznTabItem 雖渲染但找不到 context，行為錯亂或不顯示 active bar -->
+<div mznTabs>
+  <div class="tabs">
+    <button mznTabItem [key]="'a'">A</button>
+  </div>
+</div>
+
+<!-- ❌ 用 a / span 套 mznTabItem：directive selector 是 button[mznTabItem]，不會生效 -->
+<div mznTabs>
+  <a mznTabItem [key]="'a'">A</a>           <!-- 不渲染 mzn 樣式 -->
+</div>
+
+<!-- ❌ 忘了在 standalone 元件 imports 內加入 MznTabs / MznTabItem -->
+
+<!-- ✅ 正確：mznTabItem 為 mznTabs 直接子代，host 為 button -->
+<div mznTabs [(activeKey)]="active">
+  <button mznTabItem [key]="'a'">A</button>
+  @for (tab of tabs(); track tab.id) {
+    <button mznTabItem [key]="tab.id">{{ tab.label }}</button>
+  }
+</div>
+```
+
+> Tab 內容（每個分頁的 body）放在 `mznTabs` 之外，依 `activeKey` signal 切換，不要寫在 `mznTabs` 內。
+
 ## Inputs — MznTabs
 
 | Input            | Type                  | Default | Description                                                                   |

@@ -83,6 +83,34 @@ import {
 | `[mznLayoutMain]`        | Main content          |
 | `[mznLayoutRightPanel]`  | Right side panel      |
 
+> **Slot 必須是 `[mznLayout]` 的直接子代**。被外層 `<div>` / wrapper 包住的 slot directive 不會被 named `ng-content` 比對到，**內容會靜默不顯示**（無 console error），這是 Layout 最常見的「畫面消失」陷阱。
+
+```html
+<!-- ❌ 包一層 div：所有 slot 都不會渲染 -->
+<div mznLayout>
+  <div class="shell">
+    <aside mznLayoutLeftPanel [open]="leftOpen()">...</aside>
+    <main mznLayoutMain>...</main>
+  </div>
+</div>
+
+<!-- ❌ 用沒掛 directive 的元素 -->
+<div mznLayout>
+  <aside class="left-panel">...</aside>      <!-- 不渲染 -->
+  <main mznLayoutMain>...</main>
+</div>
+
+<!-- ✅ 正確：每個 slot directive 都是 mznLayout 直接子代 -->
+<div mznLayout>
+  <nav mznNavigation>...</nav>
+  <aside mznLayoutLeftPanel [open]="leftOpen()">...</aside>
+  <main mznLayoutMain>...</main>
+  <aside mznLayoutRightPanel [open]="rightOpen()">...</aside>
+</div>
+```
+
+> 別忘記在 `standalone: true` component 的 `imports` 加入 `MznLayout` / `MznLayoutMain` / `MznLayoutLeftPanel` / `MznLayoutRightPanel` / `MznNavigation`，否則 selector 整個失效。
+
 ## ControlValueAccessor
 
 No.

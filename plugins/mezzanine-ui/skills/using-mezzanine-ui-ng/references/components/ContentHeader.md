@@ -88,6 +88,10 @@ type ContentHeaderTitleComponent = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
 | `[contentHeaderActions]`    | Primary action buttons                         |
 | `[contentHeaderUtilities]`  | Icon-only utility buttons (right-most)         |
 
+> **不要直接把 `<button mznButton>` 寫成 `mznContentHeader` 的子代** — 必須包在上述具備 slot attribute 的 wrapper（如 `<div contentHeaderActions>`）內。沒有 slot attribute 的 child 會落在 unnamed `ng-content`，視覺上**畫面位置會錯亂、甚至完全不顯示**。
+
+> **Action 區的 button variant** 與 React 一致：建議只用 `base-primary` / `base-secondary` / `destructive-secondary`，其他 variant 不在 ContentHeader 視覺規範內，會破壞 figma 排版。Utility slot 必須使用 `iconType="icon-only"` 的 button。
+
 ## Notes
 
 - `title` is `input.required<string>()` — omitting it throws a runtime error.
