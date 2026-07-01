@@ -749,6 +749,12 @@
         "type": "string",
         "required": false
       },
+      "flip": {
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Whether to enable floating-ui flip middleware. When true, the dropdown automatically flips to the opposite side along the main axis if it would overflow the viewport"
+      },
       "listboxId": {
         "type": "string",
         "required": false
@@ -1346,6 +1352,11 @@
       "options": {
         "type": "UseFloatingOptions",
         "required": false
+      },
+      "onPlacementChange": {
+        "type": "(placement: PopperPlacement) => void",
+        "required": false,
+        "description": "Callback fired whenever the resolved placement changes, including when floating-ui middleware (e.g. flip) flips the popper to the opposite side"
       }
     },
     "sourceFile": "packages/react/src/Popper/Popper.tsx",
@@ -2198,8 +2209,8 @@
     ]
   },
   "_meta": {
-    "version": "1.1.0",
-    "generatedAt": "2026-04-24",
+    "version": "1.4.1",
+    "generatedAt": "2026-07-01",
     "description": "TypeScript props API index for Mezzanine UI v2"
   }
 }
