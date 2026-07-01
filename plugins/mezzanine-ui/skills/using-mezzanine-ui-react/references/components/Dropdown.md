@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Internal/Dropdown`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Dropdown) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Dropdown) · Verified 1.4.1 (2026-07-01)
 
 A low-level dropdown component for displaying option lists. Typically used as the internal implementation of higher-level components like Select and AutoComplete, but can also be used independently with Button or Input. Supports flat list, grouped, and tree structures, with built-in scrolling, loading states, keyboard shortcuts, and action buttons.
 
@@ -49,7 +49,7 @@ import type { DropdownLoadingPosition } from '@mezzanine-ui/core/dropdown';
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/internal-dropdown--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
-> **Note**: The `scrollbar*` props in Dropdown are for internal dropdown scrolling configuration. `Scrollbar` itself is deprecated in 1.1.0; use native scrolling or CSS-based styling.
+> **Note**: The `scrollbar*` props in Dropdown are for internal dropdown scrolling configuration, backed internally by the `Scrollbar` component. `Scrollbar` still exists in the source tree in 1.4.1 but is **not exported** from the `@mezzanine-ui/react` package entrypoint — do not import or use it directly; configure scrolling exclusively through the `scrollbar*` props documented here.
 
 ---
 
@@ -79,6 +79,7 @@ Extends `DropdownItemSharedProps`.
 | `placement`               | `PopperPlacement`                                                          | `'bottom-start'` | Popup placement (aligns with trigger left edge)                                  |
 | `customWidth`             | `number \| string`                                                        | -           | Custom dropdown width (takes priority over `sameWidth`)                         |
 | `sameWidth`               | `boolean`                                                                  | `false`     | Whether to match trigger element width                                          |
+| `flip`                    | `boolean`                                                                  | `false`     | Enable floating-ui `flip` middleware; flips to the opposite side (main-axis only) when the dropdown would overflow the viewport |
 | `maxHeight`               | `number \| string`                                                        | -           | Max height of dropdown list (enables scrolling when set)                        |
 | `minWidth`                | `number \| string`                                                        | spacing token `size-container-tiny` | Override the default min-width; pass `0` to remove constraint |
 | `zIndex`                  | `number \| string`                                                        | `-`         | z-index                                                                         |
@@ -152,15 +153,24 @@ Extends `Omit<DropdownItemSharedProps, 'type'>`.
 | ------------------ | -------------------------- | --------- | ------------------------------------------------------------------- |
 | `actionConfig`     | `DropdownActionProps`      | -         | Action button configuration                                         |
 | `activeIndex`      | `number \| null`          | -         | Currently highlighted option index                                  |
+| `keyboardActiveIndex` | `number \| null`        | -         | Keyboard-only active index (falls back to `activeIndex`)            |
+| `disabled`         | `boolean`                  | -         | Whether disabled (from `DropdownItemSharedProps`)                   |
+| `expandedNodes`    | `Set<string>`              | -         | Controlled set of expanded node IDs (tree type)                     |
+| `onToggleExpand`   | `(id: string) => void`     | -         | Toggle expansion of a tree node (required when `expandedNodes` is set) |
 | `followText`       | `string`                   | -         | Highlight match text                                                |
 | `headerContent`    | `ReactNode`                | -         | Custom content at the top of the list (e.g., inline mode trigger)   |
 | `listboxId`        | `string`                   | -         | Listbox DOM id                                                      |
 | `listboxLabel`     | `string`                   | -         | Listbox aria-label                                                  |
 | `maxHeight`        | `number \| string`        | -         | List max height                                                     |
+| `minWidth`         | `number \| string`        | spacing token `size-container-tiny` | Override the default min-width; pass `0` to remove constraint |
+| `mode`             | `DropdownMode`             | -         | Selection mode (from `DropdownItemSharedProps`)                     |
 | `sameWidth`        | `boolean`                  | `false`   | Whether to match trigger element width                              |
 | `onHover`          | `(index: number) => void` | -         | Option hover callback                                               |
+| `onSelect`         | `(option: DropdownOption) => void` | -  | Selection callback (from `DropdownItemSharedProps`)                 |
 | `options`          | `DropdownOptionsByType<T>` | -         | Option list (type depends on `type`)                                |
+| `toggleCheckedOnClick` | `boolean`               | -         | Whether clicking an option row toggles checked state in multiple mode |
 | `type`             | `DropdownType`             | -         | Dropdown type                                                       |
+| `value`            | `string \| string[]`       | -         | Selected value(s) (from `DropdownItemSharedProps`)                  |
 | `status`           | `DropdownStatusType`       | -         | Status: `'loading'` / `'empty'`                                     |
 | `loadingText`      | `string`                   | -         | Loading text                                                        |
 | `emptyText`        | `string`                   | -         | Empty state text                                                    |
@@ -199,6 +209,7 @@ Single option card render component, responsible for displaying label, icon, che
 | `appendIcon`      | `IconDefinition`          | -           | Append icon                                          |
 | `appendContent`   | `string`                  | -           | Append text content (e.g., shortcut key text)        |
 | `showUnderline`   | `boolean`                 | `false`     | Whether to show bottom separator                     |
+| `toggleCheckedOnClick` | `boolean`             | `true`      | Whether clicking the row toggles checked state in multiple mode |
 | `validate`        | `DropdownItemValidate`    | `'default'` | Validation state: `'default'` / `'danger'`           |
 | `className`       | `string`                  | -           | Additional className                                 |
 | `onClick`         | `() => void`              | -           | Click callback                                       |
@@ -499,6 +510,27 @@ function InfiniteScrollDropdown() {
   );
 }
 ```
+
+### Viewport-aware Flip
+
+```tsx
+import { Dropdown, Button } from '@mezzanine-ui/react';
+
+function FlippingDropdown() {
+  return (
+    <Dropdown
+      options={options}
+      onSelect={handleSelect}
+      flip
+      sameWidth
+    >
+      <Button>Near viewport edge</Button>
+    </Dropdown>
+  );
+}
+```
+
+> `flip` flips the dropdown to the opposite side along the main axis (e.g. `bottom-start` → `top-start`) when it would overflow the viewport. It is main-axis only (no `shift`/`crossAxis`), so a `sameWidth` menu stays horizontally aligned with its anchor. Off by default to preserve existing placement behavior.
 
 ---
 

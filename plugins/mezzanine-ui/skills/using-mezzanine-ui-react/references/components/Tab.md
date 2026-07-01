@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Tab`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Tab) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Tab) · Verified 1.4.1 (2026-07-01)
 
 Tab component for switching between different content views within the same area.
 

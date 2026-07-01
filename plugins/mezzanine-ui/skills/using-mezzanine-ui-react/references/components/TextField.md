@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/TextField`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/TextField) | Verified 1.1.0 (2026-04-24)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/TextField) | Verified 1.4.1 (2026-07-01)
 
 Text input field container component providing a unified input box appearance. It is the underlying component for Input, Select, and other components.
 
@@ -248,7 +248,7 @@ When `hideSuffixWhenClearable` is `true`, the clear icon **overlays the suffix p
 
 This pattern is useful when suffix and clear icon should share the same space (e.g., DatePicker calendar icon / clear icon toggle).
 
-> Note: `ClearActions` is deprecated in 1.0.0. This is an internal implementation detail; the clear button is controlled via the `clearable` prop and `onClear` callback.
+> Note: `ClearActions` is still used internally by `TextField` in 1.4.1 (not removed). This is an internal implementation detail; the clear button is controlled via the `clearable` prop and `onClear` callback.
 
 ---
 

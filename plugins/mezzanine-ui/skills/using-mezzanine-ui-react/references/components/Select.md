@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Select`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Select) · Verified 1.1.0 (2026-04-24)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Select) · Verified 1.4.1 (2026-07-01)
 
 Dropdown select component supporting single-select and multi-select modes. Internally uses the Dropdown component to render the option list.
 
@@ -54,6 +54,7 @@ Extends `SelectTriggerProps`, which includes trigger-related properties.
 | `disabled`         | `boolean`                                                                                | `false`     | Whether disabled (inheritable from FormControlContext) |
 | `dropdownZIndex`   | `number \| string`                                                                       | -           | Dropdown z-index                       |
 | `error`            | `boolean`                                                                                | `false`     | Whether in error state (auto when severity='error') |
+| `flip`             | `boolean`                                                                                | `false`     | Whether to enable floating-ui `flip` middleware for the dropdown menu; flips from below to above the input (and back) if it would overflow the viewport, keeping width and horizontal alignment. Forwarded to `Dropdown` |
 | `fullWidth`        | `boolean`                                                                                | `false`     | Whether full width (inheritable from FormControlContext) |
 | `globalPortal`     | `boolean`                                                                                | `true`      | Whether to enable Portal               |
 | `inputProps`       | `Omit<SelectTriggerInputProps, 'onBlur' \| 'onChange' \| 'onFocus' \| 'placeholder' \| 'role' \| 'value' \| 'aria-controls' \| 'aria-expanded' \| 'aria-owns'>` | - | Props passed to input |
@@ -97,6 +98,7 @@ Extends `SelectTriggerProps`, which includes trigger-related properties.
 | `value`        | `SelectValue[]`                        | -       | Controlled value         |
 | `onChange`     | `(newOptions: SelectValue[]) => void`  | -       | Change event             |
 | `renderValue`  | `(values: SelectValue[]) => string`    | -       | Custom display           |
+| `overflowStrategy` | `'counter' \| 'wrap'`              | `'counter'` | Tag overflow strategy: `counter` collapses extra tags into a counter tag; `wrap` wraps to new lines to show all tags. Forwarded to the multi-select trigger's tag display |
 
 ---
 

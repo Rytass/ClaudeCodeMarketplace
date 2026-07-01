@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-datepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DatePicker) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DatePicker) · Verified 1.4.1 (2026-07-01)
 
 Date picker component supporting multiple modes (day, week, month, quarter, half-year, year). Requires `CalendarContext`. Internally composed of `PickerTrigger` and `DatePickerCalendar`.
 
@@ -77,6 +77,8 @@ import type { DatePickerProps, DatePickerCalendarProps } from '@mezzanine-ui/rea
 | `isWeekDisabled`      | `(date: DateType) => boolean`     | -        | Week disabled check            |
 | `isYearDisabled`      | `(date: DateType) => boolean`     | -        | Year disabled check            |
 | `mode`                | `CalendarMode`                    | `'day'`  | Date mode                      |
+| `onHover`             | `(date: DateType) => void`        | -        | Fired when hovering a calendar cell |
+| `onLeave`             | `() => void`                      | -        | Fired when mouse leaves the calendar panel |
 | `popperProps`         | `Omit<InputTriggerPopperProps, 'anchor' \| 'children' \| 'fadeProps' \| 'open'>` | - | Popper positioning props |
 
 ### Inherited from PickerTriggerProps

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Tooltip`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Tooltip) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Tooltip) · Verified 1.4.1 (2026-07-01)
 
 Tooltip component for displaying additional information on mouse hover. Extends `PopperProps` (excluding `arrow`, `children`, `disablePortal`, `title`).
 
@@ -29,11 +29,14 @@ Extends `PopperProps` (excluding `arrow`, `children`, `disablePortal`, `title`).
 | `arrow`           | `boolean`                                                                                                      | `true` | Whether to show arrow          |
 | `children`        | `(opt: { onMouseEnter: MouseEventHandler; onMouseLeave: MouseEventHandler; ref: RefCallback<HTMLElement> }) => ReactElement` | - | Trigger element render function |
 | `className`       | `string`                                                                                                       | -      | Custom style class             |
+| `container`       | `Element \| RefObject<Element \| null> \| null`                                                                | -      | Portal container element (from `PortalProps`) |
+| `controllerRef`   | `Ref<PopperController>`                                                                                        | -      | Ref to access the underlying `useFloating` result |
 | `disablePortal`   | `boolean`                                                                                                      | `true` | Whether to disable Portal      |
 | `mouseLeaveDelay` | `number`                                                                                                       | `0.1`  | Mouse leave delay (seconds)    |
 | `offsetMainAxis`  | `number`                                                                                                       | -      | Tooltip distance to anchor on main axis (px, overrides default) |
 | `onMouseEnter`    | `(event: MouseEvent) => void`                                                                                  | -      | Mouse enter callback           |
 | `onMouseLeave`    | `(event: MouseEvent) => void`                                                                                  | -      | Mouse leave callback           |
+| `onPlacementChange` | `(placement: PopperPlacement) => void`                                                                       | -      | Fired when the resolved placement changes (e.g. after a `flip` middleware adjustment) |
 | `open`            | `boolean`                                                                                                      | `false`| Controlled open state (auto-triggers on hover when not set) |
 | `options`         | `PopperOptions`                                                                                                | `{}`   | Popper configuration           |
 | `ref`             | `RefObject<HTMLElement>`                                                                                       | -      | Tooltip root element ref       |

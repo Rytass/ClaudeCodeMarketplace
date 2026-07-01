@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/PageHeader`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/PageHeader) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/PageHeader) · Verified 1.4.1 (2026-07-01)
 
 Page header component for displaying page-level navigation and titles. Contains breadcrumb and content header.
 
@@ -49,15 +49,15 @@ type PageHeaderProps = NativeElementPropsWithoutKeyAndRef<'header'> & {
 PageHeader 在 runtime 透過 `flattenChildren` + `isValidElement` + `child.type === Breadcrumb || child.type === ContentHeader` 檢查每個直接子元素。**任何不在白名單內的元件都會被丟棄並 console.warn**：
 
 ```
-[PageHeader] only accepts <Breadcrumb> or <ContentHeader> as children
+[Mezzanine][PageHeader] only accepts Breadcrumb or ContentHeader as its children.
 ```
 
 ### 接受的 children
 
 | 元件 | 數量 | 備註 |
 | --- | --- | --- |
-| `Breadcrumb` | 0 或 1 | 多個 → warning + 只取第一個 |
-| `ContentHeader` | 必為 1 | 缺少 → warning；`size` 強制改寫為 `'main'`，手動指定無效 |
+| `Breadcrumb` | 0 或 1 | 多個 → warning（`only accepts one Breadcrumb as its child.`）+ **後者覆蓋前者**（實際保留的是最後一個，而非第一個） |
+| `ContentHeader` | 必為 1 | 缺少 → **console.error**（`requires a ContentHeader as its child.`，非 warning）；多個 → warning + 後者覆蓋前者；`size` 強制改寫為 `'main'`，手動指定會觸發 warning 且無效 |
 
 ### 常見錯誤
 
@@ -72,7 +72,7 @@ PageHeader 在 runtime 透過 `flattenChildren` + `isValidElement` + `child.type
 // ❌ 多個 Breadcrumb
 <PageHeader>
   <Breadcrumb items={a} />
-  <Breadcrumb items={b} />   {/* warning + drop */}
+  <Breadcrumb items={b} />   {/* warning，且 items={a} 會被覆蓋丟棄，最終只顯示 items={b} */}
   <ContentHeader title="X" />
 </PageHeader>
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/ResultState`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/ResultState) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/ResultState) · Verified 1.4.1 (2026-07-01)
 
 Result state component for displaying operation results or status pages.
 
@@ -22,6 +22,8 @@ import type { ResultStateProps, ResultStateActions } from '@mezzanine-ui/react';
 ---
 
 ## ResultState Props
+
+> Extends `NativeElementPropsWithoutKeyAndRef<'div'>`.
 
 | Property      | Type                                  | Default        | Description          |
 | ------------- | ------------------------------------- | -------------- | -------------------- |

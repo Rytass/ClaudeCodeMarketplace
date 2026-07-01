@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Card`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Card) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Card) · Verified 1.4.1 (2026-07-01)
 
 The Card system provides a set of structured card components for displaying different types of content. The v2 version splits cards into multiple specialized sub-components, each with clear use cases and type definitions. All card components support polymorphic rendering and can render as `div`, `a`, or custom components (e.g., Next.js `Link`).
 

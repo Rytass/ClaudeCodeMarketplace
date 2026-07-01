@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Skeleton`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Skeleton) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Skeleton) · Verified 1.4.1 (2026-07-01)
 
 Skeleton screen component for providing placeholder effects while content is loading.
 
@@ -20,6 +20,8 @@ import type { SkeletonProps } from '@mezzanine-ui/react';
 ---
 
 ## Skeleton Props
+
+> Extends `Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'children'>` — `children` is not supported.
 
 | Property  | Type                     | Default | Description                          |
 | --------- | ------------------------ | ------- | ------------------------------------ |

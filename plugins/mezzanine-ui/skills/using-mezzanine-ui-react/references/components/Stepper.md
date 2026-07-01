@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Stepper`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Stepper) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Stepper) · Verified 1.4.1 (2026-07-01)
 
 Stepper component for guiding users through multi-step processes.
 
@@ -232,14 +232,14 @@ function WizardForm() {
 
 ## Keyboard Support
 
-Each Step supports keyboard navigation:
+Keyboard interaction is **opt-in**: a `<Step>` only becomes focusable and keyboard-operable when you pass it a native `onClick` handler (available via `StepProps`'s extension of native div attributes). When `onClick` is provided, Step automatically sets `role="button"` and `tabIndex={0}`, and the following keys trigger it:
 
-| Key              | Action                                    |
-| ---------------- | ----------------------------------------- |
-| `Enter`          | Activate step (trigger `onStepChange`)   |
-| `Space`          | Activate step (trigger `onStepChange`)   |
+| Key              | Action                                          |
+| ---------------- | ------------------------------------------------ |
+| `Enter`          | Activates the step (triggers the `onClick` handler) |
+| `Space`          | Activates the step (triggers the `onClick` handler) |
 
-Steps must be focusable (typically rendered as buttons or with `tabIndex`). Disabled steps are skipped in tab order.
+> **Note**: `disabled` currently has **no effect** on focusability, tab order, `role`, or click behavior — it is declared in the type but not yet wired into Step's interaction logic (see the `disabled` row in the Step Props table above). Without an `onClick` handler, a Step is not focusable and has no `role`/`tabIndex` at all.
 
 ---
 

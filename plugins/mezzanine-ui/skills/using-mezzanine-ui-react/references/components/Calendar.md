@@ -6,7 +6,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/utility-calendar--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Calendar) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Calendar) · Verified 1.4.1 (2026-07-01)
 
 Calendar component for displaying and selecting dates. Requires `CalendarConfigProvider` (which provides `CalendarContext`). Supports six modes: day, week, month, year, quarter, and half-year.
 
@@ -299,7 +299,7 @@ function DateRangeExample() {
 | `children`          | `ReactNode`           | -                       | Child content                                  |
 | `defaultDateFormat` | `string`              | `'YYYY-MM-DD'`          | Default date format                            |
 | `defaultTimeFormat` | `string`              | `'HH:mm:ss'`            | Default time format                            |
-| `locale`            | `CalendarLocale`      | `CalendarLocale.EN_US`  | Localization (affects week start day, etc.)     |
+| `locale`            | `CalendarLocaleValue` | `CalendarLocale.EN_US`  | Localization (affects week start day, etc.)     |
 | `methods`           | `CalendarMethods`     | **required**            | Date methods (e.g., CalendarMethodsDayjs)       |
 
 ---
@@ -381,6 +381,8 @@ function useRangeCalendarControls(
 | `disableOnDoublePrev`   | `boolean`                                                        | -       | Disable year fast-backward     |
 | `disableOnNext`         | `boolean`                                                        | -       | Disable month fast-forward     |
 | `disableOnPrev`         | `boolean`                                                        | -       | Disable month fast-backward    |
+| `disabledMonthSwitch`   | `boolean`                                                        | -       | Disable Month calendar button click |
+| `disabledYearSwitch`    | `boolean`                                                        | -       | Disable Year calendar button click  |
 | `displayMonthLocale`    | `string`                                                         | -       | Month display localization     |
 | `displayWeekDayLocale`  | `string`                                                         | -       | Weekday display localization   |
 | `isDateDisabled`        | `(date: DateType) => boolean`                                    | -       | Date disabled check            |

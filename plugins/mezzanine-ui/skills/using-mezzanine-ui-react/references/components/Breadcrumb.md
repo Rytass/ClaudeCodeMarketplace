@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Breadcrumb`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Breadcrumb) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Breadcrumb) · Verified 1.4.1 (2026-07-01)
 
 Breadcrumb component for displaying hierarchical page navigation paths.
 
@@ -91,7 +91,7 @@ type BreadcrumbItemProps<C extends BreadcrumbItemComponent = 'span'> =
 | `open`      | `boolean`        | -        | Whether dropdown is open |
 | `onClick`   | `() => void`     | -        | Click event              |
 
-> Extends `DropdownProps` (excluding `children`), inheriting props such as `options`, `onSelect`, `type`, `menuMaxHeight`, etc. `href` and `target` are `never`.
+> Extends `DropdownProps` (excluding `children` and `onScroll`), inheriting props such as `options`, `onSelect`, `type`, `menuMaxHeight`, etc. `href` and `target` are `never`.
 
 ---
 

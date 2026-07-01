@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Modal`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Modal) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Modal) · Verified 1.4.1 (2026-07-01)
 
 A dialog component for scenarios requiring user attention or action.
 

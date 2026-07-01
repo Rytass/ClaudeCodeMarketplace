@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Radio`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Radio) · Verified 1.1.0 (2026-04-24)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Radio) · Verified 1.4.1 (2026-07-01)
 
 Radio button component supporting normal mode and segment mode.
 

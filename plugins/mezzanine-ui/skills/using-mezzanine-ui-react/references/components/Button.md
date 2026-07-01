@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Button`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Button) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Button) · Verified 1.4.1 (2026-07-01)
 
 The most commonly used interactive element, supporting multiple variants and sizes.
 
@@ -211,7 +211,7 @@ Button group that combines multiple buttons together.
 
 | Property      | Type                                     | Default          | Description                                        |
 | ------------- | ---------------------------------------- | ---------------- | -------------------------------------------------- |
-| `children`    | `ButtonGroupChild \| ButtonGroupChild[]` | -                | Child buttons                                      |
+| `children`    | `ButtonGroupChild \| ButtonGroupChild[]` | **required**     | Child buttons (only `Button` elements are accepted) |
 | `disabled`    | `boolean`                                | `false`          | Group default disabled state (individual buttons can override) |
 | `fullWidth`   | `boolean`                                | `false`          | Whether to set width: 100%                         |
 | `orientation` | `ButtonGroupOrientation`                 | `'horizontal'`   | Arrangement direction                              |

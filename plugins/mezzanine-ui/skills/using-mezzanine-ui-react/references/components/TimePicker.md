@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-timepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: Verified 1.1.0 (2026-04-24)
+> **Source**: Verified 1.4.1 (2026-07-01)
 
 Time picker for selecting time. Must be used with `CalendarContext`.
 
@@ -44,7 +44,7 @@ import type { TimePickerProps, TimePickerPanelProps } from '@mezzanine-ui/react'
 
 ## TimePicker Props
 
-> Extends `TimePickerPanelProps` (excluding anchor, onChange, open, value) and `PickerTriggerProps` (excluding format, inputRef, onChange, onClear, suffix, value).
+> Extends `TimePickerPanelProps` (excluding anchor, onChange, onCancel, onConfirm, open, value) and `PickerTriggerProps` (excluding format, inputRef, onChange, onClear, suffix, value).
 >
 > `ref` (forwardRef) points to the root `HTMLDivElement`.
 
@@ -73,19 +73,24 @@ import type { TimePickerProps, TimePickerPanelProps } from '@mezzanine-ui/react'
 
 ### Inherited from PickerTriggerProps
 
-| Property        | Type               | Default | Description          |
-| --------------- | ------------------ | ------- | -------------------- |
-| `clearable`     | `boolean`          | `true`  | Whether clearable    |
-| `disabled`      | `boolean`          | `false` | Whether disabled     |
-| `error`         | `boolean`          | `false` | Error state          |
-| `errorMessages` | `FormattedInputProps['errorMessages']` | - | Error messages |
-| `fullWidth`     | `boolean`          | `false` | Whether full width   |
-| `inputProps`    | `InputProps`       | -       | Input props          |
-| `placeholder`   | `string`           | -       | placeholder          |
-| `prefix`        | `ReactNode`        | -       | Prefix element       |
-| `readOnly`      | `boolean`          | -       | Whether read-only    |
-| `required`      | `boolean`          | `false` | Whether required     |
-| `size`          | `'main' \| 'sub'`  | -       | Size                 |
+> `TimePickerProps` uses `Omit` (not `Pick`) over `PickerTriggerProps`, so — unlike `TimeRangePickerProps` below — every non-excluded `PickerTriggerProps`/`TextFieldProps` member is part of the public type, including some (`hoverValue`, `validate`) that `TimePicker` also wires internally.
+
+| Property                  | Type               | Default | Description          |
+| ------------------------- | ------------------ | ------- | -------------------- |
+| `className`               | `string`           | -       | CSS class             |
+| `clearable`               | `boolean`          | `true`  | Whether clearable    |
+| `disabled`                | `boolean`          | `false` | Whether disabled     |
+| `errorMessages`           | `FormattedInputProps['errorMessages']` | - | Error messages |
+| `forceShowClearable`      | `boolean`          | `false` | Force clear button visibility (ignore value check), from `TextFieldProps` |
+| `fullWidth`               | `boolean`          | `false` | Whether full width   |
+| `hideSuffixWhenClearable` | `boolean`          | `false` | Overlay clear icon at suffix position, from `TextFieldProps` |
+| `inputProps`              | `InputProps`       | -       | Input props          |
+| `placeholder`             | `string`           | -       | placeholder          |
+| `prefix`                  | `ReactNode`        | -       | Prefix element       |
+| `readOnly`                | `boolean`          | -       | Whether read-only    |
+| `required`                | `boolean`          | `false` | Whether required     |
+| `size`                    | `'main' \| 'sub'`  | -       | Size                 |
+| `warning`                 | `boolean`          | `false` | Warning state, from `TextFieldProps` |
 
 ---
 
@@ -227,7 +232,9 @@ Keyboard input commits immediately and typed values show as pending preview:
 
 | Property      | Type                                                              | Default | Description            |
 | ------------- | ----------------------------------------------------------------- | ------- | ---------------------- |
+| `onCancel`    | `VoidFunction`                                                    | -       | Cancel button click callback |
 | `onChange`    | `(value?: DateType) => void`                                      | -       | Selection change callback |
+| `onConfirm`   | `VoidFunction`                                                    | -       | Confirm/Ok button click callback |
 | `popperProps` | `Omit<InputTriggerPopperProps, 'anchor' \| 'children' \| 'fadeProps' \| 'open'>` | -      | Additional Popper props |
 | `value`       | `DateType`                                                        | -       | Panel display value    |
 

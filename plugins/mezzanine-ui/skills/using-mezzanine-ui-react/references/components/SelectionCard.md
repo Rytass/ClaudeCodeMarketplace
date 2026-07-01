@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/SelectionCard`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/SelectionCard) · Verified 1.1.0 (2026-04-24)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/SelectionCard) · Verified 1.4.1 (2026-07-01)
 
 SelectionCard component providing selection items with images or icons. Supports single-select (radio) and multi-select (checkbox) modes.
 
@@ -48,7 +48,7 @@ Base props interface, extends `Omit<NativeElementPropsWithoutKeyAndRef<'label'>,
 | `name`           | `string`                                                                              | -              | Input name attribute |
 | `onChange`       | `ChangeEventHandler<HTMLInputElement>`                                                | -              | Input change callback |
 | `readonly`       | `boolean`                                                                             | `false`        | Whether read-only |
-| `selector`       | `SelectionCardType` (`'radio' \| 'checkbox'`)                                         | `'radio'`      | Selector type    |
+| `selector`       | `SelectionCardType` (`'radio' \| 'checkbox'`)                                         | **required** (internal fallback `'radio'`) | Selector type — the TS interface marks this required (no `?`); the component's internal destructuring defaults to `'radio'` if omitted, but callers should always pass it explicitly |
 | `supportingText` | `string`                                                                              | -              | Supporting (secondary) text |
 | `supportingTextMaxWidth` | `CSSProperties['maxWidth']`                                                   | -              | Max width for supporting text |
 | `text`           | `string`                                                                              | **required**   | Primary text     |

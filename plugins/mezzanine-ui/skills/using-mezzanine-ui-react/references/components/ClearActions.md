@@ -1,13 +1,13 @@
 # ClearActions Component
 
-> **DEPRECATED in 1.1.0** — This component is no longer exported from `@mezzanine-ui/react`.
-> This component has been removed with no direct replacement. Consider using alternative approaches or composing with lower-level components.
+> ⚠️ **REMOVED from the public API in 1.4.1** (deprecated in 1.1.0) — This component is no longer exported from the `@mezzanine-ui/react` package entrypoint.
+> It **still exists in the source tree** (`packages/react/src/ClearActions`) and is used internally by Modal, Drawer, Tag, TextField, and InlineMessage — only the public export was dropped. It was never part of the intended public API, so do not import it directly in application code.
 
-> **Category**: Internal
+> **Category**: Internal (removed)
 >
-> **Storybook**: `Internal/ClearActions` (deprecated)
+> **Storybook**: `Internal/ClearActions` (removed in 1.4.1)
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/ClearActions) · **Deprecated** in 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/ClearActions) · **Removed** in 1.4.1 (2026-07-01)
 
 Clear/close button component providing a unified close button style. Used for close functionality in Modal, Drawer, Tag, and other components.
 

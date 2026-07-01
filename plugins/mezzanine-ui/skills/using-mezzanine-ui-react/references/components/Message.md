@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Message`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Message) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Message) · Verified 1.4.1 (2026-07-01)
 
 A global message notification component for displaying operation feedback, system notifications, and other lightweight messages. Uses an imperative API.
 
@@ -71,17 +71,15 @@ Extends `Omit<NotifierData, 'onClose'>` and `MessageConfigProps` (including Tran
 ## MessageType Type
 
 ```tsx
-type MessageType = FC<MessageData> &
-  Notifier<MessageData, MessageConfigProps> &
-  Record<
-    string,
-    (
-      message: MessageData['children'],
-      props?: Omit<MessageData, 'children' | 'severity' | 'icon'> & {
-        key?: Key;
-      },
-    ) => Key
-  >;
+// Actual source definition — the type is simply the shape of the Message constant itself:
+type MessageType = typeof Message;
+
+// Which resolves structurally to:
+// FC<MessageData> (renders a single message element)
+// & { add, config, destroy, remove } (from createNotifier<MessageData, MessageConfigProps>)
+// & { error, info, loading, success, warning } (severity shorthand methods, each:
+//     (message: MessageData['children'], props?: Omit<MessageData, 'children' | 'severity' | 'icon'> & { key?: Key }) => Key
+//   )
 ```
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/feedback-message--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。

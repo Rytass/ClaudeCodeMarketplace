@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Popper`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Popper) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Popper) · Verified 1.4.1 (2026-07-01)
 
 A positioned popup layer component based on @floating-ui/react-dom, used as the underlying positioning for Tooltip, Dropdown, Select, and other components.
 
@@ -34,9 +34,10 @@ import type {
 | `arrow`         | `ArrowConfig \| null`       | -       | Arrow configuration      |
 | `children`      | `ReactNode`                 | -       | Popup content            |
 | `className`     | `string`                    | -       | Custom CSS class name    |
-| `container`     | `HTMLElement \| RefObject<HTMLElement \| null> \| null` | - | Portal container |
+| `container`     | `HTMLElement \| RefObject<HTMLElement \| null> \| RefObject<HTMLElement> \| null` | - | Portal container |
 | `controllerRef` | `Ref<PopperController>`     | -       | Controller reference     |
 | `disablePortal` | `boolean`                   | -       | Disable Portal           |
+| `onPlacementChange` | `(placement: PopperPlacement) => void` | - | Callback fired whenever the resolved placement changes (including middleware-driven flips, e.g. `flip()`); receives the actual placement after all middleware run |
 | `open`          | `boolean`                   | `false` | Whether open             |
 | `options`       | `UseFloatingOptions`        | -       | floating-ui options      |
 

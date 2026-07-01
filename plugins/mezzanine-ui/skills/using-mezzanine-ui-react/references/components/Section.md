@@ -4,13 +4,13 @@
 >
 > **Storybook**: `Data Display/Section`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Section) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Section) · Verified 1.4.1 (2026-07-01)
 >
 > **Migration Note**: Module resolution fix changed barrel file extension from `.tsx` → `.ts`. No API changes.
 
 Section container component for composing `ContentHeader`, `FilterArea`, `Tab`, and other sub-components to build structured page sections. The passed `contentHeader` and `filterArea` automatically receive `size="sub"`.
 
-> **ContentHeader note**: `ContentHeader` is marked deprecated in 1.0.0 because it is no longer exported from the `@mezzanine-ui/react` main entry. However, it **remains required** by Section's `contentHeader` prop — runtime validation rejects any other component type. Import `ContentHeader` via the sub-path `@mezzanine-ui/react/ContentHeader` and continue using it as shown in the examples below. See [ContentHeader.md](ContentHeader.md) for details.
+> **ContentHeader note**: `ContentHeader` is removed in 1.4.1 (deprecated since 1.1.0) because it is no longer exported from the `@mezzanine-ui/react` main entry. However, it **remains internally required** by Section's `contentHeader` prop — runtime validation rejects any other component type. Import `ContentHeader` via the sub-path `@mezzanine-ui/react/ContentHeader` and continue using it as shown in the examples below. See [ContentHeader.md](ContentHeader.md) for details.
 
 ## Import
 
@@ -27,6 +27,8 @@ import type { SectionProps, SectionGroupProps } from '@mezzanine-ui/react';
 
 The component uses `forwardRef<HTMLDivElement, PropsWithChildren<SectionProps>>`, so it also accepts `children` and a standard div ref.
 
+> **Important**: `SectionProps` does **not** extend native `<div>`/HTML attributes. Only `className`, `contentHeader`, `filterArea`, `tab`, and `children` are accepted — the component destructures exactly these props (no `...rest` spread onto the root `<div>`). Props such as `style`, `id`, or `data-*` are **not** supported and will not reach the DOM.
+
 | Property        | Type                               | Default | Description                                                          |
 | --------------- | ---------------------------------- | ------- | -------------------------------------------------------------------- |
 | `className`     | `string`                           | -       | Additional CSS class                                                 |
@@ -42,6 +44,8 @@ The component uses `forwardRef<HTMLDivElement, PropsWithChildren<SectionProps>>`
 ## SectionGroup Props
 
 SectionGroup is a layout container component that groups multiple `Section` components with a configurable direction.
+
+> Extends `HTMLAttributes<HTMLDivElement>` — unlike `Section`, `SectionGroup` spreads remaining props (`style`, `id`, `data-*`, event handlers, etc.) onto its root `<div>`.
 
 | Property    | Type                           | Default      | Description                                                    |
 | ----------- | ------------------------------ | ------------ | -------------------------------------------------------------- |
@@ -272,23 +276,6 @@ Passing non-matching components will output a console warning, e.g.:
 
 ```
 [Section] Invalid contentHeader type: <MyCustomHeader>. Only <ContentHeader /> component from @mezzanine-ui/react is allowed.
-```
-
-> **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/layout-section--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
-
----
-
-## Content Area minHeight
-
-Section's content area now supports `minHeight` to maintain consistent layout height. This is applied as a CSS style on the content area.
-
-```tsx
-<Section
-  contentHeader={<ContentHeader title="Dashboard" />}
-  style={{ '--section-content-min-height': '400px' } as React.CSSProperties}
->
-  <div>Content with consistent minimum height</div>
-</Section>
 ```
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/layout-section--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。

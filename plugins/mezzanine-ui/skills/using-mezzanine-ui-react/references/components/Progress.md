@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Progress`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Progress) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Progress) · Verified 1.4.1 (2026-07-01)
 
 A progress bar component for displaying operation completion progress.
 
@@ -20,6 +20,8 @@ import type { ProgressProps } from '@mezzanine-ui/react';
 ---
 
 ## Progress Props
+
+> Extends `Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'title' | 'children'>` — `title` and `children` are not supported.
 
 | Property       | Type                                                           | Default      | Description                      |
 | -------------- | -------------------------------------------------------------- | ------------ | -------------------------------- |

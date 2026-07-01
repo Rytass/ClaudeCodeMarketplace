@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Description`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Description) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Description) · Verified 1.4.1 (2026-07-01)
 
 Description component for displaying structured information in title-content pairs.
 
@@ -86,6 +86,7 @@ Description's children can be one of the following components:
 | `badge`       | `BadgeDotVariant`       | -           | Dot badge next to the title    |
 | `children`    | `string`                | -           | Required, title text           |
 | `className`   | `string`                | -           | Custom class name              |
+| `size`        | `DescriptionSize`       | `'main'`    | Title text size                |
 | `widthType`   | `DescriptionWidthType`  | `'stretch'` | Title width behavior           |
 
 ### With Tooltip (DescriptionTitleWithTooltip)

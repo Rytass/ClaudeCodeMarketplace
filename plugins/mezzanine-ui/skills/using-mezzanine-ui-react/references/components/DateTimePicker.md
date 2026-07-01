@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-datetimepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DateTimePicker) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DateTimePicker) · Verified 1.4.1 (2026-07-01)
 
 A date-time picker that allows selecting both date and time simultaneously. Must be used with `CalendarContext`. Internally composed of `DatePickerCalendar`, `TimePickerPanel`, and `PickerTriggerWithSeparator`.
 
@@ -85,6 +85,8 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 | `isWeekDisabled`      | `(date: DateType) => boolean`           | -        | Week disable check       |
 | `isYearDisabled`      | `(date: DateType) => boolean`           | -        | Year disable check       |
 | `mode`                | `CalendarMode`                          | `'day'`  | Calendar selection mode  |
+| `onHover`             | `(date: DateType) => void`              | -        | Fired when hovering a calendar cell |
+| `onLeave`             | `() => void`                            | -        | Fired when mouse leaves the calendar panel |
 | `popperProps`         | `Omit<InputTriggerPopperProps, ...>`    | -        | Calendar Popper props    |
 
 ### Inherited from TimePickerPanelProps
@@ -106,7 +108,11 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 | `clearable`        | `boolean`          | `true`  | Whether clearable        |
 | `disabled`         | `boolean`          | `false` | Whether disabled         |
 | `error`            | `boolean`          | `false` | Error state              |
+| `errorMessagesLeft` | `FormattedInputProps['errorMessages']` | - | Date field error messages |
+| `errorMessagesRight` | `FormattedInputProps['errorMessages']` | - | Time field error messages |
 | `fullWidth`        | `boolean`          | `false` | Whether full width       |
+| `inputLeftProps`   | `Omit<NativeInputProps, ...>` | -  | Props passed to the date input |
+| `inputRightProps`  | `Omit<NativeInputProps, ...>` | -  | Props passed to the time input |
 | `onClear`          | `MouseEventHandler` | -      | Clear callback           |
 | `placeholderLeft`  | `string`           | -       | Date field placeholder   |
 | `placeholderRight` | `string`           | -       | Time field placeholder   |
@@ -114,6 +120,8 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 | `readOnly`         | `boolean`          | -       | Whether read-only        |
 | `required`         | `boolean`          | `false` | Whether required         |
 | `size`             | `'main' \| 'sub'`  | -       | Size                     |
+| `validateLeft`     | `(isoDate: string) => boolean` | - | Date field validation function |
+| `validateRight`    | `(isoDate: string) => boolean` | - | Time field validation function |
 
 ---
 

@@ -4,9 +4,9 @@
 >
 > **Storybook**: `Data Entry/Toggle`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Toggle) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Toggle) · Verified 1.4.1 (2026-07-01)
 
-> Toggle is the successor of the deprecated Switch component. Migrate `Switch` usages to `Toggle` — public API is intentionally aligned (checked / defaultChecked / disabled / onChange), with new `label`, `supportingText`, and `size` additions.
+> Toggle is the successor of the removed Switch component (removed in 1.4.1). Migrate `Switch` usages to `Toggle` — public API is intentionally aligned (checked / defaultChecked / disabled / onChange), with new `label`, `supportingText`, and `size` additions.
 
 A toggle switch component for turning a single option on or off. Supports controlled and uncontrolled modes with optional label and supporting text.
 

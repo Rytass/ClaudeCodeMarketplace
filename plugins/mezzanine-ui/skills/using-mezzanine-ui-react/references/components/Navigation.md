@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Navigation`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Navigation) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Navigation) · Verified 1.4.1 (2026-07-01)
 
 Side navigation component supporting expand/collapse, multi-level, categories, search, and more.
 
@@ -164,7 +164,7 @@ Navigation 系列在 runtime 透過 `isValidElement` + `switch (child.type)` 檢
 | `title`        | `string`       | (required) | Title text                               |
 | `onBrandClick` | `() => void`   | -          | Brand area (Logo + title) click callback |
 
-**Brand Area Rendering**: The brand area is rendered as a `<button>` element when `onBrandClick` is provided, allowing for interactive behavior. When no callback is provided, it renders as a `<div>`.
+**Brand Area Rendering**: The brand area is rendered as a `<button>` element when `onBrandClick` is provided, allowing for interactive behavior. When no callback is provided, it renders as a `<span>`.
 
 **Title Display & Animation**: The title shows the first character when the navigation is collapsed and the full title when expanded. The title is wrapped in a `Fade` transition for smooth text appear/disappear during collapse/expand animations.
 
@@ -201,8 +201,8 @@ Navigation 系列在 runtime 透過 `isValidElement` + `switch (child.type)` 檢
 | `className` | `string`       | -           | Custom className     |
 | `imgSrc`    | `string`       | -           | User avatar URL      |
 | `onClick`   | `() => void`   | -           | Click event          |
-| `collapsedPlacement` | `DropdownProps['placement']` | -           | Dropdown position when navigation is collapsed |
-| `placement` | `string`       | `'top-end'` | Dropdown position (inherited) |
+| `collapsedPlacement` | `DropdownProps['placement']` | `'right-end'` | Dropdown position when navigation is collapsed |
+| `placement` | `DropdownProps['placement']` | `'top-end'` | Dropdown position (inherited) |
 
 ---
 

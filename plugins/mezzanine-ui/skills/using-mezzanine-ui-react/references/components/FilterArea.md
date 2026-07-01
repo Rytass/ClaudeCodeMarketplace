@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/FilterArea`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/FilterArea) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/FilterArea) · Verified 1.4.1 (2026-07-01)
 
 A filter area component for building search and filter forms. Contains three sub-components: FilterArea, FilterLine, and Filter. Expand/collapse buttons use `ChevronDownIcon` / `ChevronUpIcon`.
 
@@ -31,7 +31,7 @@ import type { FilterAreaProps, FilterLineProps, FilterProps } from '@mezzanine-u
 | `onReset`          | `() => void`                                             | -          | Reset callback           |
 | `onSubmit`         | `() => void`                                             | -          | Submit callback          |
 | `resetText`        | `string`                                                 | `'Reset'`  | Reset button text        |
-| `rowAlign`         | `'start' \| 'center' \| 'end' \| 'baseline'`             | `'center'` | Row vertical alignment |
+| `rowAlign`         | `'start' \| 'center' \| 'end'`                           | `'center'` | Row vertical alignment (cross-axis align-items) |
 | `size`             | `FilterAreaSize`                                         | `'main'`   | Size                     |
 | `submitText`       | `string`                                                 | `'Search'` | Submit button text       |
 | `resetButtonType`  | `ComponentPropsWithoutRef<'button'>['type']`             | `'button'` | Reset button type        |
@@ -67,7 +67,7 @@ import type { FilterAreaProps, FilterLineProps, FilterProps } from '@mezzanine-u
 
 > **Core types**:
 > - `FilterAlign = 'start' | 'center' | 'end' | 'stretch'`
-> - `FilterSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`
+> - `FilterSpan = 1 | 2 | 3 | 4 | 5 | 6`
 
 ---
 
@@ -228,10 +228,10 @@ function FilterExample() {
 
 ## Grid System
 
-The Filter component uses a 12-column grid system:
-- `span={2}` takes 2/12 width (default)
-- `span={12}` takes full row
-- `grow` auto-expands to fill remaining space
+The Filter component uses a 6-column grid system:
+- `span={2}` takes 2/6 width (default)
+- `span={6}` takes full row
+- `grow` auto-expands to fill remaining space (equivalent to `span={6}`)
 
 ---
 
@@ -329,7 +329,7 @@ The Filter component uses a 12-column grid system:
    <FilterArea onSubmit={handleSearch}>
      <FilterLine>
        <Filter span={1}>Keyword</Filter>
-       <Filter span={8}>Status</Filter>
+       <Filter span={5}>Status</Filter>
        <Filter>Date</Filter>
      </FilterLine>
    </FilterArea>
@@ -381,4 +381,4 @@ The Filter component uses a 12-column grid system:
 4. **搭配表單庫**: 建議使用 react-hook-form 進行表單狀態管理
 5. **文案語境化**: 根據業務場景自訂按鈕文案（Search/Filter/Query）
 6. **多行展開/摺疊**: 多行篩選會自動添加展開/摺疊按鈕
-7. **網格系統**: 使用 12 列網格系統，`span` 預設值為 2
+7. **網格系統**: 使用 6 列網格系統，`span` 預設值為 2

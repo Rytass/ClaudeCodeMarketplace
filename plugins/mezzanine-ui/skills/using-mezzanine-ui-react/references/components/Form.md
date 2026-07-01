@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Form`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Form) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Form) · Verified 1.4.1 (2026-07-01)
 
 Form-related components including field containers, labels, hint text, and more.
 
@@ -99,8 +99,8 @@ An integrated form field component including label, input area, hint text, etc.
 | ---------- | ----------- |
 | `main`     | Main layout |
 | `sub`      | Sub layout  |
-| `auto`     | Auto layout |
-| `grid`     | Grid layout |
+
+> Note: `ControlFieldSlotLayout` only has `main` / `sub` variants. There is no `auto`/`grid` layout value — the grid behavior is enabled separately via the `controlFieldSlotColumns` prop, whose type is `ControlFieldSlotColumns = 2 | 3 | 4`.
 
 ---
 
@@ -443,6 +443,7 @@ Hooks for controlling form input state.
 | --------------------------------- | ---------------------------- |
 | `useInputControlValue`            | Input controlled value       |
 | `useInputWithClearControlValue`   | Input with clear             |
+| `useInputWithTagsModeValue`       | Input tags-mode value management |
 | `useSelectValueControl`           | Select value management      |
 | `useCheckboxControlValue`         | Checkbox value management    |
 | `useRadioControlValue`            | Radio value management       |

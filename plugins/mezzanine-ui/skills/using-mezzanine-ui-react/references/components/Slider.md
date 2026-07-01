@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Slider`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Slider) · Verified 1.1.0 (2026-04-24)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Slider) · Verified 1.4.1 (2026-07-01)
 
 Slider component for selecting values within a numeric range. Supports single value and range modes.
 
@@ -40,7 +40,7 @@ import type {
 
 ## SliderBaseProps
 
-Extends native `<div>` element attributes.
+Extends `Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'defaultChecked' | 'defaultValue' | 'onChange'>` — native `<div>` element attributes, excluding `defaultChecked`, `defaultValue`, and `onChange` (Slider defines its own `onChange` with the slider-specific signature shown below).
 
 | Property     | Type                   | Default | Description          |
 | ------------ | ---------------------- | ------- | -------------------- |

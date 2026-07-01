@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/?path=/docs/data-entry-autocomplete--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/AutoComplete) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/AutoComplete) · Verified 1.4.1 (2026-07-01)
 
 Autocomplete component combining input with dropdown menu. Supports search filtering and dynamic option creation. Internally uses `Dropdown` and `SelectTrigger` composition.
 
@@ -47,7 +47,7 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `globalPortal`               | `boolean`                                              | `true`                 | Whether to enable Portal                 |
 | `id`                         | `string`                                               | -                      | Input element id attribute               |
 | `inputPosition`              | `DropdownInputPosition`                                | `'outside'`            | Input position                           |
-| `inputProps`                 | `Omit<SelectTriggerInputProps, 'onChange' \| 'placeholder' \| 'role' \| 'value' \| 'aria-*'>` | - | Props passed to input element |
+| `inputProps`                 | `Omit<SelectTriggerInputProps, 'onChange' \| 'placeholder' \| 'role' \| 'value' \| 'aria-controls' \| 'aria-expanded' \| 'aria-owns'>` | - | Props passed to input element |
 | `loading`                    | `boolean`                                              | `false`                | Whether loading                          |
 | `loadingText`                | `string`                                               | `'載入中...'` (built-in) | Loading hint text                        |
 | `loadingPosition`            | `DropdownLoadingPosition`                              | `'bottom'`             | Loading state display position           |
@@ -62,7 +62,6 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `onVisibilityChange`         | `(open: boolean) => void`                              | -                      | Dropdown visibility change callback      |
 | `open`                       | `boolean`                                              | -                      | Controlled dropdown open state           |
 | `options`                    | `SelectValue[]`                                        | **required**           | Options list                             |
-| `overflowStrategy`           | `'counter' \| 'wrap'`                                  | `'counter'` (multiple) | Tag overflow strategy in multiple mode   |
 | `placeholder`                | `string`                                               | `''`                   | Placeholder text                         |
 | `popperOptions`              | `PopperProps['options']`                               | -                      | Popper options                           |
 | `required`                   | `boolean`                                              | `false`                | Whether required                         |
@@ -71,7 +70,7 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `stepByStepBulkCreate`       | `boolean`                                              | `false`                | Process bulk pasted text item-by-item vs all at once |
 | `trimOnCreate`               | `boolean`                                              | `true`                 | Whether to trim whitespace on create     |
 
-> Also inherits `SelectTriggerProps` (excluding `active`, `clearable`, `forceHideSuffixActionIcon`, `mode`, `onClick`, `onKeyDown`, `onChange`, `renderValue`, `inputProps`, `suffixActionIcon`, `value`), including `className`, `disabled`, `error`, `fullWidth`, `inputRef`, `onClear`, `prefix`, `size`, etc.
+> Also inherits `SelectTriggerProps` (excluding `active`, `clearable`, `forceHideSuffixActionIcon`, `fullWidth`, `mode`, `onClick`, `onKeyDown`, `onChange`, `renderValue`, `inputProps`, `suffixActionIcon`, `value`), including `className`, `disabled`, `error`, `inputRef`, `onClear`, `prefix`, `size`, etc. Note: `fullWidth` is excluded — the component always renders full width internally.
 
 ---
 

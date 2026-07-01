@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Notification Center`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/NotificationCenter) · Verified 1.1.0 (2026-04-24)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/NotificationCenter) · Verified 1.4.1 (2026-07-01)
 
 Notification center component for displaying global notifications. Supports both popup notification and drawer list modes.
 
@@ -233,33 +233,36 @@ Notification list drawer component that displays notifications in a Drawer forma
 
 ### Props
 
+> `NotificationCenterDrawerProps` is a discriminated union: provide **either** `children` **or** `notificationList`, never both (the other is typed as `never` in each branch).
+
 | Property                         | Type                                     | Default                    | Description                                    |
 | -------------------------------- | ---------------------------------------- | -------------------------- | ---------------------------------------------- |
-| `children`                       | `ReactElement[]`                         | -                          | Manually pass NotificationCenter elements      |
-| `notificationList`               | `NotificationDataForDrawer[]`            | -                          | Notification data list (mutually exclusive with children) |
+| `children`                       | `ReactElement<ComponentProps<typeof NotificationCenter>> \| ReactElement<...>[]` | -   | Manually pass NotificationCenter elements (mutually exclusive with `notificationList`) |
+| `notificationList`               | `NotificationDataForDrawer[]`            | -                          | Notification data list; each item needs `key` and `type: 'drawer'` (mutually exclusive with `children`) |
 | `drawerSize`                     | `DrawerSize`                             | `'narrow'`                 | Drawer size                                    |
 | `title`                          | `string`                                 | -                          | Drawer title                                   |
-| `open`                           | `boolean`                                | -                          | Whether open                                   |
-| `onClose`                        | `() => void`                             | -                          | Close callback                                 |
+| `open`                           | `boolean`                                | -                          | Whether open (from `Pick<DrawerProps, 'open'>`) |
+| `onClose`                        | `() => void`                             | -                          | Close callback (from `Pick<DrawerProps, 'onClose'>`) |
 | `todayLabel`                     | `string`                                 | `'今天'`                   | Today group label                              |
 | `yesterdayLabel`                  | `string`                                 | `'昨天'`                   | Yesterday group label                          |
 | `past7DaysLabel`                 | `string`                                 | `'過去七天'`               | Past 7 days group label                        |
 | `earlierLabel`                   | `string`                                 | `'更早'`                   | Earlier group label                            |
-| `emptyNotificationIcon`          | `IconDefinition`                         | `NotificationIcon`         | Empty notification icon                        |
-| `emptyNotificationTitle`         | `string`                                 | `'目前沒有新的通知'`       | Empty notification text                        |
-| `filterAreaShow`                 | `boolean`                                | -                          | Whether to show filter area                    |
-| `filterAreaDefaultValue`         | `string`                                 | -                          | Filter area default value                      |
-| `filterAreaValue`                | `string`                                 | -                          | Filter area controlled value                   |
-| `filterAreaOnRadioChange`        | `(value: string) => void`                | -                          | Radio change callback                          |
-| `filterAreaAllRadioLabel`        | `string`                                 | -                          | All radio label                                |
-| `filterAreaReadRadioLabel`       | `string`                                 | -                          | Read radio label                               |
-| `filterAreaUnreadRadioLabel`     | `string`                                 | -                          | Unread radio label                             |
-| `filterAreaShowUnreadButton`     | `boolean`                                | -                          | Whether to show unread button                  |
-| `filterAreaCustomButtonLabel`    | `string`                                 | -                          | Custom button label                            |
-| `filterAreaOnCustomButtonClick`  | `() => void`                             | -                          | Custom button callback                         |
-| `filterAreaOptions`              | `DropdownOption[]`                       | -                          | Filter area dropdown options                   |
-| `filterAreaOnSelect`             | `(option: DropdownOption) => void`       | -                          | Filter area dropdown select callback           |
-| `renderFilterArea`               | `(props) => ReactNode`                   | -                          | Custom filter area render                      |
+| `emptyNotificationTitle`         | `string`                                 | `'目前沒有新的通知'`       | Empty notification title                       |
+| `emptyNotificationDescription`   | `string`                                 | `'當有新的系統通知時，將會顯示在這裡。'` | Empty notification description    |
+| `filterBarShow`                  | `DrawerProps['filterAreaShow']`          | -                          | Whether to show the filter bar                 |
+| `filterBarDefaultValue`          | `DrawerProps['filterAreaDefaultValue']`  | -                          | Filter bar default value                       |
+| `filterBarValue`                 | `DrawerProps['filterAreaValue']`         | -                          | Filter bar controlled value                    |
+| `filterBarOnRadioChange`         | `DrawerProps['filterAreaOnRadioChange']` | -                          | Radio change callback                          |
+| `filterBarAllRadioLabel`         | `DrawerProps['filterAreaAllRadioLabel']` | -                          | All radio label                                |
+| `filterBarReadRadioLabel`        | `DrawerProps['filterAreaReadRadioLabel']`| -                          | Read radio label                               |
+| `filterBarUnreadRadioLabel`      | `DrawerProps['filterAreaUnreadRadioLabel']` | -                       | Unread radio label                             |
+| `filterBarShowUnreadButton`      | `DrawerProps['filterAreaShowUnreadButton']` | -                       | Whether to show the "unread only" shortcut button |
+| `filterBarCustomButtonLabel`     | `DrawerProps['filterAreaCustomButtonLabel']` | -                      | Custom action button label                     |
+| `filterBarOnCustomButtonClick`   | `DrawerProps['filterAreaOnCustomButtonClick']` | -                    | Custom action button click callback            |
+| `filterBarOptions`               | `DrawerProps['filterAreaOptions']`       | -                          | Filter bar dropdown options; when non-empty, replaces the filter area button with a `DotHorizontalIcon`-triggered Dropdown |
+| `filterBarOnSelect`              | `DrawerProps['filterAreaOnSelect']`      | -                          | Filter bar dropdown select callback (only used when `filterBarOptions` is non-empty) |
+
+> **Note (breaking rename)**: as of the current source, all `filterArea*` props documented in older versions were renamed to `filterBar*` (e.g. `filterAreaShow` → `filterBarShow`). The `emptyNotificationIcon` prop and `renderFilterArea` render-prop no longer exist; `emptyNotificationDescription` is new.
 
 ---
 
