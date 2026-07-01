@@ -2,7 +2,7 @@
 
 Maps Figma design file components to React code.
 
-> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.1.0`, icons/system `1.0.2`). Last verified: 2026-04-24.
+> Baseline: `@mezzanine-ui/react` `1.4.1` · `@mezzanine-ui/core` `1.1.0` · `@mezzanine-ui/system` / `@mezzanine-ui/icons` `1.0.2`. Last verified: 2026-07-01.
 
 ## Table of Contents
 
@@ -142,7 +142,7 @@ curl -s -H "X-Figma-Token: $MEZZANINE_FIGMA_TOKEN" \
 
 ### Deprecation Notice
 
-The following components have been removed in v1.1.0 and are no longer available:
+The following components have been removed in v1.4.1 (deprecated since v1.1.0) and are no longer available from the main entry:
 
 - **ClearActions**: Removed. Implement close/clear buttons using a composition pattern.
 - **ContentHeader**: Removed. Use `PageHeader` + `Section` or custom header elements instead.
@@ -229,9 +229,9 @@ v2 uses a new variant naming system:
 | `Radio / Checked`              | `<Radio checked>`                        |
 | `RadioGroup`                   | `<RadioGroup>`                           |
 
-### Switch *(已廢棄 v1.1.0)*
+### Switch *(已移除 v1.4.1)*
 
-⚠️ Switch component has been removed in v1.1.0. Use Toggle instead.
+⚠️ Switch component has been removed in v1.4.1 (deprecated since v1.1.0). Use Toggle instead.
 
 | Figma Variant              | React Props                              |
 | -------------------------- | ---------------------------------------- |

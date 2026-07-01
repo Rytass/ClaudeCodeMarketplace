@@ -2,7 +2,7 @@
 
 Common UI pattern implementation examples.
 
-> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.1.0`, icons/system `1.0.2`). Last verified: 2026-04-24.
+> Baseline: `@mezzanine-ui/react` `1.4.1` · `@mezzanine-ui/core` `1.1.0` · `@mezzanine-ui/system` / `@mezzanine-ui/icons` `1.0.2`. Last verified: 2026-07-01.
 
 ## Table of Contents
 
@@ -11,6 +11,7 @@ Common UI pattern implementation examples.
 - [Table Patterns](#table-patterns)
 - [Dialog Patterns](#dialog-patterns)
 - [Navigation Patterns](#navigation-patterns)
+- [Positioning Patterns](#positioning-patterns)
 - [Loading States](#loading-states)
 - [Error Handling](#error-handling)
 - [Notifications](#notifications)
@@ -27,6 +28,10 @@ Common UI pattern implementation examples.
 2. **下方主要內容必須包一層 wrapper，套用與 PageHeader 相同的水平 padding** — 通常是 `padding-inline: var(--mzn-spacing-padding-horizontal-spacious)`，讓內容文字左緣對齊 PageHeader 的標題文字。
 
 ```tsx
+// ContentHeader 已於 1.4.1 從主入口移除，但 PageHeader / Section 仍要求其作為必要子元件，
+// 需改由 sub-path 匯入（詳見 references/components/ContentHeader.md 的 REMOVED 說明）
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
+
 // ✅ 正確：外層無 padding，PageHeader 直接貼邊；內容用 wrapper 對齊
 function ProductListPage() {
   return (
@@ -644,6 +649,62 @@ function TabNavigation() {
   );
 }
 ```
+
+---
+
+## Positioning Patterns
+
+### Viewport-aware Flip + Placement Tracking (Dropdown / Select / Popper, v1.2.0 – v1.4.0)
+
+`Dropdown`（v1.2.0+）與 `Select`（v1.4.0+，內部轉發至 `Dropdown`）都提供 opt-in `flip?: boolean` prop（預設 `false`）。啟用後選單在視窗邊緣空間不足時會沿主軸自動翻轉方向，且進場動畫會跟隨翻轉後的實際方向播放。`Popper` 則新增 `onPlacementChange` callback，可用來讀取 floating-ui 解析後的最終 placement（含 middleware 翻轉結果）。
+
+```tsx
+import { Select, Dropdown, Popper } from '@mezzanine-ui/react';
+import { useState } from 'react';
+import type { PopperPlacement } from '@mezzanine-ui/react';
+
+// Select 靠近視窗底部時自動往上翻轉
+function BottomAwareSelect() {
+  return (
+    <Select
+      flip
+      placeholder="Select type"
+      options={typeOptions}
+      value={value}
+      onChange={setValue}
+    />
+  );
+}
+
+// Dropdown 直接使用 flip，維持 sameWidth 對齊
+function FlippableDropdown() {
+  return (
+    <Dropdown flip sameWidth open={open}>
+      {/* DropdownItem ... */}
+    </Dropdown>
+  );
+}
+
+// Popper 監聽翻轉後的實際 placement，動態調整進場動畫方向
+function PlacementAwarePopper() {
+  const [placement, setPlacement] = useState<PopperPlacement>('bottom-start');
+
+  return (
+    <Popper
+      open={open}
+      anchorRef={anchorRef}
+      placement="bottom-start"
+      onPlacementChange={setPlacement}
+    >
+      <div data-enter-from={placement.startsWith('top') ? 'bottom' : 'top'}>
+        Floating content
+      </div>
+    </Popper>
+  );
+}
+```
+
+> `flip` 預設關閉以維持既有版位行為，僅在會出現在視窗邊緣（如表格分頁大小選單、底部工具列的 Select）的呼叫端才建議開啟。
 
 ---
 

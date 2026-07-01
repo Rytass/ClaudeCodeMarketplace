@@ -2,7 +2,7 @@
 
 Complete component API reference documentation.
 
-> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.1.0`, icons/system `1.0.2`). Last verified: 2026-04-24.
+> Baseline: `@mezzanine-ui/react` `1.4.1` · `@mezzanine-ui/core` `1.1.0` · `@mezzanine-ui/system` / `@mezzanine-ui/icons` `1.0.2`. Last verified: 2026-07-01.
 
 ## Table of Contents
 
@@ -573,20 +573,20 @@ Groups multiple Section components with consistent spacing.
 ```tsx
 import { SectionGroup, Section } from '@mezzanine-ui/react';
 
-// ContentHeader is removed as of v1.1.0 — pass title directly to Section or compose a custom header element
+// ContentHeader is removed from the main entry as of v1.4.1 — pass title directly to Section or compose a custom header element
 <SectionGroup direction="vertical">
   <Section title="Section 1">Content 1</Section>
   <Section title="Section 2">Content 2</Section>
 </SectionGroup>
 ```
 
-> **Note (v1.1.0)**: `ContentHeader` is removed. Pass `title` directly to `Section` or compose a custom header element.
+> **Note (v1.4.1)**: `ContentHeader` is removed from the main entry. Pass `title` directly to `Section` or compose a custom header element. `Section` / `PageHeader` still require `ContentHeader` internally — import it via the `@mezzanine-ui/react/ContentHeader` sub-path when composing with those two components.
 
 ---
 
-### ⚠️ ContentHeader *(已廢棄 v1.1.0)*
+### ⚠️ ContentHeader *(已移除 v1.4.1)*
 
-**Removed in v1.1.0**: ContentHeader is no longer exported. Use `PageHeader` + `Section` or custom elements for section headers.
+**Removed in v1.4.1** (deprecated since v1.1.0): No longer exported from the main entry. Use `PageHeader` + `Section` or custom elements for section headers. Still importable via `@mezzanine-ui/react/ContentHeader` sub-path — required internally by `Section`/`PageHeader`.
 
 ---
 
@@ -662,9 +662,9 @@ import { Toggle } from '@mezzanine-ui/react';
 
 ---
 
-### ⚠️ Switch *(已廢棄 v1.1.0)*
+### ⚠️ Switch *(已移除 v1.4.1)*
 
-**Removed in v1.1.0**: Use Toggle component instead.
+**Removed in v1.4.1** (deprecated since v1.1.0): Use Toggle component instead.
 
 ```tsx
 import { Switch } from '@mezzanine-ui/react';
@@ -697,6 +697,8 @@ const [value, setValue] = useState<SelectValue | null>(null);
 | Prop               | Type      | Default | Description                                               |
 | ------------------ | --------- | ------- | --------------------------------------------------------- |
 | `isForceClearable` | `boolean` | `false` | Force clear button display in multi-select mode (on SelectTrigger) |
+
+**v1.4.0**: New opt-in `flip?: boolean` prop (default `false`), forwarded to the underlying `Dropdown`. When enabled, the menu flips above the input near the bottom of the viewport while keeping its width and horizontal alignment with the anchor.
 
 ---
 
@@ -1232,10 +1234,13 @@ import { Popper } from '@mezzanine-ui/react';
   open={open}
   anchorRef={anchorRef}
   placement="bottom-start"
+  onPlacementChange={(resolved) => console.log(resolved)}
 >
   Floating content
 </Popper>
 ```
+
+> **v1.4.0**: New `onPlacementChange` callback — fires with the placement resolved by floating-ui, including middleware-driven flips (e.g. `flip()`).
 
 ---
 
@@ -1299,15 +1304,15 @@ import type { Notifier } from '@mezzanine-ui/react';
 
 > The following are internal components, exported only for advanced customization.
 
-### ⚠️ ClearActions *(已廢棄 v1.1.0)*
+### ⚠️ ClearActions *(已移除 v1.4.1)*
 
-**Removed in v1.1.0**: ClearActions component is no longer exported. Implement close/clear buttons using a composition pattern.
+**Removed in v1.4.1** (deprecated since v1.1.0): ClearActions component is no longer exported. Implement close/clear buttons using a composition pattern.
 
 ---
 
-### ⚠️ Scrollbar *(已廢棄 v1.1.0)*
+### ⚠️ Scrollbar *(已移除 v1.4.1)*
 
-**Removed in v1.1.0**: Scrollbar component is no longer exported. Use native scrolling or CSS custom scrollbar styles.
+**Removed in v1.4.1** (deprecated since v1.1.0): Scrollbar component is no longer exported. Use native scrolling or CSS custom scrollbar styles.
 
 ---
 
@@ -1345,7 +1350,14 @@ import {
   <DropdownItem value="option2">Option 2</DropdownItem>
   <DropdownAction onClick={handleAction}>Action</DropdownAction>
 </Dropdown>
+
+// v1.2.0+: opt-in viewport-aware flip (main-axis only, keeps sameWidth alignment)
+<Dropdown flip sameWidth open={open}>
+  <DropdownItem value="option1">Option 1</DropdownItem>
+</Dropdown>
 ```
+
+> **v1.2.0**: New opt-in `flip?: boolean` prop (default `false`). **v1.4.0**: enter-transition direction now follows the placement floating-ui actually resolves to after a flip.
 
 ---
 
