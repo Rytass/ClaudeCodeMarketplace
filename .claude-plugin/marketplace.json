@@ -30,6 +30,11 @@
       "description": "Google Workspace CLI operations via gws, GAM, and clasp. Gmail, Drive, Calendar, Sheets, Docs, Chat, Meet, Tasks, Forms, Admin."
     },
     {
+      "name": "mezzanine-ui-icon-creator",
+      "source": "./plugins/mezzanine-ui-icon-creator",
+      "description": "Create custom SVG icons that visually match the native @mezzanine-ui/icons set — style-locked authoring guide, IconDefinition scaffolding, and side-by-side verification workflow."
+    },
+    {
       "name": "protoforge",
       "source": "./plugins/protoforge",
       "description": "LLM-driven admin prototype generator. Reads project docs and generates interactive Next.js + mezzanine-ui admin prototypes with mock data."
