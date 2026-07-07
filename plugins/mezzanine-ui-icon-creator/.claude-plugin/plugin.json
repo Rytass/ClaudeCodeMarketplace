@@ -1,0 +1,19 @@
+{
+  "name": "mezzanine-ui-icon-creator",
+  "description": "Create custom SVG icons that visually match the native @mezzanine-ui/icons set. Provides a style-locked authoring guide (24px grid, filled solid style, keyshape sizes, path conventions) plus IconDefinition scaffolding and side-by-side verification workflow, so generated icons blend seamlessly with built-in Mezzanine icons.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "keywords": [
+    "mezzanine-ui",
+    "icons",
+    "svg",
+    "icon-design",
+    "design-system",
+    "react",
+    "angular"
+  ],
+  "author": {
+    "name": "Chia Yu Pai",
+    "email": "fantasyatelier@gmail.com"
+  }
+}
