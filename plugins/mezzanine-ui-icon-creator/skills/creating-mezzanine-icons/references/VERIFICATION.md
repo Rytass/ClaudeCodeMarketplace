@@ -15,12 +15,78 @@ substitute for rendering it.
 - [ ] Every notional stroke measures exactly 1.0 wide (spot-check: pick two edge
       coordinate pairs and subtract — axis-aligned diffs = 1.0 or 0.5×2;
       45° cap corners are 0.70703 apart per axis)
-- [ ] `fillRule`/`clipRule` present only if the shape genuinely needs evenodd holes
+- [ ] **Cap geometry**: every free-standing terminal is a flat butt cap whose face is
+      perpendicular to the stroke. For any arc/arc-band end, the closing segment must be
+      **radial** — its two endpoints share one polar angle about the arc centre (differ only
+      in radius). A cap whose endpoints have different angles is a skewed wedge → reject.
+      (This is the check that catches the classic "serif-looking" arc icon. See the script
+      below to verify it numerically.)
+- [ ] **Corner geometry**: container outer corners rounded 1.5u (kappa 0.82843); all other
+      joins sharp. No round line caps anywhere. A rounded container's inner knockout is
+      concentric-rounded (inner radius = outer − wall), not square.
+- [ ] **Winding**: `fillRule: 'evenodd'` only for genuine *separate* hole subpaths. A single
+      self-intersecting stroke glyph (bluetooth) must be **nonzero** (omit `fillRule`) —
+      evenodd would knock its crossings out to white.
+- [ ] **Overlap**: no two solids merged into a blob (needle-on-hub); overlapping symbols are
+      knocked out for separation.
+- [ ] **Even wall**: for a 1u outline of a complex silhouette, the wall is uniform — produced
+      by programmatic inset or a filled+knockout, never a hand-written inner contour.
+- [ ] **Semantic realism**: orientation matches physics/convention (hanging-tag eyelet at top,
+      shackle up, etc.).
 - [ ] Element clearance ≥ 1u between separate shapes
 - [ ] `name` kebab-case; export `PascalCase + Icon`; one icon per file
 - [ ] Detail budget: ≤ 3 conceptual elements; if more, simplify the metaphor
 
+Numeric cap check (run when the icon has any arc terminal — no rendering needed):
+
+```python
+import re, math
+# d = the path string; cx,cy = the arc's centre used to build the band
+def radial_caps_ok(d, cx, cy, tol=0.02):
+    prev = cur = None
+    for s in re.findall(r"[MLCZ][^MLCZ]*", d):
+        n = [float(x) for x in re.findall(r"-?\d+\.?\d*", s[1:])]
+        if s[0] == "M": cur = (n[0], n[1])
+        elif s[0] == "C": cur = (n[4], n[5])
+        elif s[0] == "L":                        # candidate radial cap
+            p = (n[0], n[1])
+            a0 = math.atan2(prev[1]-cy, prev[0]-cx)
+            a1 = math.atan2(p[1]-cy,  p[0]-cx)
+            if abs((a0-a1+math.pi) % (2*math.pi) - math.pi) > tol:
+                return False                     # skewed cap
+            cur = p
+        prev = cur
+    return True
+```
+
+If it returns `False`, an `L` closure is skewed — rebuild that arc band per PATH_RECIPES §4b.
+
 ## Gate 2 — Side-by-side render (mandatory)
+
+You **must actually look at the rendered pixels** — path math being correct is not enough
+(an even wall, a merged blob, a white-gashed crossing, a wrong-way tag all pass the static
+checks but fail on sight). Two ways to look; use whichever is available.
+
+### Gate 2a — Offline render (preferred; no browser needed)
+
+When a browser/screenshot tool is unavailable or flaky, render the SVG to PNG on disk and
+read the image directly. This is the most reliable path and works headless:
+
+```bash
+# one icon -> PNG (fill uses a concrete color so it shows; currentColor renders black otherwise)
+printf '%s' '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill="#1F2A37" d="D_HERE"/></svg>' > /tmp/ic.svg
+rsvg-convert -w 128 -h 128 -b white /tmp/ic.svg -o /tmp/ic.png     # or: inkscape, resvg, cairosvg
+
+# tile the candidate next to native neighbors for comparison
+montage cand.png native1.png native2.png -tile 3x1 -geometry +8+8 -background '#e8e8e8' /tmp/cmp.png
+```
+
+Then open the PNG with the Read/image tool and inspect at ~128–320 px. Render each candidate
+solo at ~280 px too, to catch wall-thickness unevenness, merged solids, skewed caps, and
+knockout gashes that vanish at small sizes. (`montage` label text needs ghostscript; if `gs`
+is missing the tiles still combine — ignore the label warnings.)
+
+### Gate 2b — Browser harness
 
 Write the harness below to a temp file, paste the candidate `IconDefinition`(s) and 3–4
 native neighbors (from NATIVE_EXAMPLES.md, ideally the same archetype), open it in a

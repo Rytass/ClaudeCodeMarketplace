@@ -97,30 +97,85 @@ exceed 14 because the visual mass still sits inside the live area).
 - **Equivalent stroke width: exactly 1u.** Confirmed across the set: `chevron-down` V-bar
   1.0, `close` diagonals 1.0, `trash` container walls 1.0, `checked-outline` ring 1.0
   (outer r6, inner r5), `search` handle 1.0.
-- **Caps and joins: square** (butt caps, miter-like corner cuts). The set does not round
-  line-work terminals. Do not import Lucide/Feather-style round caps.
+- **Terminals: flat butt cap, but the cap face must be *perpendicular to the stroke
+  direction* (for an arc, that means *radial* — the face points at the arc's center).**
+  The native set does not round terminals, but the cap face is never skewed either. This
+  distinction is the single most common source of "off" custom icons — a skewed or
+  wedge-shaped cap reads as a serif-like flourish and breaks the clean sans-serif feel.
+  - Straight stroke → cap is a straight segment perpendicular to the stroke axis
+    (`plus`: `H13V8.5H8.5` — the `V8.5` face is perpendicular to the horizontal bar).
+  - Arc / arc-band → each open end is closed with a **radial straight line** from the outer
+    radius to the inner radius. Native proof: `spinner` is a 3/4-circle band whose ends are
+    `...8 2V3...` and `...3 8H2...` — the `V3` and `H2` are exactly those radial butt caps.
+    `refresh-cw`, `reverse-left`, and `reset` all terminate their arcs the same way (radial
+    flat cap, often meeting a solid arrowhead).
+  - **Never** close an arc band by running a curve straight from the outer-radius endpoint
+    into the inner arc — that produces a slanted wedge (the classic mistake). Insert an
+    explicit `L` to the inner-radius point at the same angle first. See PATH_RECIPES.md §4.
+  - Do not import Lucide/Feather-style *round* caps — those belong to a stroke-based system,
+    not this fill-only one.
+- **Joins: sharp** where two straight strokes meet at an interior angle (chevron vertex,
+  plus/close crossings). Container *outer* corners are the exception — they are rounded 1.5u
+  (see §5). Inner corners of a knockout stay sharp.
 - **Clearance**: keep ≥ 1u between separate elements (e.g. `trash` inner ticks vs walls).
 - **Inner detail lines** are also 1u (`file` text lines, `trash` ticks 6.1..7.1 = 1.0 wide).
 - **Angles**: 90° and 45° dominate; use 15° increments only when the metaphor demands it.
 
 ## 5. Corners and curves
 
-- **Container corner radius: 1.5u**, drawn as a kappa-scaled Bézier corner
-  (`file` rect: corner from `11.5 → 13` over `2 → 3.5`, radius 1.5). See PATH_RECIPES.md.
-- **Line-work corners are square** — no radius on chevrons, plus, close, etc.
+- **Container OUTER corner radius: 1.5u**, drawn as a kappa-scaled Bézier corner
+  (kappa offset 1.5 × 0.55228 = 0.82843). Native evidence: `file` outer shell corner
+  `11.5 → 13` over `2 → 3.5`; `folder` `...C7.44353 3 7.917 3.2575...` and `...14 5.17157 14 6`;
+  `upload` bottom tray corners `...13.9941 13.3294 13.3226 14.001 12.4941 14.001`. This
+  rounding is what gives the set its soft, sans-serif silhouette — apply it to every
+  free-standing container outline (card, badge, panel, tray).
+- **Everything that is not a container outer corner stays sharp**: chevrons, plus, close,
+  the interior corners of a knockout, and arrow heads all use unrounded joins.
 - **Circles**: 4 cubic Béziers, kappa = 0.55228 × radius. Native example (`checked-filled`,
   center 8,8 r6): control offset 6 × 0.55228 = 3.31371, producing the signature
   `4.68629` / `11.3137` coordinates.
 
-## 6. Hollow shapes (rings, knockouts)
+Quick reference — where each treatment applies:
 
-Two native techniques — pick one, don't mix within a shape:
+| Feature                              | Treatment                        | Native anchor            |
+| ------------------------------------ | -------------------------------- | ------------------------ |
+| Free-standing straight terminal      | butt cap ⟂ to stroke axis        | `plus`, `setting`        |
+| Open arc / arc-band terminal         | radial straight (`L`/`V`/`H`) cap| `spinner`, `refresh-cw`  |
+| Container outer corner               | rounded 1.5u (kappa 0.82843)     | `file`, `folder`, `upload` |
+| Two straight strokes meeting         | sharp join                       | `chevron-down`, `close`  |
+| Interior corner of a knockout        | sharp                            | `file` inner rect        |
+
+## 6. Hollow shapes, winding, and overlaps
+
+Two native techniques for a hole — pick one, don't mix within a shape:
 
 1. **Opposite winding** (preferred for simple containers): draw the outer subpath clockwise
    and the inner subpath counter-clockwise in the same `d`; nonzero fill leaves the hole.
    No `fillRule` needed (`file`, `folder`, `box` use this).
 2. **evenodd**: set `fillRule: 'evenodd'` (add `clipRule: 'evenodd'` alongside) and draw
    both subpaths in any direction (`eye`, `caret-down-flat` use this).
+
+**When NOT to use evenodd — self-intersecting stroke glyphs.** A single continuous 1u outline
+that crosses over itself (bluetooth rune, a knot) must fill with **nonzero** (omit `fillRule`).
+Under evenodd the self-crossings knock out to white — the tell-tale white gashes at a glyph's
+junctions. Rule of thumb: evenodd is for *separate* hole subpaths; nonzero is for *one*
+outline that may overlap itself.
+
+**Concentric inner knockout.** If the outer boundary is a rounded container, its inner
+knockout should be **concentric-rounded** (inner radius = outer − wall), not square. A rounded
+outer against a sharp inner reads as uncoordinated (see PATH_RECIPES §5).
+
+**Overlapping solids need separation.** Two filled elements that overlap and share winding
+merge into a single blob. Where a symbol sits on a solid (a gauge needle on its hub, a dot on
+a badge) knock out to separate them — the native `checked-filled` knocks the check out of the
+disc; a gauge pivot is cleanest as a **donut hub** with the needle leaving from its edge.
+
+## 6b. Semantic realism
+
+Geometry can be perfect and the icon still wrong if it defies real-world intuition. A hanging
+tag's eyelet belongs at the **top** (that's where the string goes); a padlock's shackle is up,
+a power plug's prongs point the way they insert, light radiates outward. Before finalizing,
+sanity-check the metaphor against physics and convention, not just the grid.
 
 ## 7. Coordinate precision
 

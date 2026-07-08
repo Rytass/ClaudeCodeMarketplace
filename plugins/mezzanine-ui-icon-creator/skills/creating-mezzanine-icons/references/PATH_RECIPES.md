@@ -80,6 +80,30 @@ Native r5 hole (CCW, from `checked-outline`):
 symbol subpaths (CW) after the hole — they paint on top of the knocked-out interior.
 This is exactly `checked-outline`'s structure. No `fillRule` needed.
 
+## 4b. Open arc band (partial ring — wifi, signal, gauge, spinner)
+
+An open arc of 1u thickness is a filled band: outer arc (radius r+0.5) forward, then inner
+arc (radius r−0.5) back — **but the two open ends MUST be closed with a radial straight
+segment**, or the fill slants into a wedge that looks like a serif flourish (the #1 mistake).
+
+Build, for centre `(cx,cy)`, mid-radius `r`, from angle `a0` to `a1`:
+
+1. `M` to the outer start `(cx + (r+0.5)cos a0, cy + (r+0.5)sin a0)`.
+2. Outer arc forward `a0 → a1` at radius `r+0.5` (cubic-bezier arc, §3 method).
+3. **`L` to the inner point at the SAME end angle** `(cx + (r−0.5)cos a1, cy + (r−0.5)sin a1)`
+   — this is the radial butt cap at the `a1` end.
+4. Inner arc back `a1 → a0` at radius `r−0.5`.
+5. `Z` — the closing segment is automatically radial (both ends share angle `a0`), giving the
+   `a0` cap for free.
+
+Native proof this is the house style: `spinner` closes its arc ends with `V3` and `H2`
+(axis-aligned because its ends happen to sit at 12- and 9-o'clock); those are the radial caps
+for that geometry. `refresh-cw` / `reset` do the same before meeting their arrowheads.
+
+Verify: the `L` (step 3) and the implicit `Z` (step 5) must each connect two points that lie
+on the **same ray from `(cx,cy)`** — i.e. identical polar angle, differing only in radius. If
+the two endpoints of a cap have different angles, the cap is skewed → rebuild it.
+
 ## 5. Rounded container (1.5u corners)
 
 Rect from `(x1,y1)` to `(x2,y2)`, radius 1.5, kappa offset 0.82843. Top-right corner
@@ -98,6 +122,39 @@ M11.5 2C12.3284 2 13 2.67157 13 3.5V12.5C13 13.3284 12.3284 14 11.5 14H4.5C3.671
 
 Wall thickness = 1u (outer 3..13, inner 4..12). Inner content lines are separate 1u
 rect subpaths with ≥1u clearance from the walls.
+
+**Inner knockout radius.** When the hollow itself is a prominent shape (a battery cell, a
+card window), round the inner knockout **concentrically**: inner radius = outer radius − wall
+(e.g. outer 1.5u, 1u wall → inner 0.5u). A rounded outer with a square-cornered inner reads
+as uncoordinated. (Native `file` gets away with a sharp inner only because its hollow is
+almost entirely covered by content lines — when the hollow is visible, round it.)
+
+## 5b. Outlining a complex silhouette (tag, pin, shield)
+
+**Never hand-write the inner contour of a 1u outline.** Guessed inner coordinates give a wall
+that is thick in some places and thin in others — the classic amateur tell. Two reliable ways:
+
+1. **Programmatic polygon inset** — offset every outer edge inward by 1u along its inward
+   normal, then intersect consecutive offset lines to get the inner vertices; round matching
+   corners with (outer_r − 1). Deterministic, exactly-even wall.
+2. **Filled silhouette + knockout hole** — skip the inner wall entirely: draw the shape as a
+   solid fill and knock out only the functional holes (a tag's eyelet). Simpler and immune to
+   wall-thickness error; pairs well with the filled members of the set (moon, caret).
+
+**45° placement.** For pointed objects, build the shape axis-aligned first, then bake a ±45°
+rotation about (8,8) into every coordinate — `(x,y) → (8 + dx·cosθ − dy·sinθ, 8 + dx·sinθ +
+dy·cosθ)`. This is NOT a `transform` attribute (which is banned); the rotated numbers are
+written straight into `d`. Orient for physical sense: a hanging tag's eyelet ends up at the
+**top** (rotate so tip + hole land upper-left, body trailing to lower-right).
+
+## 5c. Overlapping symbol on a solid (needle-on-hub, dot-on-badge)
+
+Two solids that overlap and share the same winding merge into one blob. To separate them,
+knock out. For a pivot (gauge needle on a hub) the clean pattern is a **donut hub**: a solid
+disc with a small concentric hole (outer circle CW + inner circle CCW), with the needle
+emerging from the hub's **edge** (needle base at the rim, not buried through the centre). The
+white hole reads as the pivot; the needle stays distinct. Do not simply lay a solid needle
+across a solid dot.
 
 ## 6. Arrows
 
@@ -126,9 +183,14 @@ To point another direction, rotate all coordinates 90°/180° around (8,8)
 1. One `d` string; subpaths concatenated as `...Z M...` (single space, no commas between subpaths).
 2. Winding: positive shapes CW, holes CCW. Use `fillRule: 'evenodd'` + `clipRule: 'evenodd'`
    only when winding control is impractical (e.g. reusing symmetric subpath code).
-3. Command vocabulary: `M L H V C Z` only (matches the native set — no `A`, `Q`, `S`, `T`,
+3. **Self-intersecting stroke glyphs use nonzero, not evenodd.** A single 1u outline that
+   crosses over itself (bluetooth rune, knots, figure-8s) fills solid under nonzero (omit
+   `fillRule`) but knocks its own crossings out to white under evenodd. Reserve evenodd for
+   genuine holes/rings where the subpaths do not self-cross. Rule of thumb: evenodd = "I have
+   separate hole subpaths"; nonzero = "one continuous outline that may overlap itself".
+4. Command vocabulary: `M L H V C Z` only (matches the native set — no `A`, `Q`, `S`, `T`,
    no relative commands).
-4. Round every computed value to ≤5 decimals; keep straight-line coords on integers/halves.
+5. Round every computed value to ≤5 decimals; keep straight-line coords on integers/halves.
 
 ## 9. Porting an icon from a 24-grid reference set
 

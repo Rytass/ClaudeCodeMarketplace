@@ -25,10 +25,13 @@ Violating any row makes the icon rejectable. Full details and rationale: [refere
 | Equivalent stroke   | **1 unit** (in the 16-grid) for all line work                      |
 | Live area           | 12×12 (inset 2 from each edge); tallest/widest elements may reach 2..14 |
 | Keyshapes           | Circle Ø12 (2..14) · Square ≈11 (2.5..13.5) · Rect 12×10 / 10×12   |
-| Corner radius       | Containers 1.5u; line work meets at square (unrounded) joins       |
+| Terminals (caps)    | Flat butt cap whose face is **⟂ to the stroke** — for arcs that means a **radial** straight `L`/`V`/`H` closure. Never a skewed/wedge cap, never round caps |
+| Corner radius       | Container **outer** corners 1.5u (kappa 0.82843); every other join (line work, arrow heads, knockout interiors) is **sharp**. A rounded container's **inner** knockout must be **concentric-rounded** (inner radius = outer − wall), never sharp against a rounded outer |
 | Circles             | 4 cubic Béziers with kappa `0.55228` — never approximate           |
-| Hollow shapes       | `fillRule: 'evenodd'` + `clipRule: 'evenodd'`, or opposite subpath winding |
-| Forbidden           | `transform`, `<use>`, filters, hardcoded colors, `width`/`height` on svg |
+| Hollow shapes       | Ring/hole: `fillRule: 'evenodd'` (+ `clipRule`), or opposite subpath winding. A **self-intersecting stroke glyph** (e.g. bluetooth) must use **nonzero** (omit `fillRule`) so the crossings fill solid — evenodd knocks them out to white |
+| Overlapping solids  | When a solid symbol sits on another solid (needle on hub, badge dot), **knock out** for separation — e.g. a donut hub (ring) so the pivot reads, not a merged blob |
+| Semantic realism    | Match physical intuition: a hanging tag's eyelet goes at the **top**; switches, gravity, light sources follow real-world orientation |
+| Forbidden           | `transform` attribute, `<use>`, filters, hardcoded colors, `width`/`height` on svg. (Baking a rotation into the coordinates — e.g. a 45° tag — is fine; the `transform` *attribute* is what's banned) |
 | Decimal precision   | ≤ 5 decimals; straight lines on integers or halves (x.5)           |
 
 ## Workflow
@@ -41,7 +44,14 @@ Match the new icon to one of the native archetypes so it inherits proven geometr
 - **Filled badge** (checked-filled, star-filled) — solid keyshape, optional knockout symbol
 - **Ring/outline badge** (checked-outline) — Ø12 circle with 1u ring + inner symbol
 - **Container + content** (file, folder, calendar) — 1.5u-radius rounded rect + inner 1u details
+- **Open arc band** (spinner, gauge, wifi) — 1u band with radial caps (PATH_RECIPES §4b)
 - **Arrow** (long-tail / short-tail / caret) — canonical head+shaft dimensions
+
+For a **pointed** object (tag, pin, price label) a **45° placement** often reads better and
+uses the keyshape more evenly than an axis-aligned one — bake the rotation into the
+coordinates (never a `transform` attribute), and orient it to match physical intuition
+(hanging-tag eyelet at the top). Balance the keyshape: even wall/optical weight matters as
+much as the silhouette.
 
 ### 2. Construct the path deterministically
 
@@ -95,7 +105,25 @@ Do not report the icon as done until the side-by-side render has actually been p
 - Equivalent stroke ≠ 1u (usually from copying a 24-grid icon without rescaling)
 - Freehand Béziers instead of kappa circles → lumpy curves next to perfect native circles
 - More detail density than natives → icon reads "darker" in a row of icons
-- Rounded line caps/joins — the native set uses **square** cuts on line work
+- **Skewed / wedge-shaped arc terminals** — the top cause of a "serif-like, doesn't-belong"
+  look. An open arc band closed by curving straight into the inner radius produces a slanted
+  face. Close every arc end with a **radial** `L`/`V`/`H` segment (PATH_RECIPES §4b); the two
+  endpoints of each cap must share one polar angle. Native `spinner` is the reference.
+- Rounding the wrong corners — round **only** container outer corners (1.5u); line-work
+  joins, arrow heads, and knockout interiors stay sharp. Conversely, do not leave a container
+  outer corner square when the natives round it.
+- **Sharp inner knockout inside a rounded container** — a battery/card whose outer corners
+  are rounded but whose inner hollow is a square-cornered rect looks uncoordinated. Round the
+  inner knockout concentrically (inner radius = outer − wall). (PATH_RECIPES §5)
+- **Hand-writing the inner contour of a 1u outline** — for any complex silhouette (tag, pin,
+  shield), a hand-guessed inner path gives uneven wall thickness. Use a programmatic polygon
+  inset, or switch to a filled silhouette + knockout hole. (PATH_RECIPES §5b)
+- **Two solids merged into a blob** — a needle sitting on a hub, or any symbol overlapping a
+  filled element, with no knockout reads as one lump. Knock out for separation (donut hub).
+- **evenodd on a self-intersecting stroke** — a glyph whose 1u outline crosses itself
+  (bluetooth) knocks its crossings out to white under evenodd. Use nonzero (omit `fillRule`).
+- **Semantically wrong orientation** — e.g. a hanging tag with its eyelet at the bottom. Match
+  real-world physics; verify the metaphor, not just the geometry.
 - Shape drawn to the full 16×16 canvas instead of the 12×12 live area
 - Keeping a live `stroke` attribute → breaks `currentColor` theming and scale consistency
 
