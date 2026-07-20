@@ -6,24 +6,30 @@ Rytass Claude Code Plugin Marketplace — a multi-plugin repository providing fu
 
 ```
 ClaudeCodeMarketplace/
-├── plugins/                          # All plugins live here
-│   ├── project-rule/                 # Full-stack architecture patterns (v0.3.1)
-│   ├── boilerplate/                  # Project bootstrapper (v0.1.0)
-│   ├── react-performance/            # React/Next.js perf rules (v0.1.0)
-│   ├── google-workspace-cli/         # Google Workspace CLI ops (v0.1.0)
-│   └── protoforge/                   # Admin prototype generator (v0.2.0)
-├── .mcp.json                         # MCP server registration (architecture-inspector)
-├── README.md                         # Marketplace installation guide
-└── CLAUDE.md                         # This file
+├── .claude-plugin/
+│   └── marketplace.json          # Plugin registry (source of truth)
+├── plugins/                      # All plugins live here
+│   ├── project-rule/             # Full-stack architecture patterns
+│   ├── mezzanine-ui/             # Mezzanine-UI skills (React + Angular) + sync
+│   ├── mezzanine-ui-icon-creator/# Custom SVG icon authoring for Mezzanine
+│   ├── protoforge/               # Admin prototype generator
+│   ├── boilerplate/              # Project bootstrapper
+│   ├── react-performance/        # React/Next.js perf rules
+│   └── google-workspace-cli/     # Google Workspace CLI ops
+├── .mcp.json                     # MCP server registration (architecture-inspector)
+├── README.md                     # Marketplace installation guide
+└── CLAUDE.md                     # This file
 ```
 
 Each plugin is **self-contained** under `plugins/<name>/` with its own `.claude-plugin/plugin.json` manifest.
+
+Versions are **not** listed here — read them from each plugin's `plugin.json`. Every plugin must also be registered in `.claude-plugin/marketplace.json`, otherwise Claude Code cannot discover it.
 
 ## Git Conventions
 
 - **Commit style**: commitlint convention, written in **English**
 - **Scope format**: `type(scope): description`
-  - Scopes: plugin name (`project-rule`, `boilerplate`, `react-performance`, `google-workspace-cli`) or `marketplace`
+  - Scopes: plugin directory name (e.g. `project-rule`, `mezzanine-ui`, `mezzanine-ui-icon-creator`, `protoforge`, `boilerplate`, `react-performance`, `google-workspace-cli`) or `marketplace`
   - Types: `feat`, `fix`, `docs`, `chore`, `refactor`, `style`, `test`
 - **Atomic commits**: Split changes by scope — each commit should be self-contained and represent a single logical change
 - **Never** commit/push without explicit user instruction
