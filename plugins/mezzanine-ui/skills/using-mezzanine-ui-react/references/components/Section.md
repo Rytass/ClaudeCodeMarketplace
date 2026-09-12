@@ -91,7 +91,7 @@ function BasicSection() {
 ### With FilterArea
 
 ```tsx
-import { Section, FilterArea } from '@mezzanine-ui/react';
+import { Filter, FilterArea, FilterLine, FormField, Input, Section } from '@mezzanine-ui/react';
 import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 
 function SectionWithFilter() {
@@ -100,7 +100,13 @@ function SectionWithFilter() {
       contentHeader={<ContentHeader title="Product Management" />}
       filterArea={
         <FilterArea>
-          {/* Filter criteria content */}
+          <FilterLine>
+            <Filter>
+              <FormField name="query" label="Keyword">
+                <Input placeholder="Search" />
+              </FormField>
+            </Filter>
+          </FilterLine>
         </FilterArea>
       }
     >
@@ -144,7 +150,16 @@ function SectionWithTabs() {
 ### Full Composition
 
 ```tsx
-import { Section, FilterArea, Tab, TabItem } from '@mezzanine-ui/react';
+import {
+  Filter,
+  FilterArea,
+  FilterLine,
+  FormField,
+  Input,
+  Section,
+  Tab,
+  TabItem,
+} from '@mezzanine-ui/react';
 import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 
 function FullSection() {
@@ -158,7 +173,13 @@ function FullSection() {
       }
       filterArea={
         <FilterArea>
-          {/* Date range, status filters, etc. */}
+          <FilterLine>
+            <Filter>
+              <FormField name="query" label="Keyword">
+                <Input placeholder="Search" />
+              </FormField>
+            </Filter>
+          </FilterLine>
         </FilterArea>
       }
       tab={

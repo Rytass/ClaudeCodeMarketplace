@@ -258,7 +258,7 @@ Mezzanine 的元件名反映**實作結構**，不是使用者概念：
 
 ```markdown
 > **Aliases** — Chip (MUI) · Tag (Ant Design) · Label · Pill · 標籤 · 分類標籤
-> **Not for** — 狀態呈現（用 [`Badge variant="dot-*"`](Badge.md)）
+> **Not for** — 狀態呈現（用 [`Badge variant="dot-*"`](components/Badge.md)）
 ```
 
 - `Aliases` 收**其他設計系統的慣用名、Figma 元件名、中文口語名**。目的是讓全文搜尋命中 —— agent 與新進工程師都是從 UI 概念出發去找元件的。

@@ -177,7 +177,6 @@ function AppWithRightPanel(): JSX.Element {
             <Table
               columns={columns}
               dataSource={data}
-              onRow={(record) => ({ onClick: () => handleItemClick(record) })}
             />
           </main>
         </div>
@@ -345,6 +344,7 @@ function SearchForm() {
 
 ```tsx
 import { Table, Badge, Button, Modal } from '@mezzanine-ui/react';
+import type { TableColumn } from '@mezzanine-ui/react';
 import { useState } from 'react';
 
 function DataTable() {
@@ -357,14 +357,15 @@ function DataTable() {
     }
   };
 
-  const columns = [
+  const columns: TableColumn<DataItem>[] = [
     {
+      key: 'name',
       title: 'Name',
       dataIndex: 'name',
     },
     {
+      key: 'status',
       title: 'Status',
-      dataIndex: 'status',
       // 狀態欄用 Badge 的 dot-* + text，不是 Tag —— Tag 沒有語意色，
       // 且表格狀態欄用圓點才不會與同列的 text-link 操作按鈕混淆。
       // 見 references/components/Badge.md → 表格狀態欄用 dot-*
@@ -376,13 +377,14 @@ function DataTable() {
       ),
     },
     {
+      key: 'createdAt',
       title: 'Created At',
-      dataIndex: 'createdAt',
-      render: (date: string) => new Date(date).toLocaleDateString(),
+      render: (record: DataItem) => new Date(record.createdAt).toLocaleDateString(),
     },
     {
+      key: 'actions',
       title: 'Actions',
-      render: (_: unknown, record: DataItem) => (
+      render: (record: DataItem) => (
         <div style={{ display: 'flex', gap: 8 }}>
           <Button
             variant="base-text-link"
@@ -441,6 +443,7 @@ function SelectableTable() {
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
   const rowSelection: TableRowSelection = {
+    mode: 'checkbox',
     selectedRowKeys: selectedKeys,
     onChange: (keys) => setSelectedKeys(keys as string[]),
   };
@@ -476,22 +479,12 @@ function SelectableTable() {
 ### Table with Pagination
 
 ```tsx
-import { Table, Pagination, usePagination } from '@mezzanine-ui/react';
+import { Table, Pagination } from '@mezzanine-ui/react';
 
 function PaginatedTable() {
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const pagination = usePagination({
-    total,
-    pageSize: 10,
-    current: currentPage,
-    onChange: (page) => {
-      setCurrentPage(page);
-      fetchData(page, 10);
-    },
-  });
 
   useEffect(() => {
     fetchData(1, 10);
@@ -501,7 +494,15 @@ function PaginatedTable() {
     <div>
       <Table columns={columns} dataSource={data} />
       <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>
-        <Pagination {...pagination} />
+        <Pagination
+          total={total}
+          pageSize={10}
+          current={currentPage}
+          onChange={(page) => {
+            setCurrentPage(page);
+            fetchData(page, 10);
+          }}
+        />
       </div>
     </div>
   );
@@ -592,10 +593,6 @@ function FormModal({ open, onClose, onSubmit }) {
 ```tsx
 import {
   Drawer,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  Button,
   Description,
   DescriptionGroup,
   DescriptionContent,
@@ -603,29 +600,28 @@ import {
 
 function DetailDrawer({ open, onClose, data }) {
   return (
-    <Drawer open={open} onClose={onClose}>
-      <DrawerHeader title="Item Details" />
-      <DrawerBody>
-        <DescriptionGroup>
-          <Description title="Name">
-            <DescriptionContent>{data?.name}</DescriptionContent>
-          </Description>
-          <Description title="Status">
-            <DescriptionContent>{data?.status}</DescriptionContent>
-          </Description>
-          <Description title="Created At">
-            <DescriptionContent>{data?.createdAt}</DescriptionContent>
-          </Description>
-        </DescriptionGroup>
-      </DrawerBody>
-      <DrawerFooter>
-        <Button variant="base-secondary" onClick={onClose}>
-          Cancel
-        </Button>
-        <Button variant="base-primary" onClick={() => handleEdit(data)}>
-          Edit
-        </Button>
-      </DrawerFooter>
+    <Drawer
+      open={open}
+      onClose={onClose}
+      isHeaderDisplay
+      headerTitle="Item Details"
+      isBottomDisplay
+      bottomSecondaryActionText="Cancel"
+      bottomOnSecondaryActionClick={onClose}
+      bottomPrimaryActionText="Edit"
+      bottomOnPrimaryActionClick={() => handleEdit(data)}
+    >
+      <DescriptionGroup>
+        <Description title="Name">
+          <DescriptionContent>{data?.name}</DescriptionContent>
+        </Description>
+        <Description title="Status">
+          <DescriptionContent>{data?.status}</DescriptionContent>
+        </Description>
+        <Description title="Created At">
+          <DescriptionContent>{data?.createdAt}</DescriptionContent>
+        </Description>
+      </DescriptionGroup>
     </Drawer>
   );
 }
@@ -653,7 +649,7 @@ function SideNavigation() {
 
   return (
     <Navigation>
-      <NavigationHeader>
+      <NavigationHeader title="Acme">
         <img src="/logo.svg" alt="Logo" />
       </NavigationHeader>
 
@@ -682,7 +678,10 @@ function SideNavigation() {
       </NavigationOptionCategory>
 
       <NavigationFooter>
-        <NavigationUserMenu imgSrc="/avatar.png" />
+        <NavigationUserMenu
+          imgSrc="/avatar.png"
+          options={[{ id: 'logout', name: 'Log out' }]}
+        />
       </NavigationFooter>
     </Navigation>
   );
@@ -725,7 +724,7 @@ function TabNavigation() {
 > **v1.5.0 新增 `shift?: boolean`**（預設 `false`，與 `flip` 同為 opt-in）— 處理的是跟 `flip` 不同的軸向問題：`flip` 解決「主軸空間不夠、整個選單要翻到另一側」，`shift` 解決「選單貼近視窗**橫向**邊界時被裁切」（例如表格最後一欄的 row-action 選單）。兩者可同時開啟、互不衝突，`Dropdown` 內部會依 floating-ui 建議自動排序（`flip` 再 `shift`）。`Table` 的 dropdown 型 row action 已內部預設開啟 `shift`；一般呼叫端仍要自行傳入 `shift` 才會生效。
 
 ```tsx
-import { Select, Dropdown, Popper } from '@mezzanine-ui/react';
+import { Button, Select, Dropdown, Popper } from '@mezzanine-ui/react';
 import { useState } from 'react';
 import type { PopperPlacement } from '@mezzanine-ui/react';
 
@@ -745,8 +744,8 @@ function BottomAwareSelect() {
 // Dropdown 直接使用 flip，維持 sameWidth 對齊
 function FlippableDropdown() {
   return (
-    <Dropdown flip sameWidth open={open}>
-      {/* DropdownItem ... */}
+    <Dropdown flip sameWidth open={open} options={options}>
+      <Button>Open menu</Button>
     </Dropdown>
   );
 }
@@ -758,8 +757,8 @@ function PlacementAwarePopper() {
   return (
     <Popper
       open={open}
-      anchorRef={anchorRef}
-      placement="bottom-start"
+      anchor={anchorRef}
+      options={{ placement: 'bottom-start' }}
       onPlacementChange={setPlacement}
     >
       <div data-enter-from={placement.startsWith('top') ? 'bottom' : 'top'}>

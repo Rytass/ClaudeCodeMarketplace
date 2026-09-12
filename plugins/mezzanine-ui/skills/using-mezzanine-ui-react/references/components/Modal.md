@@ -220,6 +220,7 @@ function BasicModal() {
       <Modal
         open={open}
         onClose={() => setOpen(false)}
+        modalType="standard"
         showModalHeader
         title="Dialog Title"
         showModalFooter
@@ -515,7 +516,7 @@ Extends `ModalContainerProps` (excluding `children`).
 | `disableNext`                  | `boolean`                        | `false` | Disable next page        |
 | `disablePrev`                  | `boolean`                        | `false` | Disable previous page    |
 | `enableCircularNavigation`     | `boolean`                        | `false` | Enable circular navigation |
-| `mediaItems`                   | `(string \| React.ReactNode)[]`  | -       | Media item list          |
+| `mediaItems`                   | `(string \| React.ReactNode)[]`  | required | Media item list        |
 | `onIndexChange`                | `(index: number) => void`        | -       | Index change callback    |
 | `onNext`                       | `() => void`                     | -       | Next page callback       |
 | `onPrev`                       | `() => void`                     | -       | Previous page callback   |

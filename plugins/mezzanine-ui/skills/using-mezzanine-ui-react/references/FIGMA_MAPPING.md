@@ -205,8 +205,8 @@ v2 uses a new variant naming system:
 | -------------------------- | ---------------------------------------- |
 | `Input / Size=Main`       | `<Input size="main">`                    |
 | `Input / Size=Sub`        | `<Input size="sub">`                     |
-| `TextField / Prefix`      | `<TextField prefix={<SearchIcon />}>`    |
-| `TextField / Suffix`      | `<TextField suffix={<CloseIcon />}>`     |
+| `TextField / Prefix`      | `<TextField prefix={<Icon icon={SearchIcon} />}>` |
+| `TextField / Suffix`      | `<TextField suffix={<Icon icon={CloseIcon} />}>`  |
 | `TextField / Error`       | `<TextField error>`                      |
 
 ### Select
@@ -286,10 +286,10 @@ Figma 裡叫 **`Segmented Control`**，程式碼裡是 **`Radio` 的 `segment` �
 
 | Figma Variant              | React Props                                              |
 | -------------------------- | -------------------------------------------------------- |
-| `Drawer / Right`           | `<Drawer><DrawerHeader title="Title" /><DrawerBody>...</DrawerBody></Drawer>` |
-| `Drawer / Left`            | `<Drawer><DrawerHeader title="Title" /><DrawerBody>...</DrawerBody></Drawer>` |
-| `Drawer / Top`             | `<Drawer><DrawerHeader title="Title" /><DrawerBody>...</DrawerBody></Drawer>` |
-| `Drawer / Bottom`          | `<Drawer><DrawerHeader title="Title" /><DrawerBody>...</DrawerBody></Drawer>` |
+| `Drawer / Right`           | `<Drawer isHeaderDisplay headerTitle="Title">...</Drawer>` |
+| `Drawer / Left`            | Drawer is fixed to the right; no `placement` prop |
+| `Drawer / Top`             | Drawer is fixed to the right; no `placement` prop |
+| `Drawer / Bottom`          | Drawer is fixed to the right; no `placement` prop |
 
 ### Navigation
 
@@ -345,10 +345,10 @@ Figma 裡叫 **`Segmented Control`**，程式碼裡是 **`Radio` 的 `segment` �
 
 | Figma Variant              | React Props                              |
 | -------------------------- | ---------------------------------------- |
-| `Tooltip / Top`            | `<Tooltip placement="top">`              |
-| `Tooltip / Bottom`         | `<Tooltip placement="bottom">`           |
-| `Tooltip / Left`           | `<Tooltip placement="left">`             |
-| `Tooltip / Right`          | `<Tooltip placement="right">`            |
+| `Tooltip / Top`            | `<Tooltip options={{ placement: 'top' }}>`    |
+| `Tooltip / Bottom`         | `<Tooltip options={{ placement: 'bottom' }}>` |
+| `Tooltip / Left`           | `<Tooltip options={{ placement: 'left' }}>`   |
+| `Tooltip / Right`          | `<Tooltip options={{ placement: 'right' }}>`  |
 
 ### Progress / Skeleton / Spin
 

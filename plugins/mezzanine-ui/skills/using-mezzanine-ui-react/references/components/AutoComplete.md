@@ -275,7 +275,6 @@ function SubmitWithReset() {
   return (
     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
       <AutoComplete
-        fullWidth
         mode="multiple"
         onChange={setValue}
         options={originOptions}

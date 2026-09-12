@@ -78,14 +78,15 @@ interface NotifierData extends Pick<NotifierConfig, 'duration'> {
 
 ```tsx
 import { createNotifier } from '@mezzanine-ui/react';
+import type { Key } from 'react';
 
 interface MyNotificationData {
-  key?: number;
+  key?: Key;
   title: string;
   message: string;
   type: 'success' | 'error' | 'info';
   duration?: number | false;
-  onClose?: (key: number) => void;
+  onClose?: (key: Key) => void;
 }
 
 const MyNotification = createNotifier<MyNotificationData>({
@@ -137,7 +138,7 @@ const AlertBannerNotifier = createNotifier<AlertBannerData>({
 ```tsx
 const PriorityNotifier = createNotifier<PriorityNotificationData>({
   render: (notifier) => (
-    <Notification {...notifier} onClose={() => notifier.onClose?.(notifier.key)} />
+    <NotificationUI {...notifier} onClose={() => notifier.onClose?.(notifier.key)} />
   ),
   sortBeforeUpdate: (notifiers) => {
     return notifiers.sort((a, b) => b.priority - a.priority);

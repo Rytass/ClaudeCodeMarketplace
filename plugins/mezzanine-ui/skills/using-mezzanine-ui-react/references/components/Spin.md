@@ -121,10 +121,6 @@ function DataTable() {
   trackColor="#f0f0f0"
 />
 
-// Using CSS variables
-<div style={{ '--mzn-spin--color': '#ff4d4f', '--mzn-spin--track-color': '#ffccc7' }}>
-  <Spin loading />
-</div>
 ```
 
 ### Full Page Loading

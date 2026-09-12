@@ -216,7 +216,7 @@ import { Description, Badge } from '@mezzanine-ui/react';
 import { Description, Button } from '@mezzanine-ui/react';
 
 <Description title="Action">
-  <Button variant="text" onClick={handleClick}>
+  <Button variant="base-text-link" onClick={handleClick}>
     Edit
   </Button>
 </Description>
@@ -257,9 +257,9 @@ import { Description, Tag, TagGroup } from '@mezzanine-ui/react';
 ### With Tooltip Title
 
 ```tsx
-import { InfoIcon } from '@mezzanine-ui/icons';
+import { InfoOutlineIcon } from '@mezzanine-ui/icons';
 
-<Description title="Field Name" icon={InfoIcon} tooltip="This is the field description text">
+<Description title="Field Name" icon={InfoOutlineIcon} tooltip="This is the field description text">
   <DescriptionContent>Content</DescriptionContent>
 </Description>
 ```
@@ -458,7 +458,7 @@ function OrderDetail({ order }) {
    </Description>
 
    // ✅ 正確：簡潔標題，詳細說明用 tooltip
-   <Description title="Description" icon={InfoIcon} tooltip="This is a very long title that explains everything in detail">
+   <Description title="Description" icon={InfoOutlineIcon} tooltip="This is a very long title that explains everything in detail">
      <DescriptionContent>Content</DescriptionContent>
    </Description>
    ```

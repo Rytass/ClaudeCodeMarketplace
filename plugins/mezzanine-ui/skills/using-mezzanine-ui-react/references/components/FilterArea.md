@@ -105,12 +105,12 @@ import { FilterArea, FilterLine, Filter, FormField, Input, Select } from '@mezza
 >
   <FilterLine>
     <Filter>
-      <FormField label="Name">
+      <FormField name="name" label="Name">
         <Input placeholder="Enter name" />
       </FormField>
     </Filter>
     <Filter>
-      <FormField label="Status">
+      <FormField name="status" label="Status">
         <Select options={statusOptions} placeholder="Select" />
       </FormField>
     </Filter>
@@ -127,24 +127,24 @@ import { FilterArea, FilterLine, Filter, FormField, Input, Select } from '@mezza
 >
   <FilterLine>
     <Filter>
-      <FormField label="Name">
+      <FormField name="name" label="Name">
         <Input />
       </FormField>
     </Filter>
     <Filter>
-      <FormField label="Status">
+      <FormField name="status" label="Status">
         <Select options={statusOptions} />
       </FormField>
     </Filter>
   </FilterLine>
   <FilterLine>
     <Filter>
-      <FormField label="Date">
+      <FormField name="date" label="Date">
         <DatePicker />
       </FormField>
     </Filter>
     <Filter>
-      <FormField label="Type">
+      <FormField name="type" label="Type">
         <Select options={typeOptions} />
       </FormField>
     </Filter>
@@ -158,17 +158,17 @@ import { FilterArea, FilterLine, Filter, FormField, Input, Select } from '@mezza
 <FilterArea onSubmit={handleSearch}>
   <FilterLine>
     <Filter span={3}>
-      <FormField label="Keyword">
+      <FormField name="keyword" label="Keyword">
         <Input />
       </FormField>
     </Filter>
     <Filter span={2}>
-      <FormField label="Status">
+      <FormField name="status" label="Status">
         <Select options={statusOptions} />
       </FormField>
     </Filter>
     <Filter grow>
-      <FormField label="Notes">
+      <FormField name="notes" label="Notes">
         <Input />
       </FormField>
     </Filter>
@@ -205,7 +205,7 @@ function FilterExample() {
         >
           <FilterLine>
             <Filter>
-              <FormField label="Name">
+              <FormField name="name" label="Name">
                 <Input {...methods.register('name')} />
               </FormField>
             </Filter>
@@ -227,7 +227,7 @@ function FilterExample() {
 >
   <FilterLine>
     <Filter>
-      <FormField label="Search">
+      <FormField name="search" label="Search">
         <Input />
       </FormField>
     </Filter>
@@ -384,7 +384,7 @@ The Filter component uses a 6-column grid system:
    >
      <FilterLine>
        <Filter>
-         <FormField label="Keyword">
+         <FormField name="keyword" label="Keyword">
            <Input {...register('keyword')} />
          </FormField>
        </Filter>

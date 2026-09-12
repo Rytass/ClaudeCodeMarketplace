@@ -19,7 +19,7 @@ A full-page layout component providing a main content area and resizable side pa
 
 > **Note**: `LayoutHost` is an internal component, not exported from the public API. `Layout` automatically creates `LayoutHost` to wrap children; manual wrapping is not needed.
 >
-> **Deprecation Note**: `Scrollbar` is deprecated and no longer exported from the package root (`@mezzanine-ui/react`) — it survives only as the sub-path import `@mezzanine-ui/react/Scrollbar`. `Layout.Main` / `Layout.LeftPanel` / `Layout.RightPanel` still consume it internally via `scrollbarProps`; this renders a custom `overlayscrollbars`-based scrollbar, not plain native browser scrolling.
+> **Import Note**: `Scrollbar` has never been exported from the package root (`@mezzanine-ui/react`) and has no `@deprecated` marker. Import it from `@mezzanine-ui/react/Scrollbar` when needed. `Layout.Main` / `Layout.LeftPanel` / `Layout.RightPanel` still consume it internally via `scrollbarProps`; this renders a custom `overlayscrollbars`-based scrollbar, not plain native browser scrolling.
 
 ## Import
 

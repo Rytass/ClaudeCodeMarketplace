@@ -180,13 +180,15 @@ import { PlusIcon } from '@mezzanine-ui/icons';
 ### TextField with Icon
 
 ```tsx
-import { TextField } from '@mezzanine-ui/react';
+import { Icon, Input, TextField } from '@mezzanine-ui/react';
 import { SearchIcon, CloseIcon } from '@mezzanine-ui/icons';
 
 <TextField
   prefix={<Icon icon={SearchIcon} size={16} />}
   suffix={<Icon icon={CloseIcon} size={16} />}
-/>
+>
+  <Input placeholder="Search" />
+</TextField>
 ```
 
 ### Status Indicator

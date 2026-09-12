@@ -215,13 +215,13 @@ function RangeSlider() {
 ### With Icons
 
 ```tsx
-import { VolumeOffIcon, VolumeHighIcon } from '@mezzanine-ui/icons';
+import { MinusIcon, PlusIcon } from '@mezzanine-ui/icons';
 
 <Slider
   value={volume}
   onChange={setVolume}
-  prefixIcon={VolumeOffIcon}
-  suffixIcon={VolumeHighIcon}
+  prefixIcon={MinusIcon}
+  suffixIcon={PlusIcon}
 />
 ```
 
@@ -293,8 +293,8 @@ function VolumeControl() {
       onChange={setVolume}
       min={0}
       max={100}
-      prefixIcon={VolumeOffIcon}
-      suffixIcon={VolumeHighIcon}
+      prefixIcon={MinusIcon}
+      suffixIcon={PlusIcon}
     />
   );
 }

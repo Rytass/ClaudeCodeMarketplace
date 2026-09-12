@@ -129,11 +129,12 @@ function ControlledTextarea() {
 
 ```tsx
 import { FormField, Textarea } from '@mezzanine-ui/react';
+import { FormFieldLayout } from '@mezzanine-ui/core/form';
 
 <FormField
   name="description"
   label="Description"
-  layout="vertical"
+  layout={FormFieldLayout.VERTICAL}
   required
 >
   <Textarea
@@ -189,6 +190,8 @@ function AutoHeightTextarea() {
 ### Form Validation
 
 ```tsx
+import { FormFieldLayout } from '@mezzanine-ui/core/form';
+
 function ValidatedTextarea() {
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
@@ -210,7 +213,7 @@ function ValidatedTextarea() {
     <FormField
       name="content"
       label="Content"
-      layout="vertical"
+      layout={FormFieldLayout.VERTICAL}
       severity={error ? 'error' : 'info'}
       hintText={error}
     >

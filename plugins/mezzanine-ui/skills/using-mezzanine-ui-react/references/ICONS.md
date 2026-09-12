@@ -266,14 +266,15 @@ import { PlusIcon, TrashIcon, DownloadIcon } from '@mezzanine-ui/icons';
 ### Input with Icon
 
 ```tsx
-import { TextField } from '@mezzanine-ui/react';
+import { Icon, Input, TextField } from '@mezzanine-ui/react';
 import { SearchIcon, CloseIcon } from '@mezzanine-ui/icons';
 
 <TextField
-  prefix={<SearchIcon />}
-  suffix={<CloseIcon />}
-  placeholder="Search..."
-/>
+  prefix={<Icon icon={SearchIcon} />}
+  suffix={<Icon icon={CloseIcon} />}
+>
+  <Input placeholder="Search..." />
+</TextField>
 ```
 
 ### Status Icons
@@ -297,5 +298,5 @@ import {
 <Icon icon={WarningFilledIcon} color="warning" />
 
 // Info
-<Icon icon={InfoFilledIcon} color="primary" />
+<Icon icon={InfoFilledIcon} color="info" />
 ```

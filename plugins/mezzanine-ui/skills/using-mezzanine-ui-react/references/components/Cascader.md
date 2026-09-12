@@ -206,11 +206,14 @@ When the selected path is too long to fit in the trigger input width, the Cascad
 `Cascader` reads `disabled`, `fullWidth`, `required`, and `severity` from the nearest `FormControlContext`. Wrapping it inside a `FormField` automatically wires these states.
 
 ```tsx
-import { FormField, FormLabel, FormHintText } from '@mezzanine-ui/react';
-import { Cascader } from '@mezzanine-ui/react';
+import { Cascader, FormField } from '@mezzanine-ui/react';
 
-<FormField required>
-  <FormLabel>所在地區</FormLabel>
+<FormField
+  name="location"
+  label="所在地區"
+  hintText="請選擇倉庫所在縣市及區域"
+  required
+>
   <Cascader
     fullWidth
     options={options}
@@ -218,7 +221,6 @@ import { Cascader } from '@mezzanine-ui/react';
     value={value}
     onChange={setValue}
   />
-  <FormHintText>請選擇倉庫所在縣市及區域</FormHintText>
 </FormField>
 ```
 

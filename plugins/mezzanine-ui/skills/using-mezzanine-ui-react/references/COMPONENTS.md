@@ -141,12 +141,12 @@ import { Typography } from '@mezzanine-ui/react';
 <Typography color="text-error">Error Text</Typography>
 ```
 
-**TypographySemanticType** (20 types)
+**TypographySemanticType** (21 types)
 - Headings: `h1`, `h2`, `h3`
 - Body: `body`, `body-highlight`, `body-mono`, `body-mono-highlight`
 - Links: `text-link-body`, `text-link-caption`
 - Captions: `caption`, `caption-highlight`, `annotation`, `annotation-highlight`
-- Functional: `button`, `button-highlight`, `input`, `input-mono`, `label-primary`, `label-primary-highlight`, `label-secondary`
+- Functional: `button`, `button-highlight`, `input`, `input-highlight`, `input-mono`, `label-primary`, `label-primary-highlight`, `label-secondary`
 
 ---
 
@@ -169,7 +169,7 @@ Image cropping component.
 ```tsx
 import { Cropper } from '@mezzanine-ui/react';
 
-<Cropper src="/image.jpg" aspectRatio={16 / 9} />
+<Cropper imageSrc="/image.jpg" aspectRatio={16 / 9} />
 ```
 
 ---
@@ -193,7 +193,7 @@ import {
 import { HomeIcon, SettingIcon } from '@mezzanine-ui/icons';
 
 <Navigation>
-  <NavigationHeader>
+  <NavigationHeader title="Acme">
     <Logo />
   </NavigationHeader>
 
@@ -203,19 +203,23 @@ import { HomeIcon, SettingIcon } from '@mezzanine-ui/icons';
   </NavigationOptionCategory>
 
   <NavigationFooter>
-    <NavigationUserMenu imgSrc="/avatar.png">
+    <NavigationUserMenu
+      imgSrc="/avatar.png"
+      options={[{ id: 'logout', name: 'Log out' }]}
+    >
       John Doe
     </NavigationUserMenu>
   </NavigationFooter>
 </Navigation>
 ```
 
-**Notable Props (v1.0.0)**
+**Navigation Props**
 
 | Prop                   | Type      | Default | Description                              |
 | ---------------------- | --------- | ------- | ---------------------------------------- |
 | `exactActivatedMatch`  | `boolean` | `false` | Strict pathname matching for active state |
-| `collapseToggleLabel`  | `string`  | -       | **New in 1.5.0.** Accessible/translatable label for the collapse-toggle control, part of the 1.5.0 a11y pass |
+
+`collapseToggleLabel` is a `NavigationHeader` prop, not a `Navigation` prop. See [NavigationHeader Props](components/Navigation.md#navigationheader-props).
 
 > **v1.5.0 a11y fixes**: the invalid `menuitem` role is dropped from navigation options and option categories (groups/leaves are now labelled correctly instead), so every navigation control announces itself to assistive tech.
 
@@ -250,9 +254,9 @@ Step indicator.
 ```tsx
 import { Stepper, Step, useStepper } from '@mezzanine-ui/react';
 
-const stepper = useStepper({ steps: 3 });
+const stepper = useStepper({ totalSteps: 3 });
 
-<Stepper {...stepper}>
+<Stepper currentStep={stepper.currentStep}>
   <Step title="Step 1" description="Description text" />
   <Step title="Step 2" />
   <Step title="Step 3" />
@@ -269,9 +273,9 @@ Breadcrumb navigation.
 import { Breadcrumb } from '@mezzanine-ui/react';
 
 <Breadcrumb items={[
-  { text: 'Home', href: '/' },
-  { text: 'List', href: '/list' },
-  { text: 'Detail' },
+  { name: 'Home', href: '/' },
+  { name: 'List', href: '/list' },
+  { name: 'Detail' },
 ]} />
 ```
 
@@ -332,8 +336,8 @@ Table component supporting virtualization, drag-and-drop, fixed columns, and mor
 import { Table, useTableDataSource, useTableRowSelection } from '@mezzanine-ui/react';
 
 const columns = [
-  { title: 'Name', dataIndex: 'name' },
-  { title: 'Age', dataIndex: 'age' },
+  { key: 'name', title: 'Name', dataIndex: 'name' },
+  { key: 'age', title: 'Age', dataIndex: 'age' },
 ];
 
 const data = [
@@ -352,7 +356,7 @@ const data = [
 
 > **v1.1.0 SSR fix**: Row height is now resolved via `useIsomorphicLayoutEffect` instead of `useMemo`, eliminating hydration mismatches in Next.js / Remix apps.
 >
-> **v1.4.4 fix**: `loading` rows no longer feed fabricated placeholder records into consumer callbacks (`column.render` / `actions.render` / `rowState` / `getCheckboxProps` / `rowExpandable` / `expandedRowRender` / `isRowDisabled`) — `record` is now optional in those callback signatures while loading.
+> **v1.4.4 fix**: `loading` rows no longer feed fabricated placeholder records into consumer callbacks (`column.render` / `actions.render` / `rowState` / `getCheckboxProps` / `rowExpandable` / `expandedRowRender` / `isRowDisabled`). Internal row/cell props allow a missing `record` for skeleton rows, while consumer callback signatures continue to receive a real record and are skipped during loading.
 >
 > **v1.5.0 a11y fix**: icon-only / dropdown row-action buttons now have accessible names, and the row-action menu (via `Dropdown`'s new `shift`, see [Dropdown](#dropdown)) stays inside the viewport instead of being clipped in the last column or after horizontal scroll.
 
@@ -376,6 +380,7 @@ import {
   QuickActionCardSkeleton,
   Thumbnail,
 } from '@mezzanine-ui/react';
+import { PlusIcon } from '@mezzanine-ui/icons';
 
 // Base card
 <BaseCard title="Title" description="Description text" />
@@ -383,20 +388,20 @@ import {
 // Single thumbnail card
 <SingleThumbnailCard
   title="Title"
-  description="Description"
-  thumbnail={{ src: '/image.jpg', alt: 'Image' }}
-/>
+  subtitle="Description"
+>
+  <img src="/image.jpg" alt="Image" />
+</SingleThumbnailCard>
 
 // Four thumbnail card
 <FourThumbnailCard
   title="Title"
-  thumbnails={[
-    { src: '/img1.jpg', alt: 'Image 1' },
-    { src: '/img2.jpg', alt: 'Image 2' },
-    { src: '/img3.jpg', alt: 'Image 3' },
-    { src: '/img4.jpg', alt: 'Image 4' },
-  ]}
-/>
+>
+  <Thumbnail><img src="/img1.jpg" alt="Image 1" /></Thumbnail>
+  <Thumbnail><img src="/img2.jpg" alt="Image 2" /></Thumbnail>
+  <Thumbnail><img src="/img3.jpg" alt="Image 3" /></Thumbnail>
+  <Thumbnail><img src="/img4.jpg" alt="Image 4" /></Thumbnail>
+</FourThumbnailCard>
 
 // Quick action card
 <QuickActionCard title="Add" icon={PlusIcon} onClick={handleClick} />
@@ -417,9 +422,9 @@ Tag component.
 ```tsx
 import { Tag, TagGroup } from '@mezzanine-ui/react';
 
-<Tag>Default</Tag>
-<Tag color="success">Success</Tag>
-<Tag closable onClose={() => {}}>Closable</Tag>
+<Tag label="Default" />
+<Tag type="counter" label="Items" count={3} />
+<Tag type="dismissable" label="Closable" onClose={() => {}} />
 ```
 
 ---
@@ -429,10 +434,11 @@ import { Tag, TagGroup } from '@mezzanine-ui/react';
 Badge component.
 
 ```tsx
-import { Badge, BadgeContainer } from '@mezzanine-ui/react';
+import { Badge, BadgeContainer, Icon } from '@mezzanine-ui/react';
+import { NotificationIcon } from '@mezzanine-ui/icons';
 
 <BadgeContainer>
-  <Badge count={5} />
+  <Badge variant="count-alert" count={5} />
   <Icon icon={NotificationIcon} />
 </BadgeContainer>
 ```
@@ -527,15 +533,9 @@ import { Tooltip, Button } from '@mezzanine-ui/react';
 Pagination component.
 
 ```tsx
-import { Pagination, PaginationJumper, PaginationPageSize, usePagination } from '@mezzanine-ui/react';
+import { Pagination } from '@mezzanine-ui/react';
 
-const pagination = usePagination({
-  total: 100,
-  pageSize: 10,
-  current: 1,
-});
-
-<Pagination {...pagination} />
+<Pagination total={100} pageSize={10} current={1} onChange={setPage} />
 ```
 
 ---
@@ -569,8 +569,9 @@ Section component for grouping content with a title.
 
 ```tsx
 import { Section } from '@mezzanine-ui/react';
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 
-<Section title="Section Title">
+<Section contentHeader={<ContentHeader title="Section Title" />}>
   Section content
 </Section>
 ```
@@ -583,11 +584,12 @@ Groups multiple Section components with consistent spacing.
 
 ```tsx
 import { SectionGroup, Section } from '@mezzanine-ui/react';
+import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 
-// ContentHeader has never been exported from the main entry (always sub-path only) — pass title directly to Section or compose a custom header element
+// ContentHeader has never been exported from the main entry (always sub-path only).
 <SectionGroup direction="vertical">
-  <Section title="Section 1">Content 1</Section>
-  <Section title="Section 2">Content 2</Section>
+  <Section contentHeader={<ContentHeader title="Section 1" />}>Content 1</Section>
+  <Section contentHeader={<ContentHeader title="Section 2" />}>Content 2</Section>
 </SectionGroup>
 ```
 
@@ -610,7 +612,7 @@ Overflow counter tag for displaying the number of overflowed items.
 ```tsx
 import { OverflowCounterTag } from '@mezzanine-ui/react';
 
-<OverflowCounterTag count={3} />
+<OverflowCounterTag tags={['One', 'Two', 'Three']} onTagDismiss={() => {}} />
 ```
 
 ---
@@ -623,7 +625,7 @@ Internal overflow tooltip component used with Select in multi-select mode. Only 
 import { OverflowCounterTag } from '@mezzanine-ui/react';
 
 // OverflowTooltip is internal; use OverflowCounterTag instead
-<OverflowCounterTag count={3} />
+<OverflowCounterTag tags={['One', 'Two', 'Three']} onTagDismiss={() => {}} />
 ```
 
 ---
@@ -655,10 +657,12 @@ import { Input } from '@mezzanine-ui/react';
 Text field component wrapping Input with additional features like prefix/suffix icons.
 
 ```tsx
-import { TextField } from '@mezzanine-ui/react';
+import { Icon, Input, TextField } from '@mezzanine-ui/react';
 import { SearchIcon } from '@mezzanine-ui/icons';
 
-<TextField prefix={<SearchIcon />} placeholder="Search" />
+<TextField prefix={<Icon icon={SearchIcon} />}>
+  <Input placeholder="Search" />
+</TextField>
 ```
 
 > **v1.5.0 a11y fix**: keeps native ARIA input semantics on the underlying control instead of overriding them.
@@ -929,11 +933,9 @@ import { DateTimeRangePicker } from '@mezzanine-ui/react';
 Multiple date picker.
 
 ```tsx
-import { MultipleDatePicker, MultipleDatePickerTrigger, useMultipleDatePickerValue } from '@mezzanine-ui/react';
+import { MultipleDatePicker } from '@mezzanine-ui/react';
 
-const pickerValue = useMultipleDatePickerValue({ defaultValue: [] });
-
-<MultipleDatePicker {...pickerValue} />
+<MultipleDatePicker value={dates} onChange={setDates} />
 ```
 
 ---
@@ -955,10 +957,9 @@ import { TimePicker } from '@mezzanine-ui/react';
 Time range picker for selecting start and end times.
 
 ```tsx
-import { TimeRangePicker, useTimeRangePickerValue } from '@mezzanine-ui/react';
+import { TimeRangePicker } from '@mezzanine-ui/react';
 
-const rangeValue = useTimeRangePickerValue({ defaultValue: [null, null] });
-<TimeRangePicker {...rangeValue} />
+<TimeRangePicker value={timeRange} onChange={setTimeRange} />
 ```
 
 ---
@@ -968,12 +969,14 @@ const rangeValue = useTimeRangePickerValue({ defaultValue: [null, null] });
 Filter area component.
 
 ```tsx
-import { FilterArea, FilterLine, Filter } from '@mezzanine-ui/react';
+import { Filter, FilterArea, FilterLine, FormField, Select } from '@mezzanine-ui/react';
 
 <FilterArea>
   <FilterLine>
-    <Filter label="Status">
-      <Select options={statusOptions} value={status} onChange={setStatus} />
+    <Filter>
+      <FormField name="status" label="Status">
+        <Select options={statusOptions} />
+      </FormField>
     </Filter>
   </FilterLine>
 </FilterArea>
@@ -986,14 +989,9 @@ import { FilterArea, FilterLine, Filter } from '@mezzanine-ui/react';
 Upload component.
 
 ```tsx
-import { Upload, UploadItem, UploadPictureCard, Uploader } from '@mezzanine-ui/react';
+import { Upload } from '@mezzanine-ui/react';
 
-<Upload>
-  <Uploader onUpload={handleUpload} />
-  <UploadItem file={file} onRemove={handleRemove} />
-</Upload>
-
-<UploadPictureCard onUpload={handleUpload} files={files} />
+<Upload files={files} onChange={setFiles} onUpload={handleUpload} />
 ```
 
 ---
@@ -1003,18 +1001,17 @@ import { Upload, UploadItem, UploadPictureCard, Uploader } from '@mezzanine-ui/r
 Form component.
 
 ```tsx
-import { FormField, FormLabel, FormHintText } from '@mezzanine-ui/react';
+import { FormField, Input } from '@mezzanine-ui/react';
 import { FormGroup } from '@mezzanine-ui/react/Form'; // FormGroup is only exported from sub-path
+import { FormFieldLayout } from '@mezzanine-ui/core/form';
 
-<FormField>
-  <FormLabel required>Name</FormLabel>
+<FormField name="name" label="Name" hintText="Hint text" required>
   <Input placeholder="Enter name" />
-  <FormHintText>Hint text</FormHintText>
 </FormField>
 
 // FormGroup groups multiple fields
 <FormGroup title="Basic Information">
-  <FormField name="name" label="Name" layout="vertical" required>
+  <FormField name="name" label="Name" layout={FormFieldLayout.VERTICAL} required>
     <Input placeholder="Enter name" />
   </FormField>
 </FormGroup>
@@ -1029,15 +1026,21 @@ import { FormGroup } from '@mezzanine-ui/react/Form'; // FormGroup is only expor
 Dialog component.
 
 ```tsx
-import { Modal, ModalHeader, ModalFooter, ModalBodyForVerification, Button } from '@mezzanine-ui/react';
+import { Modal } from '@mezzanine-ui/react';
 
-<Modal open={open} onClose={handleClose}>
-  <ModalHeader>Dialog Title</ModalHeader>
+<Modal
+  open={open}
+  onClose={handleClose}
+  modalType="standard"
+  showModalHeader
+  title="Dialog Title"
+  showModalFooter
+  cancelText="Cancel"
+  onCancel={handleClose}
+  confirmText="Confirm"
+  onConfirm={handleConfirm}
+>
   Dialog content
-  <ModalFooter>
-    <Button variant="base-secondary" onClick={handleClose}>Cancel</Button>
-    <Button variant="base-primary" onClick={handleConfirm}>Confirm</Button>
-  </ModalFooter>
 </Modal>
 ```
 
@@ -1078,7 +1081,7 @@ Alert banner component.
 ```tsx
 import { AlertBanner } from '@mezzanine-ui/react';
 
-<AlertBanner severity="success" message="Success message" />
+<AlertBanner severity="info" message="Information message" />
 <AlertBanner severity="warning" message="System announcement" />
 <AlertBanner severity="error" closable onClose={() => {}} message="Error message" />
 ```
@@ -1096,8 +1099,8 @@ import { InlineMessage, InlineMessageGroup } from '@mezzanine-ui/react';
 
 <InlineMessageGroup
   items={[
-    { severity: 'error', message: 'Name is required' },
-    { severity: 'warning', message: 'Password strength is insufficient' },
+    { key: 'name', severity: 'error', content: 'Name is required' },
+    { key: 'password', severity: 'warning', content: 'Password strength is insufficient' },
   ]}
 />
 ```
@@ -1172,9 +1175,9 @@ import { Layout } from '@mezzanine-ui/react';
 
 <Layout>
   <Layout.Main>Main content</Layout.Main>
-  <Layout.SidePanel open={sidePanelOpen}>
+  <Layout.RightPanel open={sidePanelOpen}>
     Side panel content
-  </Layout.SidePanel>
+  </Layout.RightPanel>
 </Layout>
 ```
 
@@ -1240,7 +1243,7 @@ import {
 
 <Fade in={visible}><div>Fade in/out content</div></Fade>
 <Collapse in={expanded}><div>Collapsible content</div></Collapse>
-<Slide in={visible} direction="up"><div>Slide content</div></Slide>
+<Slide in={visible} from="top"><div>Slide content</div></Slide>
 <Scale in={visible}><div>Scale content</div></Scale>
 <Rotate in={visible}><div>Rotate content</div></Rotate>
 <Translate in={visible} from="bottom"><div>Translate content</div></Translate>
@@ -1257,8 +1260,8 @@ import { Popper } from '@mezzanine-ui/react';
 
 <Popper
   open={open}
-  anchorRef={anchorRef}
-  placement="bottom-start"
+  anchor={anchorRef}
+  options={{ placement: 'bottom-start' }}
   onPlacementChange={(resolved) => console.log(resolved)}
 >
   Floating content
@@ -1296,8 +1299,8 @@ import {
   useCalendarModeStack,
 } from '@mezzanine-ui/react';
 
-<Calendar value={date} onChange={setDate} />
-<RangeCalendar value={dateRange} onChange={setDateRange} />
+<Calendar referenceDate={referenceDate} value={date} onChange={setDate} />
+<RangeCalendar referenceDate={referenceDate} value={dateRange} onChange={setDateRange} />
 ```
 
 > **v1.5.0**: `RangeCalendarProps` gains `previewValue` — `RangeCalendar` now reads the committed range (not the hover-polluted internal calendar value) to decide whether a click starts or closes a range, fixing `DateRangePicker` hover previews that used to wipe out an already-selected start date. The disabled-date scan used for range validation was also moved into `RangeCalendar`, runs only when a `disabledDate` predicate is supplied, and is capped by an internal step limit (`maxRangeScanSteps` in `useRangeScan.ts` — **not a public prop**) to avoid multi-second freezes on very large or mistyped ranges.
@@ -1365,27 +1368,31 @@ Dropdown container component. Internal but available for advanced customization.
 
 ```tsx
 import {
+  Button,
   Dropdown,
-  DropdownAction,
-  DropdownItem,
-  DropdownItemCard,
-  DropdownStatus,
 } from '@mezzanine-ui/react';
 
-<Dropdown open={open}>
-  <DropdownItem value="option1">Option 1</DropdownItem>
-  <DropdownItem value="option2">Option 2</DropdownItem>
-  <DropdownAction onClick={handleAction}>Action</DropdownAction>
+const options = [
+  { id: 'option1', name: 'Option 1' },
+  { id: 'option2', name: 'Option 2' },
+];
+
+<Dropdown
+  open={open}
+  options={options}
+  onSelect={handleSelect}
+>
+  <Button>Open menu</Button>
 </Dropdown>
 
 // v1.2.0+: opt-in viewport-aware flip (main-axis only, keeps sameWidth alignment)
-<Dropdown flip sameWidth open={open}>
-  <DropdownItem value="option1">Option 1</DropdownItem>
+<Dropdown flip sameWidth open={open} options={options}>
+  <Button>Open menu</Button>
 </Dropdown>
 
 // v1.5.0+: opt-in viewport-aware shift (cross-axis only, for menus near a left/right edge)
-<Dropdown flip shift open={open}>
-  <DropdownItem value="option1">Option 1</DropdownItem>
+<Dropdown flip shift open={open} options={options}>
+  <Button>Open menu</Button>
 </Dropdown>
 ```
 

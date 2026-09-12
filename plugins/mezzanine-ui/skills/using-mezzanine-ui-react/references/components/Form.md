@@ -110,11 +110,12 @@ An integrated form field component including label, input area, hint text, etc.
 
 ```tsx
 import { FormField, Input } from '@mezzanine-ui/react';
+import { FormFieldLayout } from '@mezzanine-ui/core/form';
 
 <FormField
   name="username"
   label="Username"
-  layout="vertical"
+  layout={FormFieldLayout.VERTICAL}
   required
 >
   <Input placeholder="Enter username" />
@@ -127,7 +128,7 @@ import { FormField, Input } from '@mezzanine-ui/react';
 <FormField
   name="email"
   label="Email"
-  layout="horizontal"
+  layout={FormFieldLayout.HORIZONTAL}
   required
 >
   <Input inputType="email" placeholder="Enter email" />
@@ -595,24 +596,25 @@ import type { FormGroupProps } from '@mezzanine-ui/react/Form';
 ```tsx
 import { FormField, Input, Select } from '@mezzanine-ui/react';
 import { FormGroup } from '@mezzanine-ui/react/Form';
+import { FormFieldLayout } from '@mezzanine-ui/core/form';
 
 function UserInfoForm() {
   return (
     <form>
       <FormGroup title="Basic Information">
-        <FormField name="name" label="Name" layout="vertical" required>
+        <FormField name="name" label="Name" layout={FormFieldLayout.VERTICAL} required>
           <Input placeholder="Enter name" />
         </FormField>
-        <FormField name="email" label="Email" layout="vertical" required>
+        <FormField name="email" label="Email" layout={FormFieldLayout.VERTICAL} required>
           <Input inputType="email" placeholder="Enter email" />
         </FormField>
       </FormGroup>
 
       <FormGroup title="Contact Information">
-        <FormField name="phone" label="Phone" layout="vertical">
+        <FormField name="phone" label="Phone" layout={FormFieldLayout.VERTICAL}>
           <Input placeholder="Enter phone" />
         </FormField>
-        <FormField name="address" label="Address" layout="vertical">
+        <FormField name="address" label="Address" layout={FormFieldLayout.VERTICAL}>
           <Input placeholder="Enter address" />
         </FormField>
       </FormGroup>

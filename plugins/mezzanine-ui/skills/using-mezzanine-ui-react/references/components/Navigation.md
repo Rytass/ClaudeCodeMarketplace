@@ -351,7 +351,7 @@ function SpaNavigation() {
 
 ```tsx
 import { NavigationUserMenu, NavigationIconButton } from '@mezzanine-ui/react';
-import { SettingIcon, HelpIcon } from '@mezzanine-ui/icons';
+import { SettingIcon, QuestionOutlineIcon } from '@mezzanine-ui/icons';
 
 <Navigation>
   <NavigationHeader title="App" />
@@ -367,7 +367,7 @@ import { SettingIcon, HelpIcon } from '@mezzanine-ui/icons';
       Username
     </NavigationUserMenu>
     <NavigationIconButton icon={SettingIcon} onClick={handleSettings} />
-    <NavigationIconButton icon={HelpIcon} onClick={handleHelp} />
+    <NavigationIconButton icon={QuestionOutlineIcon} onClick={handleHelp} />
   </NavigationFooter>
 </Navigation>
 ```

@@ -16,8 +16,8 @@ Date picker component supporting multiple modes (day, week, month, quarter, half
 ```tsx
 // layout.tsx 或 App.tsx
 import { CalendarConfigProvider } from '@mezzanine-ui/react';
-import { CalendarMethodsMoment } from '@mezzanine-ui/core/calendar';
-// 或使用 dayjs: import { CalendarMethodsDayjs } from '@mezzanine-ui/core/calendar';
+import CalendarMethodsMoment from '@mezzanine-ui/core/calendarMethodsMoment';
+// 或使用 dayjs: import CalendarMethodsDayjs from '@mezzanine-ui/core/calendarMethodsDayjs';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

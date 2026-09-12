@@ -55,7 +55,7 @@ A single input trigger based on TextField, with FormattedInput support for forma
 | `format`          | `string`                                    | -        | Input format (e.g. `'YYYY-MM-DD'`) |
 | `fullWidth`       | `boolean`                                   | `true`   | Whether full width             |
 | `hoverValue`      | `string`                                    | -        | Pre-formatted date string to preview when input is empty and not focused |
-| `inputProps`      | `InputProps` (partial omit)                 | -        | Additional input props         |
+| `inputProps`      | Native `<input>` props (reserved value/state/ARIA props omitted) | - | Additional input props |
 | `inputRef`        | `RefObject<HTMLInputElement \| null>`       | -        | Input ref                      |
 | `onChange`        | `ChangeEventHandler<HTMLInputElement>`      | -        | Input change callback          |
 | `placeholder`     | `string`                                    | -        | placeholder                    |
@@ -85,9 +85,9 @@ A dual input trigger based on TextField (left and right separated by a divider),
 | `formatRight`           | `string`                                               | required | Right input format (e.g. `'HH:mm:ss'`)        |
 | `fullWidth`             | `boolean`                                              | `true`   | Whether full width                             |
 | `hoverValueLeft`        | `string`                                               | -        | Pre-formatted date string to preview in left input when empty and not focused |
-| `inputLeftProps`        | `InputProps` (partial omit)                            | -        | Left input additional props                    |
+| `inputLeftProps`        | Native `<input>` props (reserved value/state/ARIA props omitted) | - | Left input additional props |
 | `inputLeftRef`          | `RefObject<HTMLInputElement \| null>`                  | -        | Left input ref                                 |
-| `inputRightProps`       | `InputProps` (partial omit)                            | -        | Right input additional props                   |
+| `inputRightProps`       | Native `<input>` props (reserved value/state/ARIA props omitted) | - | Right input additional props |
 | `inputRightRef`         | `RefObject<HTMLInputElement \| null>`                  | -        | Right input ref                                |
 | `onBlurLeft`            | `FocusEventHandler<HTMLInputElement>`                  | -        | Left input blur callback                       |
 | `onBlurRight`           | `FocusEventHandler<HTMLInputElement>`                  | -        | Right input blur callback                      |
@@ -130,11 +130,11 @@ A dual input trigger based on TextField, used for range pickers (e.g. DateRangeP
 | `hoverFromValue`         | `string`                                                 | -        | Pre-formatted date string to preview in 'from' input when empty and not focused |
 | `hoverToValue`           | `string`                                                 | -        | Pre-formatted date string to preview in 'to' input when empty and not focused |
 | `inputFromPlaceholder`   | `string`                                                 | -        | From field placeholder         |
-| `inputFromProps`         | `InputProps` (partial omit)                              | -        | From field additional props    |
+| `inputFromProps`         | Native `<input>` props (reserved value/state/ARIA props omitted) | - | From field additional props |
 | `inputFromRef`           | `RefObject<HTMLInputElement \| null>`                    | -        | From field ref                 |
 | `inputFromValue`         | `string`                                                 | -        | From field value               |
 | `inputToPlaceholder`     | `string`                                                 | -        | To field placeholder           |
-| `inputToProps`           | `InputProps` (partial omit)                              | -        | To field additional props      |
+| `inputToProps`           | Native `<input>` props (reserved value/state/ARIA props omitted) | - | To field additional props |
 | `inputToRef`             | `RefObject<HTMLInputElement \| null>`                    | -        | To field ref                   |
 | `inputToValue`           | `string`                                                 | -        | To field value                 |
 | `onFromBlur`             | `FocusEventHandler<HTMLInputElement>`                    | -        | From field blur callback       |

@@ -79,12 +79,12 @@ import { InlineMessage } from '@mezzanine-ui/react';
 ### Custom Icon
 
 ```tsx
-import { InfoIcon } from '@mezzanine-ui/icons';
+import { InfoOutlineIcon } from '@mezzanine-ui/icons';
 
 <InlineMessage
   severity="info"
   content="Message with custom icon"
-  icon={InfoIcon}
+  icon={InfoOutlineIcon}
 />
 ```
 

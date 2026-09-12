@@ -1,6 +1,6 @@
 ---
 name: using-mezzanine-ui-react
-description: React / Next.js Mezzanine-UI skill — create, edit, or style JSX components with @mezzanine-ui/react (1.5.1). Covers Button, TextField, Select, Table, Modal, Form, DatePicker, Tabs, Navigation, Typography, Icon, Drawer, Upload, Toggle, design tokens, theming, and CalendarConfigProvider. Defines the component-selection contract (a UI-concept-to-component reverse index — status chips are Badge not Tag, segmented controls are RadioGroup type="segment" not Buttons — plus the rule that needing a className override of background/color/border means the wrong component was chosen) and the page layout padding contract (PageHeader / PageFooter / Section ship their own padding — page containers must not add horizontal padding). Use when working on *.tsx, *.scss files with @mezzanine-ui/react imports, building React forms, laying out a page skeleton, picking which component to use, or configuring Mezzanine styles in a React codebase. Trigger — React, Next.js, tsx, JSX, mezzanine-ui/react, add mezzanine component, build form, create page UI, page layout, container padding, 版面對不齊, 雙層 padding, design tokens, mzn, 該用哪個元件, 選元件, tag vs badge, chip, status chip, 狀態標籤, 狀態晶片, segmented control, 分段切換, 排序切換, 覆寫元件樣式. For Angular projects use the sibling using-mezzanine-ui-ng skill instead.
+description: React and Next.js guidance for @mezzanine-ui/react 1.5.1. Use when building Mezzanine forms, tables, navigation, overlays, page layouts, or choosing components and design tokens in JSX or TSX. For Angular use using-mezzanine-ui-ng.
 ---
 
 # Mezzanine-UI Design System
@@ -87,7 +87,7 @@ Create `main.scss`:
 
 ```tsx
 import './main.scss';
-import { Button, Typography } from '@mezzanine-ui/react';
+import { Button, Icon, Typography } from '@mezzanine-ui/react';
 import { PlusIcon } from '@mezzanine-ui/icons';
 
 function App() {
@@ -95,7 +95,7 @@ function App() {
     <div>
       <Typography variant="h1">Welcome to Mezzanine UI</Typography>
       <Button variant="base-primary" size="main">
-        <PlusIcon />
+        <Icon icon={PlusIcon} />
         Click Me
       </Button>
     </div>
@@ -110,7 +110,7 @@ function App() {
 ```tsx
 // layout.tsx 或 App.tsx
 import { CalendarConfigProvider } from '@mezzanine-ui/react';
-import { CalendarMethodsMoment } from '@mezzanine-ui/core/calendar';
+import CalendarMethodsMoment from '@mezzanine-ui/core/calendarMethodsMoment';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -383,7 +383,7 @@ export default function ProductListPage(): JSX.Element {
 | --- | --- |
 | `Dropdown` → `shift?: boolean` | floating-ui `shift` middleware，見上 |
 | `RangeCalendarProps` → `previewValue` | 見上 |
-| `Navigation` → `collapseToggleLabel` | 收合按鈕的可翻譯 label，隨 1.5.0 a11y 修正一併補上 |
+| `NavigationHeaderProps` → `collapseToggleLabel` | 收合按鈕的可翻譯 label，隨 1.5.0 a11y 修正一併補上 |
 
 > `maxRangeScanSteps` **不是** public API——它是 `useRangeScan.ts` 內的常數，從未被匯出，不要當成 prop 使用或寫進呼叫端程式碼。
 
@@ -460,9 +460,9 @@ export default function ProductListPage(): JSX.Element {
 - **`Table`** — 修正 SSR hydration mismatch 問題。列高原本在 `useMemo` 中透過 `getComputedStyle` 讀取，伺服器端回傳 `0`、客戶端回傳實際 pixel，導致 React 18/19 strict mode 下發出 hydration 警告甚至拋錯。現改為在 `useIsomorphicLayoutEffect` 中延遲讀取，首次 render 結果在 SSR 與 CSR 之間完全一致。Next.js / Remix 使用者建議升級。
 - **Picker 家族鍵盤導覽** (`DatePicker`、`DateRangePicker`、`TimePicker`、`DateTimePicker`、`DateTimeRangePicker`、`TimeRangePicker`、`MultipleDatePicker`) — 修復 1.0.4 portal 遷移後 Tab / Shift+Tab 無法在觸發輸入框與日曆/時間面板之間循環的問題。Popper 現在建立明確的邏輯焦點迴圈，並在 `Modal` focus trap 內亦可正常運作。
 
-### 元件計畫棄用 (Deprecation Notice)
+### 元件狀態更正
 
-> 以下元件於 1.1.0 標記為即將棄用，並已於 **1.4.1 正式從公開 API 移除**（見上方「What's New in v1.4.1」）：`ClearActions`、`ContentHeader`、`Scrollbar`、`Switch`。
+> 舊版文件曾將 `ClearActions`、`ContentHeader`、`Scrollbar`、`Switch` 一併列為 1.1.0 棄用、1.4.1 移除；逐版原始碼核對後確認不實。前三者從未由主入口匯出，但仍可由 sub-path 使用且沒有 `@deprecated` 標記；只有 `Switch` 已移除，請改用 `Toggle`。
 
 </details>
 
