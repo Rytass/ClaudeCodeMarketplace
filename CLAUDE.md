@@ -49,7 +49,7 @@ plugins/<name>/
 
 ### Skill Conventions
 
-- Use the `creating-skills` skill for latest SKILL.md format and best practices
+- Use Anthropic's official `skill-creator` skill for latest SKILL.md format and best practices (`/plugin install skill-creator@claude-plugins-official`, or the built-in `anthropic-skills:skill-creator` synced from claude.ai)
 - Follow progressive disclosure: SKILL.md as entry point, reference docs for details
 - Cache files (JSON) are auto-generated — always rebuild after updating references
 - Component references should include: import path, props table, usage examples
