@@ -9,7 +9,7 @@ set -euo pipefail
 #   2. Frontmatter has closing ---
 #   3. description is single-line (no YAML multiline indicators)
 #   4. No unrecognized frontmatter fields
-#   5. description ≤ 250 characters
+#   5. description ≤ 1536 characters (official limit for description + when_to_use)
 #   6. name ≤ 64 characters, lowercase + hyphens only
 
 # --- Extract file path from hook JSON input ---
@@ -71,8 +71,8 @@ if [ -n "$DESC_LINE" ]; then
   # Remove "description: " prefix and surrounding quotes
   DESC_VALUE=$(echo "$DESC_LINE" | sed 's/^description:[[:space:]]*//' | sed 's/^["'"'"']//' | sed 's/["'"'"']$//')
   DESC_LEN=${#DESC_VALUE}
-  if [ "$DESC_LEN" -gt 250 ]; then
-    WARNINGS="${WARNINGS}\n  ⚠️ description 長度為 ${DESC_LEN} 字元，超過 250 字元上限。超出部分在 skill listing 中會被截斷。"
+  if [ "$DESC_LEN" -gt 1536 ]; then
+    WARNINGS="${WARNINGS}\n  ⚠️ description 長度為 ${DESC_LEN} 字元，超過官方 1,536 字元上限（description + when_to_use 合計）。超出部分在 skill listing 中會被截斷。"
   fi
 fi
 
