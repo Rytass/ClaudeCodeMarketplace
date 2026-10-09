@@ -35,8 +35,8 @@ You can also install via the interactive UI: run `/plugin` → **Discover** tab 
 
 | Plugin                                                                 | Version | Description                                                                                                                       |
 | ---------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| [`project-rule`](./plugins/project-rule)                               | 0.8.0   | Full-stack architecture patterns: NestJS dual-layer modules, Next.js App Router, TypeORM, GraphQL Code-First, Casbin RBAC, Nx monorepo. |
-| [`mezzanine-ui`](./plugins/mezzanine-ui)                               | 0.4.3   | Mezzanine-UI design system skills for React/Next.js and Angular 21+, with a sync orchestrator that refreshes docs from the monorepo.    |
+| [`project-rule`](./plugins/project-rule)                               | 0.9.1   | Full-stack architecture patterns: NestJS dual-layer modules, Next.js App Router, TypeORM, GraphQL Code-First, Casbin RBAC, Nx monorepo. |
+| [`mezzanine-ui`](./plugins/mezzanine-ui)                               | 0.11.2  | Mezzanine-UI design system skills for React/Next.js and Angular 21+, with a sync orchestrator that refreshes docs from the monorepo.    |
 | [`protoforge`](./plugins/protoforge)                                   | 0.3.2   | LLM-driven admin prototype generator. Reads RFP/spec docs and generates interactive Next.js + Mezzanine UI prototypes with mock data.   |
 | [`mezzanine-ui-icon-creator`](./plugins/mezzanine-ui-icon-creator)     | 0.2.1   | Author custom SVG icons that visually match `@mezzanine-ui/icons`: style-locked rules, `IconDefinition` scaffolding, verification.      |
 | [`react-performance`](./plugins/react-performance)                     | 0.1.0   | React and Next.js performance optimization rules from Vercel Engineering — 47 actionable rules.                                         |
@@ -47,7 +47,7 @@ You can also install via the interactive UI: run `/plugin` → **Discover** tab 
 
 | Plugin                      | Skills | Agents | Commands                                                        |
 | --------------------------- | ------ | ------ | ---------------------------------------------------------------- |
-| `project-rule`              | 15     | 4      | `/scaffold-project` `/scaffold-module` `/scaffold-page` `/audit-patterns` |
+| `project-rule`              | 14     | 4      | `/scaffold-project` `/scaffold-module` `/scaffold-page` `/audit-patterns` |
 | `mezzanine-ui`              | 2      | 12     | `/sync-mezzanine-ui`                                             |
 | `protoforge`                | 3      | 2      | `/proto` `/proto-deploy`                                         |
 | `mezzanine-ui-icon-creator` | 1      | —      | —                                                                |
