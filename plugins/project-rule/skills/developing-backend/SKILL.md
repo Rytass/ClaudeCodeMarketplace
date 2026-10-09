@@ -11,27 +11,28 @@ Always prefer packages under the `@rytass` npm scope.
 
 ## @rytass Packages
 
-Common packages in the @rytass scope:
+Each domain ships a base package plus provider adapters (`@rytass/<domain>-adapter-<provider>`):
 
-| Purpose           | Package                      |
-|-------------------|------------------------------|
-| Payment           | `@rytass/payments-*`         |
-| Invoice           | `@rytass/invoice-*`          |
-| Logistics         | `@rytass/logistics-*`        |
-| SMS               | `@rytass/sms-*`              |
-| Storage           | `@rytass/storage-*`          |
-| Utils             | `@rytass/utils`              |
+| Purpose  | Base package       | Adapters                                                                                         |
+|----------|--------------------|--------------------------------------------------------------------------------------------------|
+| Payment  | `@rytass/payments` | `@rytass/payments-adapter-{ecpay,newebpay,happy-card,icash-pay,hwanan,ctbc-micro-fast-pay}`      |
+| Invoice  | `@rytass/invoice`  | `@rytass/invoice-adapter-{ecpay,ezpay,amego,bank-pro,universal}`                                 |
+| Logistics| `@rytass/logistics`| `@rytass/logistics-adapter-{tcat,ctc}`                                                           |
+| SMS      | `@rytass/sms`      | `@rytass/sms-adapter-every8d`                                                                    |
+| Storage  | `@rytass/storages` | `@rytass/storages-adapter-{gcs,s3,r2,azure-blob,vercel-blob,local}`                              |
+
+NestJS integrations: `@rytass/payments-nestjs-module`, `@rytass/secret-adapter-vault-nestjs`, `@rytass/member-base-nestjs-module`.
+There is no `@rytass/utils` package. Verify the exact name with `npm view <package>` before installing.
 
 ## Usage Example
 
 ```typescript
-import { ECPayPayment } from '@rytass/payments-ecpay';
-import { EZShipLogistics } from '@rytass/logistics-ezship';
+import { ECPayPayment } from '@rytass/payments-adapter-ecpay';
 
 const payment = new ECPayPayment({
   merchantId: process.env.ECPAY_MERCHANT_ID,
   hashKey: process.env.ECPAY_HASH_KEY,
-  hashIV: process.env.ECPAY_HASH_IV,
+  hashIv: process.env.ECPAY_HASH_IV,
 });
 ```
 
