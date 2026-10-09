@@ -1,6 +1,6 @@
 ---
 name: scaffold-project
-description: "Interactively guide new project initialization and launch the initializer agent. Use when starting a new project, setting up a repo, or bootstrapping a codebase. Trigger when user says scaffold project, init project, create project, new project, start project, bootstrap."
+description: "Interactive entry point that initializes an empty NestJS + Next.js repo with project-rule conventions. Asks for project name and topology (Nx monorepo or standalone), then launches the project-initializer agent to set up ESLint, Prettier, commitlint, Husky, TypeORM, MemberBaseModule + Casbin, GraphQL code-first, Docker and CI. Use only when the user explicitly wants this plugin to scaffold a repo's code and toolchain. Trigger words — scaffold project, /scaffold-project, 用 project-rule 初始化 repo. For topology advice or fixing lint, commitlint or Docker config, use initializing-project."
 argument-hint: "[--topology=monorepo|standalone]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: scaffolding-nextjs-page
-description: Frontend Next.js page scaffolding. 9-step creation workflow — Fragment, Query, Mutations, codegen, Page component, SCSS, Table, Form Modal, integration verification. Use when creating frontend pages, scaffolding pages, building CMS pages, or adding list/form pages.
+description: "Reference templates and 9-step checklist for a Next.js CMS CRUD page — GraphQL fragment, query and mutation files, codegen, page.tsx with PageHeader layout, page.module.scss padding contract, Mezzanine Table, react-hook-form + yup FormModal. Use when hand-writing or fixing part of a CMS page (adding a form modal or table to an existing page, wiring Apollo hooks, fixing double padding, checking a page for missing steps); also the template source for the nextjs-page-scaffolder agent. Trigger words — 表單彈窗, 列表頁, FormModal, 表格加欄位, 後台頁面 padding. To generate a whole new page interactively, use /scaffold-page."
 ---
 
 # Next.js CMS Page Scaffolding

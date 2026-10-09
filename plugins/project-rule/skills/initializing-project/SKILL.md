@@ -1,6 +1,6 @@
 ---
 name: initializing-project
-description: Project initialization guide. Supports both Nx monorepo and standalone topologies. Covers ESLint flat config, Prettier, commitlint, Husky, Docker multi-stage build, CI/CD. Use when creating new projects, initializing projects, bootstrapping projects, or choosing between monorepo and standalone.
+description: "Reference guide for project topology and toolchain setup — Nx monorepo vs standalone decision matrix, required packages, ESLint flat config, Prettier, commitlint, Husky + lint-staged, Docker multi-stage build, CI/CD. Use when deciding between monorepo and separate repos, or when adding or fixing ESLint, Prettier, commitlint, Husky, Dockerfile or CI config in a project; also the reference for the project-initializer agent. Trigger words — monorepo 還是分 repo, eslint flat config, commitlint, husky, lint-staged, Dockerfile, CI 設定. To run full interactive initialization, use /scaffold-project."
 ---
 
 # Project Initialization Guide

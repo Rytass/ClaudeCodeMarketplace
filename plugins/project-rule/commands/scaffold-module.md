@@ -1,6 +1,6 @@
 ---
 name: scaffold-module
-description: "Interactively guide backend NestJS module creation and launch the scaffolder agent. Use when creating a new backend module, adding a NestJS resource, or scaffolding an API entity. Trigger when user says scaffold module, create module, new module, add backend module, generate module."
+description: "Interactive end-to-end generator for a brand-new NestJS backend module. Asks for entity name, table, fields, relations, enums and RBAC permissions, confirms a summary, then launches the nestjs-module-scaffolder agent to write the full 11-file module. Use when the user wants a whole new module, resource or CRUD API created from scratch. Trigger words — scaffold module, new backend module, generate CRUD module, 新增後端模組, 建立新模組, 產生 CRUD API. Not for adding or fixing files in an existing module (use scaffolding-nestjs-module)."
 argument-hint: "<module-name>"
 ---
 

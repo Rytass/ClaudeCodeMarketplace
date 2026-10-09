@@ -1,6 +1,6 @@
 ---
 name: scaffold-page
-description: "Interactively guide frontend Next.js page creation and launch the scaffolder agent. Use when creating a new CMS page, adding a frontend view, or scaffolding a list/detail page. Trigger when user says scaffold page, create page, new page, add frontend page, generate page."
+description: "Interactive end-to-end generator for a new Next.js CMS list page. Asks for page path, title, entity, table columns and form-modal fields, confirms a summary, then launches the nextjs-page-scaffolder agent to create GraphQL operations, page, SCSS, Table and FormModal and run codegen. Use when the user wants a whole new admin or CMS page created from scratch. Trigger words — scaffold page, new CMS page, 新增後台頁面, 建立列表頁, 產生 CRUD 頁面. Not for editing an existing page (use scaffolding-nextjs-page)."
 argument-hint: "<page-path>"
 ---
 

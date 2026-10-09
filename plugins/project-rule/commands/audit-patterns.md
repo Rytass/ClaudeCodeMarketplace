@@ -1,6 +1,6 @@
 ---
 name: audit-patterns
-description: "Launch the pattern-auditor agent to audit code for architectural compliance. Use when checking code quality, verifying patterns, or auditing module structure. Trigger when user says audit patterns, check patterns, audit code, review architecture, verify compliance."
+description: "Launches the read-only pattern-auditor agent to audit NestJS backend code against project-rule conventions — DataLoader on @ResolveField, permission decorators, Entity-as-ObjectType, Symbol injection, pagination DTOs, naming and dual-layer module structure — and returns a pass, warning and violation report. Use after finishing a backend module or before a PR or code review of NestJS code. Trigger words — audit patterns, check architecture, 檢查架構規範, 後端 code review, 模組有沒有照規範. For UI and accessibility review, use reviewing-web-design."
 argument-hint: "[path]"
 ---
 

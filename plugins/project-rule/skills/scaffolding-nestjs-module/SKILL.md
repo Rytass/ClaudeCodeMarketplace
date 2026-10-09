@@ -1,6 +1,6 @@
 ---
 name: scaffolding-nestjs-module
-description: Backend NestJS module scaffolding. Full 11-step creation workflow — Entity + Symbol, ModelsModule, Enum, DTOs, DataService, DataLoader, DataModule, Queries, Mutations, Resolver, Module. Use when creating NestJS modules, scaffolding modules, adding backend features, or creating entity/service/resolver files.
+description: "Reference templates, file naming and 11-step checklist for the NestJS dual-layer module file set — Entity + Symbol, ModelsModule registration, Enum, DTOs (CreateInput, UpdateInput, CollectionDto), DataService, DataLoader, DataModule, Queries, Mutations, Resolver, Module. Use when hand-writing or completing part of a module (adding a DataService, DataLoader, DTO or resolver to an existing module, or checking a module for missing steps); also the template source for the nestjs-module-scaffolder agent. Trigger words — 補齊模組檔案, 加 DataLoader, 新增 DTO, 模組少了什麼. To generate a whole new module interactively, use /scaffold-module."
 ---
 
 # NestJS Module Scaffolding
