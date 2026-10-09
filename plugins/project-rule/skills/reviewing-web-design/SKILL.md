@@ -1,6 +1,6 @@
 ---
 name: reviewing-web-design
-description: Review UI code for Vercel Web Interface Guidelines compliance. Fetches latest rules and audits *.tsx, *.css, *.scss files for semantic HTML, accessibility (ARIA, focus, keyboard navigation), layout, responsive design, and UX patterns. Use when reviewing UI components, checking accessibility, auditing frontend design, or comparing against best practices. Trigger words — review UI, check accessibility, audit design, review UX, a11y check, WCAG, UI audit, design review.
+description: "Audits React and Next.js UI code (*.tsx, *.css, *.scss) against the latest Vercel Web Interface Guidelines — semantic HTML, accessibility (ARIA, labels, focus states, keyboard navigation), layout, responsive behaviour and UX details — and reports findings as file:line. Use when reviewing a page or component before merge, or when the user asks about a11y, keyboard support or UI quality. Trigger words — review UI, a11y, WCAG, 無障礙, 無障礙檢查, 鍵盤操作, focus 樣式, UI 審查, 前端 code review. For NestJS architecture audits, use /audit-patterns."
 argument-hint: "<file-or-pattern>"
 ---
 

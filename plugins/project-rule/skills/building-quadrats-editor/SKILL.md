@@ -1,6 +1,6 @@
 ---
 name: building-quadrats-editor
-description: Build Quadrats rich text editor for admin/backend. Provides full component parameters (Bold, Italic, Heading, Image, Embed, Table, 20+ components), Toolbar configuration, event handling. Use when building editors, adding editor components, configuring Toolbar, handling keyboard shortcuts, setting up image upload, embedding videos. Related skill — serializing-quadrats (frontend serialization rendering).
+description: "Builds the Quadrats rich-text editor (@quadrats/react) for admin and CMS screens — editor composition, 20+ components (bold, heading, list, table, image, embed, link, footnote and more), Toolbar configuration, hotkeys, image upload handlers and theme CSS variables. Use when adding or customizing a rich-text or WYSIWYG field in a back-office form, configuring the toolbar, or wiring image upload inside the editor. Trigger words — Quadrats, 富文本編輯器, 文章編輯器, WYSIWYG, rich text editor, 編輯器工具列, 編輯器上傳圖片. For rendering saved content on the frontend, use serializing-quadrats."
 ---
 
 # Quadrats Editor Setup Guide

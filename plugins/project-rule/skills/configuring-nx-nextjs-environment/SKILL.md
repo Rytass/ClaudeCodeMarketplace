@@ -1,6 +1,6 @@
 ---
 name: configuring-nx-nextjs-environment
-description: Nx Monorepo + Next.js environment configuration guide. NODE_ENV handling (NEVER define in .env), Nx Libs export conventions (root src/index.ts only). Use when working with .env files, nx.json, tsconfig.base.json, Next.js config, or creating Nx libraries. Pair with nx-monorepo-expert agent for complex configurations.
+description: "Environment and Nx library rules for Next.js apps in an Nx monorepo — never set NODE_ENV in any .env file (Next.js sets it, and defining it breaks builds), and export everything from a lib's root src/index.ts only (no nested index.ts barrels). Use when adding or editing .env files or environment variables, touching next.config, nx.json, project.json or tsconfig.base.json paths, creating an Nx library, or debugging build errors such as no-document-import-in-page. Trigger words — 環境變數, .env, NODE_ENV, Nx lib, barrel export, path alias, nx build 失敗."
 ---
 
 # Nx Monorepo + Next.js Environment

@@ -1,6 +1,6 @@
 ---
 name: serializing-quadrats
-description: Quadrats frontend content serialization and rendering. Convert Editor JSON content to JSX/HTML. Use when displaying editor content on frontend, customizing element rendering, outputting custom CSS styles, or SSR rendering. Related skill — building-quadrats-editor (backend editor setup).
+description: "Renders saved Quadrats editor JSON (Descendant[]) as JSX or HTML on the public frontend with the @quadrats/react jsx-serializer — element and mark serializers, custom element rendering, CSS variables and Next.js SSR. Use when displaying article or CMS rich-text content stored by the Quadrats editor, customizing how headings, images or embeds render, or fixing SSR of editor content. Trigger words — Quadrats, 渲染文章內容, 顯示富文本, rich text render, jsx serializer, 編輯器內容顯示. For building the editor itself, use building-quadrats-editor."
 ---
 
 # Quadrats Serializer Frontend Rendering Guide

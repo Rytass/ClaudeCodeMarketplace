@@ -1,6 +1,6 @@
 ---
 name: setting-up-auth-rbac
-description: Authentication and authorization setup guide. @rytass/member-base-nestjs-module JWT configuration, Casbin RBAC permission model, Vault secret management integration, token refresh middleware. Use when setting up auth systems, RBAC, Casbin, JWT, Vault, or permission decorators.
+description: "Authentication and authorization setup for NestJS with @rytass/member-base-nestjs-module — JWT login and token refresh, Casbin RBAC model and policies, RESOURCES and ACTIONS constants, @Authenticated() and @CheckPermission() decorators, admin seed. Use when adding login, protecting a query or mutation with permissions, defining roles or a new permission resource, or debugging 401, 403 or token expiry. Trigger words — 登入, 權限, 角色權限, 權限控管, RBAC, Casbin, JWT, token refresh, @CheckPermission. For Vault secret wiring, use integrating-vault-nestjs."
 ---
 
 # Authentication & Authorization Setup Guide
