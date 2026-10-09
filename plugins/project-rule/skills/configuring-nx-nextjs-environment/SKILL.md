@@ -31,12 +31,3 @@ export type { MyType } from './lib/types';
 ```
 
 Never create nested `index.ts` files.
-
-## Agent Integration
-
-For complex Nx configuration tasks, use `nx-monorepo-expert` agent via Task tool:
-- Workspace configuration
-- TypeScript path mapping
-- ESLint flat config setup
-- lint-staged workflows
-- Husky git hooks
