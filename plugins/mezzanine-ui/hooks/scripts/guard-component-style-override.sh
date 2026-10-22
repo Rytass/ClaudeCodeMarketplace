@@ -15,6 +15,11 @@
 # the verdict to an exit code. It never fails silently: a guard that quietly
 # stops running is worse than no guard.
 #
+# Output channels (Claude Code hook contract): BLOCK is exit 2 + stderr. WARN is
+# JSON hookSpecificOutput.additionalContext - plain stdout on exit 0 lands in
+# the transcript only and the model never sees it. A guard that cannot run says
+# so through systemMessage, which is shown to the user; stderr on exit 0 is not.
+#
 # Deliberate limits, so nobody mistakes this for a complete gate:
 #   * A status chip built as `.statusChip { background: ... }` plus
 #     `<Tag className={styles.statusChip}>` only WARNS - the CSS names no
@@ -31,15 +36,27 @@ ERR_LOG="$(mktemp "${TMPDIR:-/tmp}/mzn-guard.XXXXXX")"
 trap 'rm -f "$ERR_LOG"' EXIT
 
 if ! command -v python3 >/dev/null 2>&1; then
-    echo "Mezzanine-UI hook: python3 not found, component-style guard did not run." >&2
+    echo '{"systemMessage":"Mezzanine-UI hook: python3 not found, component-style guard did not run."}'
     exit 0
 fi
+
+# Print stdin as a JSON hook output object under the given key.
+emit_json() {
+    python3 -c '
+import json, sys
+text = sys.stdin.read().rstrip()
+if sys.argv[1] == "systemMessage":
+    print(json.dumps({"systemMessage": text}))
+else:
+    print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "additionalContext": text}}))
+' "$1"
+}
 
 RESULT="$(printf '%s' "$INPUT" | python3 "$SCRIPT_DIR/guard_component_style_override.py" 2>"$ERR_LOG")"
 STATUS=$?
 
 if [ "$STATUS" -ne 0 ]; then
-    echo "Mezzanine-UI hook: guard failed to run - $(head -n1 "$ERR_LOG" 2>/dev/null)" >&2
+    echo "Mezzanine-UI hook: guard failed to run - $(head -n1 "$ERR_LOG" 2>/dev/null)" | emit_json systemMessage
     exit 0
 fi
 
@@ -49,7 +66,7 @@ TIER="$(printf '%s' "$RESULT" | head -n1)"
 DETAIL="$(printf '%s' "$RESULT" | tail -n +2)"
 
 if [ "$TIER" = "WARN_CHOICE" ]; then
-    echo "Mezzanine-UI reminder: $DETAIL"
+    echo "Mezzanine-UI reminder: $DETAIL" | emit_json additionalContext
     exit 0
 fi
 
@@ -80,10 +97,12 @@ EOM
     exit 2
 fi
 
-printf 'Mezzanine-UI reminder: %s\n\n' "$DETAIL"
-cat <<'EOM'
+{
+    printf 'Mezzanine-UI reminder: %s\n\n' "$DETAIL"
+    cat <<'EOM'
 Layout properties (margin / width / flex / grid-area) on a component are fine.
 Appearance (background / color / border / radius) is not - that signals the
 wrong component. See SKILL.md component-selection section.
 EOM
+} | emit_json additionalContext
 exit 0
