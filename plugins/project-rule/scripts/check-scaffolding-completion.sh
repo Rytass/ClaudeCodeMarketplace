@@ -18,29 +18,36 @@ fi
 
 MESSAGE=""
 
-# Changed tracked files plus new untracked ones: a fresh scaffold is all new files
-CHANGED_FILES=""
+# Only new files count: scaffolding creates files, while edits to an existing module
+# (its resolver and mutations, say) are ordinary work, not a half-finished scaffold.
+# New = added since HEAD (staged or not) plus untracked.
+NEW_FILES=""
 if command -v git &>/dev/null && git rev-parse --is-inside-work-tree &>/dev/null 2>&1; then
-  CHANGED_FILES=$( { git diff --name-only HEAD 2>/dev/null || git diff --name-only 2>/dev/null || true; \
+  NEW_FILES=$( { git diff --name-only --diff-filter=A HEAD 2>/dev/null || true; \
     git ls-files --others --exclude-standard 2>/dev/null || true; } | sort -u)
 fi
 
-if [ -z "$CHANGED_FILES" ]; then
+if [ -z "$NEW_FILES" ]; then
   exit 0
 fi
 
-# Group files by the entity they belong to, so unrelated edits (app.module.ts next to
+# Group files by the entity they belong to, so unrelated new files (app.module.ts next to
 # some foo.entity.ts) are not mistaken for one half-finished scaffold. Prints one
 # "<entity>\t<missing patterns>" line per entity that has 2+ but not all patterns.
 # Usage: report_incomplete nestjs|nextjs
 report_incomplete() {
-  printf '%s\n' "$CHANGED_FILES" | awk -v kind="$1" '
+  printf '%s\n' "$NEW_FILES" | awk -v kind="$1" '
     function norm(k) {
       k = tolower(k); gsub(/[-_]/, "", k)
       if (k ~ /ies$/) sub(/ies$/, "y", k); else sub(/s$/, "", k)
       return k
     }
-    function add(k, p) { if (k != "") { seen[norm(k), p] = 1; keys[norm(k)] = 1 } }
+    # Match on the normalised key, but report the name as first spelled in a file name
+    function add(k, p,  nk) {
+      if (k == "") return
+      nk = norm(k); seen[nk, p] = 1; keys[nk] = 1
+      if (!(nk in shown)) shown[nk] = k
+    }
     {
       n = split($0, parts, "/"); b = parts[n]; dir = (n > 1) ? parts[n - 1] : ""
       if (kind == "nestjs") {
@@ -71,7 +78,7 @@ report_incomplete() {
           if ((k, pats[i]) in seen) matched++
           else missing = missing (missing == "" ? "" : ", ") pats[i]
         }
-        if (matched >= 2 && matched < np) printf "%s\t%s\n", k, missing
+        if (matched >= 2 && matched < np) printf "%s\t%s\n", shown[k], missing
       }
     }' | sort
 }
