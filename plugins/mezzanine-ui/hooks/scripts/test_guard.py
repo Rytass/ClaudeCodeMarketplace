@@ -186,7 +186,11 @@ def run(path: str, content: str) -> str:
     )
     if result.returncode == 2:
         return "BLOCK"
-    return "WARN" if result.stdout.strip() else "SILENT"
+    if not result.stdout.strip():
+        return "SILENT"
+    # A WARN only counts if it reaches the model: one JSON object carrying additionalContext.
+    output = json.loads(result.stdout)
+    return "WARN" if output["hookSpecificOutput"]["additionalContext"] else "SILENT"
 
 
 def main() -> int:
