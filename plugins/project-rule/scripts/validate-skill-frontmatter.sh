@@ -31,7 +31,7 @@ if [ "$FIRST_LINE" != "---" ]; then
 fi
 
 # Find closing --- (skip line 1, find next ---)
-CLOSE_LINE=$(tail -n +2 "$FILE_PATH" | grep -n '^---$' | head -1 | cut -d: -f1)
+CLOSE_LINE=$(tail -n +2 "$FILE_PATH" | grep -n '^---$' | head -1 | cut -d: -f1 || true)
 if [ -z "$CLOSE_LINE" ]; then
   echo "🚫 SKILL.md: 缺少結束的 \`---\`。frontmatter 必須以 \`---\` 開始和結束。"
   exit 0
@@ -50,7 +50,7 @@ fi
 
 # --- Check 4: unrecognized fields ---
 # Extract top-level field names (lines starting with a word followed by colon, not indented)
-FIELD_NAMES=$(echo "$FRONTMATTER" | grep -oE '^[a-zA-Z][a-zA-Z0-9_-]*:' | sed 's/:$//')
+FIELD_NAMES=$(echo "$FRONTMATTER" | grep -oE '^[a-zA-Z][a-zA-Z0-9_-]*:' | sed 's/:$//' || true)
 
 for field in $FIELD_NAMES; do
   FOUND=false
@@ -66,7 +66,7 @@ for field in $FIELD_NAMES; do
 done
 
 # --- Check 5: description length ---
-DESC_LINE=$(echo "$FRONTMATTER" | grep -E '^description:' | head -1)
+DESC_LINE=$(echo "$FRONTMATTER" | grep -E '^description:' | head -1 || true)
 if [ -n "$DESC_LINE" ]; then
   # Remove "description: " prefix and surrounding quotes
   DESC_VALUE=$(echo "$DESC_LINE" | sed 's/^description:[[:space:]]*//' | sed 's/^["'"'"']//' | sed 's/["'"'"']$//')
@@ -77,7 +77,7 @@ if [ -n "$DESC_LINE" ]; then
 fi
 
 # --- Check 6: name format ---
-NAME_LINE=$(echo "$FRONTMATTER" | grep -E '^name:' | head -1)
+NAME_LINE=$(echo "$FRONTMATTER" | grep -E '^name:' | head -1 || true)
 if [ -n "$NAME_LINE" ]; then
   NAME_VALUE=$(echo "$NAME_LINE" | sed 's/^name:[[:space:]]*//' | sed 's/^["'"'"']//' | sed 's/["'"'"']$//')
   NAME_LEN=${#NAME_VALUE}
