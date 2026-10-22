@@ -6,7 +6,7 @@ set -euo pipefail
 
 INPUT="$(cat)"
 
-# Extract all string values from toolInput and check for Google Workspace URLs
+# Extract all string values from tool_input and check for Google Workspace URLs
 MATCHED_URL=$(echo "$INPUT" | python3 -c "
 import sys, json, re
 
@@ -37,7 +37,7 @@ GWS_PATTERN = re.compile(
 
 try:
     data = json.load(sys.stdin)
-    tool_input = data.get('toolInput', {})
+    tool_input = data.get('tool_input', {})
     for s in extract_strings(tool_input):
         m = GWS_PATTERN.search(s)
         if m:
