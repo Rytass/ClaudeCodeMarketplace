@@ -4,16 +4,9 @@ set -euo pipefail
 # Verify dual-layer module structure: .module.ts should have a corresponding -data.module.ts
 # Event: PostToolUse | Matcher: Write | Action: WARN
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
-FILE_PATH=$(echo "$INPUT" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    print(data.get('tool_input', {}).get('file_path', ''))
-except:
-    print('')
-" 2>/dev/null || echo "")
+FILE_PATH=$(hook_field tool_input.file_path)
 
 if [ -z "$FILE_PATH" ]; then
   exit 0
@@ -38,10 +31,10 @@ MODULE_NAME="${BASENAME%.module.ts}"
 DATA_MODULE="${DIR}/${MODULE_NAME}-data.module.ts"
 
 if [ ! -f "$DATA_MODULE" ]; then
-  echo "WARNING: Module $(basename "$FILE_PATH") created without corresponding data module."
-  echo "Expected: ${MODULE_NAME}-data.module.ts in the same directory."
-  echo "NestJS dual-layer architecture requires both a feature module and a data module."
-  echo "See architecting-nestjs DUAL_LAYER skill."
+  emit_context "WARNING: Module $(basename "$FILE_PATH") created without corresponding data module.
+Expected: ${MODULE_NAME}-data.module.ts in the same directory.
+NestJS dual-layer architecture requires both a feature module and a data module.
+See architecting-nestjs DUAL_LAYER skill."
 fi
 
 exit 0

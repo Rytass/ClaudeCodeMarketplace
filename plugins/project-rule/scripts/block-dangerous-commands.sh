@@ -4,16 +4,9 @@ set -euo pipefail
 # Block dangerous shell commands
 # Event: PreToolUse | Matcher: Bash | Action: BLOCK
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
-COMMAND=$(echo "$INPUT" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    print(data.get('tool_input', {}).get('command', ''))
-except:
-    print('')
-" 2>/dev/null || echo "")
+COMMAND=$(hook_field tool_input.command)
 
 # Fail-open if no command found
 if [ -z "$COMMAND" ]; then

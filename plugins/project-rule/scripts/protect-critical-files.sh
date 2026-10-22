@@ -4,61 +4,30 @@ set -euo pipefail
 # Protect critical files from being emptied or deleted
 # Event: PreToolUse | Matcher: Write|Edit | Action: BLOCK
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
-# Parse all needed fields in a single python3 call
-# Output format: EXIT_CODE (0=allow, 2=block)
-# If block, also outputs a message on stderr-like second line
-RESULT=$(echo "$INPUT" | python3 -c "
-import json, sys
+FILE_PATH=$(hook_field tool_input.file_path)
 
-try:
-    data = json.load(sys.stdin)
-except:
-    print('0')
-    sys.exit(0)
+if [ -z "$FILE_PATH" ]; then
+  exit 0
+fi
 
-tool_input = data.get('tool_input', {})
-file_path = tool_input.get('file_path', '')
-tool_name = data.get('tool_name', '')
+BASENAME=$(basename "$FILE_PATH")
 
-if not file_path:
-    print('0')
-    sys.exit(0)
-
-import os
-basename = os.path.basename(file_path)
-
-protected = [
-    'models.module.ts',
-    'app.module.ts',
-    '.env',
-    '.env.local',
-    '.env.production',
-    'tsconfig.base.json',
-]
-
-if basename not in protected:
-    print('0')
-    sys.exit(0)
-
-# For Write tool: block if content is empty or whitespace-only
-if tool_name == 'Write':
-    content = tool_input.get('content', '')
-    if not content or not content.strip():
-        print('2')
-        print(f'BLOCKED: Cannot overwrite {basename} with empty content. This is a critical project file.')
-        sys.exit(0)
+case "$BASENAME" in
+  models.module.ts|app.module.ts|.env|.env.local|.env.production|tsconfig.base.json) ;;
+  *) exit 0 ;;
+esac
 
 # Edit tool: normal edits are allowed (they modify, not delete)
-print('0')
-" 2>/dev/null || echo "0")
+if [ "$(hook_field tool_name)" != "Write" ]; then
+  exit 0
+fi
 
-EXIT_CODE=$(echo "$RESULT" | head -1)
-MESSAGE=$(echo "$RESULT" | tail -n +2)
-
-if [ "$EXIT_CODE" = "2" ]; then
-  echo "$MESSAGE" >&2
+# For Write tool: block if content is empty or whitespace-only
+CONTENT=$(hook_field tool_input.content)
+if [ -z "${CONTENT//[[:space:]]/}" ]; then
+  echo "BLOCKED: Cannot overwrite ${BASENAME} with empty content. This is a critical project file." >&2
   exit 2
 fi
 

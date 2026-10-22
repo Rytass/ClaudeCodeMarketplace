@@ -4,16 +4,9 @@ set -euo pipefail
 # Detect TypeScript functions missing explicit return types
 # Event: PostToolUse | Matcher: Write|Edit | Action: WARN
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
-FILE_PATH=$(echo "$INPUT" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    print(data.get('tool_input', {}).get('file_path', ''))
-except:
-    print('')
-" 2>/dev/null || echo "")
+FILE_PATH=$(hook_field tool_input.file_path)
 
 if [ -z "$FILE_PATH" ]; then
   exit 0
@@ -42,10 +35,10 @@ VIOLATIONS=$(grep -nE '^\s*(export\s+)?(async\s+)?function\s+\w+|^\s*(public|pri
   | head -5 || true)
 
 if [ -n "$VIOLATIONS" ]; then
-  echo "WARNING: Functions missing explicit return types in $(basename "$FILE_PATH"):"
-  echo "$VIOLATIONS"
-  echo ""
-  echo "Every function must declare a return type per project rules."
+  emit_context "WARNING: Functions missing explicit return types in $(basename "$FILE_PATH"):
+$VIOLATIONS
+
+Every function must declare a return type per project rules."
 fi
 
 exit 0

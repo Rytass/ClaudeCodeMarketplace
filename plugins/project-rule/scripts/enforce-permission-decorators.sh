@@ -4,16 +4,9 @@ set -euo pipefail
 # Ensure @Mutation handlers have @Authenticated() decorator
 # Event: PostToolUse | Matcher: Write|Edit | Action: WARN
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
-FILE_PATH=$(echo "$INPUT" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    print(data.get('tool_input', {}).get('file_path', ''))
-except:
-    print('')
-" 2>/dev/null || echo "")
+FILE_PATH=$(hook_field tool_input.file_path)
 
 if [ -z "$FILE_PATH" ]; then
   exit 0
@@ -33,9 +26,9 @@ MUTATION_COUNT=$(grep -cE '@Mutation\b' "$FILE_PATH" 2>/dev/null) || true
 AUTH_COUNT=$(grep -cE '@Authenticated\b|@AllowActions\b|@Public\b' "$FILE_PATH" 2>/dev/null) || true
 
 if [ "$MUTATION_COUNT" -gt 0 ] && [ "$AUTH_COUNT" -lt "$MUTATION_COUNT" ]; then
-  echo "WARNING: $(basename "$FILE_PATH") has $MUTATION_COUNT @Mutation(s) but only $AUTH_COUNT auth decorator(s)."
-  echo "Every @Mutation should have @Authenticated(), @AllowActions(), or @Public() decorator."
-  echo "See setting-up-auth-rbac skill for permission patterns."
+  emit_context "WARNING: $(basename "$FILE_PATH") has $MUTATION_COUNT @Mutation(s) but only $AUTH_COUNT auth decorator(s).
+Every @Mutation should have @Authenticated(), @AllowActions(), or @Public() decorator.
+See setting-up-auth-rbac skill for permission patterns."
 fi
 
 exit 0

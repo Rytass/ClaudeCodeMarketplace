@@ -13,8 +13,9 @@ set -euo pipefail
 #   6. name ≤ 64 characters, lowercase + hyphens only
 
 # --- Extract file path from hook JSON input ---
-INPUT=$(cat 2>/dev/null || echo "")
-FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // ""' 2>/dev/null || echo "")
+source "$(dirname "$0")/_lib.sh"
+
+FILE_PATH=$(hook_field tool_input.file_path)
 
 if [ -z "$FILE_PATH" ] || [ ! -f "$FILE_PATH" ]; then
   exit 0
@@ -26,14 +27,14 @@ ALLOWED_FIELDS="name description argument-hint disable-model-invocation user-inv
 # --- Parse frontmatter ---
 FIRST_LINE=$(head -1 "$FILE_PATH")
 if [ "$FIRST_LINE" != "---" ]; then
-  echo "🚫 SKILL.md: frontmatter 必須從第 1 行的 \`---\` 開始。目前第 1 行為: '$FIRST_LINE'"
+  emit_context "🚫 SKILL.md: frontmatter 必須從第 1 行的 \`---\` 開始。目前第 1 行為: '$FIRST_LINE'"
   exit 0
 fi
 
 # Find closing --- (skip line 1, find next ---)
 CLOSE_LINE=$(tail -n +2 "$FILE_PATH" | grep -n '^---$' | head -1 | cut -d: -f1 || true)
 if [ -z "$CLOSE_LINE" ]; then
-  echo "🚫 SKILL.md: 缺少結束的 \`---\`。frontmatter 必須以 \`---\` 開始和結束。"
+  emit_context "🚫 SKILL.md: 缺少結束的 \`---\`。frontmatter 必須以 \`---\` 開始和結束。"
   exit 0
 fi
 
@@ -91,7 +92,7 @@ fi
 
 # --- Output results ---
 if [ -n "$ERRORS" ] || [ -n "$WARNINGS" ]; then
-  echo -e "📋 SKILL.md frontmatter 檢查結果：${ERRORS}${WARNINGS}"
+  emit_context "$(echo -e "📋 SKILL.md frontmatter 檢查結果：${ERRORS}${WARNINGS}")"
 fi
 
 exit 0
