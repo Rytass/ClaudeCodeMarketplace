@@ -27,7 +27,14 @@ if command -v git &>/dev/null && git rev-parse --is-inside-work-tree &>/dev/null
     git ls-files --others --exclude-standard 2>/dev/null || true; } | sort -u)
 fi
 
+# Last report sent for this repository, so the same report is not repeated
+REPO_KEY=$(git rev-parse --show-toplevel 2>/dev/null | cksum | cut -d' ' -f1)
+STATE_FILE="${TMPDIR:-/tmp}/project-rule-scaffold-check-${REPO_KEY}"
+
+# Nothing incomplete: forget the last report, so a later scaffold that is missing
+# the same files is reported again instead of being taken for a repeat.
 if [ -z "$NEW_FILES" ]; then
+  rm -f "$STATE_FILE"
   exit 0
 fi
 
@@ -94,12 +101,11 @@ if [ -n "$NEXTJS_INCOMPLETE" ]; then
 fi
 
 if [ -z "$MESSAGE" ]; then
+  rm -f "$STATE_FILE"
   exit 0
 fi
 
 # Skip if this exact report was already sent for this repository
-REPO_KEY=$(git rev-parse --show-toplevel 2>/dev/null | cksum | cut -d' ' -f1)
-STATE_FILE="${TMPDIR:-/tmp}/project-rule-scaffold-check-${REPO_KEY}"
 REPORT_HASH=$(printf '%s' "$MESSAGE" | cksum | cut -d' ' -f1)
 if [ -f "$STATE_FILE" ] && [ "$(cat "$STATE_FILE" 2>/dev/null)" = "$REPORT_HASH" ]; then
   exit 0
