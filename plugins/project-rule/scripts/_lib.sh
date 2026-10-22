@@ -10,6 +10,8 @@
 #   - exit 0 + JSON hookSpecificOutput.additionalContext reaches the model
 #   - exit 2 + stderr blocks the tool call and reaches the model
 # So every WARN-level hook must go through emit_context, never a bare echo.
+# Plugins are self-contained: protoforge scripts/_lib.sh and the mezzanine-ui style
+# guard carry their own copy of these emitters. Change the contract in all three.
 
 HOOK_INPUT=$(cat 2>/dev/null || echo "")
 
