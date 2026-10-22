@@ -21,20 +21,24 @@ MESSAGE=""
 # Only new files count: scaffolding creates files, while edits to an existing module
 # (its resolver and mutations, say) are ordinary work, not a half-finished scaffold.
 # New = added since HEAD (staged or not) plus untracked.
+# STATE_FILE holds the last report sent for this repository, so it is not repeated.
+# Both are only computed inside a git work tree: outside one, git rev-parse fails and
+# pipefail would abort the hook with a non-zero exit on every Stop.
 NEW_FILES=""
+STATE_FILE=""
 if command -v git &>/dev/null && git rev-parse --is-inside-work-tree &>/dev/null 2>&1; then
   NEW_FILES=$( { git diff --name-only --diff-filter=A HEAD 2>/dev/null || true; \
     git ls-files --others --exclude-standard 2>/dev/null || true; } | sort -u)
+  REPO_KEY=$(git rev-parse --show-toplevel | cksum | cut -d' ' -f1)
+  STATE_FILE="${TMPDIR:-/tmp}/project-rule-scaffold-check-${REPO_KEY}"
 fi
-
-# Last report sent for this repository, so the same report is not repeated
-REPO_KEY=$(git rev-parse --show-toplevel 2>/dev/null | cksum | cut -d' ' -f1)
-STATE_FILE="${TMPDIR:-/tmp}/project-rule-scaffold-check-${REPO_KEY}"
 
 # Nothing incomplete: forget the last report, so a later scaffold that is missing
 # the same files is reported again instead of being taken for a repeat.
 if [ -z "$NEW_FILES" ]; then
-  rm -f "$STATE_FILE"
+  if [ -n "$STATE_FILE" ]; then
+    rm -f "$STATE_FILE"
+  fi
   exit 0
 fi
 
