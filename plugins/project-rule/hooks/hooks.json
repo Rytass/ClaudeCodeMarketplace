@@ -89,11 +89,22 @@
         ]
       },
       {
-        "matcher": "Write|Edit",
+        "matcher": "Write",
         "hooks": [
           {
             "type": "command",
-            "if": "Write(**/SKILL.md)|Edit(**/SKILL.md)",
+            "if": "Write(**/SKILL.md)",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/validate-skill-frontmatter.sh\"",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Edit(**/SKILL.md)",
             "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/validate-skill-frontmatter.sh\"",
             "timeout": 5
           }
@@ -102,7 +113,7 @@
     ],
     "SubagentStop": [
       {
-        "matcher": "nestjs-module-scaffolder",
+        "matcher": "project-rule:nestjs-module-scaffolder",
         "hooks": [
           {
             "type": "command",
@@ -112,7 +123,7 @@
         ]
       },
       {
-        "matcher": "nextjs-page-scaffolder",
+        "matcher": "project-rule:nextjs-page-scaffolder",
         "hooks": [
           {
             "type": "command",
