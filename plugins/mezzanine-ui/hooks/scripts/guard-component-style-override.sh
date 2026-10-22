@@ -41,6 +41,8 @@ if ! command -v python3 >/dev/null 2>&1; then
 fi
 
 # Print stdin as a JSON hook output object under the given key.
+# Same output contract as emit_context / emit_system_message in project-rule and
+# protoforge scripts/_lib.sh; plugins are self-contained, so keep the three in step.
 emit_json() {
     python3 -c '
 import json, sys
