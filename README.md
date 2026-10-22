@@ -41,7 +41,7 @@ You can also install via the interactive UI: run `/plugin` → **Discover** tab 
 | [`mezzanine-ui-icon-creator`](./plugins/mezzanine-ui-icon-creator)     | 0.2.1   | Author custom SVG icons that visually match `@mezzanine-ui/icons`: style-locked rules, `IconDefinition` scaffolding, verification.      |
 | [`react-performance`](./plugins/react-performance)                     | 0.1.0   | React and Next.js performance optimization rules from Vercel Engineering — 47 actionable rules.                                         |
 | [`boilerplate`](./plugins/boilerplate)                                 | 0.1.0   | Full-stack project bootstrapper with deployment-specific API (GKE + NestJS, Cloudflare Workers + Hono, or Supabase Edge Functions).     |
-| [`google-workspace-cli`](./plugins/google-workspace-cli)               | 0.1.0   | Google Workspace CLI operations via `gws`, GAM, and `clasp` — Gmail, Drive, Calendar, Sheets, Docs, Chat, Meet, Tasks, Forms, Admin.    |
+| [`google-workspace-cli`](./plugins/google-workspace-cli)               | 0.1.1   | Google Workspace CLI operations via `gws`, GAM, and `clasp` — Gmail, Drive, Calendar, Sheets, Docs, Chat, Meet, Tasks, Forms, Admin.    |
 
 ### What Each Plugin Ships
 

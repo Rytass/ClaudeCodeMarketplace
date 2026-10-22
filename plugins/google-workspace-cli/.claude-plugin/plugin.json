@@ -1,7 +1,7 @@
 {
   "name": "google-workspace-cli",
   "description": "Google Workspace CLI operations via gws, GAM, and clasp. Gmail, Drive, Calendar, Sheets, Docs, Chat, Meet, Tasks, Forms, Admin. Full onboarding for first-time setup, authentication, and all CLI-driven workflows.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "keywords": [
     "google-workspace",
