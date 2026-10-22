@@ -53,7 +53,9 @@ For a complete example from RFP to running prototype, see `skills/protoforge/ref
 
 ## Hook Matchers
 
-`SubagentStop` hooks in `hooks.json` use the agent's `name` field from YAML frontmatter as the matcher value. If an agent is renamed, the corresponding `hooks.json` matcher must be updated to match.
+`SubagentStop` hooks in `hooks.json` match the agent type Claude Code reports, which for plugin agents is namespaced as `protoforge:<name>` (the `name` field from the agent's YAML frontmatter). A bare `<name>` matcher never fires. If an agent is renamed, the corresponding `hooks.json` matcher must be updated to match.
+
+Hook output follows the Claude Code contract: plain stdout on exit 0 never reaches the model, so soft reminders are emitted as JSON `additionalContext` (see `scripts/_lib.sh`). `SubagentStop` results are emitted as `systemMessage`; as of Claude Code 2.1.308 the subagent has already handed back its result when the hook runs, so these only land in the subagent's transcript and reach neither the model nor the main session.
 
 ## Components
 
