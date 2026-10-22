@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/scripts/prefer-gws-over-chrome.sh",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/prefer-gws-over-chrome.sh\"",
             "timeout": 5
           }
         ]
