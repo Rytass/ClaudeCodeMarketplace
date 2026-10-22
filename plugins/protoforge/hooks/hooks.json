@@ -46,7 +46,7 @@
     ],
     "SubagentStop": [
       {
-        "matcher": "prototype-generator",
+        "matcher": "protoforge:prototype-generator",
         "hooks": [
           {
             "type": "command",
@@ -56,7 +56,7 @@
         ]
       },
       {
-        "matcher": "prototype-deployer",
+        "matcher": "protoforge:prototype-deployer",
         "hooks": [
           {
             "type": "command",
