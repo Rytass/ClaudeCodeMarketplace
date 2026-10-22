@@ -18,9 +18,9 @@ except:
     print('0')
     sys.exit(0)
 
-tool_input = data.get('toolInput', {})
+tool_input = data.get('tool_input', {})
 file_path = tool_input.get('file_path', '')
-tool_name = data.get('toolName', '')
+tool_name = data.get('tool_name', '')
 
 if not file_path:
     print('0')
@@ -58,7 +58,7 @@ EXIT_CODE=$(echo "$RESULT" | head -1)
 MESSAGE=$(echo "$RESULT" | tail -n +2)
 
 if [ "$EXIT_CODE" = "2" ]; then
-  echo "$MESSAGE"
+  echo "$MESSAGE" >&2
   exit 2
 fi
 

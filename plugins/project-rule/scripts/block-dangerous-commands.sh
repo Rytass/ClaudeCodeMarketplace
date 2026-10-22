@@ -10,7 +10,7 @@ COMMAND=$(echo "$INPUT" | python3 -c "
 import json, sys
 try:
     data = json.load(sys.stdin)
-    print(data.get('toolInput', {}).get('command', ''))
+    print(data.get('tool_input', {}).get('command', ''))
 except:
     print('')
 " 2>/dev/null || echo "")
@@ -38,8 +38,8 @@ DANGEROUS_PATTERNS=(
 
 for pattern in "${DANGEROUS_PATTERNS[@]}"; do
   if echo "$COMMAND" | grep -qiE "$pattern"; then
-    echo "BLOCKED: Dangerous command detected matching pattern: $pattern"
-    echo "Command: $COMMAND"
+    echo "BLOCKED: Dangerous command detected matching pattern: $pattern" >&2
+    echo "Command: $COMMAND" >&2
     exit 2
   fi
 done

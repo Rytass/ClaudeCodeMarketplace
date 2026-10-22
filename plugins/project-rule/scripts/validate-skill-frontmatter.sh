@@ -14,7 +14,7 @@ set -euo pipefail
 
 # --- Extract file path from hook JSON input ---
 INPUT=$(cat 2>/dev/null || echo "")
-FILE_PATH=$(echo "$INPUT" | jq -r '.toolInput.file_path // ""' 2>/dev/null || echo "")
+FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // ""' 2>/dev/null || echo "")
 
 if [ -z "$FILE_PATH" ] || [ ! -f "$FILE_PATH" ]; then
   exit 0
