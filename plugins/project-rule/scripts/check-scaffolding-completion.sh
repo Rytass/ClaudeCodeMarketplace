@@ -6,7 +6,9 @@ set -euo pipefail
 #
 # Any model-visible output from a Stop hook makes Claude take another turn, and
 # the working tree stays incomplete until the user commits. So this reports each distinct
-# missing set once per session, and never while already continuing from a Stop hook.
+# missing set once per repository (not per session: a half-done scaffold left in the
+# tree would otherwise cost every new session an extra turn), and never while already
+# continuing from a Stop hook.
 
 source "$(dirname "$0")/_lib.sh"
 
@@ -88,9 +90,9 @@ if [ -z "$MESSAGE" ]; then
   exit 0
 fi
 
-# Skip if this exact report was already sent in this session
-SESSION_ID=$(hook_field session_id | tr -cd 'A-Za-z0-9_-')
-STATE_FILE="${TMPDIR:-/tmp}/project-rule-scaffold-check-${SESSION_ID:-unknown}"
+# Skip if this exact report was already sent for this repository
+REPO_KEY=$(git rev-parse --show-toplevel 2>/dev/null | cksum | cut -d' ' -f1)
+STATE_FILE="${TMPDIR:-/tmp}/project-rule-scaffold-check-${REPO_KEY}"
 REPORT_HASH=$(printf '%s' "$MESSAGE" | cksum | cut -d' ' -f1)
 if [ -f "$STATE_FILE" ] && [ "$(cat "$STATE_FILE" 2>/dev/null)" = "$REPORT_HASH" ]; then
   exit 0
