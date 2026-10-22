@@ -13,7 +13,7 @@ HOOK_INPUT=$(cat 2>/dev/null || echo "")
 
 # Extract a field from the hook's JSON input using jq.
 # Falls back to empty string if jq is unavailable or field is missing.
-# Usage: VALUE=$(extract_field ".toolInput.file_path")
+# Usage: VALUE=$(extract_field ".tool_input.file_path")
 extract_field() {
   local field="$1"
   if [ -z "$HOOK_INPUT" ]; then
@@ -25,15 +25,15 @@ extract_field() {
 
 # Commonly used field extractors
 get_file_path() {
-  extract_field ".toolInput.file_path"
+  extract_field ".tool_input.file_path"
 }
 
 get_content() {
-  extract_field ".toolInput.content"
+  extract_field ".tool_input.content"
 }
 
 get_new_string() {
-  extract_field ".toolInput.new_string"
+  extract_field ".tool_input.new_string"
 }
 
 # Check if a path should be skipped (build artifacts, node_modules, etc.)
