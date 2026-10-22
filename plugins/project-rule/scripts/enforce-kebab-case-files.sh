@@ -49,15 +49,12 @@ esac
 
 # Validate kebab-case: each dot-separated segment must be kebab-case
 # e.g., supplier-data.module, order.entity, app.module
-KEBAB_SEGMENT='^[a-z][a-z0-9]*(-[a-z0-9]+)*$'
+# Whole-stem match, so an empty segment (foo., .foo, foo..bar) is invalid too
+KEBAB_STEM='^[a-z][a-z0-9]*(-[a-z0-9]+)*(\.[a-z][a-z0-9]*(-[a-z0-9]+)*)*$'
 VALID="valid"
-IFS='.' read -ra SEGMENTS <<< "$STEM"
-for segment in "${SEGMENTS[@]}"; do
-  if ! [[ "$segment" =~ $KEBAB_SEGMENT ]]; then
-    VALID="invalid"
-    break
-  fi
-done
+if ! [[ "$STEM" =~ $KEBAB_STEM ]]; then
+  VALID="invalid"
+fi
 
 if [ "$VALID" = "invalid" ]; then
   emit_context "WARNING: File name '${BASENAME}' does not follow kebab-case convention.
