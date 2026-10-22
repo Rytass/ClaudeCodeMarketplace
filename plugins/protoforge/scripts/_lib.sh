@@ -12,6 +12,8 @@
 #   - exit 0 + JSON hookSpecificOutput.additionalContext reaches the model
 #   - exit 2 + stderr blocks the tool call and reaches the model
 # So every SOFT REMIND hook must go through emit_context, never a bare echo.
+# Plugins are self-contained: project-rule scripts/_lib.sh and the mezzanine-ui style
+# guard carry their own copy of these emitters. Change the contract in all three.
 
 # Read stdin once and store it for reuse by helper functions.
 # If stdin is empty or unavailable, HOOK_INPUT will be empty and
@@ -31,7 +33,8 @@ else
 fi
 
 # Extract a string field from the hook's JSON input (jq-style path).
-# Returns empty string if the field is missing.
+# Returns empty string if the field is missing. Unlike project-rule's hook_field,
+# non-string values are not serialized; protoforge only reads string fields.
 # Usage: VALUE=$(extract_field ".tool_input.file_path")
 extract_field() {
   local field="$1"
