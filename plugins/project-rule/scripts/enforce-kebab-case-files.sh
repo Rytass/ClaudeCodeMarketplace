@@ -4,16 +4,9 @@ set -euo pipefail
 # Enforce kebab-case file naming for new TypeScript files
 # Event: PostToolUse | Matcher: Write | Action: WARN
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
-FILE_PATH=$(echo "$INPUT" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    print(data.get('toolInput', {}).get('file_path', ''))
-except:
-    print('')
-" 2>/dev/null || echo "")
+FILE_PATH=$(hook_field tool_input.file_path)
 
 if [ -z "$FILE_PATH" ]; then
   exit 0
@@ -56,19 +49,16 @@ esac
 
 # Validate kebab-case: each dot-separated segment must be kebab-case
 # e.g., supplier-data.module, order.entity, app.module
-VALID=$(echo "$STEM" | python3 -c "
-import re, sys
-stem = sys.stdin.read().strip()
-# Split by dots to get segments
-segments = stem.split('.')
-pattern = re.compile(r'^[a-z][a-z0-9]*(-[a-z0-9]+)*$')
-all_valid = all(pattern.match(seg) for seg in segments)
-print('valid' if all_valid else 'invalid')
-" 2>/dev/null || echo "valid")
+# Whole-stem match, so an empty segment (foo., .foo, foo..bar) is invalid too
+KEBAB_STEM='^[a-z][a-z0-9]*(-[a-z0-9]+)*(\.[a-z][a-z0-9]*(-[a-z0-9]+)*)*$'
+VALID="valid"
+if ! [[ "$STEM" =~ $KEBAB_STEM ]]; then
+  VALID="invalid"
+fi
 
 if [ "$VALID" = "invalid" ]; then
-  echo "WARNING: File name '${BASENAME}' does not follow kebab-case convention."
-  echo "Expected pattern: kebab-case segments separated by dots (e.g., my-feature.module.ts)"
+  emit_context "WARNING: File name '${BASENAME}' does not follow kebab-case convention.
+Expected pattern: kebab-case segments separated by dots (e.g., my-feature.module.ts)"
 fi
 
 exit 0

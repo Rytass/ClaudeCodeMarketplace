@@ -2,9 +2,9 @@
 set -euo pipefail
 
 # Verify NestJS module scaffolder produced complete file set
-# Event: SubagentStop | Matcher: nestjs-module-scaffolder | Action: WARN
+# Event: SubagentStop | Matcher: project-rule:nestjs-module-scaffolder | Action: WARN (systemMessage; see _lib.sh)
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
 # For SubagentStop, we check recently created files
 # Try git diff first, fall back to find
@@ -18,7 +18,7 @@ if [ -z "$RECENT_FILES" ]; then
 fi
 
 if [ -z "$RECENT_FILES" ]; then
-  echo "WARNING: No recently created files detected. NestJS scaffolding may not have run."
+  emit_system_message "WARNING: No recently created files detected. NestJS scaffolding may not have run."
   exit 0
 fi
 
@@ -43,9 +43,8 @@ for entry in "${REQUIRED_PATTERNS[@]}"; do
 done
 
 if [ -n "$MISSING" ]; then
-  echo "WARNING: NestJS module scaffolding appears incomplete. Missing files:"
-  echo -e "$MISSING"
-  echo "Review the 11-step scaffolding workflow in scaffolding-nestjs-module skill."
+  emit_system_message "$(echo -e "WARNING: NestJS module scaffolding appears incomplete. Missing files:\n${MISSING}")
+Review the 11-step scaffolding workflow in scaffolding-nestjs-module skill."
 fi
 
 exit 0

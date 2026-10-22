@@ -4,16 +4,9 @@ set -euo pipefail
 # Ensure .entity.ts files with @Entity also have @ObjectType and Symbol export
 # Event: PostToolUse | Matcher: Write|Edit | Action: WARN
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
-FILE_PATH=$(echo "$INPUT" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    print(data.get('toolInput', {}).get('file_path', ''))
-except:
-    print('')
-" 2>/dev/null || echo "")
+FILE_PATH=$(hook_field tool_input.file_path)
 
 if [ -z "$FILE_PATH" ]; then
   exit 0
@@ -47,9 +40,8 @@ if [ "${HAS_SYMBOL:-0}" = "0" ]; then
 fi
 
 if [ -n "$WARNINGS" ]; then
-  echo "WARNING: Entity file $(basename "$FILE_PATH") is incomplete:"
-  echo -e "$WARNINGS"
-  echo "See architecting-nestjs skill for Entity-as-ObjectType pattern."
+  emit_context "$(echo -e "WARNING: Entity file $(basename "$FILE_PATH") is incomplete:\n${WARNINGS}")
+See architecting-nestjs skill for Entity-as-ObjectType pattern."
 fi
 
 exit 0

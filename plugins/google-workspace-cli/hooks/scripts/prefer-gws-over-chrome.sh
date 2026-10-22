@@ -1,13 +1,21 @@
 #!/usr/bin/env bash
 # PreToolUse hook: Remind Claude to prefer gws CLI over Chrome browser
 # for Google Workspace URLs. Soft reminder (exit 0) — does not block.
+#
+# The reminder is sent as JSON hookSpecificOutput.additionalContext: plain
+# stdout on exit 0 lands in the transcript only and never reaches the model.
 
 set -euo pipefail
 
 INPUT="$(cat)"
 
-# Extract all string values from toolInput and check for Google Workspace URLs
-MATCHED_URL=$(echo "$INPUT" | python3 -c "
+if ! command -v python3 >/dev/null 2>&1; then
+  echo '{"systemMessage":"google-workspace-cli hook did not run: python3 is not installed."}'
+  exit 0
+fi
+
+# Extract all string values from tool_input and check for Google Workspace URLs
+MATCHED_URL=$(python3 -c "
 import sys, json, re
 
 def extract_strings(obj):
@@ -37,7 +45,7 @@ GWS_PATTERN = re.compile(
 
 try:
     data = json.load(sys.stdin)
-    tool_input = data.get('toolInput', {})
+    tool_input = data.get('tool_input', {})
     for s in extract_strings(tool_input):
         m = GWS_PATTERN.search(s)
         if m:
@@ -48,7 +56,10 @@ except Exception:
 " 2>/dev/null <<< "$INPUT") || true
 
 if [ -n "$MATCHED_URL" ]; then
-  cat <<'MSG'
+  python3 -c '
+import json, sys
+print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "additionalContext": sys.stdin.read().rstrip()}}))
+' <<'MSG'
 ⚠️ Google Workspace URL detected. The `gws` CLI can handle this operation directly without browser automation.
 
 Prefer using the `gws` CLI (via the "operating-google-workspace-cli" skill) unless the user explicitly requested visual browser interaction.

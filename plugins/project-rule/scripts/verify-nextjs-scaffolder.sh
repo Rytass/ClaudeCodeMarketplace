@@ -2,9 +2,9 @@
 set -euo pipefail
 
 # Verify Next.js page scaffolder produced complete file set
-# Event: SubagentStop | Matcher: nextjs-page-scaffolder | Action: WARN
+# Event: SubagentStop | Matcher: project-rule:nextjs-page-scaffolder | Action: WARN (systemMessage; see _lib.sh)
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
 # Check recently created files
 RECENT_FILES=""
@@ -17,7 +17,7 @@ if [ -z "$RECENT_FILES" ]; then
 fi
 
 if [ -z "$RECENT_FILES" ]; then
-  echo "WARNING: No recently created files detected. Next.js scaffolding may not have run."
+  emit_system_message "WARNING: No recently created files detected. Next.js scaffolding may not have run."
   exit 0
 fi
 
@@ -41,9 +41,8 @@ for entry in "${REQUIRED_PATTERNS[@]}"; do
 done
 
 if [ -n "$MISSING" ]; then
-  echo "WARNING: Next.js page scaffolding appears incomplete. Missing files:"
-  echo -e "$MISSING"
-  echo "Review the 9-step scaffolding workflow in scaffolding-nextjs-page skill."
+  emit_system_message "$(echo -e "WARNING: Next.js page scaffolding appears incomplete. Missing files:\n${MISSING}")
+Review the 9-step scaffolding workflow in scaffolding-nextjs-page skill."
 fi
 
 exit 0

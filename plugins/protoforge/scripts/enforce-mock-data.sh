@@ -54,7 +54,7 @@ if grep -qE '@tanstack/react-query|from.*react-query' "$FILE_PATH" 2>/dev/null; 
 fi
 
 if [ -n "$VIOLATIONS" ]; then
-  echo -e "⚠️ ProtoForge: Prototype 不應使用真實 API 呼叫。請改用 mock data hooks：${VIOLATIONS}\n\n參考 MOCK_DATA.md 了解 mock data hook 的寫法。"
+  emit_context "$(echo -e "⚠️ ProtoForge: Prototype 不應使用真實 API 呼叫。請改用 mock data hooks：${VIOLATIONS}\n\n參考 MOCK_DATA.md 了解 mock data hook 的寫法。")"
 fi
 
 exit 0

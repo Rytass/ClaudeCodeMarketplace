@@ -4,16 +4,9 @@ set -euo pipefail
 # Detect @ResolveField using repository.find instead of DataLoader
 # Event: PostToolUse | Matcher: Write|Edit | Action: WARN
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
-FILE_PATH=$(echo "$INPUT" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    print(data.get('toolInput', {}).get('file_path', ''))
-except:
-    print('')
-" 2>/dev/null || echo "")
+FILE_PATH=$(hook_field tool_input.file_path)
 
 if [ -z "$FILE_PATH" ]; then
   exit 0
@@ -38,11 +31,11 @@ fi
 VIOLATIONS=$(grep -nE 'repository\.(find|findOne|findBy|findOneBy)\b' "$FILE_PATH" 2>/dev/null | head -5 || true)
 
 if [ -n "$VIOLATIONS" ]; then
-  echo "WARNING: Potential N+1 query in $(basename "$FILE_PATH"):"
-  echo "$VIOLATIONS"
-  echo ""
-  echo "@ResolveField should use DataLoader instead of direct repository queries."
-  echo "See architecting-nestjs DATALOADER skill for the pattern."
+  emit_context "WARNING: Potential N+1 query in $(basename "$FILE_PATH"):
+$VIOLATIONS
+
+@ResolveField should use DataLoader instead of direct repository queries.
+See architecting-nestjs DATALOADER skill for the pattern."
 fi
 
 exit 0

@@ -186,7 +186,15 @@ def run(path: str, content: str) -> str:
     )
     if result.returncode == 2:
         return "BLOCK"
-    return "WARN" if result.stdout.strip() else "SILENT"
+    if not result.stdout.strip():
+        return "SILENT"
+    # A WARN only counts if it reaches the model: one JSON object carrying additionalContext.
+    # Anything else (plain text, systemMessage, broken JSON) is reported, not crashed on.
+    try:
+        context = json.loads(result.stdout)["hookSpecificOutput"]["additionalContext"]
+    except (json.JSONDecodeError, KeyError, TypeError):
+        return f"INVALID({result.stdout.strip()[:60]!r})"
+    return "WARN" if context else "SILENT"
 
 
 def main() -> int:

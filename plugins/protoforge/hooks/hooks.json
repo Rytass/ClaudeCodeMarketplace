@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/enforce-no-backend.sh",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/enforce-no-backend.sh\"",
             "timeout": 5
           }
         ]
@@ -18,27 +18,27 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/enforce-mezzanine-only.sh",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/enforce-mezzanine-only.sh\"",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/enforce-admin-components.sh",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/enforce-admin-components.sh\"",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/enforce-mock-data.sh",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/enforce-mock-data.sh\"",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/enforce-use-client.sh",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/enforce-use-client.sh\"",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/enforce-typescript-strict.sh",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/enforce-typescript-strict.sh\"",
             "timeout": 5
           }
         ]
@@ -46,21 +46,21 @@
     ],
     "SubagentStop": [
       {
-        "matcher": "prototype-generator",
+        "matcher": "protoforge:prototype-generator",
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/verify-prototype-build.sh",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/verify-prototype-build.sh\"",
             "timeout": 120
           }
         ]
       },
       {
-        "matcher": "prototype-deployer",
+        "matcher": "protoforge:prototype-deployer",
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/verify-deploy-complete.sh",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/verify-deploy-complete.sh\"",
             "timeout": 30
           }
         ]

@@ -35,13 +35,13 @@ You can also install via the interactive UI: run `/plugin` → **Discover** tab 
 
 | Plugin                                                                 | Version | Description                                                                                                                       |
 | ---------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| [`project-rule`](./plugins/project-rule)                               | 0.9.1   | Full-stack architecture patterns: NestJS dual-layer modules, Next.js App Router, TypeORM, GraphQL Code-First, Casbin RBAC, Nx monorepo. |
-| [`mezzanine-ui`](./plugins/mezzanine-ui)                               | 0.11.2  | Mezzanine-UI design system skills for React/Next.js and Angular 21+, with a sync orchestrator that refreshes docs from the monorepo.    |
-| [`protoforge`](./plugins/protoforge)                                   | 0.3.2   | LLM-driven admin prototype generator. Reads RFP/spec docs and generates interactive Next.js + Mezzanine UI prototypes with mock data.   |
+| [`project-rule`](./plugins/project-rule)                               | 0.9.6   | Full-stack architecture patterns: NestJS dual-layer modules, Next.js App Router, TypeORM, GraphQL Code-First, Casbin RBAC, Nx monorepo. |
+| [`mezzanine-ui`](./plugins/mezzanine-ui)                               | 0.11.4  | Mezzanine-UI design system skills for React/Next.js and Angular 21+, with a sync orchestrator that refreshes docs from the monorepo.    |
+| [`protoforge`](./plugins/protoforge)                                   | 0.3.4   | LLM-driven admin prototype generator. Reads RFP/spec docs and generates interactive Next.js + Mezzanine UI prototypes with mock data.   |
 | [`mezzanine-ui-icon-creator`](./plugins/mezzanine-ui-icon-creator)     | 0.2.1   | Author custom SVG icons that visually match `@mezzanine-ui/icons`: style-locked rules, `IconDefinition` scaffolding, verification.      |
 | [`react-performance`](./plugins/react-performance)                     | 0.1.0   | React and Next.js performance optimization rules from Vercel Engineering — 47 actionable rules.                                         |
 | [`boilerplate`](./plugins/boilerplate)                                 | 0.1.0   | Full-stack project bootstrapper with deployment-specific API (GKE + NestJS, Cloudflare Workers + Hono, or Supabase Edge Functions).     |
-| [`google-workspace-cli`](./plugins/google-workspace-cli)               | 0.1.0   | Google Workspace CLI operations via `gws`, GAM, and `clasp` — Gmail, Drive, Calendar, Sheets, Docs, Chat, Meet, Tasks, Forms, Admin.    |
+| [`google-workspace-cli`](./plugins/google-workspace-cli)               | 0.1.1   | Google Workspace CLI operations via `gws`, GAM, and `clasp` — Gmail, Drive, Calendar, Sheets, Docs, Chat, Meet, Tasks, Forms, Admin.    |
 
 ### What Each Plugin Ships
 

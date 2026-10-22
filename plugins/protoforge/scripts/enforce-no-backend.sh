@@ -20,7 +20,7 @@ fi
 # Block API route files
 case "$FILE_PATH" in
   */app/api/*.ts|*/app/api/*.tsx|*/pages/api/*.ts|*/pages/api/*.tsx)
-    echo "🚫 ProtoForge: Prototype 不應包含 API routes。請使用 mock data hooks 替代。"
+    echo "🚫 ProtoForge: Prototype 不應包含 API routes。請使用 mock data hooks 替代。" >&2
     exit 2
     ;;
 esac
@@ -33,7 +33,7 @@ WRITE_CONTENT="${CONTENT}${NEW_STRING}"
 # Match only directive-position 'use server' (start of line, ignoring whitespace)
 # Avoids false positives on comments like "// don't use 'use server'"
 if echo "$WRITE_CONTENT" | grep -qE "^[[:space:]]*['\"]use server['\"]" 2>/dev/null; then
-  echo "🚫 ProtoForge: Prototype 不應使用 server actions ('use server')。請使用 mock data hooks 替代。"
+  echo "🚫 ProtoForge: Prototype 不應使用 server actions ('use server')。請使用 mock data hooks 替代。" >&2
   exit 2
 fi
 

@@ -4,16 +4,9 @@ set -euo pipefail
 # Remind Claude to prefer Mezzanine-UI components in frontend .tsx files
 # Event: PostToolUse | Matcher: Write|Edit | Action: SOFT REMIND
 
-INPUT=$(cat)
+source "$(dirname "$0")/_lib.sh"
 
-FILE_PATH=$(echo "$INPUT" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    print(data.get('toolInput', {}).get('file_path', ''))
-except:
-    print('')
-" 2>/dev/null || echo "")
+FILE_PATH=$(hook_field tool_input.file_path)
 
 if [ -z "$FILE_PATH" ]; then
   exit 0
@@ -53,8 +46,6 @@ if [ "${HAS_JSX:-0}" = "0" ]; then
   exit 0
 fi
 
-cat <<'MSG'
-💡 This .tsx file renders UI but does not import from @mezzanine-ui/*. The project uses the Mezzanine-UI design system — check the "using-mezzanine-ui" skill for available components (Button, TextField, Select, Table, Modal, Form, DatePicker, Typography, Icon, etc.) before using raw HTML elements or third-party UI libraries.
-MSG
+emit_context "💡 This .tsx file renders UI but does not import from @mezzanine-ui/*. The project uses the Mezzanine-UI design system — check the \"using-mezzanine-ui\" skill for available components (Button, TextField, Select, Table, Modal, Form, DatePicker, Typography, Icon, etc.) before using raw HTML elements or third-party UI libraries."
 
 exit 0
