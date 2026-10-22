@@ -45,6 +45,6 @@ case "$FIRST_CODE_LINE" in
   *"'use client'"*|*'"use client"'*) exit 0 ;;
 esac
 
-echo "⚠️ ProtoForge: 此檔案缺少 'use client' 指令。Prototype 中 app/ 下的 .tsx 頁面/元件必須以 'use client' 開頭，否則 Next.js App Router 會將其視為 server component，使用 useState/useCallback 時會 runtime crash。"
+emit_context "⚠️ ProtoForge: 此檔案缺少 'use client' 指令。Prototype 中 app/ 下的 .tsx 頁面/元件必須以 'use client' 開頭，否則 Next.js App Router 會將其視為 server component，使用 useState/useCallback 時會 runtime crash。"
 
 exit 0

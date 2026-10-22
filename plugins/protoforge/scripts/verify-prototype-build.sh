@@ -2,28 +2,28 @@
 set -euo pipefail
 
 # Verify that the generated prototype can build successfully
-# Event: SubagentStop | Matcher: prototype-generator | Action: VERIFY
+# Event: SubagentStop | Matcher: protoforge:prototype-generator | Action: VERIFY
 
 source "$(dirname "$0")/_lib.sh"
 
 PROTO_DIR=$(find_proto_dir 2>/dev/null || echo "")
 
 if [ -z "$PROTO_DIR" ]; then
-  echo "⚠️ ProtoForge: 找不到生成的 prototype 目錄。請確認 prototype-generator agent 已完成生成。"
+  emit_system_message "⚠️ ProtoForge: 找不到生成的 prototype 目錄。請確認 prototype-generator agent 已完成生成。"
   exit 0
 fi
 
 # Check if node_modules exists (npm install was run)
 if [ ! -d "$PROTO_DIR/node_modules" ]; then
-  echo "⚠️ ProtoForge: $PROTO_DIR/node_modules 不存在。請執行 npm install。"
+  emit_system_message "⚠️ ProtoForge: $PROTO_DIR/node_modules 不存在。請執行 npm install。"
   exit 0
 fi
 
 # Check if build output exists
 if [ -d "$PROTO_DIR/out" ] || [ -d "$PROTO_DIR/.next" ]; then
-  echo "✅ ProtoForge: Prototype build output 已存在於 $PROTO_DIR/"
+  emit_system_message "✅ ProtoForge: Prototype build output 已存在於 $PROTO_DIR/"
   exit 0
 fi
 
-echo "⚠️ ProtoForge: Prototype 尚未建置。請在 $PROTO_DIR/ 執行 npm run build 驗證。"
+emit_system_message "⚠️ ProtoForge: Prototype 尚未建置。請在 $PROTO_DIR/ 執行 npm run build 驗證。"
 exit 0

@@ -35,7 +35,7 @@ if grep -qE ':\s*any\b|as\s+any\b|<any>' "$FILE_PATH" 2>/dev/null; then
 fi
 
 if [ -n "$VIOLATIONS" ]; then
-  echo -e "⚠️ ProtoForge: 偵測到 TypeScript strict 違規：${VIOLATIONS}\n\nPrototype 應遵循 TypeScript strict mode，不使用 \`any\` 型別。"
+  emit_context "$(echo -e "⚠️ ProtoForge: 偵測到 TypeScript strict 違規：${VIOLATIONS}\n\nPrototype 應遵循 TypeScript strict mode，不使用 \`any\` 型別。")"
 fi
 
 exit 0

@@ -2,14 +2,14 @@
 set -euo pipefail
 
 # Verify deployment completed successfully
-# Event: SubagentStop | Matcher: prototype-deployer | Action: VERIFY
+# Event: SubagentStop | Matcher: protoforge:prototype-deployer | Action: VERIFY
 
 source "$(dirname "$0")/_lib.sh"
 
 PROTO_DIR=$(find_proto_dir 2>/dev/null || echo "")
 
 if [ -z "$PROTO_DIR" ]; then
-  echo "⚠️ ProtoForge: 找不到 prototype 目錄，無法驗證部署狀態。"
+  emit_system_message "⚠️ ProtoForge: 找不到 prototype 目錄，無法驗證部署狀態。"
   exit 0
 fi
 
@@ -30,9 +30,9 @@ if [ -d "$PROTO_DIR/out" ]; then
 fi
 
 if [ -n "$RESULTS" ]; then
-  echo -e "📦 ProtoForge 部署驗證：${RESULTS}"
+  emit_system_message "$(echo -e "📦 ProtoForge 部署驗證：${RESULTS}")"
 else
-  echo "⚠️ ProtoForge: 未偵測到部署成果。請確認部署步驟是否完成。"
+  emit_system_message "⚠️ ProtoForge: 未偵測到部署成果。請確認部署步驟是否完成。"
 fi
 
 exit 0

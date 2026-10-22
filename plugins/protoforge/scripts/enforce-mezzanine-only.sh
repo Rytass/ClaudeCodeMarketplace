@@ -62,7 +62,7 @@ if grep -qE '<textarea[^A-Z]' "$FILE_PATH" 2>/dev/null; then
 fi
 
 if [ -n "$VIOLATIONS" ]; then
-  echo -e "⚠️ ProtoForge: 偵測到原生 HTML 元素。Prototype 應全面使用 mezzanine-ui 元件：${VIOLATIONS}"
+  emit_context "$(echo -e "⚠️ ProtoForge: 偵測到原生 HTML 元素。Prototype 應全面使用 mezzanine-ui 元件：${VIOLATIONS}")"
 fi
 
 exit 0
