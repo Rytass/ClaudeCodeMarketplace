@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Select`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Select) · Verified 1.5.1 (2026-09-12)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Select) · Verified 1.10.2 (2026-11-22)
 
 Dropdown select component supporting single-select and multi-select modes. Internally uses the Dropdown component to render the option list.
 
@@ -49,38 +49,44 @@ import type {
 
 ### Common Props (SelectBaseProps)
 
-Extends `SelectTriggerProps`, which includes trigger-related properties.
+`SelectBaseProps` extends `Omit<SelectTriggerProps, 'active' | 'inputProps' | 'mode' | 'onBlur' | 'onChange' | 'onClick' | 'onFocus' | 'onKeyDown' | 'onScroll' | 'type' | 'renderValue' | 'value'>` and `FormElementFocusHandlers` (`onBlur` / `onFocus`). Props such as `clearable`, `error`, `fullWidth`, `onClear`, `prefix`, `size` and `className` are inherited from `TextFieldProps` through the trigger types, so they are valid on `Select`.
+
+`SelectProps = SelectSingleProps | SelectMultipleProps` is a discriminated union keyed by `mode` (see the two tables below). `active` and `innerRef` are omitted/internal and not available on `Select`.
 
 | Property           | Type                                                                                     | Default     | Description                            |
 | ------------------ | ---------------------------------------------------------------------------------------- | ----------- | -------------------------------------- |
-| `clearable`        | `boolean`                                                                                | `false`     | Whether clearable                      |
+| `className`        | `string`                                                                                 | -           | Class name applied to the trigger      |
+| `clearable`        | `boolean`                                                                                | `false`     | Whether clearable (inherited from `TextFieldProps`) |
 | `disabled`         | `boolean`                                                                                | `false`     | Whether disabled (inheritable from FormControlContext) |
 | `dropdownZIndex`   | `number \| string`                                                                       | -           | Dropdown z-index                       |
-| `error`            | `boolean`                                                                                | `false`     | Whether in error state (auto when severity='error') |
+| `error`            | `boolean`                                                                                | `false`     | Whether in error state (defaults to `true` when FormControl `severity` is `'error'`) |
 | `flip`             | `boolean`                                                                                | `false`     | Whether to enable floating-ui `flip` middleware for the dropdown menu; flips from below to above the input (and back) if it would overflow the viewport, keeping width and horizontal alignment. Forwarded to `Dropdown` |
-| `fullWidth`        | `boolean`                                                                                | `false`     | Whether full width (inheritable from FormControlContext) |
+| `fullWidth`        | `boolean`                                                                                | `false`     | Whether full width (inheritable from FormControlContext; note `Select` default is `false`) |
 | `globalPortal`     | `boolean`                                                                                | `true`      | Whether to enable Portal               |
 | `inputProps`       | `Omit<SelectTriggerInputProps, 'onBlur' \| 'onChange' \| 'onFocus' \| 'placeholder' \| 'role' \| 'value' \| 'aria-controls' \| 'aria-expanded' \| 'aria-owns'>` | - | Props passed to input |
 | `inputRef`         | `Ref<HTMLInputElement>`                                                                  | -           | Input element ref                      |
+| `isForceClearable` | `boolean`                                                                                | `false`     | Force show the clear icon regardless of value state (forwarded to `SelectTrigger`) |
 | `menuMaxHeight`    | `number \| string`                                                                       | -           | Menu max height                        |
-| `onBlur`           | `() => void`                                                                             | -           | Blur event                             |
-| `onClear`          | `(e: MouseEvent) => void`                                                                | -           | Clear event                            |
-| `onFocus`          | `() => void`                                                                             | -           | Focus event                            |
+| `onBlur`           | `VoidFunction`                                                                           | -           | Called when the dropdown closes (from `FormElementFocusHandlers`) |
+| `onClear`          | `MouseEventHandler`                                                                      | -           | Clear event (inherited from `TextFieldProps`) |
+| `onFocus`          | `VoidFunction`                                                                           | -           | Called when the dropdown opens (from `FormElementFocusHandlers`) |
 | `onScroll`         | `(computed: { scrollTop: number; maxScrollTop: number }, target: HTMLDivElement) => void` | -           | Menu scroll event                      |
 | `options`          | `DropdownOption[]`                                                                       | -           | Option list (supports tree structure)  |
 | `placeholder`      | `string`                                                                                 | `''`        | Placeholder text                       |
-| `prefix`           | `ReactNode`                                                                              | -           | Prefix content                         |
+| `prefix`           | `ReactNode`                                                                              | -           | Prefix content (inherited from `TextFieldProps`) |
 | `readOnly`         | `boolean`                                                                                | `false`     | Whether read-only                      |
-| `renderValue`      | `(values) => string`                                                                     | -           | Custom value rendering                 |
+| `renderValue`      | `(values: SelectValue[] \| SelectValue \| null) => string`                               | -           | Custom value rendering (narrowed per mode in the tables below) |
 | `required`         | `boolean`                                                                                | `false`     | Whether required (inheritable from FormControlContext) |
-| `size`             | `SelectInputSize`                                                                        | -           | Input size                             |
+| `size`             | `SelectInputSize` (`TextFieldSize` = `'main' \| 'sub'`)                                    | - (trigger falls back to `'main'`) | Input size             |
 | `suffixActionIcon` | `ReactElement<IconProps, typeof Icon>`                                                   | -           | Suffix action icon                     |
 | `loading`          | `boolean`                                                                                | `false`     | Whether in loading state               |
 | `loadingPosition`  | `DropdownLoadingPosition`                                                                | `'bottom'`  | Loading indicator position             |
 | `loadingText`      | `string`                                                                                 | -           | Text displayed while loading           |
 | `onLeaveBottom`    | `() => void`                                                                             | -           | Callback when dropdown list leaves bottom |
 | `onReachBottom`    | `() => void`                                                                             | -           | Callback when dropdown list reaches bottom |
-| `type`             | `DropdownType`                                                                           | `'default'` | Dropdown type                          |
+| `type`             | `DropdownType`                                                                           | `'default'` | Dropdown type (`'default' \| 'tree' \| 'grouped'`); automatically `'tree'` when `mode='multiple'` and any option has `children` |
+
+> **Inherited but not forwarded**: `Select` accepts other `TextFieldProps` / `SelectTriggerBaseProps` keys at the type level (e.g. `forceHideSuffixActionIcon`, `suffixAction`, `searchText`, `showTextInputAfterTags`, `onTagClose`, `warning`, `hideSuffixWhenClearable`, `forceShowClearable`), but `Select` only forwards the props listed in the tables here (plus `aria-*`) to `SelectTrigger`; the others are ignored.
 
 ### Single Select Mode (mode: 'single')
 
@@ -101,7 +107,7 @@ Extends `SelectTriggerProps`, which includes trigger-related properties.
 | `value`        | `SelectValue[]`                        | -       | Controlled value         |
 | `onChange`     | `(newOptions: SelectValue[]) => void`  | -       | Change event             |
 | `renderValue`  | `(values: SelectValue[]) => string`    | -       | Custom display           |
-| `overflowStrategy` | `'counter' \| 'wrap'`              | `'counter'` | Tag overflow strategy: `counter` collapses extra tags into a counter tag; `wrap` wraps to new lines to show all tags. Forwarded to the multi-select trigger's tag display |
+| `overflowStrategy` | `'counter' \| 'wrap'`              | `'counter'` (applied by `SelectTrigger`) | Tag overflow strategy: `counter` collapses extra tags into a counter tag; `wrap` wraps to new lines to show all tags. Forwarded to the multi-select trigger's tag display |
 
 ---
 
@@ -109,7 +115,9 @@ Extends `SelectTriggerProps`, which includes trigger-related properties.
 
 ```tsx
 interface SelectValue<T = string> {
+  /** Unique identifier of the option. */
   id: T;
+  /** Display text of the option. */
   name: string;
 }
 
@@ -304,6 +312,13 @@ const treeOptions = [
 | Property            | Type      | Default | Description                                                     |
 | ------------------- | --------- | ------- | --------------------------------------------------------------- |
 | `isForceClearable`  | `boolean` | `false` | Force show clearable icon regardless of value state             |
+| `forceHideSuffixActionIcon` | `boolean` | -  | Force hide the suffix action icon                               |
+| `innerRef`          | `Ref<HTMLDivElement>` | - | Ref for the SelectTrigger root (omitted from `SelectTriggerProps`) |
+| `suffixAction`      | `VoidFunction` | -     | Click handler for the default chevron suffix icon               |
+| `suffixActionIcon`  | `ReactElement<IconProps, typeof Icon>` | - | Custom suffix icon                              |
+| `searchText`        | `string`  | -       | Search/filter text in the trigger input                         |
+| `showTextInputAfterTags` | `boolean` | `false` | Multiple mode: show a text input after the tags (inline search) |
+| `type`              | `SelectTriggerType` | `'default'` | `'default' \| 'error'` (no other members)                   |
 
 > `SelectTriggerBaseProps` extends `TextFieldProps` (with omissions) and contains shared trigger configuration. The `isForceClearable` prop bypasses the default clearable logic (which requires `mode='multiple'` with selected values) and always shows the clear button. Useful for multi-select scenarios where the clear button should remain visible.
 

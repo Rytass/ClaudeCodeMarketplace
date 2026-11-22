@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/FloatingButton`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/FloatingButton) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/FloatingButton) · Verified 1.10.2 (2026-11-22)
 
 A floating action button component that stays fixed on the page. Internally uses the `Button` component with fixed `variant="base-primary"`, `size="main"`, and `tooltipPosition="left"`. Supports auto-hide when `open` state is active.
 
@@ -35,6 +35,8 @@ import type { FloatingButtonProps } from '@mezzanine-ui/react';
 | `iconType`         | `ButtonIconType` | -       | Icon type (inherited from ButtonProps)              |
 | `disabledTooltip`  | `boolean`        | `false` | Disable icon-only mode tooltip (inherited from ButtonProps) |
 | `onClick`          | `MouseEventHandler` | -    | Click event handler (inherited from native props)  |
+
+> `children`, `disabled`, `loading`, `icon`, `iconType`, `disabledTooltip`, `onClick` are inherited from `ButtonProps` via `extends Omit<ButtonProps, ...>` (they are not declared in the `FloatingButtonProps` body but are real props; defaults `disabled=false`, `loading=false`, `disabledTooltip=false` come from `Button`). The component accepts a `ref` (`HTMLDivElement`, the wrapper element).
 
 > Note: `variant`, `size`, `tooltipPosition` are internally fixed to `'base-primary'`, `'main'`, `'left'` and cannot be overridden via props.
 
@@ -145,10 +147,10 @@ function FloatingButtonWithLoading() {
 | 使用場景 | 推薦設定 | 說明 |
 |---------|--------|------|
 | 建立新項目 | `iconType="icon-only"`, PlusIcon | 常見的主操作 |
-| 回到頂部 | `iconType="icon-only"`, ArrowUpIcon | 長頁面導航 |
+| 回到頂部 | `iconType="icon-only"`, ShortTailArrowUpIcon | 長頁面導航 |
 | 開啟聯絡表單 | `autoHideWhenOpen=true` | 開啟時隱藏按鈕 |
 | 上傳檔案 | `iconType="icon-only"`, UploadIcon | 非同步上傳操作 |
-| 使用者反饋 | `iconType="icon-only"`, MessageIcon | 應用內反饋入口 |
+| 使用者反饋 | `iconType="icon-only"`, MailIcon | 應用內反饋入口 |
 
 ### 常見錯誤
 

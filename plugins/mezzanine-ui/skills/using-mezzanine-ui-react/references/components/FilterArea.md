@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/FilterArea`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/FilterArea) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/FilterArea) · Verified 1.10.2 (2026-11-22)
 
 A filter area component for building search and filter forms. Contains three sub-components: FilterArea, FilterLine, and Filter. Expand/collapse buttons use `ChevronDownIcon` / `ChevronUpIcon`.
 
@@ -28,11 +28,14 @@ import type { FilterAreaProps, FilterLineProps, FilterProps } from '@mezzanine-u
 | `actionsAlign`     | `FilterAreaActionsAlign`                                 | `'end'`    | Action button alignment  |
 | `children`         | `ReactElement<FilterLineProps> \| ReactElement<FilterLineProps>[]` | **Required** | FilterLine children |
 | `isDirty`          | `boolean`                                                | `true`     | Whether form is modified |
+| `loading`          | `boolean`                                                | -          | Submit button loading state; clicks on submit are ignored while loading. Takes precedence over `submitButtonProps.loading` |
 | `onReset`          | `() => void`                                             | -          | Reset callback           |
 | `onSubmit`         | `() => void`                                             | -          | Submit callback          |
+| `resetButtonProps` | `ButtonProps`                                            | -          | Extra props for the reset button. `onClick`, `size`, `type` are controlled by FilterArea; `disabled` is combined with `isDirty` |
 | `resetText`        | `string`                                                 | `'Reset'`  | Reset button text        |
-| `rowAlign`         | `'start' \| 'center' \| 'end'`                           | `'center'` | Row vertical alignment (cross-axis align-items) |
+| `rowAlign`         | `FilterAreaRowAlign`                                     | `'center'` | Row vertical alignment (cross-axis align-items) |
 | `size`             | `FilterAreaSize`                                         | `'main'`   | Size                     |
+| `submitButtonProps` | `ButtonProps`                                           | -          | Extra props for the submit button. `onClick`, `size`, `type` are controlled by FilterArea; `loading` is overridden by the `loading` prop when set |
 | `submitText`       | `string`                                                 | `'Search'` | Submit button text       |
 | `resetButtonType`  | `ComponentPropsWithoutRef<'button'>['type']`             | `'button'` | Reset button type        |
 | `submitButtonType` | `ComponentPropsWithoutRef<'button'>['type']`             | `'button'` | Submit button type       |
@@ -40,6 +43,7 @@ import type { FilterAreaProps, FilterLineProps, FilterProps } from '@mezzanine-u
 > **Core types**:
 > - `FilterAreaActionsAlign = 'start' | 'center' | 'end'`
 > - `FilterAreaSize = 'main' | 'sub'`
+> - `FilterAreaRowAlign = 'start' | 'center' | 'end'`
 
 ---
 

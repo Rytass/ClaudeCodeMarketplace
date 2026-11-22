@@ -2,7 +2,7 @@
 
 Common UI pattern implementation examples.
 
-> Baseline: `@mezzanine-ui/react` `1.5.1` · `@mezzanine-ui/core` `1.2.1` · `@mezzanine-ui/system` / `@mezzanine-ui/icons` `1.0.2`. Last verified: 2026-09-12.
+> Baseline: `@mezzanine-ui/react` `1.10.2` · `@mezzanine-ui/core` ≥ `1.3.3` · `@mezzanine-ui/system` / `@mezzanine-ui/icons` ≥ `1.0.2`. Last verified: 2026-11-22.
 
 ## Table of Contents
 
@@ -719,7 +719,7 @@ function TabNavigation() {
 
 ### Viewport-aware Flip + Placement Tracking (Dropdown / Select / Popper, v1.2.0 – v1.5.0)
 
-`Dropdown`（v1.2.0+）與 `Select`（v1.4.0+，內部轉發至 `Dropdown`）都提供 opt-in `flip?: boolean` prop（預設 `false`）。啟用後選單在視窗邊緣空間不足時會沿主軸自動翻轉方向，且進場動畫會跟隨翻轉後的實際方向播放。`Popper` 則新增 `onPlacementChange` callback，可用來讀取 floating-ui 解析後的最終 placement（含 middleware 翻轉結果）。
+`Dropdown` 與 `Select`（內部轉發至 `Dropdown`）都提供 opt-in `flip?: boolean` prop（預設 `false`）。啟用後選單在視窗邊緣空間不足時會沿主軸自動翻轉方向，且進場動畫會跟隨翻轉後的實際方向播放。`Popper` 則新增 `onPlacementChange` callback，可用來讀取 floating-ui 解析後的最終 placement（含 middleware 翻轉結果）。
 
 > **v1.5.0 新增 `shift?: boolean`**（預設 `false`，與 `flip` 同為 opt-in）— 處理的是跟 `flip` 不同的軸向問題：`flip` 解決「主軸空間不夠、整個選單要翻到另一側」，`shift` 解決「選單貼近視窗**橫向**邊界時被裁切」（例如表格最後一欄的 row-action 選單）。兩者可同時開啟、互不衝突，`Dropdown` 內部會依 floating-ui 建議自動排序（`flip` 再 `shift`）。`Table` 的 dropdown 型 row action 已內部預設開啟 `shift`；一般呼叫端仍要自行傳入 `shift` 才會生效。
 

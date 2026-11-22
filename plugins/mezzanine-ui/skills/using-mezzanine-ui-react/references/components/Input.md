@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Input`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Input) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Input) · Verified 1.10.2 (2026-11-22)
 
 A versatile input component supporting multiple variants for different use cases.
 
@@ -65,15 +65,21 @@ Base properties shared by all variants. `InputBaseProps` extends `TextFieldProps
 | `id`           | `string`                                                            | -        | Input element ID     |
 | `inputRef`     | `Ref<HTMLInputElement>`                                             | -        | Input element ref    |
 | `inputProps`   | `Omit<NativeElementPropsWithoutKeyAndRef<'input'>, ...excluded>`    | -        | Props for input      |
-| `inputType`    | `NativeElementPropsWithoutKeyAndRef<'input'>['type']`               | `'text'` | Input type attribute |
+| `inputType`    | `NativeElementPropsWithoutKeyAndRef<'input'>['type']`               | variant-based (`'text'`; `number` → `'number'`; `password` → `'password'`/`'text'` toggle) | Input type attribute (overrides variant default) |
 | `name`         | `string`                                                            | -        | Input name attribute |
 | `onChange`     | `ChangeEventHandler<HTMLInputElement>`                              | -        | Value change event   |
 | `parser`       | `(value: string) => string`                                         | -        | Parse display to raw |
 | `placeholder`  | `string`                                                            | -        | Placeholder text     |
-| `readonly`     | `boolean`                                                           | `false`  | Whether read-only    |
+| `readonly`     | `boolean`                                                           | -        | Whether read-only (no destructuring default; falsy when omitted) |
 | `size`         | `InputSize` (`'main' \| 'sub'`)                                    | `'main'` | Size                 |
 | `typing`       | `boolean`                                                           | -        | Whether typing       |
 | `value`        | `string`                                                            | -        | Controlled value     |
+
+> `disabled` / `readonly` / `typing` come from `TextFieldInteractiveStateProps`, a union: only one of them may be set at a time (`disabled` and `readonly` are typed as literal `true`; combining them is a type error).
+>
+> `warning`, `forceShowClearable` and `hideSuffixWhenClearable` also exist on `InputBaseProps` (via `TextFieldProps`) but `Input` does not forward them to the inner `TextField`, so they have no effect. `className` is applied to the outer container.
+>
+> `active`, `disabled`, `error`, `fullWidth`, `readonly`, `size`, `typing` (and `className`) are inherited from `TextFieldProps` through `Omit<TextFieldProps, 'children' | 'clearable' | 'onClear' | 'prefix' | 'suffix'>`; they are real props of every variant. `Input` accepts a `ref` (`HTMLDivElement`, the outer container). `aria-*` / `role` props passed to `Input` are forwarded to the native `<input>`. Variant-specific props (`variant`, `showSpinner`, `onSpinUp`, `onSpinDown`, `min`, `max`, `step`, `options`, `selectedValue`, `onSelect`, `dropdownWidth`, `dropdownMaxHeight`, `dropdownPlacement`, `actionButton`, `selectButton`, `showPasswordStrengthIndicator`, `passwordStrengthIndicator`) are documented per variant below; they exist only on their own union branch.
 
 ### Helper Types
 
@@ -93,7 +99,7 @@ type WithPasswordStrengthIndicator =
   | { showPasswordStrengthIndicator?: false; passwordStrengthIndicator?: never }
   | { showPasswordStrengthIndicator: true; passwordStrengthIndicator: PasswordStrengthIndicatorProps };
 
-// Password strength level
+// Password strength level (exhaustive: no other members)
 type InputStrength = 'weak' | 'medium' | 'strong';
 ```
 
@@ -156,6 +162,13 @@ type ActionInputProps = InputBaseProps & {
     position: 'prefix' | 'suffix';
   };
 };
+
+// ActionButtonProps (from packages/react/src/Input/ActionButton):
+// extends Omit<NativeElementPropsWithoutKeyAndRef<'button'>, 'type' | 'disabled'>
+//   disabled?: boolean;        // falls back to `disabled || readonly` of Input
+//   icon?: IconDefinition;     // Default CopyIcon
+//   label?: string;            // Default 'Copy' (rendered as the button text; `children` is not rendered)
+//   size?: InputSize;          // Default 'main' (overridden by Input's `size`)
 ```
 
 ### Select Input
@@ -176,7 +189,7 @@ type SelectInputProps = InputBaseProps & {
 
 // SelectButtonProps (from packages/react/src/Input/SelectButton)
 type SelectButtonProps = {
-  closeOnSelect?: boolean;              // Default true (v1.1.0+): close dropdown on option click
+  closeOnSelect?: boolean;              // Default true: close dropdown on option click
   disabled?: boolean;
   dropdownWidth?: number | string;
   dropdownMaxHeight?: number | string;
@@ -188,7 +201,9 @@ type SelectButtonProps = {
 };
 ```
 
-> **v1.1.0 新增**：`closeOnSelect` prop（預設 `true`）。選項點擊後自動關閉下拉選單，符合單選 UX 預期。需要保持舊行為（選後不關閉）時，於呼叫端傳 `closeOnSelect={false}`。
+> `closeOnSelect`（預設 `true`）：選項點擊後自動關閉下拉選單；需要選後不關閉時，傳 `closeOnSelect={false}`。
+>
+> `SelectButtonProps` 另 extends `Omit<NativeElementPropsWithoutKeyAndRef<'button'>, 'disabled' | 'onSelect' | 'type' | 'selectedValue'>`。頂層 `options` / `onSelect` / `dropdownWidth` / `dropdownMaxHeight` / `dropdownPlacement` 會覆寫 `selectButton` 內的同名欄位；顯示在按鈕上的文字與勾選項目是 `selectButton.value`。頂層 `selectedValue` 型別上存在，但 `Input` 實作並未讀取，請改用 `selectButton.value`。
 
 ### Password Input
 
@@ -302,7 +317,7 @@ import { UserIcon, SearchIcon } from '@mezzanine-ui/icons';
   placeholder="Enter and submit"
   actionButton={{
     position: 'suffix',
-    children: 'Submit',
+    label: 'Submit',
     onClick: handleSubmit,
   }}
 />

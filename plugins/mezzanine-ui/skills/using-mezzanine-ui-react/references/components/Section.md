@@ -4,16 +4,14 @@
 >
 > **Storybook**: `Data Display/Section`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Section) · Verified 1.5.1 (2026-09-12)
->
-> **Migration Note**: Module resolution fix changed barrel file extension from `.tsx` → `.ts`. No API changes.
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Section) · Verified 1.10.2 (2026-11-22)
 
 Section container component for composing `ContentHeader`, `FilterArea`, `Tab`, and other sub-components to build structured page sections. The passed `contentHeader` and `filterArea` automatically receive `size="sub"`.
 
 > **Aliases** — Panel · Fieldset · Well · Card（作為頁面區塊時）· 區塊 · 卡片式區塊 · Figma `Section / *`
 > **Not for** — 圖文卡片／商品卡（用 [`Card`](Card.md) 家族）。`Section` 自帶 16px 內距與底色，**不要再幫它補 padding**，外側 gutter 由 page body wrapper 提供。
 
-> **ContentHeader note**: `ContentHeader` is not exported from the `@mezzanine-ui/react` main entry and never has been — verified against the published `src/index.ts` of every release from 1.0.0 through 1.5.1. It is not removed, and it carries no `@deprecated` marker in source. However, it **remains internally required** by Section's `contentHeader` prop — runtime validation rejects any other component type. Import `ContentHeader` via the sub-path `@mezzanine-ui/react/ContentHeader` and continue using it as shown in the examples below. See [ContentHeader.md](ContentHeader.md) for details.
+> **ContentHeader note**: `ContentHeader` is not exported from the `@mezzanine-ui/react` main entry and never has been — verified against the published `src/index.ts` of every release from 1.0.0 through 1.10.2. It is not removed, and it carries no `@deprecated` marker in source. However, it **remains internally required** by Section's `contentHeader` prop — runtime validation rejects any other component type. Import `ContentHeader` via the sub-path `@mezzanine-ui/react/ContentHeader` and continue using it as shown in the examples below. See [ContentHeader.md](ContentHeader.md) for details.
 
 ## Import
 
@@ -28,19 +26,19 @@ import type { SectionProps, SectionGroupProps } from '@mezzanine-ui/react';
 
 ## Props
 
-The component uses `forwardRef<HTMLDivElement, PropsWithChildren<SectionProps>>`, so it also accepts `children` and a standard div ref.
+The component is typed as `PropsWithChildren<SectionProps> & RefAttributes<HTMLDivElement>`, so it accepts `children` and a standard div `ref`.
 
-> **Important**: `SectionProps` does **not** extend native `<div>`/HTML attributes. Only `className`, `contentHeader`, `filterArea`, `tab`, and `children` are accepted — the component destructures exactly these props (no `...rest` spread onto the root `<div>`). Props such as `style`, `id`, or `data-*` are **not** supported and will not reach the DOM.
+> **Important (1.10.2)**: `SectionProps extends NativeElementPropsWithoutKeyAndRef<'div'>` and the component spreads the remaining props (`...rest`: `style`, `id`, `data-*`, `aria-*`, event handlers, etc.) onto the root `<div>`. (Earlier versions of this document claimed otherwise; that no longer matches source.) `children` is rendered inside an inner `<div className="mzn-section__content">` after the slots.
 
 | Property        | Type                               | Default | Description                                                          |
 | --------------- | ---------------------------------- | ------- | -------------------------------------------------------------------- |
 | `className`     | `string`                           | -       | Additional CSS class                                                 |
-| `contentHeader` | `ReactElement<ContentHeaderProps>` | -       | Accepts `<ContentHeader />` component; other components trigger a console warning |
-| `filterArea`    | `ReactElement<FilterAreaProps>`    | -       | Accepts `<FilterArea />` component; other components trigger a console warning    |
-| `tab`           | `ReactElement<TabProps>`           | -       | Accepts `<Tab />` component; other components trigger a console warning           |
+| `contentHeader` | `ReactElement<ContentHeaderProps>` | -       | Must be a `<ContentHeader />` element (matched by `element.type === ContentHeader`); it is cloned with `size: 'sub'` (overrides any `size` you pass). Any other valid element triggers a console warning and is **not rendered** |
+| `filterArea`    | `ReactElement<FilterAreaProps>`    | -       | Must be a `<FilterArea />` element (`element.type === FilterArea`); cloned with `size: 'sub'` (overrides any `size` you pass). Any other valid element triggers a console warning and is **not rendered** |
+| `tab`           | `ReactElement<TabProps>`           | -       | Must be a `<Tab />` element (`element.type === Tab`); rendered as-is (no size injection). Any other valid element triggers a console warning and is **not rendered** |
 | `children`      | `ReactNode`                        | -       | Section body content, rendered after contentHeader, filterArea, and tab           |
 
-> Section automatically injects `size="sub"` prop into the passed `contentHeader` and `filterArea`, ensuring correct sizing in sub-sections.
+> Section automatically injects `size="sub"` prop into the passed `contentHeader` and `filterArea` (via `cloneElement`), ensuring correct sizing in sub-sections. `tab` is passed through unchanged. Non-element values (e.g. a bare string) are silently ignored; only valid React elements of the wrong type produce the warning. `contentHeader` / `filterArea` / `tab` are not forwarded to the DOM.
 
 ---
 
@@ -316,13 +314,13 @@ Passing non-matching components will output a console warning, e.g.:
 | 多條件篩選 | 使用 `filterArea` 放置過濾控制項 | FilterArea 佔據專用區域，隔離篩選邏輯，內容獨立更新 |
 | 分頁籤式檢視 | 使用 `tab` 切換不同資料集合 | Tab 改變時 children 內容更新，Section 保持結構穩定 |
 | 完整的列表頁面 | 組合 contentHeader、filterArea、tab、children | 按順序組合可建立標準的資料管理頁面 |
-| 需要最小高度保持版面穩定 | 使用 CSS custom property `--section-content-min-height` | 避免內容少時頁面塌陷 |
+| 需要最小高度保持版面穩定 | 內容區 `.mzn-section__content` 已內建 `min-height`（`size-container-small` token）；需更高時對 children 包一層設定 `minHeight` | 避免內容少時頁面塌陷（原始碼沒有 `--section-content-min-height` 這個 custom property） |
 | 垂直排列多個 Section | 使用 `SectionGroup` 搭配 `direction="vertical"` | 統一管理多個 Section 的間距和佈局 |
 | 水平排列多個統計卡 | 使用 `SectionGroup` 搭配 `direction="horizontal"` | 並排顯示 KPI 或統計數據，充分利用寬度 |
 
 ### 常見錯誤
 
-- **傳入非指定元件到 contentHeader/filterArea/tab**：Section 會在控制台警告並可能行為異常。應傳入正確的 Mezzanine 元件
+- **傳入非指定元件到 contentHeader/filterArea/tab**：Section 會在控制台警告，且該 slot **不會被渲染**（內容直接消失）。應傳入正確的 Mezzanine 元件
 - **嘗試在 contentHeader 中手動設置 `size="main"`**：Section 會自動覆寫為 `size="sub"`，手動設置無效
 - **在 filterArea 內放置非篩選相關內容**：FilterArea 語義上應該只包含篩選條件，其他內容應放在 children
 - **期望 tab 改變時 contentHeader 也更新**：ContentHeader 位置固定在頂部，改變 tab 不會影響它。若需聯動，應在 children 處理

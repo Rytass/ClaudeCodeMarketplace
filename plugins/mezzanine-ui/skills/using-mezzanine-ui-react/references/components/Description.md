@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Description`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Description) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Description) · Verified 1.10.2 (2026-11-22)
 
 Description component for displaying structured information in title-content pairs.
 
@@ -38,11 +38,11 @@ Extends `DistributiveOmit<DescriptionTitleProps, 'className' | 'children'>`, so 
 
 | Property      | Type                           | Default        | Description                              |
 | ------------- | ------------------------------ | -------------- | ---------------------------------------- |
-| `children`    | `ReactElement`                 | -              | Content element (see supported types below) |
+| `children`    | `ReactElement`                 | **required**   | Content element (see supported types below) |
 | `className`   | `string`                       | -              | Custom class name                        |
 | `orientation` | `DescriptionOrientation`       | `'horizontal'` | Layout direction                         |
 | `size`        | `DescriptionSize`              | `'main'`       | Default size for child content           |
-| `title`       | `string`                       | -              | Required, title text                     |
+| `title`       | `string`                       | **required**   | Title text                               |
 
 ---
 
@@ -86,10 +86,10 @@ Description's children can be one of the following components:
 
 | Property      | Type                    | Default     | Description                    |
 | ------------- | ----------------------- | ----------- | ------------------------------ |
-| `badge`       | `BadgeDotVariant`       | -           | Dot badge next to the title    |
+| `badge`       | `BadgeDotVariant`       | -           | Dot badge next to the title；`BadgeDotVariant` 僅有 `'dot-success' \| 'dot-error' \| 'dot-warning' \| 'dot-info' \| 'dot-inactive'`，沒有其他成員 |
 | `children`    | `string`                | -           | Required, title text           |
 | `className`   | `string`                | -           | Custom class name              |
-| `size`        | `DescriptionSize`       | `'main'`    | Title text size                |
+| `size`        | `DescriptionSize`       | -           | Title text size（單獨使用 `DescriptionTitle` 時無預設，未傳則不加 size class；經由 `Description` 使用時由其 `size`（預設 `'main'`）傳入） |
 | `widthType`   | `DescriptionWidthType`  | `'stretch'` | Title width behavior           |
 
 ### With Tooltip (DescriptionTitleWithTooltip)
@@ -345,7 +345,7 @@ function OrderDetail({ order }) {
         <Progress percent={order.progress} type="percent" />
       </Description>
       <Description title="Action">
-        <Button variant="contained" onClick={handleViewDetail}>
+        <Button variant="base-primary" onClick={handleViewDetail}>
           View Details
         </Button>
       </Description>

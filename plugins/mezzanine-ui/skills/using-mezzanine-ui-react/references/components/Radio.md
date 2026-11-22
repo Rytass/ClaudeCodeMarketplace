@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Radio`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Radio) · Verified 1.5.1 (2026-09-12)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Radio) · Verified 1.10.2 (2026-11-22)
 
 Radio button component supporting normal mode and segment mode.
 
@@ -52,13 +52,15 @@ Extends `InputCheckProps` (excluding `control`, `htmlFor`).
 | Property         | Type                                                             | Default   | Description              |
 | ---------------- | ---------------------------------------------------------------- | --------- | ------------------------ |
 | `checked`        | `boolean`                                                        | -         | Controlled checked state |
-| `defaultChecked` | `boolean`                                                        | `false`   | Default checked state    |
-| `disabled`       | `boolean`                                                        | `false`   | Whether disabled         |
+| `defaultChecked` | `boolean`                                                        | -         | Default checked state    |
+| `disabled`       | `boolean`                                                        | group `disabled` ?? `false` | Whether disabled (inherits the parent `RadioGroup`'s `disabled`) |
 | `error`          | `boolean`                                                        | `false`   | Whether in error state   |
 | `inputProps`     | `Omit<NativeElementPropsWithoutKeyAndRef<'input'>, ...excluded>` | -         | Props passed to input. `inputProps.name` defaults to the parent `RadioGroup`'s `name` when not explicitly provided. |
 | `onChange`       | `ChangeEventHandler<HTMLInputElement>`                           | -         | Change event             |
-| `size`           | `RadioSize` (`'main' \| 'sub'`)                                  | `'main'`  | Size                     |
+| `size`           | `RadioSize` (`'main' \| 'sub'`)                                  | group `size` ?? `'main'` | Size (no own default; falls back to the parent `RadioGroup` size, then `'main'`) |
 | `value`          | `string`                                                         | -         | Value                    |
+
+> `error` is declared in the body of `InputCheckProps` (not in `RadioBaseProps`) and is inherited via `extends Omit<InputCheckProps, 'control' | 'htmlFor'>`; it is a real prop (destructured in `Radio` with default `false`). `type` resolves as `props.type ?? RadioGroup.type ?? 'radio'`. `name` has no own prop: it is `inputProps.name`, defaulting to the parent group's `name` (`nameFromGroup`). The component accepts a `ref` (`HTMLDivElement`, the wrapper).
 
 ### RadioNormalProps (type: 'radio')
 
@@ -102,8 +104,10 @@ Extends `InputCheckGroupProps` (excluding `onChange`, `type`).
 | `name`         | `string`                                                 | -              | Group name                                 |
 | `onChange`     | `ChangeEventHandler<HTMLInputElement>`                   | -              | Change event                               |
 | `orientation`  | `RadioGroupOrientation` (`'horizontal' \| 'vertical'`)   | `'horizontal'` | Layout direction                           |
-| `size`         | `RadioSize` (`'main' \| 'sub'`)                           | `'main'`       | Size                                       |
+| `size`         | `InputCheckSize` (`'main' \| 'sub' \| 'minor'`)          | -              | Size (typed `InputCheckSize`, wider than `RadioSize`; no default in `RadioGroup`; each `Radio` falls back to `'main'`) |
 | `value`        | `string`                                                 | -              | Controlled selected value                  |
+
+> `orientation` is declared in `InputCheckGroupProps` (body), inherited via `extends Omit<InputCheckGroupProps, 'onChange' | 'type'>`; it is a real prop (`'horizontal' | 'vertical'`, default `'horizontal'`, rendered as `aria-orientation`). Root has `role="radiogroup"`. When `options` is used, only `disabled`, `error`, `hint`, `withInputConfig` (plus `id` as `value` and `name` as label) are forwarded to each `Radio` — the option's `icon` is **not** forwarded in 1.10.2, so for icons in `type="segment"` use `children` with `<Radio icon={...}>`.
 
 ### RadioGroupNormalProps (type: 'radio')
 
@@ -265,12 +269,14 @@ import { HomeIcon, UserIcon, SettingIcon } from '@mezzanine-ui/icons';
 ### Segment Icon Only
 
 ```tsx
+import { DotGridIcon, ListIcon } from '@mezzanine-ui/icons';
+
 <RadioGroup
   type="segment"
   value={value}
   onChange={(e) => setValue(e.target.value)}
 >
-  <Radio type="segment" value="grid" icon={GridIcon} />
+  <Radio type="segment" value="grid" icon={DotGridIcon} />
   <Radio type="segment" value="list" icon={ListIcon} />
 </RadioGroup>
 ```

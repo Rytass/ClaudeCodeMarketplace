@@ -2,9 +2,9 @@
 
 > **Category**: Foundation
 >
-> **Storybook**: `Foundation/Cropper`
+> **Storybook**: `Feedback/Cropper`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Cropper) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Cropper) · Verified 1.10.2 (2026-11-22)
 
 Image cropping component providing interactive image cropping functionality. Includes the base container `Cropper`, the cropping canvas `CropperElement`, the Modal wrapper `CropperModal`, and utility functions `cropToBlob`, `cropToFile`, and `cropToDataURL`.
 
@@ -114,6 +114,8 @@ type CropperElementProps<C extends CropperElementComponent = 'canvas'> =
 | `confirmText`             | `string`                                                          | `'確認'`       | Confirm button text                            |
 | `cancelText`              | `string`                                                          | `'取消'`       | Cancel button text                             |
 | `size`                    | `ModalSize`                                                       | `'wide'`       | Modal size                                     |
+
+> `CropperModalProps = Omit<ModalProps, 'children' | 'modalType' | 'extendedSplit*' | 'onCancel' | 'onConfirm' | 'showCancelButton' | 'showModalFooter' | 'showModalHeader' | 'confirmText' | 'title'> & ModalHeaderLayoutProps & {...}`; the table lists the redefined props, all other `ModalProps` (e.g. `className`, `onClose`, `open`) are inherited. `instanceKey`, `notifierKey` and `resolve` are internal fields of the (unexported) notifier behind `CropperModal.open()` and are not props you pass. `canvas`, `cropArea`, `format`, `quality`, `outputWidth`, `outputHeight` belong to `CropToBlobOptions` / `CropperModalConfirmContext`, not to `CropperProps`.
 
 ---
 

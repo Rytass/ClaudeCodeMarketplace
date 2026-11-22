@@ -2,7 +2,7 @@
 
 Maps Figma design file components to React code.
 
-> Baseline: `@mezzanine-ui/react` `1.5.1` · `@mezzanine-ui/core` `1.2.1` · `@mezzanine-ui/system` / `@mezzanine-ui/icons` `1.0.2`. Last verified: 2026-09-12.
+> Baseline: `@mezzanine-ui/react` `1.10.2` · `@mezzanine-ui/core` ≥ `1.3.3` · `@mezzanine-ui/system` / `@mezzanine-ui/icons` ≥ `1.0.2`. Last verified: 2026-11-22.
 
 ## Table of Contents
 
@@ -142,7 +142,7 @@ curl -s -H "X-Figma-Token: $MEZZANINE_FIGMA_TOKEN" \
 
 ### Deprecation Notice (corrected)
 
-Only **one** of these four is actually removed. `ClearActions` / `ContentHeader` / `Scrollbar` still ship — they have simply never been exported from the main `@mezzanine-ui/react` entry (sub-path only, from `0.0.1` through `1.5.1`), and have no `@deprecated` marker. A previous version of this doc incorrectly grouped all four as "removed in v1.4.1"; that date/grouping was wrong.
+Only **one** of these four is actually removed. `ClearActions` / `ContentHeader` / `Scrollbar` still ship — they have simply never been exported from the main `@mezzanine-ui/react` entry (sub-path only, from `0.0.1` through `1.10.2`), and have no `@deprecated` marker. A previous version of this doc incorrectly grouped all four as "removed in v1.4.1"; that date/grouping was wrong.
 
 - **ClearActions**: **Not removed.** Still exists (`src/ClearActions/`), sub-path only — `@mezzanine-ui/react/ClearActions`.
 - **ContentHeader**: **Not removed.** Still exists (`src/ContentHeader/`), sub-path only — `@mezzanine-ui/react/ContentHeader`. Required internally by `PageHeader` / `Section`.
@@ -493,7 +493,9 @@ Named by usage context, automatically supporting light/dark mode switching.
 | `Spacing/Size/Element/{tone}`             | `--mzn-spacing-size-element-{tone}`               |
 | `Spacing/Size/Container/{tone}`           | `--mzn-spacing-size-container-{tone}`             |
 
-**Gap Tones** (15): `none`, `micro`, `tiny`, `tight`, `compact`, `base`, `base-fixed`, `comfortable`, `roomy`, `spacious`, `relaxed`, `airy`, `generous`, `breath`, `wide`
+**Gap Tones** (SCSS，實際產生 CSS 變數的 12 種): `none`, `tiny`, `tight`, `tight-fixed`, `slim`, `base`, `calm`, `comfort`, `roomy`, `spacious`, `relaxed`, `loose`
+
+> TS `GapTone` 的 15 種舊名（`micro`、`compact`、`base-fixed`、`comfortable`、`airy`、`generous`、`breath`、`wide`）**沒有對應的 CSS 變數**；`gap-comfortable` 不存在。
 
 **Padding Horizontal Tones** (18): `none`, `micro`, `tiny`, `tiny-fixed`, `tight`, `tight-fixed`, `base`, `base-fixed`, `calm`, `comfort`, `comfort-fixed`, `roomy`, `spacious`, `relaxed`, `airy`, `breath`, `wide`, `max`
 

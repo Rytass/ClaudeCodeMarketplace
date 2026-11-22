@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Spin`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Spin) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Spin) · Verified 1.10.2 (2026-11-22)
 
 Spinning loading component for indicating content is loading.
 
@@ -25,7 +25,8 @@ import type { SpinProps } from '@mezzanine-ui/react';
 
 | Property               | Type                  | Default  | Description                |
 | ---------------------- | --------------------- | -------- | -------------------------- |
-| `children`             | `ReactNode`           | -        | Wrapped content            |
+| `children`             | `ReactNode`           | -        | Wrapped content (any non-`undefined` value switches to nested mode) |
+| `className`            | `string`              | -        | Applied to the host `<div>` in nested mode only; ignored in standalone mode |
 | `color`                | `string`              | -        | Custom CSS color for spinner arc |
 | `description`          | `string`              | -        | Loading description text   |
 | `descriptionClassName` | `string`              | -        | Description className      |
@@ -34,6 +35,8 @@ import type { SpinProps } from '@mezzanine-ui/react';
 | `loading`              | `boolean`             | `false`  | Whether loading            |
 | `trackColor`           | `string`              | -        | Custom CSS color for track ring background |
 | `backdropProps`        | `Omit<BackdropProps, 'container' \| 'open'>` | - | Backdrop props (nested mode) |
+
+> `SpinProps` extends `NativeElementPropsWithoutKeyAndRef<'div'>` by type only: the component destructures `children`, `className`, `color`, `description`, `descriptionClassName`, `stretch`, `size`, `loading`, `trackColor`, `backdropProps` and does **not** spread the remaining props (`style`, `id`, `data-*`, event handlers, etc.) onto any DOM element, so they have no effect. The `ref` (`HTMLDivElement`) points to the host `<div>` in nested mode and to the spinner `<div>` in standalone mode. When `loading` is `false` in standalone mode nothing is rendered.
 
 ---
 
@@ -190,30 +193,6 @@ function ConditionalLoading() {
 ```
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/feedback-spin--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
-
----
-
-## Migration Guide (Upgrading to 1.0.0)
-
-### Breaking Changes
-
-The spinner animation system has been significantly refactored from Icon-based to CSS-based:
-
-- **Removed**: `iconProps` prop - The spinner is no longer an Icon component
-- **Added**: `color` prop - Set custom spinner arc color via `--mzn-spin--color` CSS variable
-- **Added**: `trackColor` prop - Set custom track ring background color via `--mzn-spin--track-color` CSS variable
-
-**Before (pre-1.0.0)**:
-```tsx
-<Spin loading iconProps={{ color: 'primary', size: 32 }} />
-```
-
-**After (1.0.0)**:
-```tsx
-<Spin loading color="#1890ff" trackColor="#f0f0f0" />
-```
-
-The spinner now uses a Fluent 2-style spinning arc animation with CSS-based ring/tail elements for better performance and customization.
 
 ---
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Slider`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Slider) · Verified 1.5.1 (2026-09-12)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Slider) · Verified 1.10.2 (2026-11-22)
 
 Slider component for selecting values within a numeric range. Supports single value and range modes.
 
@@ -50,6 +50,8 @@ Extends `Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'defaultChecked' | 'def
 | `min`        | `number`               | `0`     | Minimum value        |
 | `step`       | `number`               | `1`     | Step value           |
 | `withTick`   | `number \| number[]`   | -       | Tick marks           |
+
+> **`value` and `onChange`** are not part of `SliderBaseProps`; they are declared on `SingleSliderProps` / `RangeSliderProps` (see Mode Differentiation below): `value` is required (`number` or `[number, number]`), `onChange?` receives the matching value type. The component accepts no `ref` of its own; use `innerRef` on `SliderComponentProps`.
 
 > **Note**: `SliderProps` is the publicly exported type and does not include `innerRef` (`Omit<SliderComponentProps, 'innerRef'>`).
 
@@ -122,7 +124,7 @@ Slider addons are implemented as a union type, choose one of three:
 
 No addons.
 
-> **Mutual exclusion**: `withInput` and `prefixIcon`/`suffixIcon` cannot be used together.
+> **Mutual exclusion**: `withInput` and `prefixIcon`/`suffixIcon` cannot be used together. `prefixIcon` and `suffixIcon` must be provided as a pair (both required in `SliderWithIconProps`).
 
 ---
 
@@ -176,13 +178,13 @@ function RangeSlider() {
 ### With Tick Marks
 
 ```tsx
-// Number: divide into N segments
+// Number N: N evenly spaced interior ticks (N+1 segments), plus min and max
 <Slider
   value={value}
   onChange={setValue}
   withTick={4}
 />
-// Shows ticks at 0, 25, 50, 75, 100
+// Shows ticks at 0, 20, 40, 60, 80, 100
 
 // Array: specify tick positions
 <Slider
@@ -190,7 +192,7 @@ function RangeSlider() {
   onChange={setValue}
   withTick={[20, 50, 80]}
 />
-// Shows ticks at positions 20, 50, 80
+// Shows ticks at 0, 20, 50, 80, 100 (min/max always shown; array values outside (min, max) are skipped)
 ```
 
 ### With Input Field

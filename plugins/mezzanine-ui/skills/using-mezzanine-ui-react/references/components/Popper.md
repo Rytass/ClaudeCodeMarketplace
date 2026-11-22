@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Popper`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Popper) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Popper) · Verified 1.10.2 (2026-11-22)
 
 A positioned popup layer component based on @floating-ui/react-dom, used as the underlying positioning for Tooltip, Dropdown, Select, and other components.
 
@@ -40,6 +40,8 @@ import type {
 | `onPlacementChange` | `(placement: PopperPlacement) => void` | - | Callback fired whenever the resolved placement changes (including middleware-driven flips, e.g. `flip()`); receives the actual placement after all middleware run |
 | `open`          | `boolean`                   | `false` | Whether open             |
 | `options`       | `UseFloatingOptions`        | -       | floating-ui options      |
+
+> `PopperProps extends Pick<PortalProps, 'container' | 'disablePortal'>, NativeElementPropsWithoutKeyAndRef<'div'>`. `container` and `disablePortal` come from `PortalProps` via `Pick`; `children` and `className` come from the native `<div>` props — all four are real props even though they are not declared in the interface body. `ArrowConfig` below is an inline type of `arrow` (not a named export). The component accepts a `ref` (`HTMLDivElement`).
 
 ---
 

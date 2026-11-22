@@ -2,9 +2,9 @@
 
 > **Category**: Utility
 >
-> **Storybook**: `Utility/Notifier`
+> **Storybook**: `Internal/Notifier`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Notifier)  · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Notifier)  · Verified 1.10.2 (2026-11-22)
 
 Notifier factory function for creating custom notification systems. It is the underlying implementation of Message, NotificationCenter, and other components.
 
@@ -30,7 +30,7 @@ import type {
 
 ## createNotifier Parameters
 
-`createNotifier<N, C>(props: CreateNotifierProps<N, C>)` — `CreateNotifierProps<N, C>` extends `NotifierConfig` (`duration`, `maxCount`).
+`createNotifier<N extends NotifierData, C extends NotifierConfig = NotifierConfig>(props: CreateNotifierProps<N, C>): Notifier<N, C>` — `CreateNotifierProps<N, C>` extends `NotifierConfig` (`duration`, `maxCount`).
 
 | Parameter         | Type                                                        | Required | Description                 |
 | ------------------ | ----------------------------------------------------------- | -------- | --------------------------- |
@@ -261,6 +261,7 @@ MessageWithSugar.success('Operation successful!');
 ## Behavior Notes
 
 - **`maxCount` overflow queues rather than drops**: once the number of displayed notifiers reaches `maxCount`, a new `add()` call does not render immediately — it is placed in an internal queue and displayed automatically as soon as an existing notifier is removed and a slot frees up. If `sortBeforeUpdate` is provided, it re-sorts the combined displayed+incoming set on every `add()` that would otherwise exceed `maxCount`, so a high-priority notifier can still bump a lower-priority one into the queue instead of being queued itself.
+- **Config resolution on `add()`**: the stored config (initial `duration` / `maxCount` merged with `config` and later `config()` calls) is spread over the notifier data; `duration` is `notifier.duration ?? currentConfig.duration`. `add()` returns `'NOT_SET'` when `document` is unavailable (SSR). `destroy()` renders `null` and detaches the container; the next `add()` re-attaches it.
 - **`add()` with a repeated `key` updates in place**: calling `add()` again with a `key` that matches an already-displayed notifier replaces that notifier's data rather than appending a duplicate.
 
 ---

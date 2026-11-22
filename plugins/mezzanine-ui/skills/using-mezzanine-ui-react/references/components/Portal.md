@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Portal`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Portal) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Portal) · Verified 1.10.2 (2026-11-22)
 
 A portal component that renders children to a different location in the DOM. Used by Modal, Drawer, Tooltip, and other components that need to escape the parent DOM structure.
 
@@ -18,7 +18,8 @@ import type { PortalProps } from '@mezzanine-ui/react';
 import { initializePortals } from '@mezzanine-ui/react/Portal';
 
 // Other sub-path exports
-// import { getContainer, getRootElement, resetPortals, PortalLayer } from '@mezzanine-ui/react/Portal';
+// import { getContainer, getRootElement, resetPortals } from '@mezzanine-ui/react/Portal';
+// import type { PortalLayer } from '@mezzanine-ui/react/Portal';
 ```
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/others-portal--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
@@ -135,10 +136,9 @@ Mezzanine-UI automatically creates two Portal containers as **children** of `roo
 
 ```html
 <body> <!-- rootElement (default: document.body) -->
+  <div id="mzn-alert-container" class="mzn-portal-alert"><!-- alert layer (inserted as first child) --></div>
   <div id="root"><!-- Application --></div>
-  <!-- Portal containers below, children of rootElement -->
-  <div id="mzn-portal-container" class="mzn-portal-default"><!-- default layer --></div>
-  <div id="mzn-alert-container" class="mzn-portal-alert"><!-- alert layer --></div>
+  <div id="mzn-portal-container" class="mzn-portal-default"><!-- default layer (appended as last child) --></div>
 </body>
 ```
 
@@ -146,12 +146,7 @@ Mezzanine-UI automatically creates two Portal containers as **children** of `roo
 
 ## Server-Side Rendering (SSR)
 
-In SSR environments, since `window` doesn't exist, Portal returns `null`:
-
-```tsx
-// Server-side does not render Portal content
-if (typeof window === 'undefined') return null;
-```
+Portal content is client-only. The server render and the hydration pass render nothing (via `useSyncExternalStore`, so hydration never mismatches); children are portaled once mounted. With `disablePortal`, children render in place on the server as well.
 
 ---
 
@@ -190,7 +185,7 @@ Portal is a purely functional component with no corresponding visual element in 
 
 - **直接在應用程式中使用 Portal**：Portal 是低階工具，應使用 Modal、Drawer、Tooltip 等高階元件
 - **在多個 Portal 中都使用預設容器導致 z-index 競爭**：改用 `layer="alert"` 或自訂容器區分優先級
-- **SSR 環境中期望 Portal 內容在伺服器端渲染**：Portal 檢查 `typeof window === 'undefined'` 後返回 null，必須等待客戶端初始化
+- **SSR 環境中期望 Portal 內容在伺服器端渲染**：Portal 在伺服器端與 hydration 階段返回 null，必須等待客戶端掛載後才會渲染
 - **將 Portal 嵌套在具有特殊定位的容器內**：嵌套容器的 `position` 和 `z-index` 可能影響 Portal 的定位和層級
 
 ## Best Practices

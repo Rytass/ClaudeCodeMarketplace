@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Icon`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Icon) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Icon) · Verified 1.10.2 (2026-11-22)
 
 An icon component for displaying SVG icons provided by `@mezzanine-ui/icons`.
 
@@ -52,39 +52,38 @@ Semantic icon colors based on the design token system. `IconTone` comes from `@m
 | Color                  | Description     |
 | ---------------------- | --------------- |
 | `inherit`              | Inherit parent  |
-| `icon-fixed-light`     | Fixed light     |
-| `icon-neutral-faint`   | Extra faint     |
-| `icon-neutral-light`   | Light icon      |
-| `icon-neutral`         | Standard icon   |
-| `icon-neutral-strong`  | Strong icon     |
-| `icon-neutral-bold`    | Bold icon       |
-| `icon-neutral-solid`   | Solid icon      |
+| `fixed-light`     | Fixed light     |
+| `neutral-faint`   | Extra faint     |
+| `neutral-light`   | Light icon      |
+| `neutral`         | Standard icon   |
+| `neutral-strong`  | Strong icon     |
+| `neutral-bold`    | Bold icon       |
+| `neutral-solid`   | Solid icon      |
 
 ### Brand
 
 | Color                | Description       |
 | -------------------- | ----------------- |
-| `icon-brand`         | Brand color icon  |
-| `icon-brand-strong`  | Brand strong icon |
-| `icon-brand-solid`   | Brand solid icon  |
+| `brand`         | Brand color icon  |
+| `brand-strong`  | Brand strong icon |
+| `brand-solid`   | Brand solid icon  |
 
 ### Semantic
 
 | Color                  | Description     |
 | ---------------------- | --------------- |
-| `icon-error`           | Error icon      |
-| `icon-error-strong`    | Error strong    |
-| `icon-error-solid`     | Error solid     |
-| `icon-warning`         | Warning icon    |
-| `icon-warning-strong`  | Warning strong  |
-| `icon-success`         | Success icon    |
-| `icon-success-strong`  | Success strong  |
-| `icon-info`            | Info icon       |
-| `icon-info-strong`     | Info strong     |
+| `error`           | Error icon      |
+| `error-strong`    | Error strong    |
+| `error-solid`     | Error solid     |
+| `warning`         | Warning icon    |
+| `warning-strong`  | Warning strong  |
+| `success`         | Success icon    |
+| `success-strong`  | Success strong  |
+| `info`            | Info icon       |
+| `info-strong`     | Info strong     |
 
-> Note: The actual `IconColor` values are `'inherit'` or `IconTone` (without `icon-` prefix).
-> The `icon-` prefix in the table above represents the corresponding CSS semantic color variables.
-> For example, passing `color="neutral-strong"` maps to CSS variable `--mzn-color-semantic-icon-neutral-strong`.
+> `IconColor` values are `'inherit'` or `IconTone` (no `icon-` prefix).
+> For example, `color="neutral-strong"` maps to CSS variable `--mzn-color-semantic-icon-neutral-strong`.
 
 ---
 
@@ -194,14 +193,16 @@ import { SearchIcon, CloseIcon } from '@mezzanine-ui/icons';
 ### Status Indicator
 
 ```tsx
+import { Icon, type IconColor } from '@mezzanine-ui/react';
 import {
   CheckedFilledIcon,
   ErrorFilledIcon,
   WarningFilledIcon,
+  type IconDefinition,
 } from '@mezzanine-ui/icons';
 
-function StatusIcon({ status }) {
-  const iconMap = {
+function StatusIcon({ status }: { status: 'success' | 'error' | 'warning' }) {
+  const iconMap: Record<'success' | 'error' | 'warning', { icon: IconDefinition; color: IconColor }> = {
     success: { icon: CheckedFilledIcon, color: 'success' },
     error: { icon: ErrorFilledIcon, color: 'error' },
     warning: { icon: WarningFilledIcon, color: 'warning' },
@@ -243,12 +244,12 @@ Figma icon nodes use `/` separated paths, corresponding to React import names:
 ### 常見錯誤
 
 1. **只依靠圖標傳達資訊**
-   - ❌ 錯誤：`<Icon icon={DeleteIcon} />`（使用者不知道是什麼功能）
-   - ✅ 正確：`<Button icon={DeleteIcon}>Delete</Button>` 或加上 title 屬性
+   - ❌ 錯誤：`<Icon icon={TrashIcon} />`（使用者不知道是什麼功能）
+   - ✅ 正確：`<Button icon={TrashIcon}>Delete</Button>` 或加上 title 屬性
 
 2. **未指定語義化顏色**
-   - ❌ 錯誤：`<Icon icon={ErrorIcon} />`（顏色不明顯）
-   - ✅ 正確：`<Icon icon={ErrorIcon} color="error-solid" />`
+   - ❌ 錯誤：`<Icon icon={ErrorFilledIcon} />`（顏色不明顯）
+   - ✅ 正確：`<Icon icon={ErrorFilledIcon} color="error-solid" />`
 
 3. **圖標尺寸不一致**
    - ❌ 錯誤：不同位置使用不同 size，導致視覺雜亂

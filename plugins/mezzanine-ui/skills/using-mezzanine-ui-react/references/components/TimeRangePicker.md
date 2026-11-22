@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/story/data-entry-timerangepicker--playground) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/TimeRangePicker) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/TimeRangePicker) · Verified 1.10.2 (2026-11-22)
 
 Time range picker for selecting start and end times. Uses RangePickerTrigger to provide dual inputs with a TimePickerPanel panel. Must be used with `CalendarContext`.
 
@@ -91,13 +91,13 @@ import TimeRangePicker, {
 | `clearable`            | `boolean`                              | `true`  | Whether clearable        |
 | `disabled`             | `boolean`                              | `false` | Whether disabled         |
 | `error`                | `boolean`                              | `false` | Error state              |
-| `errorMessagesFrom`    | `FormattedInputProps['errorMessages']` | -       | From field error messages |
-| `errorMessagesTo`      | `FormattedInputProps['errorMessages']` | -       | To field error messages  |
+| `errorMessagesFrom`    | `{ enabled?: boolean; invalidInput?: string; invalidPaste?: string }` | `{ enabled: true, invalidInput: 'Input value is not valid.', invalidPaste: 'Pasted content is not valid.' }` | From field error messages |
+| `errorMessagesTo`      | `{ enabled?: boolean; invalidInput?: string; invalidPaste?: string }` | same as `errorMessagesFrom` | To field error messages  |
 | `fullWidth`            | `boolean`                              | `false` | Whether full width       |
 | `inputFromPlaceholder` | `string`                               | -       | From field placeholder   |
-| `inputFromProps`       | `InputProps`                           | -       | From field additional props |
+| `inputFromProps`       | `Omit<NativeInputProps, 'defaultValue' \| 'disabled' \| 'onChange' \| 'placeholder' \| 'readOnly' \| 'required' \| 'value' \| aria-disabled \| aria-multiline \| aria-readonly \| aria-required>` | - | From field native input props |
 | `inputToPlaceholder`   | `string`                               | -       | To field placeholder     |
-| `inputToProps`         | `InputProps`                           | -       | To field additional props |
+| `inputToProps`         | same as `inputFromProps` | - | To field native input props |
 | `prefix`               | `ReactNode`                            | -       | Prefix element           |
 | `readOnly`             | `boolean`                              | -       | Whether read-only        |
 | `required`             | `boolean`                              | `false` | Whether required         |
@@ -140,9 +140,9 @@ import TimeRangePicker, {
 
 ---
 
-## Portal Behavior (v1.0.4+)
+## Portal Behavior
 
-Since v1.0.4 the time panel portals out by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors. To restore inline rendering per call site:
+The time panel portals out by default, avoiding clipping inside `Modal` / `overflow: hidden` ancestors. To restore inline rendering per call site:
 
 ```tsx
 <TimeRangePicker
@@ -152,9 +152,9 @@ Since v1.0.4 the time panel portals out by default, fixing clipping inside `Moda
 />
 ```
 
-### Keyboard Navigation (v1.1.0+)
+### Keyboard Navigation
 
-`Tab` / `Shift+Tab` navigation between trigger inputs and portalled panels is restored in v1.1.0 via an explicit logical focus loop.
+`Tab` / `Shift+Tab` navigation between trigger inputs and portalled panels works via an explicit logical focus loop.
 
 ---
 
@@ -319,4 +319,4 @@ The time panel anchors its position to follow the focused input.
 2. **Format matching**: `format` should match `hideSecond` and other settings (e.g. use `'HH:mm'` when `hideSecond`)
 3. **Reasonable intervals**: Step values should be reasonable time intervals (e.g. 5, 10, 15, 30 minutes)
 4. **Field validation**: Use `validateFrom`/`validateTo` to ensure time logic is correct (e.g. end time is not earlier than start time)
-5. **Click outside to close**: Clicking outside the panel automatically commits the current value and closes the panel
+5. **Click outside to close**: Clicking outside the panel (or the clock icon while open) cancels: pending panel changes are discarded and the panel closes. Use the panel's Ok button to commit

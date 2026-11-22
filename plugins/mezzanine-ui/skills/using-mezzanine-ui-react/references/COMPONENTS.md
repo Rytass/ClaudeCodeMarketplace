@@ -2,7 +2,7 @@
 
 Complete component API reference documentation.
 
-> Baseline: `@mezzanine-ui/react` `1.5.1` · `@mezzanine-ui/core` `1.2.1` · `@mezzanine-ui/system` / `@mezzanine-ui/icons` `1.0.2`. Last verified: 2026-09-12.
+> Baseline: `@mezzanine-ui/react` `1.10.2` · `@mezzanine-ui/core` ≥ `1.3.3` · `@mezzanine-ui/system` / `@mezzanine-ui/icons` ≥ `1.0.2`. Last verified: 2026-11-22.
 
 ## Table of Contents
 
@@ -593,13 +593,13 @@ import ContentHeader from '@mezzanine-ui/react/ContentHeader';
 </SectionGroup>
 ```
 
-> **Note (corrected)**: `ContentHeader` has **never** been exported from the main entry — it is not a removal, it has always been sub-path only (verified across every tag from `0.0.1` through `1.5.1`). Import it via the `@mezzanine-ui/react/ContentHeader` sub-path; `Section` / `PageHeader` require it internally.
+> **Note (corrected)**: `ContentHeader` has **never** been exported from the main entry — it is not a removal, it has always been sub-path only (verified across every tag from `0.0.1` through `1.10.2`). Import it via the `@mezzanine-ui/react/ContentHeader` sub-path; `Section` / `PageHeader` require it internally.
 
 ---
 
 ### ContentHeader *(sub-path only — 從未在主入口匯出)*
 
-**Not removed, not deprecated.** `ContentHeader` source still exists (`src/ContentHeader/`) and has never had an `@deprecated` marker — it simply was never re-exported from the main `@mezzanine-ui/react` entry, from `0.0.1` all the way to `1.5.1`. Import via `@mezzanine-ui/react/ContentHeader` sub-path. `Section` / `PageHeader` still require it internally as a child.
+**Not removed, not deprecated.** `ContentHeader` source still exists (`src/ContentHeader/`) and has never had an `@deprecated` marker — it simply was never re-exported from the main `@mezzanine-ui/react` entry, from `0.0.1` all the way to `1.10.2`. Import via `@mezzanine-ui/react/ContentHeader` sub-path. `Section` / `PageHeader` still require it internally as a child.
 
 > **v1.5.0 a11y fix**: the back-button label is now translatable.
 
@@ -695,7 +695,7 @@ import { Toggle } from '@mezzanine-ui/react';
 <Toggle checked={enabled} onChange={setEnabled} />
 ```
 
-> The hook `useSwitchControlValue` is unrelated and still ships — it is still exported from the main entry in 1.5.1. Its name is not evidence that the component exists.
+> The hook `useSwitchControlValue` is unrelated and still ships — it is still exported from the main entry in 1.10.2. Its name is not evidence that the component exists.
 
 ---
 
@@ -1336,13 +1336,13 @@ import type { Notifier } from '@mezzanine-ui/react';
 
 ### ClearActions *(sub-path only — 從未在主入口匯出)*
 
-**Not removed, not deprecated.** `ClearActions` source still exists (`src/ClearActions/`) and has never had an `@deprecated` marker — it simply was never re-exported from the main entry, from `0.0.1` through `1.5.1`. Import via `@mezzanine-ui/react/ClearActions` sub-path when needed.
+**Not removed, not deprecated.** `ClearActions` source still exists (`src/ClearActions/`) and has never had an `@deprecated` marker — it simply was never re-exported from the main entry, from `0.0.1` through `1.10.2`. Import via `@mezzanine-ui/react/ClearActions` sub-path when needed.
 
 ---
 
 ### Scrollbar *(sub-path only — 從未在主入口匯出)*
 
-**Not removed, not deprecated.** `Scrollbar` source still exists (`src/Scrollbar/`) and has never had an `@deprecated` marker — it simply was never re-exported from the main entry, from `0.0.1` through `1.5.1`. Import via `@mezzanine-ui/react/Scrollbar` sub-path, or use native scrolling / custom CSS scrollbar styles.
+**Not removed, not deprecated.** `Scrollbar` source still exists (`src/Scrollbar/`) and has never had an `@deprecated` marker — it simply was never re-exported from the main entry, from `0.0.1` through `1.10.2`. Import via `@mezzanine-ui/react/Scrollbar` sub-path, or use native scrolling / custom CSS scrollbar styles.
 
 ---
 
@@ -1385,7 +1385,7 @@ const options = [
   <Button>Open menu</Button>
 </Dropdown>
 
-// v1.2.0+: opt-in viewport-aware flip (main-axis only, keeps sameWidth alignment)
+// opt-in viewport-aware flip (main-axis only, keeps sameWidth alignment)
 <Dropdown flip sameWidth open={open} options={options}>
   <Button>Open menu</Button>
 </Dropdown>

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Checkbox`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Checkbox) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Checkbox) · Verified 1.10.2 (2026-11-22)
 
 A checkbox component supporting standalone or group usage, with multiple modes.
 
@@ -41,9 +41,9 @@ import type {
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------- |
 | `checked`        | `boolean`                                                                                                                                                                                   | -           | Controlled checked state                                              |
 | `className`      | `string`                                                                                                                                                                                    | -           | Custom CSS class name                                                 |
-| `defaultChecked` | `boolean`                                                                                                                                                                                   | `false`     | Default checked state                                                 |
+| `defaultChecked` | `boolean`                                                                                                                                                                                   | -           | Default checked state                                                 |
 | `description`    | `string`                                                                                                                                                                                    | -           | Description text                                                      |
-| `disabled`       | `boolean`                                                                                                                                                                                   | `false`     | Whether disabled                                                      |
+| `disabled`       | `boolean`                                                                                                                                                                                   | `disabled` of parent `CheckboxGroup` | Whether disabled (inside a group it follows the group when unset) |
 | `editableInput`  | `Omit<BaseInputProps, 'variant'>`                                                                                                                                                           | -           | Editable input configuration                                          |
 | `id`             | `string`                                                                                                                                                                                    | -           | Element ID                                                            |
 | `indeterminate`  | `boolean`                                                                                                                                                                                   | `false`     | Indeterminate state                                                   |
@@ -93,8 +93,8 @@ The `severity` prop enables semantic form-validation styling:
 | `disabled`     | `boolean`                                   | -              | Whether disabled                                  |
 | `layout`       | `CheckboxGroupLayout`                       | `'horizontal'` | Layout direction (`'horizontal' \| 'vertical'`)   |
 | `level`        | `CheckboxGroupLevelConfig`                  | -              | Level control config (select-all checkbox)        |
-| `mode`         | `CheckboxMode`                              | -              | Checkbox mode within the group                    |
-| `name`         | `string`                                    | -              | Group name                                        |
+| `mode`         | `CheckboxMode`                              | -              | Mode applied to checkboxes in the group when a checkbox does not set its own |
+| `name`         | `string`                                    | auto-generated (`useId`) | Group name, shared by all checkboxes in the group |
 | `onChange`     | `(event: CheckboxGroupChangeEvent) => void` | -              | Change event (get values via `event.target.values`) |
 | `value`        | `string[]`                                  | -              | Controlled selected values                        |
 
@@ -111,6 +111,8 @@ The `severity` prop enables semantic form-validation styling:
 | `children` | `ReactNode` | Checkbox children (mutually exclusive with `options`) |
 
 ### CheckboxGroupLevelConfig
+
+> `level.active = true` only supports the `options` input; with `children` it logs a console error.
 
 | Property   | Type                                   | Default     | Description                                |
 | ---------- | -------------------------------------- | ----------- | ------------------------------------------ |

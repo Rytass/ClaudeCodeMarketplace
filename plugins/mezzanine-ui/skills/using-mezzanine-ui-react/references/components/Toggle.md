@@ -4,9 +4,9 @@
 >
 > **Storybook**: `Data Entry/Toggle`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Toggle) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Toggle) · Verified 1.10.2 (2026-11-22)
 
-> Toggle replaced `Switch` at `1.0.0-canary.3`, when `src/Switch/` was deleted and `src/Toggle/` created; `Switch` then lingered as an alias re-export of Toggle until `1.0.0` dropped it. Neither step happened in 1.4.1, and `Switch` was never marked `@deprecated`. Migrate `Switch` usages to `Toggle` — public API is intentionally aligned (checked / defaultChecked / disabled / onChange), with new `label`, `supportingText`, and `size` additions.
+> `Switch` is no longer part of the public API; migrate usages to `Toggle` — the API is aligned (checked / defaultChecked / disabled / onChange), with `label`, `supportingText`, and `size` additions.
 
 A toggle switch component for turning a single option on or off. Supports controlled and uncontrolled modes with optional label and supporting text.
 
@@ -119,7 +119,9 @@ function ControlledToggle() {
 ### Multiple Toggles in Form
 
 ```tsx
+import { useState } from 'react';
 import { Toggle } from '@mezzanine-ui/react';
+import type { ChangeEvent } from 'react';
 
 function PreferencesForm() {
   const [preferences, setPreferences] = useState({
@@ -128,7 +130,7 @@ function PreferencesForm() {
     autoSave: true,
   });
 
-  const handleChange = (key) => (e) => {
+  const handleChange = (key: keyof typeof preferences) => (e: ChangeEvent<HTMLInputElement>) => {
     setPreferences((prev) => ({
       ...prev,
       [key]: e.target.checked,
@@ -188,7 +190,7 @@ function PreferencesForm() {
 <Toggle defaultChecked label="Simple" />
 
 // 受控模式
-<Toggle checked={enabled} onChange={setEnabled} label="Controlled" />
+<Toggle checked={enabled} onChange={(e) => setEnabled(e.target.checked)} label="Controlled" />
 ```
 
 #### ❌ 缺少標籤或說明

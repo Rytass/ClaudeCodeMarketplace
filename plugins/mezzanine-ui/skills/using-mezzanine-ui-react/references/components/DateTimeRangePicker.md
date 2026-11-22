@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/story/data-entry-datetimerangepicker--playground) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DateTimeRangePicker) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DateTimeRangePicker) · Verified 1.10.2 (2026-11-22)
 
 A date-time range picker that combines two DateTimePickers to select start and end date-times. Must be used with `CalendarContext`. The direction icon switches between `LongTailArrowRightIcon` / `LongTailArrowDownIcon` based on the `direction` prop.
 
@@ -58,11 +58,15 @@ import type {
 | `onChange`  | `(value: DateTimeRangePickerValue) => void` | -       | Range value change callback |
 | `value`     | `DateTimeRangePickerValue`                  | -       | Selected value (controlled) |
 
+> `ref` points to the host `<div>` (the `ref` key of `DateTimePickerProps` is omitted from the props type). `className` is applied to the host `<div>`, not to the inner pickers.
+
 ### Inherited from DateTimePickerProps (shared by both DateTimePickers)
+
+Only the props listed in the table below are forwarded to both inner `DateTimePicker`s. Every other key of `DateTimePickerProps` (for example `errorMessagesLeft`, `errorMessagesRight`, `validateLeft`, `validateRight`, `inputLeftProps`, `inputRightProps`, `warning`, `style`, `onHover`, `onLeave`, `onCancel`, `onConfirm`) is accepted by the type but is NOT forwarded by `DateTimeRangePicker`, so it has no effect. `prefix`, `defaultValue`, `value` and `onChange` are omitted from the type; `value` / `onChange` are redeclared as the range versions above.
 
 | Property               | Type                                           | Default         | Description              |
 | ---------------------- | ---------------------------------------------- | --------------- | ------------------------ |
-| `calendarProps`        | `Omit<CalendarProps, ...>`                     | -               | Calendar props           |
+| `calendarProps`        | `DatePickerCalendarProps['calendarProps']`     | -               | Calendar props (`Omit<CalendarProps, ...>`, see DatePicker.md) |
 | `calendarRef`          | `RefObject<HTMLDivElement \| null>`            | -               | Calendar ref             |
 | `clearable`            | `boolean`                                      | `true`          | Whether clearable        |
 | `disabled`             | `boolean`                                      | `false`         | Whether disabled         |
@@ -74,9 +78,9 @@ import type {
 | `disableOnPrev`        | `boolean`                                      | -               | Disable prev             |
 | `displayMonthLocale`   | `string`                                       | `locale` (from `CalendarContext`, resolved inside each inner `DateTimePicker`) | Month display locale |
 | `error`                | `boolean`                                      | `false`         | Error state              |
-| `fadeProps`             | `FadeProps`                                    | -               | Fade animation props     |
-| `formatDate`           | `string`                                       | Depends on mode | Date display format      |
-| `formatTime`           | `string`                                       | `'HH:mm:ss'`   | Time display format (defaults to `'HH:mm'` when `hideSecond`) |
+| `fadeProps`            | `Omit<FadeProps, 'children' \| 'in'>`          | -               | Fade animation props     |
+| `formatDate`           | `string`                                       | `defaultDateFormat` from `CalendarContext` (`'YYYY-MM-DD'` unless overridden on the provider) | Date display format |
+| `formatTime`           | `string`                                       | `defaultTimeFormat` from `CalendarContext` (`'HH:mm:ss'` unless overridden), or `'HH:mm'` when `hideSecond` | Time display format |
 | `fullWidth`            | `boolean`                                      | `false`         | Whether full width       |
 | `hideHour`             | `boolean`                                      | -               | Hide hours               |
 | `hideMinute`           | `boolean`                                      | -               | Hide minutes             |
@@ -90,27 +94,27 @@ import type {
 | `isYearDisabled`       | `(date: DateType) => boolean`                  | -               | Year disable check       |
 | `minuteStep`           | `number`                                       | -               | Minute step              |
 | `mode`                 | `CalendarMode`                                 | `'day'`         | Calendar selection mode  |
-| `onClear`              | `MouseEventHandler`                            | -               | Clear callback           |
+| `onClear`              | `MouseEventHandler`                            | -               | Clear callback (passed to both inner pickers) |
 | `onPanelToggle`        | `(open: boolean, focusedInput: FocusedInput) => void` | -        | Panel toggle callback    |
-| `placeholderLeft`      | `string`                                       | -               | Date field placeholder   |
-| `placeholderRight`     | `string`                                       | -               | Time field placeholder   |
-| `popperProps`          | `Omit<InputTriggerPopperProps, ...>`           | -               | Calendar Popper props    |
+| `placeholderLeft`      | `string`                                       | resolved `formatDate` | Date field placeholder   |
+| `placeholderRight`     | `string`                                       | resolved `formatTime` | Time field placeholder   |
+| `popperProps`          | `Omit<InputTriggerPopperProps, 'anchor' \| 'children' \| 'fadeProps' \| 'open'>` | - | Calendar Popper props |
 | `popperPropsTime`      | `TimePickerPanelProps['popperProps']`           | -               | Time Popper props        |
 | `readOnly`             | `boolean`                                      | -               | Whether read-only        |
-| `referenceDate`        | `DateType`                                     | Current time    | Reference date           |
+| `referenceDate`        | `DateType`                                     | Current time (resolved inside each inner `DateTimePicker`) | Reference date |
 | `required`             | `boolean`                                      | `false`         | Whether required         |
 | `secondStep`           | `number`                                       | -               | Second step              |
 | `size`                 | `'main' \| 'sub'`                              | -               | Size                     |
 
 ---
 
-## Portal Behavior (v1.0.4+)
+## Portal Behavior
 
-Since v1.0.4 the calendar and time pickers inside each DateTimePicker portal out by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors. To restore inline rendering, pass `popperProps={{ disablePortal: true }}` or `popperPropsTime={{ disablePortal: true }}` — these are applied to both inner DateTimePickers simultaneously.
+The calendar and time pickers inside each DateTimePicker portal out by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors. To restore inline rendering, pass `popperProps={{ disablePortal: true }}` or `popperPropsTime={{ disablePortal: true }}` — these are applied to both inner DateTimePickers simultaneously.
 
-### Keyboard Navigation (v1.1.0+)
+### Keyboard Navigation
 
-`Tab` / `Shift+Tab` navigation between trigger inputs and portalled panels is restored in v1.1.0 via an explicit logical focus loop, reliable inside a `Modal` focus trap.
+`Tab` / `Shift+Tab` navigation between trigger inputs and portalled panels works via an explicit logical focus loop, reliable inside a `Modal` focus trap.
 
 ---
 

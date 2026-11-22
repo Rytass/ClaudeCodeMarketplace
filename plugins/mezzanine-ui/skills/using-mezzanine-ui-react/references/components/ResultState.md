@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/ResultState`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/ResultState) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/ResultState) · Verified 1.10.2 (2026-11-22)
 
 Result state component for displaying operation results or status pages.
 
@@ -36,6 +36,8 @@ import type { ResultStateProps, ResultStateActions } from '@mezzanine-ui/react';
 | `size`        | `ResultStateSize`                     | `'main'`       | Size                 |
 | `title`       | `string`                              | **required**   | Title text           |
 | `type`        | `ResultStateType`                     | `'information'`| State type           |
+
+> `title` is required (`title: string` with no `?`); the table already marks it **required**. When `actions` is provided it takes priority and `children` buttons are not rendered. The component accepts a `ref` (`HTMLDivElement`).
 
 ---
 

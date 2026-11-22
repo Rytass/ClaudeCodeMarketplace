@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/data-entry-datepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DatePicker) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DatePicker) · Verified 1.10.2 (2026-11-22)
 
 Date picker component supporting multiple modes (day, week, month, quarter, half-year, year). Requires `CalendarContext`. Internally composed of `PickerTrigger` and `DatePickerCalendar`.
 
@@ -36,8 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ## Import
 
 ```tsx
-import { DatePicker, CalendarContext } from '@mezzanine-ui/react';
-import { DatePickerCalendar } from '@mezzanine-ui/react/DatePicker';
+import { DatePicker, DatePickerCalendar, CalendarContext } from '@mezzanine-ui/react';
 import type { DatePickerProps, DatePickerCalendarProps } from '@mezzanine-ui/react';
 ```
 
@@ -52,24 +51,24 @@ import type { DatePickerProps, DatePickerCalendarProps } from '@mezzanine-ui/rea
 | Property              | Type                          | Default      | Description                              |
 | --------------------- | ----------------------------- | ------------ | ---------------------------------------- |
 | `defaultValue`        | `DateType`                    | -            | Default value                            |
-| `disableOnDoubleNext` | `boolean`                     | `false`      | Disable double-arrow next                |
-| `disableOnDoublePrev` | `boolean`                     | `false`      | Disable double-arrow previous            |
+| `disableOnDoubleNext` | `boolean`                     | -            | Disable double-arrow next                |
+| `disableOnDoublePrev` | `boolean`                     | -            | Disable double-arrow previous            |
 | `format`              | `string`                      | by mode      | Date format (length must match output value) |
 | `onCalendarToggle`    | `(open: boolean) => void`     | -            | Calendar open/close event                |
 | `onChange`            | `(target?: DateType) => void` | -            | Change event                             |
-| `referenceDate`       | `DateType`                    | current time | Reference date                           |
+| `referenceDate`       | `DateType`                    | `defaultValue` or current time | Reference date (initial calendar view) |
 
 ### Inherited from DatePickerCalendarProps
 
 | Property              | Type                              | Default  | Description                    |
 | --------------------- | --------------------------------- | -------- | ------------------------------ |
-| `calendarProps`       | `Omit<CalendarProps, ...>`        | -        | Props passed to Calendar       |
+| `calendarProps`       | `Omit<CalendarProps, 'disableOnNext' \| 'disableOnPrev' \| 'disableOnDoubleNext' \| 'disableOnDoublePrev' \| 'displayMonthLocale' \| 'isDateDisabled' \| 'isMonthDisabled' \| 'isQuarterDisabled' \| 'isHalfYearDisabled' \| 'isWeekDisabled' \| 'isYearDisabled' \| 'locale' \| 'mode' \| 'onChange' \| 'onMonthControlClick' \| 'onNext' \| 'onDoubleNext' \| 'onPrev' \| 'onDoublePrev' \| 'onYearControlClick' \| 'referenceDate' \| 'updateReferenceDate' \| 'value'>` | - | Other props passed to `Calendar` |
 | `disabledMonthSwitch` | `boolean`                         | `false`  | Disable month switching        |
 | `disabledYearSwitch`  | `boolean`                         | `false`  | Disable year switching         |
 | `disableOnNext`       | `boolean`                         | -        | Disable next                   |
 | `disableOnPrev`       | `boolean`                         | -        | Disable previous               |
 | `displayMonthLocale`  | `string`                          | `locale` (from `CalendarContext`) | Month display locale |
-| `fadeProps`            | `FadeProps`                       | -        | Fade animation props           |
+| `fadeProps`            | `Omit<FadeProps, 'children' \| 'in'>` | -    | Fade animation props           |
 | `isDateDisabled`      | `(date: DateType) => boolean`     | -        | Date disabled check            |
 | `isHalfYearDisabled`  | `(date: DateType) => boolean`     | -        | Half-year disabled check       |
 | `isMonthDisabled`     | `(date: DateType) => boolean`     | -        | Month disabled check           |
@@ -77,8 +76,8 @@ import type { DatePickerProps, DatePickerCalendarProps } from '@mezzanine-ui/rea
 | `isWeekDisabled`      | `(date: DateType) => boolean`     | -        | Week disabled check            |
 | `isYearDisabled`      | `(date: DateType) => boolean`     | -        | Year disabled check            |
 | `mode`                | `CalendarMode`                    | `'day'`  | Date mode                      |
-| `onHover`             | `(date: DateType) => void`        | -        | Fired when hovering a calendar cell |
-| `onLeave`             | `() => void`                      | -        | Fired when mouse leaves the calendar panel |
+| `onHover`             | `(date: DateType) => void`        | -        | Present in the type, but `DatePicker` does not honour it (it wires its own hover-preview handler and does not forward the prop) |
+| `onLeave`             | `() => void`                      | -        | Present in the type, but `DatePicker` does not honour it (same as `onHover`) |
 | `popperProps`         | `Omit<InputTriggerPopperProps, 'anchor' \| 'children' \| 'fadeProps' \| 'open'>` | - | Popper positioning props |
 
 ### Inherited from PickerTriggerProps
@@ -89,16 +88,37 @@ import type { DatePickerProps, DatePickerCalendarProps } from '@mezzanine-ui/rea
 | `clearable`     | `boolean`                             | `true`  | Whether clearable      |
 | `disabled`      | `boolean`                             | `false` | Whether disabled       |
 | `error`         | `boolean`                             | `false` | Whether in error state |
-| `errorMessages` | `FormattedInputProps['errorMessages']` | -      | Error messages         |
+| `errorMessages` | `{ enabled?: boolean; invalidInput?: string; invalidPaste?: string }` (`FormattedInputProps['errorMessages']`) | `{ enabled: true, invalidInput: 'Input value is not valid.', invalidPaste: 'Pasted content is not valid.' }` | Error message configuration (an object, not an array) |
 | `fullWidth`     | `boolean`                             | `false` | Whether full width     |
 | `inputProps`    | `Omit<NativeInputProps, ...>`         | -       | Props passed to input  |
 | `placeholder`   | `string`                              | -       | Placeholder text       |
 | `prefix`        | `ReactNode`                           | -       | Prefix                 |
-| `readOnly`      | `boolean`                             | `false` | Whether read-only      |
+| `readOnly`      | `boolean`                             | -       | Whether read-only (blocks opening the calendar) |
 | `required`      | `boolean`                             | `false` | Whether required       |
 | `size`          | `'main' \| 'sub'`                     | -       | Size                   |
-| `validate`      | `FormattedInputProps['validate']`     | -       | Input validation function |
-| `value`         | `DateType`                            | -       | Controlled value       |
+| `validate`      | `(isoDate: string) => boolean`        | -       | Present in the type, but `DatePicker` overrides it with its own validator built from `isDateDisabled` / `isWeekDisabled` / `isMonthDisabled` / `isQuarterDisabled` / `isYearDisabled` / `isHalfYearDisabled` (per `mode`) |
+| `value`         | `DateType`                            | -       | Controlled value (declared by `DatePickerCalendarProps`; `PickerTriggerProps['value']` is omitted) |
+| `warning`       | `boolean`                             | `false` | Whether in warning state (from `TextFieldProps`) |
+
+> `PickerTriggerProps` also extends `TextFieldProps` (minus `active`, `children`, `defaultChecked`, `disabled`, `readonly`, `typing`) and therefore accepts the native `<div>` props of the trigger root. `suffix`, `forceShowClearable`, `hideSuffixWhenClearable`, `hoverValue` and `onFocus` appear in the type but are set internally by `DatePicker` and override any value you pass.
+
+### DatePickerCalendarProps (for the standalone `DatePickerCalendar`)
+
+| Property        | Type                                         | Default | Description |
+| --------------- | -------------------------------------------- | ------- | ----------- |
+| `anchor`        | `InputTriggerPopperProps['anchor']`          | -       | Popper anchor (omitted from `DatePickerProps`) |
+| `calendarProps` | see above                                    | -       | Other props for `Calendar` |
+| `calendarRef`   | `RefObject<HTMLDivElement \| null>`          | -       | Ref for the calendar element (omitted from `DatePickerProps`) |
+| `mode`          | `CalendarMode`                               | `'day'` | Calendar mode |
+| `onChange`      | `(target: DateType) => void`                 | -       | Fired by the calendar cell click (omitted from `DatePickerProps`, which declares its own `onChange`) |
+| `onHover`       | `(date: DateType) => void`                   | -       | Fired when hovering a calendar cell (any mode) |
+| `onLeave`       | `() => void`                                 | -       | Fired when the mouse leaves the calendar panel |
+| `open`          | `boolean`                                    | -       | Whether the popper is open (omitted from `DatePickerProps`) |
+| `popperProps`   | `Omit<InputTriggerPopperProps, 'anchor' \| 'children' \| 'fadeProps' \| 'open'>` | - | Popper props |
+| `referenceDate` | `DateType`                                   | -       | Reference date (required in `DatePickerCalendarProps`; `DatePickerProps` re-declares it as optional) |
+| `value`         | `DateType`                                   | -       | Active cell value |
+
+Plus `fadeProps`, the `disable*`/`disabled*Switch`/`displayMonthLocale`/`is*Disabled` props picked from `CalendarProps` (as in the inherited table above).
 
 ---
 
@@ -115,11 +135,11 @@ import type { DatePickerProps, DatePickerCalendarProps } from '@mezzanine-ui/rea
 
 ---
 
-## Portal Behavior (v1.0.4+)
+## Portal Behavior
 
-Since v1.0.4 the calendar popper portals out of the DOM subtree by default, so `z-index: popover (1005)` wins against `Modal (1004)`. This fixes clipping when the picker is inside a `Modal` or any ancestor with `overflow: hidden`, and enables viewport-edge flip.
+The calendar popper portals out of the DOM subtree by default, so `z-index: popover (1005)` wins against `Modal (1004)`. This fixes clipping when the picker is inside a `Modal` or any ancestor with `overflow: hidden`, and enables viewport-edge flip.
 
-To restore the previous inline (non-portal) rendering per call site:
+To use inline (non-portal) rendering per call site:
 
 ```tsx
 <DatePicker
@@ -129,9 +149,9 @@ To restore the previous inline (non-portal) rendering per call site:
 />
 ```
 
-### Keyboard Navigation (v1.1.0+)
+### Keyboard Navigation
 
-`Tab` / `Shift+Tab` navigation between the trigger input and the portalled calendar is restored in v1.1.0. The popper establishes an explicit logical focus loop so the browser does not skip the calendar when the portal severs natural DOM order. This is particularly reliable inside a `Modal` focus trap.
+`Tab` / `Shift+Tab` navigation between the trigger input and the portalled calendar works. The popper establishes an explicit logical focus loop so the browser does not skip the calendar when the portal severs natural DOM order. This is particularly reliable inside a `Modal` focus trap.
 
 ---
 
@@ -278,7 +298,7 @@ function BasicDatePicker() {
   value={date}
   onChange={setDate}
   error
-  errorMessages={['Please select a valid date']}
+  errorMessages={{ invalidInput: 'Please select a valid date' }}
 />
 ```
 

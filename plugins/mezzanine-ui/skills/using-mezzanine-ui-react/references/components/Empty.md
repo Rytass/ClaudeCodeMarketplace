@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Empty`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Empty) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Empty) · Verified 1.10.2 (2026-11-22)
 
 An empty state component for displaying placeholder screens when there is no data or in specific states.
 

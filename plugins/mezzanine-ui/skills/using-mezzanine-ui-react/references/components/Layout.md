@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Layout/Layout`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Layout) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Layout) · Verified 1.10.2 (2026-11-22)
 
 A full-page layout component providing a main content area and resizable side panels. Uses the compound component pattern; `Layout` internally creates a `LayoutHost` context provider.
 

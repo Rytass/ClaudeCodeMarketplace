@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/data-entry-datetimepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DateTimePicker) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/DateTimePicker) · Verified 1.10.2 (2026-11-22)
 
 A date-time picker that allows selecting both date and time simultaneously. Must be used with `CalendarContext`. Internally composed of `DatePickerCalendar`, `TimePickerPanel`, and `PickerTriggerWithSeparator`.
 
@@ -59,7 +59,7 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 | `onChange`       | `(target?: DateType) => void`                            | -                                        | Change callback          |
 | `onPanelToggle`  | `(open: boolean, focusedInput: FocusedInput) => void`    | -                                        | Panel toggle callback    |
 | `popperPropsTime`| `TimePickerPanelProps['popperProps']`                    | -                                        | Time Popper props        |
-| `referenceDate`  | `DateType`                                               | -                                        | Reference date           |
+| `referenceDate`  | `DateType`                                               | current time                             | Reference date for the calendars |
 | `value`          | `DateType`                                               | -                                        | Selected value (controlled) |
 
 > `FocusedInput = 'left' | 'right' | null`
@@ -68,7 +68,7 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 
 | Property              | Type                                    | Default  | Description              |
 | --------------------- | --------------------------------------- | -------- | ------------------------ |
-| `calendarProps`       | `Omit<CalendarProps, ...>`              | -        | Calendar props           |
+| `calendarProps`       | `DatePickerCalendarProps['calendarProps']` (`Omit<CalendarProps, 'disableOnNext' \| 'disableOnPrev' \| 'disableOnDoubleNext' \| 'disableOnDoublePrev' \| 'displayMonthLocale' \| 'isDateDisabled' \| 'isMonthDisabled' \| 'isQuarterDisabled' \| 'isHalfYearDisabled' \| 'isWeekDisabled' \| 'isYearDisabled' \| 'locale' \| 'mode' \| 'onChange' \| 'onMonthControlClick' \| 'onNext' \| 'onDoubleNext' \| 'onPrev' \| 'onDoublePrev' \| 'onYearControlClick' \| 'referenceDate' \| 'updateReferenceDate' \| 'value'>`) | - | Other props passed to `Calendar` |
 | `calendarRef`         | `RefObject<HTMLDivElement \| null>`     | -        | Calendar ref             |
 | `disabledMonthSwitch` | `boolean`                               | `false`  | Disable month switching  |
 | `disabledYearSwitch`  | `boolean`                               | `false`  | Disable year switching   |
@@ -77,7 +77,7 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 | `disableOnNext`       | `boolean`                               | -        | Disable next             |
 | `disableOnPrev`       | `boolean`                               | -        | Disable prev             |
 | `displayMonthLocale`  | `string`                                | `locale` (from `CalendarContext`) | Month display locale |
-| `fadeProps`            | `FadeProps`                             | -        | Fade animation props     |
+| `fadeProps`           | `Omit<FadeProps, 'children' \| 'in'>`   | -        | Fade animation props (applied to both the calendar and the time panel) |
 | `isDateDisabled`      | `(date: DateType) => boolean`           | -        | Date disable check       |
 | `isHalfYearDisabled`  | `(date: DateType) => boolean`           | -        | Half-year disable check  |
 | `isMonthDisabled`     | `(date: DateType) => boolean`           | -        | Month disable check      |
@@ -85,9 +85,9 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 | `isWeekDisabled`      | `(date: DateType) => boolean`           | -        | Week disable check       |
 | `isYearDisabled`      | `(date: DateType) => boolean`           | -        | Year disable check       |
 | `mode`                | `CalendarMode`                          | `'day'`  | Calendar selection mode  |
-| `onHover`             | `(date: DateType) => void`              | -        | Fired when hovering a calendar cell |
-| `onLeave`             | `() => void`                            | -        | Fired when mouse leaves the calendar panel |
-| `popperProps`         | `Omit<InputTriggerPopperProps, ...>`    | -        | Calendar Popper props    |
+| `onHover`             | `(date: DateType) => void`              | -        | Present in the type, but not honoured: `DateTimePicker` wires its own hover-preview handler to the calendar and does not forward this prop |
+| `onLeave`             | `() => void`                            | -        | Present in the type, but not honoured (same as `onHover`) |
+| `popperProps`         | `Omit<InputTriggerPopperProps, 'anchor' \| 'children' \| 'fadeProps' \| 'open'>` | - | Calendar Popper props (the time panel uses `popperPropsTime`) |
 
 ### Inherited from TimePickerPanelProps
 
@@ -99,6 +99,10 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 | `hourStep`    | `number`  | -       | Hour step    |
 | `minuteStep`  | `number`  | -       | Minute step  |
 | `secondStep`  | `number`  | -       | Second step  |
+| `className`   | `string`  | -       | Also declared by `TimePickerPanelProps`; applied to the trigger root (see `PickerTriggerWithSeparatorProps` below), not to the time panel |
+| `style`       | `CSSProperties` | - | Also declared by `TimePickerPanelProps`; forwarded to the trigger root, not to the time panel |
+| `onCancel`    | `VoidFunction` | -  | Present in the type, but not honoured (the panel's cancel/confirm are wired internally) |
+| `onConfirm`   | `VoidFunction` | -  | Present in the type, but not honoured (same as `onCancel`) |
 
 ### Inherited from PickerTriggerWithSeparatorProps
 
@@ -108,12 +112,12 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 | `clearable`        | `boolean`          | `true`  | Whether clearable        |
 | `disabled`         | `boolean`          | `false` | Whether disabled         |
 | `error`            | `boolean`          | `false` | Error state              |
-| `errorMessagesLeft` | `FormattedInputProps['errorMessages']` | - | Date field error messages |
-| `errorMessagesRight` | `FormattedInputProps['errorMessages']` | - | Time field error messages |
+| `errorMessagesLeft` | `{ enabled?: boolean; invalidInput?: string; invalidPaste?: string }` | `{ enabled: true, invalidInput: 'Input value is not valid.', invalidPaste: 'Pasted content is not valid.' }` | Date field error messages |
+| `errorMessagesRight` | `{ enabled?: boolean; invalidInput?: string; invalidPaste?: string }` | same as `errorMessagesLeft` | Time field error messages |
 | `fullWidth`        | `boolean`          | `false` | Whether full width       |
-| `inputLeftProps`   | `Omit<NativeInputProps, ...>` | -  | Props passed to the date input |
-| `inputRightProps`  | `Omit<NativeInputProps, ...>` | -  | Props passed to the time input |
-| `onClear`          | `MouseEventHandler` | -      | Clear callback           |
+| `inputLeftProps`   | `Omit<NativeInputProps, 'defaultValue' \| 'disabled' \| 'onChange' \| 'placeholder' \| 'readOnly' \| 'required' \| 'value' \| aria-disabled \| aria-multiline \| aria-readonly \| aria-required>` | -  | Props passed to the date input |
+| `inputRightProps`  | same as `inputLeftProps` | -  | Props passed to the time input |
+| `onClear`          | `MouseEventHandler` | -      | Called after the value is cleared (the picker clears its value and calls `onChange(undefined)` first) |
 | `placeholderLeft`  | `string`           | `formatDate` | Date field placeholder |
 | `placeholderRight` | `string`           | `formatTime` | Time field placeholder |
 | `prefix`           | `ReactNode`        | -       | Prefix element           |
@@ -122,16 +126,19 @@ import type { DateTimePickerProps } from '@mezzanine-ui/react';
 | `size`             | `'main' \| 'sub'`  | -       | Size                     |
 | `validateLeft`     | `(isoDate: string) => boolean` | - | Date field validation function |
 | `validateRight`    | `(isoDate: string) => boolean` | - | Time field validation function |
+| `warning`          | `boolean`          | `false` | Warning state (from `TextFieldProps`) |
+
+> `hoverValueLeft` is declared by `PickerTriggerWithSeparatorProps` but is overridden internally by the calendar hover preview. `PickerTriggerWithSeparatorProps` also extends `TextFieldProps` (minus `active`, `children`, `defaultChecked`, `disabled`, `readonly`, `typing`), so native `<div>` props of the trigger root are accepted; `forceShowClearable` and `hideSuffixWhenClearable` are set internally.
 
 ---
 
-## Portal Behavior (v1.0.4+)
+## Portal Behavior
 
-Since v1.0.4 the calendar and time pickers portal out by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors. To restore inline rendering per call site use `popperProps={{ disablePortal: true }}` (for the calendar) or `popperPropsTime={{ disablePortal: true }}` (for the time panel).
+The calendar and time panels portal out by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors. To restore inline rendering per call site use `popperProps={{ disablePortal: true }}` (for the calendar) or `popperPropsTime={{ disablePortal: true }}` (for the time panel).
 
-### Keyboard Navigation (v1.1.0+)
+### Keyboard Navigation
 
-`Tab` / `Shift+Tab` navigation between the trigger inputs and the portalled panels is restored in v1.1.0 via an explicit logical focus loop, reliable even inside a `Modal` focus trap.
+`Tab` / `Shift+Tab` navigation between the trigger inputs and the portalled panels works via an explicit logical focus loop, reliable even inside a `Modal` focus trap.
 
 ---
 
@@ -140,6 +147,7 @@ Since v1.0.4 the calendar and time pickers portal out by default, fixing clippin
 ### Basic Usage
 
 ```tsx
+import { useState } from 'react';
 import { DateTimePicker } from '@mezzanine-ui/react';
 import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
 

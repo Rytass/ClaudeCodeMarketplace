@@ -1,15 +1,25 @@
 {
   "meta": {
-    "version": "1.5.1",
-    "sourceVersion": "1.5.1",
-    "generatedAt": "2026-09-12",
+    "version": "1.10.2",
+    "sourceVersion": "1.10.2",
+    "generatedAt": "2026-11-22",
     "description": "Import path mappings for Mezzanine UI components and utilities"
   },
   "packages": {
     "@mezzanine-ui/react": {
       "meta": {
-        "version": "1.5.1",
-        "exportPath": "packages/react/src/index.ts"
+        "version": "1.10.2",
+        "exportPath": "packages/react/src/index.ts",
+        "peerDependencies": {
+          "react": ">=19",
+          "react-dom": ">=19",
+          "lodash": ">=4"
+        },
+        "dependencies": {
+          "@mezzanine-ui/core": "1.3.3",
+          "@mezzanine-ui/icons": "1.0.2",
+          "@mezzanine-ui/system": "1.0.2"
+        }
       },
       "exports": {
         "Accordion": {
@@ -350,7 +360,41 @@
         "as": {
           "path": "packages/react/src/as",
           "type": "component",
-          "version": "1.0.0"
+          "version": "1.0.0",
+          "deprecated": true,
+          "deprecationReason": "packages/react/src/as no longer exists in 1.10.2"
+        },
+        "ClearActions": {
+          "path": "packages/react/src/ClearActions",
+          "type": "component",
+          "version": "1.0.0",
+          "mainEntry": false,
+          "subPathImport": "@mezzanine-ui/react/ClearActions",
+          "note": "Source exists; not exported from the main entry. Import via sub-path."
+        },
+        "ContentHeader": {
+          "path": "packages/react/src/ContentHeader",
+          "type": "component",
+          "version": "1.0.0",
+          "mainEntry": false,
+          "subPathImport": "@mezzanine-ui/react/ContentHeader",
+          "note": "Source exists; not exported from the main entry. Import via sub-path."
+        },
+        "Scrollbar": {
+          "path": "packages/react/src/Scrollbar",
+          "type": "component",
+          "version": "1.0.0",
+          "mainEntry": false,
+          "subPathImport": "@mezzanine-ui/react/Scrollbar",
+          "note": "Source exists; not exported from the main entry. Import via sub-path."
+        },
+        "Switch": {
+          "path": "packages/react/src/Switch",
+          "type": "component",
+          "version": "1.0.0",
+          "deprecated": true,
+          "deprecationReason": "Removed. Use Toggle.",
+          "replacement": "Toggle"
         }
       }
     }

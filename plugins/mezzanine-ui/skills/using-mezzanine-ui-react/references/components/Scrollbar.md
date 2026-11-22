@@ -1,12 +1,12 @@
 # Scrollbar Component
 
-> **Note**: Not exported from the `@mezzanine-ui/react` main entrypoint — import it via sub-path (`@mezzanine-ui/react/Scrollbar`). It ships as a real, functional component (based on OverlayScrollbars) and is used internally by Dropdown and Cascader panels; it simply isn't re-exported from the package barrel, so application code must use the sub-path import shown below.
+> **Export status (1.10.2)**: Source exists at `packages/react/src/Scrollbar` but is **not re-exported from `src/index.ts`**, so `import { Scrollbar } from '@mezzanine-ui/react'` does not work. Import it via the sub-path `@mezzanine-ui/react/Scrollbar` (default export; `ScrollbarProps` as a type export). It is a real, functional component (based on OverlayScrollbars, not deprecated) and is used internally by Dropdown and Cascader panels.
 
 > **Category**: Internal (sub-path only)
 >
 > **Storybook**: `Internal/Scrollbar`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Scrollbar) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Scrollbar) · Verified 1.10.2 (2026-11-22)
 
 Custom scrollbar component providing consistent scrollbar styles across browsers. Based on OverlayScrollbars.
 
@@ -19,7 +19,7 @@ import Scrollbar from '@mezzanine-ui/react/Scrollbar';
 import type { ScrollbarProps } from '@mezzanine-ui/react/Scrollbar';
 ```
 
-> **Note**: Scrollbar is not exported from the `@mezzanine-ui/react` main entry. It is an internal component.
+> **Note**: Scrollbar is not exported from the `@mezzanine-ui/react` main entry (`src/index.ts`); use the sub-path import above.
 
 ---
 
@@ -28,7 +28,7 @@ import type { ScrollbarProps } from '@mezzanine-ui/react/Scrollbar';
 | Property          | Type                                          | Default | Description                |
 | ----------------- | --------------------------------------------- | ------- | -------------------------- |
 | `children`        | `ReactNode`                                   | -       | Content                    |
-| `className`       | `string`                                      | -       | className                  |
+| `className`       | `string`                                      | -       | className (inherited from native `<div>` props) |
 | `defer`           | `boolean \| object`                           | `true`  | Deferred initialization    |
 | `disabled`        | `boolean`                                     | `false` | Disable custom scrollbar   |
 | `events`          | `OverlayScrollbarsComponentProps['events']`   | -       | Event handlers             |
@@ -36,7 +36,9 @@ import type { ScrollbarProps } from '@mezzanine-ui/react/Scrollbar';
 | `maxWidth`        | `number \| string`                            | -       | Maximum width              |
 | `onViewportReady` | `(viewport, instance?) => void`               | -       | Viewport ready callback    |
 | `options`         | `PartialOptions`                              | -       | OverlayScrollbars options  |
-| `style`           | `CSSProperties`                               | -       | Style                      |
+| `style`           | `CSSProperties`                               | -       | Style (inherited from native `<div>` props; `maxHeight` / `maxWidth` are merged into it) |
+
+> `ScrollbarProps extends Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'children'>`, so other native `<div>` attributes are accepted and forwarded. `maxHeight` / `maxWidth` are typed as `CSSProperties['maxHeight']` / `CSSProperties['maxWidth']`. When `disabled`, a plain `<div>` is rendered (only your `className` is applied, without the `mzn-scrollbar` host class), and `onViewportReady` is called with the div (no OverlayScrollbars instance).
 
 ---
 
@@ -58,7 +60,7 @@ The component uses the following default OverlayScrollbars options:
 }
 ```
 
-> **Note**: `overflow` is a forced value and will be overridden back to `{ x: 'scroll', y: 'scroll' }` even if passed via `options`. `scrollbars` is an overridable default that can be customized via `options.scrollbars`.
+> **Note**: `overflow` 與 `scrollbars` 都是可覆寫的預設值，以 key 為單位被 `options` 覆蓋（例如 `options={{ overflow: { x: 'hidden' } }}` 會得到 `{ x: 'hidden', y: 'scroll' }`；`options.scrollbars.autoHide` 覆寫後 `autoHideDelay` 仍保留 600）。舊版文件稱 `overflow` 為強制值，與 1.10.2 原始碼不符。
 
 ---
 

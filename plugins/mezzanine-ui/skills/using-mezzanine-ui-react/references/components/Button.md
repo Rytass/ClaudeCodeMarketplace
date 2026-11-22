@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Button`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Button) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Button) · Verified 1.10.2 (2026-11-22)
 
 The most commonly used interactive element, supporting multiple variants and sizes.
 
@@ -295,14 +295,14 @@ import { Button, ButtonGroup } from '@mezzanine-ui/react';
 
 #### ❌ 圖示按鈕無文字提示
 ```tsx
-<Button icon={DeleteIcon} iconType="icon-only" disabledTooltip>
+<Button icon={TrashIcon} iconType="icon-only" disabledTooltip>
   {/* 使用者不知道按鈕作用 */}
 </Button>
 ```
 
 #### ✅ 正確做法：提供 children 作 tooltip
 ```tsx
-<Button icon={DeleteIcon} iconType="icon-only">
+<Button icon={TrashIcon} iconType="icon-only">
   刪除  {/* 自動成為 tooltip */}
 </Button>
 ```

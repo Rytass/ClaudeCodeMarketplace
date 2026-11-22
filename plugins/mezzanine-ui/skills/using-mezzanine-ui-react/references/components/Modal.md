@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Modal`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Modal) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Modal) · Verified 1.10.2 (2026-11-22)
 
 A dialog component for scenarios requiring user attention or action.
 
@@ -56,6 +56,8 @@ Extends `ModalContainerProps` (excluding `children`) with partial `ModalHeaderPr
 | `disableCloseOnBackdropClick`    | `boolean`         | `false`      | Disable close on backdrop click  |
 | `disableCloseOnEscapeKeyDown`    | `boolean`         | `false`      | Disable close on ESC key         |
 | `disablePortal`                  | `boolean`         | `false`      | Disable Portal rendering         |
+| `disableScrollLock`              | `boolean`         | `false`      | Disable body scroll lock while open (keep the lock for modal overlays) |
+| `className`                      | `string`          | -            | Class name applied to the dialog element (the Backdrop wrapper uses `backdropClassName`) |
 | `onBackdropClick`                | `() => void`      | -            | Backdrop click callback          |
 | `backdropClassName`              | `string`          | -            | Custom class name for the modal backdrop container |
 | `fullScreen`                     | `boolean`         | `false`      | Whether full screen              |
@@ -86,7 +88,7 @@ Extends `ModalContainerProps` (excluding `children`) with partial `ModalHeaderPr
 | -------------------------- | --------------- | ---------------------------- |
 | `showModalHeader = true`   | `title`         | Title (`string`)             |
 | `showModalFooter = true`   | `confirmText`   | Confirm button text (`string`) |
-| `showCancelButton = true`   | `cancelText`    | Cancel button text (`string`) (enforced via discriminated union types) |
+| `showCancelButton = true` (default) | `cancelText`    | Cancel button text (`ReactNode`) (enforced via discriminated union types) |
 
 ### Header-related Props (when showModalHeader = true)
 
@@ -244,6 +246,7 @@ function DeleteConfirmModal({ itemName, onConfirm, onClose }) {
     <Modal
       open
       onClose={onClose}
+      modalType="standard"
       size="narrow"
       modalStatusType="delete"
       showModalHeader
@@ -281,6 +284,7 @@ function ModalWithLoading() {
     <Modal
       open={open}
       onClose={() => setOpen(false)}
+      modalType="standard"
       loading={loading}
       showModalHeader
       title="Submit Data"
@@ -340,7 +344,7 @@ function ScrollableContentModal() {
   const handleClose = () => setOpen(false);
 
   return (
-    <Modal open onClose={handleClose}>
+    <Modal open onClose={handleClose} modalType="standard">
       <ModalHeader title="Scrollable Content" />
 
       {/* The container manages scrollable content */}
@@ -432,6 +436,8 @@ Standalone footer component for custom buttons.
 | `passwordOnClick`                | `ButtonProps['onClick']`                                          | -         | Password button click      |
 | `showCancelButton`               | `boolean`                                                         | `true`    | Show cancel button         |
 
+Also extends `NativeElementPropsWithoutKeyAndRef<'div'>`. Discriminated union: `cancelText` is required unless `showCancelButton={false}` (then `cancelText` must be omitted).
+
 ```tsx
 <ModalFooter
   confirmText="Confirm"
@@ -507,10 +513,11 @@ A dedicated dialog for media preview.
 
 ### Props
 
-Extends `ModalContainerProps` (excluding `children`).
+Extends `ModalContainerProps` (excluding `children`) and `NativeElementPropsWithoutKeyAndRef<'div'>`. `onNext` / `onPrev` override the built-in navigation when provided.
 
 | Property                       | Type                             | Default | Description              |
 | ------------------------------ | -------------------------------- | ------- | ------------------------ |
+| `backdropClassName`            | `string`                         | -       | Backdrop wrapper class name |
 | `currentIndex`                 | `number`                         | -       | Controlled current index |
 | `defaultIndex`                 | `number`                         | `0`     | Default index            |
 | `disableNext`                  | `boolean`                        | `false` | Disable next page        |
@@ -552,11 +559,13 @@ A hook for getting the Modal container component.
 interface UseModalContainerReturn {
   Container: ModalContainer;
   defaultOptions: {
-    className: string;
-    disableCloseOnBackdropClick: false;
-    disableCloseOnEscapeKeyDown: false;
-    disablePortal: false;
-    open: false;
+    className?: string;
+    disableCloseOnBackdropClick?: boolean;
+    disableCloseOnEscapeKeyDown?: boolean;
+    disablePortal?: boolean;
+    disableScrollLock?: boolean;
+    open?: boolean;
+    // runtime values: all false, className undefined
   };
 }
 ```
@@ -571,6 +580,8 @@ interface UseModalContainerReturn {
 | `disableCloseOnBackdropClick`   | `boolean`   | `false` | Disable backdrop click close |
 | `disableCloseOnEscapeKeyDown`   | `boolean`   | `false` | Disable ESC key close      |
 | `disablePortal`                 | `boolean`   | `false` | Disable Portal rendering   |
+| `disableScrollLock`             | `boolean`   | `false` | Disable body scroll lock while open |
+| `className`                     | `string`    | -       | Class name passed to the Backdrop |
 | `container`                     | `Element`    | -       | Portal target container    |
 | `onBackdropClick`               | `() => void` | -       | Backdrop click callback    |
 

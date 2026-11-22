@@ -2,9 +2,9 @@
 
 > **Category**: Data Entry
 >
-> **Storybook**: `Data Entry/Upload`
+> **Storybook**: `Data Entry/Upload/Upload`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Upload) | Verified 1.5.1 (2026-09-12)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Upload) | Verified 1.10.2 (2026-11-22)
 
 File upload component with support for multiple display modes and upload status management.
 
@@ -52,7 +52,7 @@ import type {
 | `onUpload`           | `(files: File[], setProgress?) => Promise<UploadFile[]> \| UploadFile[] \| ...`  | -        | Upload callback (see onUpload Return Format section)|
 | `onZoomIn`           | `(fileId: string, file: File) => void`                                           | -        | Fired when zoom in is clicked on a picture card     |
 | `showFileSize`       | `boolean`                                                                        | `true`   | Whether to show file size in list mode              |
-| `size`               | `UploadSize`                                                                     | `'main'` | Size of the upload component                        |
+| `size`               | `UploadSize` (`'main' \| 'sub'`)                                                 | `'main'` | Size of the upload component                        |
 | `uploaderIcon`       | `UploaderProps['icon']`                                                          | -        | Icon configuration for different actions and states |
 | `uploaderLabel`      | `UploaderProps['label']`                                                         | -        | Label configuration for different states            |
 
@@ -65,7 +65,7 @@ interface UploadFile {
   id: string;                    // Unique identifier
   file?: File;                   // File object
   url?: string;                  // Uploaded file URL
-  status: 'loading' | 'done' | 'error';  // Upload status
+  status: 'loading' | 'done' | 'error';  // Upload status (UploadItemStatus)
   progress?: number;             // Progress (0-100)
   errorMessage?: string;         // Error message
   errorIcon?: ReactNode;         // Error icon
@@ -92,6 +92,8 @@ onUpload?: (files: File[], setProgress?) => Promise<void> | void;
 ---
 
 ## Upload Mode (Display Modes)
+
+`UploadMode = 'list' | 'basic-list' | 'button-list' | 'cards' | 'card-wall'` (exhaustive). `UploadFile.status` is `UploadItemStatus = 'done' | 'error' | 'loading'`; hint `type` is `'error' | 'info'`.
 
 | Mode          | Description                         | Use Case                                       |
 | ------------- | ------------------------------------ | ---------------------------------------------- |
@@ -279,11 +281,73 @@ const handleUpload = async (uploadFiles: File[]) => {
 
 ---
 
-## UploadPictureCard Enhancements
+## Sub-components
 
-- **Single-file hover replace mode**: In single-file mode, hovering over the uploaded image shows a "Replace" overlay, allowing the user to replace the file directly
-- **Conditional zoom/download buttons**: Zoom and download action buttons are now conditionally rendered based on whether the corresponding callbacks (`onZoomIn`, `onDownload`) are provided
-- **Keyboard interaction support (a11y)**: UploadPictureCard now supports keyboard navigation and interaction for improved accessibility
+All four are exported from `@mezzanine-ui/react`. `Upload` composes them; use the others directly only for custom layouts. Types: `UploaderMode = 'basic' | 'dropzone'`, `UploadType = 'base' | 'button'`, `UploadItemType = 'icon' | 'thumbnail'`, `UploadPictureCardImageFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'`.
+
+### UploaderProps
+
+Extends `Omit<NativeElementPropsWithoutKeyAndRef<'label'>, 'onChange'>`; `ref` is the root `HTMLLabelElement`.
+
+| Property        | Type                                  | Default   | Description |
+| --------------- | ------------------------------------- | --------- | ----------- |
+| `accept`        | `string`                              | -         | Accepted file types |
+| `controllerRef` | `Ref<UploadPictureControl \| null>`   | -         | Declared in the interface but not used by the component (destructured and discarded) |
+| `disabled`      | `boolean`                             | `false`   | Whether disabled |
+| `externalHints` | `UploaderHint[]`                      | -         | Hints rendered outside the uploader |
+| `hints`         | `UploaderHint[]` (`{ label: string; type?: 'error' \| 'info' }`) | - | Hints inside the uploader |
+| `icon`          | `UploaderIcon`                        | -         | `upload?: IconDefinition`; `error` / `success` / `zoom` / `document` / `download` / `reload` / `delete?: ReactNode` |
+| `id`            | `string`                              | -         | Input id |
+| `inputProps`    | `UploaderInputElementProps`           | -         | Native input props |
+| `inputRef`      | `Ref<HTMLInputElement>`               | -         | Input ref |
+| `label`         | `UploaderLabel`                       | -         | `uploadLabel` / `uploadingLabel` / `success` / `error` / `clickToUpload` (all `string`) |
+| `mode`          | `UploaderMode`                        | `'basic'` | Basic or dropzone |
+| `multiple`      | `boolean`                             | `false`   | Multi-file selection |
+| `name`          | `string`                              | -         | Input name |
+| `onChange`      | `ChangeEventHandler<HTMLInputElement>` | -        | Native input change |
+| `onUpload`      | `(files: File[]) => void`             | -         | Called with the selected files |
+| `type`          | `UploadType`                          | -         | `'base'` or `'button'` |
+
+### UploadItemProps
+
+Extends `NativeElementPropsWithoutKeyAndRef<'div'>`; `ref` is the root `HTMLDivElement`.
+
+| Property       | Type                | Default    | Description |
+| -------------- | ------------------- | ---------- | ----------- |
+| `disabled`     | `boolean`           | `false`    | Whether disabled |
+| `errorIcon`    | `IconDefinition`    | -          | Error icon |
+| `errorMessage` | `string`            | -          | Error message |
+| `file`         | `File`              | -          | File object |
+| `fileSize`     | `number`            | -          | File size in bytes |
+| `icon`         | `IconDefinition`    | -          | Custom icon |
+| `id`           | `string`            | -          | Item id |
+| `onCancel` / `onDelete` / `onDownload` / `onReload` | `MouseEventHandler` | - | Action callbacks |
+| `showFileSize` | `boolean`           | `true`     | Show file size |
+| `size`         | `UploadItemSize` (`'main' \| 'sub'`) | `'main'` | Size |
+| `status`       | `UploadItemStatus`  | `'loading'` (required in type) | `'done' \| 'error' \| 'loading'` |
+| `type`         | `UploadItemType`    | `'icon'`   | Icon or thumbnail |
+| `url`          | `string`            | -          | File URL |
+
+### UploadPictureCardProps
+
+Extends `NativeElementPropsWithoutKeyAndRef<'div'>`; `ref` is the root `HTMLDivElement`.
+
+| Property       | Type                                | Default     | Description |
+| -------------- | ----------------------------------- | ----------- | ----------- |
+| `ariaLabels`   | `UploadPictureCardAriaLabels`       | -           | `cancelUpload` / `clickToReplace` / `delete` / `download` / `reload` / `uploading` / `zoomIn` (all `string`) |
+| `disabled`     | `boolean`           | `false`     | Whether disabled |
+| `errorIcon`    | `IconDefinition`    | -           | Error icon |
+| `errorMessage` | `string`            | -           | Error message |
+| `file`         | `File`              | -           | File object |
+| `id`           | `string`            | -           | Card id |
+| `imageFit`     | `UploadPictureCardImageFit` | `'cover'` | Image fit |
+| `onDelete` / `onDownload` / `onReload` / `onReplace` / `onZoomIn` | `MouseEventHandler` | - | Action callbacks |
+| `readable`     | `boolean`           | `false`     | Read-only display |
+| `size`         | `UploadPictureCardSize` (`'main' \| 'sub' \| 'minor'`) | `'main'` | Size |
+| `status`       | `UploadItemStatus`  | `'loading'` | Upload status |
+| `url`          | `string`            | -           | Image URL |
+
+Behavior: in single-file mode, hovering the uploaded image shows a "Replace" overlay; zoom and download buttons render only when the corresponding callbacks (`onZoomIn`, `onDownload`) are provided; the card supports keyboard interaction.
 
 ---
 

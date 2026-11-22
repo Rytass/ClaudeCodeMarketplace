@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Tab`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Tab) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Tab) · Verified 1.10.2 (2026-11-22)
 
 Tab component for switching between different content views within the same area.
 
@@ -74,7 +74,7 @@ type TabsChild = ReactElement<TabItemProps>;
 | ------------------ | ----------------------------------------- | -------------- | -------------------- |
 | `activeKey`        | `Key`                                     | -              | Controlled active tab |
 | `children`         | `TabsChild \| TabsChild[]`               | **required**   | TabItem children     |
-| `defaultActiveKey` | `Key`                                     | `0`            | Default active tab   |
+| `defaultActiveKey` | `Key`                                     | `0`            | Default active tab. Children are flattened first so every `TabItem` key is a string (explicit `key`, or `.0`-style when omitted) — the numeric default `0` never matches, so set `defaultActiveKey` (or `activeKey`) to a TabItem `key` or no tab starts active |
 | `direction`        | `'horizontal' \| 'vertical'`             | `'horizontal'` | Layout direction     |
 | `onChange`         | `(activeKey: Key, index: number) => void` | -              | Change event         |
 | `size`             | `'main' \| 'sub'`                         | `'main'`       | Tab group size (controls padding) |
@@ -122,7 +122,7 @@ import { Tab, TabItem } from '@mezzanine-ui/react';
 
 function BasicTab() {
   return (
-    <Tab>
+    <Tab defaultActiveKey="tab1">
       <TabItem key="tab1">Tab 1</TabItem>
       <TabItem key="tab2">Tab 2</TabItem>
       <TabItem key="tab3">Tab 3</TabItem>
@@ -208,11 +208,11 @@ import { HomeIcon, UserIcon, SettingIcon } from '@mezzanine-ui/icons';
 ```tsx
 // Error badge displays with alert variant (instead of default brand color)
 <Tab>
-  <TabItem key="form" icon={FormIcon}>Form</TabItem>
-  <TabItem key="review" icon={ReviewIcon} badgeCount={3} error>
+  <TabItem key="form" icon={EditIcon}>Form</TabItem>
+  <TabItem key="review" icon={FileSearchIcon} badgeCount={3} error>
     Review
   </TabItem>
-  <TabItem key="submit" icon={SendIcon}>Submit</TabItem>
+  <TabItem key="submit" icon={MailIcon}>Submit</TabItem>
 </Tab>
 
 // When error is true, badge variant changes to 'count-alert' to indicate issues

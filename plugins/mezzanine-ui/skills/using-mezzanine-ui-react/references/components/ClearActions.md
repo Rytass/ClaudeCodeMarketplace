@@ -1,14 +1,14 @@
 # ClearActions Component
 
-> **Note**: Not exported from the `@mezzanine-ui/react` main entrypoint — import it via sub-path (`@mezzanine-ui/react/ClearActions`). It ships as a real, functional component and is used internally by Modal, Drawer, Tag, TextField, and InlineMessage; it simply isn't re-exported from the package barrel, so application code must use the sub-path import shown below.
+> **Export status (1.10.2)**: Source exists at `packages/react/src/ClearActions` but is **not re-exported from `src/index.ts`**, so `import { ClearActions } from '@mezzanine-ui/react'` does not work. Import it via the sub-path `@mezzanine-ui/react/ClearActions` (default export; `ClearActionsProps` as a type export). It is a real, functional component (not deprecated) and is used internally by Modal, Drawer, TextField, InlineMessage, AlertBanner, and Upload.
 
 > **Category**: Internal (sub-path only)
 >
 > **Storybook**: `Internal/ClearActions`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/ClearActions) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/ClearActions) · Verified 1.10.2 (2026-11-22)
 
-Clear/close button component providing a unified close button style. Used for close functionality in Modal, Drawer, Tag, and other components.
+Clear/close button component providing a unified close button style. Used for close functionality in Modal, Drawer, AlertBanner, and other components.
 
 ## Import
 
@@ -19,7 +19,7 @@ import ClearActions from '@mezzanine-ui/react/ClearActions';
 import type { ClearActionsProps } from '@mezzanine-ui/react/ClearActions';
 ```
 
-> **Note**: ClearActions is not exported from `@mezzanine-ui/react` main entry; it is an internal component.
+> **Note**: ClearActions is not exported from the `@mezzanine-ui/react` main entry (`src/index.ts`); use the sub-path import above. The variant types (`ClearActionsStandardVariant`, `ClearActionsEmbeddedVariant`, `ClearActionsVariant`, `ClearActionsType`) live in `@mezzanine-ui/core/clear-actions`.
 
 ---
 
@@ -27,15 +27,17 @@ import type { ClearActionsProps } from '@mezzanine-ui/react/ClearActions';
 
 | Property  | Type                                      | Default      | Description       |
 | --------- | ----------------------------------------- | ------------ | ----------------- |
-| `className` | `string`                                 | -            | Custom CSS class name |
+| `className` | `string`                                 | -            | Custom CSS class name (inherited from native `<button>` props) |
 | `onClick` | `MouseEventHandler<HTMLButtonElement>`    | -            | Click callback    |
 | `type`    | `'standard' \| 'embedded' \| 'clearable'` | `'standard'` | Usage context type |
-| `variant` | `ClearActionsVariant`                     | -            | Visual variant (discriminated union, see below) |
+| `variant` | `ClearActionsStandardVariant \| ClearActionsEmbeddedVariant` | `'base'` (standard) / `'contrast'` (embedded) | Visual variant (optional; not available when `type='clearable'`, see below) |
 
+> `ClearActionsProps` 為 discriminated union，其餘原生 `<button>` 屬性（排除 `key`、`ref`、`onClick`、`type`）皆可傳入（含 `className`）；`onClick` 型別為 `React.MouseEventHandler<HTMLButtonElement>`。元件固定渲染 `type="button"`，預設 `aria-label="Close"`（可被傳入值覆蓋）。
+>
 > **Discriminated Union rules**:
-> - `type='standard'` → `variant: 'base' | 'inverse'`
-> - `type='embedded'` → `variant: 'contrast' | 'emphasis'`
-> - `type='clearable'` → no `variant` prop
+> - `type='standard'`（或省略）→ `variant?: 'base' | 'inverse'`（預設 `'base'`）
+> - `type='embedded'` → `variant?: 'contrast' | 'emphasis'`（預設 `'contrast'`）
+> - `type='clearable'` → no `variant` prop（內部固定使用 `'default'`）
 
 ---
 
@@ -125,13 +127,10 @@ Uses fixed `default` variant.
 </TextField>
 ```
 
-### Tag (Dismissable)
+### AlertBanner
 
 ```tsx
-// Tag internally uses ClearActions
-<Tag label="Tag" type="dismissable" onClose={handleClose}>
-  {/* ClearActions is rendered automatically */}
-</Tag>
+// AlertBanner internally uses ClearActions for its close button
 ```
 
 ---
@@ -155,7 +154,7 @@ Uses fixed `default` variant.
 
 ## Best Practices
 
-1. **Use higher-level components**: Generally do not use ClearActions directly; use Modal, Tag, and similar components instead
+1. **Use higher-level components**: Generally do not use ClearActions directly; use Modal, Drawer, AlertBanner, and similar components instead
 2. **Context selection**: Choose appropriate type based on usage context
 3. **Contrast colors**: Use `embedded` type on dark backgrounds
 4. **Clear functionality**: Use `clearable` type for input clear functionality
