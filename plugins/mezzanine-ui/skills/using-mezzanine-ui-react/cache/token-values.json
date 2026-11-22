@@ -1,7 +1,7 @@
 {
-  "version": "1.5.1",
-  "lastUpdated": "2026-09-12",
-  "source": "packages/system/src typings + DESIGN_TOKENS.md",
+  "version": "1.10.2",
+  "lastUpdated": "2026-11-22T00:00:00Z",
+  "source": "packages/system/src SCSS maps (spacing/_semantic.scss, spacing/_primitives.scss, radius/_radius.scss); palette and typography typings",
   "colors": {
     "primitives": {
       "categories": [
@@ -39,6 +39,7 @@
         "icon",
         "border",
         "separator",
+        "scrollbar",
         "overlay",
         "surface",
         "shadow"
@@ -55,9 +56,11 @@
           "menu",
           "inverse",
           "fixed-dark",
+          "fixed-solid",
           "neutral-ghost",
           "neutral-faint",
           "neutral-subtle",
+          "neutral-light",
           "neutral",
           "neutral-strong",
           "neutral-solid",
@@ -126,8 +129,11 @@
           "info-strong"
         ],
         "border": [
+          "ghost",
           "fixed-light",
           "fixed-light-alpha",
+          "invisible",
+          "neutral-ghost",
           "neutral-faint",
           "neutral-light",
           "neutral",
@@ -139,10 +145,16 @@
           "warning"
         ],
         "separator": [
+          "ghost",
           "neutral-faint",
           "neutral-light",
           "neutral",
           "brand"
+        ],
+        "scrollbar": [
+          "neutral-light",
+          "neutral",
+          "strong"
         ],
         "overlay": [
           "strong",
@@ -171,6 +183,7 @@
       0,
       1,
       2,
+      3,
       4,
       6,
       8,
@@ -181,18 +194,33 @@
       18,
       20,
       24,
+      26,
       28,
+      30,
       32,
       36,
+      38,
       40,
+      44,
       48,
       52,
       56,
       60,
       64,
+      68,
+      70,
+      72,
+      76,
       80,
+      88,
+      92,
+      96,
+      100,
+      120,
+      140,
       160,
       240,
+      280,
       320,
       360,
       400,
@@ -201,7 +229,8 @@
       640,
       720,
       960,
-      1140
+      1140,
+      1280
     ],
     "modes": [
       "default",
@@ -216,6 +245,7 @@
     "tones": {
       "element": [
         "hairline",
+        "micro",
         "tiny",
         "tight",
         "compact",
@@ -224,21 +254,40 @@
         "base",
         "base-fixed",
         "gentle",
+        "gentle-fixed",
         "relaxed",
         "airy",
+        "airy-fixed",
         "roomy",
         "loose",
+        "loose-fixed",
         "extra-wide",
         "extra-wide-condense",
+        "wide-expanded",
         "expansive",
         "extra",
-        "max"
+        "ultra-fixed",
+        "max",
+        "xwide"
       ],
       "container": [
+        "atomic",
+        "minimal",
+        "micro",
+        "minimized",
         "collapsed",
+        "reduced",
+        "condensed",
+        "compressed",
+        "concentrate-fixed",
+        "tightened",
         "tiny",
+        "medium",
+        "small",
+        "snug",
         "tight",
         "slim",
+        "slender",
         "narrow",
         "compact",
         "standard",
@@ -246,24 +295,22 @@
         "broad",
         "wide",
         "expanded",
-        "max"
+        "max",
+        "xwide"
       ],
       "gap": [
         "none",
-        "micro",
         "tiny",
         "tight",
-        "compact",
+        "tight-fixed",
+        "slim",
         "base",
-        "base-fixed",
-        "comfortable",
+        "calm",
+        "comfort",
         "roomy",
         "spacious",
         "relaxed",
-        "airy",
-        "generous",
-        "breath",
-        "wide"
+        "loose"
       ],
       "horizontal-padding": [
         "none",
@@ -274,29 +321,41 @@
         "tight-fixed",
         "base",
         "base-fixed",
-        "calm",
+        "cozy",
         "comfort",
         "comfort-fixed",
         "roomy",
         "spacious",
+        "open",
         "relaxed",
         "airy",
         "breath",
+        "loose",
         "wide",
-        "max"
+        "max",
+        "ultra",
+        "xultra"
       ],
       "vertical-padding": [
         "none",
         "micro",
         "tiny",
         "tight",
+        "tight-fixed",
         "base",
+        "base-fixed",
         "calm",
         "comfort",
         "roomy",
         "spacious",
         "generous",
-        "relaxed"
+        "relaxed",
+        "airy",
+        "breath",
+        "loose",
+        "wide",
+        "max",
+        "ultra"
       ]
     }
   },
@@ -330,6 +389,7 @@
       "text-link-body",
       "text-link-caption",
       "caption",
+      "caption-mono",
       "caption-highlight",
       "annotation",
       "annotation-highlight",
@@ -353,13 +413,10 @@
   "radius": {
     "tones": {
       "none": "0",
-      "xs": "2px",
-      "sm": "4px",
-      "base": "6px",
-      "md": "8px",
-      "lg": "12px",
-      "xl": "16px",
-      "full": "9999px"
+      "tiny": "2px",
+      "base": "4px",
+      "roomy": "8px",
+      "full": "999px"
     },
     "cssFormat": "--mzn-radius-{tone}"
   },

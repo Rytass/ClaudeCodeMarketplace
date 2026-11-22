@@ -1,6 +1,6 @@
 # Modal
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/modal) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/modal) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Dialog overlay component backed by a `MznBackdrop`. Provides `MznModalHeader` and `MznModalFooter` as companion components, both reading state from the `MZN_MODAL_CONTEXT` injection token. Escape-key handling is mediated by `EscapeKeyService` + `TopStackService` so only the top-most modal closes.
 
@@ -36,8 +36,8 @@ Unlike React (which auto-wraps children in a scroll-aware body container), Angul
 - **`[mznModalBodyForVerification]`** — body variant used by verification / OTP / confirmation flows; pre-styles inner spacing for that pattern.
 
 ```html
-<section mznModal [(open)]="open" [showModalHeader]="true" [showModalFooter]="true">
-  <header mznModalHeader title="確認刪除" modalStatusType="delete"></header>
+<section mznModal [open]="open" (closed)="open = false" [showModalHeader]="true" [showModalFooter]="true" modalStatusType="delete">
+  <header mznModalHeader title="確認刪除" [showStatusTypeIcon]="true"></header>
 
   <div mznModalBodyContainer>
     <!-- Long content here — separator auto-appears on scroll -->
@@ -53,10 +53,10 @@ Unlike React (which auto-wraps children in a scroll-aware body container), Angul
 | Input                          | Type               | Default      | Description                                                          |
 | ------------------------------ | ------------------ | ------------ | -------------------------------------------------------------------- |
 | `open`                         | `boolean`          | `false`      | Controls modal visibility                                            |
-| `size`                         | `ModalSize`        | `'regular'`  | `'regular' \| 'large' \| 'wide'`                                    |
+| `size`                         | `ModalSize`        | `'regular'`  | `'tight' \| 'narrow' \| 'regular' \| 'wide'`                        |
 | `loading`                      | `boolean`          | `false`      | Propagated to `MznModalFooter` confirm button via context            |
 | `modalStatusType`              | `ModalStatusType`  | `'info'`     | `'info' \| 'success' \| 'warning' \| 'error' \| 'delete' \| 'email'` |
-| `modalType`                    | `ModalType`        | `'standard'` | `'standard' \| 'split' \| 'extended'` — `'extended'` forces both scroll separators permanently visible |
+| `modalType`                    | `ModalType`        | `'standard'` | `'standard' \| 'extended' \| 'extendedSplit' \| 'mediaPreview' \| 'verification'` — `'extended'` forces both scroll separators permanently visible |
 | `fullScreen`                   | `boolean`          | `false`      | Full-screen mode                                                     |
 | `showDismissButton`            | `boolean`          | `true`       | Show ✕ close icon in the corner                                      |
 | `showModalHeader`              | `boolean`          | `false`      | Project `[mznModalHeader]` slot (renders header ng-content)          |
@@ -64,10 +64,11 @@ Unlike React (which auto-wraps children in a scroll-aware body container), Angul
 | `disableCloseOnBackdropClick`  | `boolean`          | `false`      | Prevent backdrop click from closing                                  |
 | `disableCloseOnEscapeKeyDown`  | `boolean`          | `false`      | Prevent Escape key from closing                                      |
 | `disablePortal`                | `boolean`          | `false`      | Render modal in-place instead of via portal                          |
+| `disableScrollLock`            | `boolean`          | `false`      | Disable body scroll locking while open (forwarded to the inner `mznBackdrop`). Keep the lock for modal overlays: a scrollable background contradicts `aria-modal` |
 | `backdropClassName`            | `string \| undefined` | —         | Extra class on the backdrop element                                  |
 | `dialogStyle`                  | `Record<string, string> \| undefined` | — | Inline styles on the dialog element (e.g. `{ width: '640px' }`)  |
 
-> Inputs declared with signal API (`input()`, `model()`) accept both static and reactive values.
+> Inputs declared with signal API (`input()`) accept both static and reactive values.
 
 ## MznModal — Outputs
 
@@ -160,13 +161,14 @@ Used for OTP / verification code entry flows. Renders multiple single-character 
 
 ## DI Tokens / Services Required
 
-`MznModal` auto-provides the following services at the root level — no manual provider setup is needed:
+`MznModal` injects the following root-level services (`EscapeKeyService`, `TopStackService`, `FocusTrapService` from `@mezzanine-ui/ng/services`) and provides `MZN_MODAL_CONTEXT` per instance — no manual provider setup is needed. `MZN_MODAL_CONTEXT` is internal and not exported from the package index:
 
 | Service / Token            | Purpose                                              |
 | -------------------------- | ---------------------------------------------------- |
 | `EscapeKeyService`         | Tracks Escape keydown globally (singleton)           |
+| `FocusTrapService`         | Traps focus inside the dialog while open (top-most only) |
 | `TopStackService`          | Ensures only the topmost overlay closes on Escape    |
-| `MZN_MODAL_CONTEXT`        | Provides `modalStatusType` and `loading` to children |
+| `MZN_MODAL_CONTEXT`        | Provides `modalStatusType`, `loading`, `modalType` and title id to children |
 
 The context is provided per-`mznModal` instance — child `mznModalHeader` and `mznModalFooter` read it via `inject(MZN_MODAL_CONTEXT, { optional: true })`.
 
@@ -191,7 +193,7 @@ No.
     supportingText="此操作無法復原"
     [showStatusTypeIcon]="true"
   ></div>
-  <div class="mzn-modal__body-container">
+  <div mznModalBodyContainer>
     <p>確定要刪除這筆資料嗎？</p>
   </div>
   <div mznModalFooter
@@ -209,21 +211,34 @@ No.
   [dialogStyle]="{ width: '760px', maxWidth: '760px' }"
   (closed)="isOpen = false"
 >
-  <div class="mzn-modal__body-container">自訂內容</div>
+  <div mznModalBodyContainer>自訂內容</div>
 </div>
 ```
 
 ```ts
-import { MznModal, MznModalHeader, MznModalFooter } from '@mezzanine-ui/ng/modal';
+import { Component } from '@angular/core';
+import {
+  MznModal,
+  MznModalBodyContainer,
+  MznModalFooter,
+  MznModalHeader,
+} from '@mezzanine-ui/ng/modal';
 
-isOpen = false;
-isSaving = false;
+@Component({
+  selector: 'app-delete-dialog',
+  imports: [MznModal, MznModalHeader, MznModalBodyContainer, MznModalFooter],
+  templateUrl: './delete-dialog.component.html',
+})
+export class DeleteDialogComponent {
+  isOpen = false;
+  isSaving = false;
 
-async onDelete(): Promise<void> {
-  this.isSaving = true;
-  await this.service.delete();
-  this.isSaving = false;
-  this.isOpen = false;
+  async onDelete(): Promise<void> {
+    this.isSaving = true;
+    await this.service.delete();
+    this.isSaving = false;
+    this.isOpen = false;
+  }
 }
 ```
 
@@ -233,5 +248,5 @@ async onDelete(): Promise<void> {
 - The `loading` input is forwarded to `MznModalFooter` through `MZN_MODAL_CONTEXT`; you only need to set it on `mznModal`, not on `mznModalFooter`.
 - `modalStatusType` propagates to `MznModalHeader` via the same context and determines the status icon colour.
 - When multiple modals are stacked, `TopStackService` + `EscapeKeyService` ensure the Escape key only closes the frontmost modal.
-- The React counterpart has `ModalSplitLayout`, `ModalCloseIcon`, `ModalBody`, and `ModalActions` sub-components; in the Angular version, layout is controlled by the `modalType` input (`'standard' | 'split' | 'extended'`) and the `[mznModalBodyContainer]` directive.
+- The React counterpart has `ModalSplitLayout`, `ModalCloseIcon`, `ModalBody`, and `ModalActions` sub-components; in the Angular version, layout is controlled by the `modalType` input (`'standard' | 'extended' | 'extendedSplit' | 'mediaPreview' | 'verification'`) and the `[mznModalBodyContainer]` directive.
 - `modalType='extended'` forces both scroll separators (top + bottom) visible unconditionally — useful when you always want the visual separation regardless of whether the body content is scrollable.

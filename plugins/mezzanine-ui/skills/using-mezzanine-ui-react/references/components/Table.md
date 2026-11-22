@@ -4,11 +4,9 @@
 >
 > **Storybook**: `Data Display/Table`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Table)  · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Table)  · Verified 1.10.2 (2026-11-22)
 
 High-performance data table component supporting virtual scrolling, column resizing, fixed columns, row selection, sorting, expandable rows, drag-and-drop reordering, pinning, toggleable columns, collectable columns, and more.
-
-> **v1.1.0 SSR fix**: Row height is now read via `useIsomorphicLayoutEffect` instead of `useMemo`, so the first render is deterministic across server and client. Next.js / Remix consumers no longer see React hydration mismatch warnings caused by `getComputedStyle` returning `0` on the server. No public API change.
 
 ## Import
 
@@ -43,24 +41,28 @@ import type {
 
 `TableProps<T>` is a union type with multiple variants based on `resizable` and `scroll.virtualized` configuration:
 
-- **resizable mode**: `columns` must use `TableColumnWithMinWidth<T>[]` (each column requires `minWidth`), `actions` must use `TableActionsWithMinWidth<T>`
-- **non-resizable mode**: Uses standard `TableColumn<T>[]` and `TableActions<T>`
-- **virtualized mode**: Cannot be used together with `draggable`
-- **draggable and pinnable are mutually exclusive**: Cannot be enabled simultaneously
+- **resizable mode** (`resizable: true`): `columns` must use `TableColumnWithMinWidth<T>[]` (each column requires `minWidth`), `actions` must use `TableActionsWithMinWidth<T>` (`minWidth` required). `columnWidths` / `onColumnWidthsChange` are only available in this mode.
+- **non-resizable mode** (`resizable` omitted or `false`): Uses standard `TableColumn<T>[]` and `TableActions<T>`; `columnWidths` and `onColumnWidthsChange` are typed `never` (passing them is a type error)
+- **virtualized mode** (`scroll.virtualized: true`): `scroll.y` is **required** by the type (`number | string`), `draggable` is typed `never`; `pinnable` is still allowed
+- **draggable and pinnable are mutually exclusive** (outside virtualized mode): Cannot be enabled simultaneously
 
 ### Base Props (TableBaseProps)
 
+`TableBaseProps<T>` also extends the native `<table>` attributes (`NativeElementPropsWithoutKeyAndRef<'table'>`) minus `children`, `draggable`, `summary` and `onChange`. `className` and `style` are applied to the host `div`, and any remaining native attributes are spread onto it as well (not onto the `<table>`).
+
 | Property                | Type                                        | Default  | Description                |
 | ----------------------- | ------------------------------------------- | -------- | -------------------------- |
-| `actions`               | `TableActions<T>` / `TableActionsWithMinWidth<T>` | -  | Actions column config      |
+| `actions`               | `TableActions<T>` / `TableActionsWithMinWidth<T>` | -  | Actions column config (`TableActionsWithMinWidth<T>` when `resizable`) |
 | `columns`               | `TableColumn<T>[]` / `TableColumnWithMinWidth<T>[]` | - | Required, column definitions |
+| `columnWidths`          | `Record<string, number>`                    | -        | Only when `resizable: true`. Controlled column widths (px) keyed by column `key`; see [Column Resizing](#column-resizing-resizable) |
+| `onColumnWidthsChange`  | `(widths: Record<string, number>) => void`  | -        | Only when `resizable: true`. Called once when a resize drag ends |
 | `dataSource`            | `T[]`                                       | -        | Required, data source      |
-| `draggable`             | `TableDraggable<T>`                         | -        | Drag config (mutually exclusive with pinnable) |
-| `emptyProps`            | `EmptyProps & { height?: number \| string }`| -        | Empty state config         |
+| `draggable`             | `TableDraggable<T>`                         | -        | Drag config (mutually exclusive with pinnable; typed `never` when `scroll.virtualized`) |
+| `emptyProps`            | `EmptyProps & { height?: number \| string }`| -        | Empty state config, rendered when `dataSource` is empty. `size` defaults to the table `size`; `height` sets the empty cell height; all other keys are `Empty` props |
 | `expandable`            | `TableExpandable<T>`                        | -        | Expandable row config      |
 | `fullWidth`             | `boolean`                                   | `false`  | Whether full width         |
 | `highlight`             | `HighlightMode`                             | `'row'`  | Hover highlight mode       |
-| `loading`               | `boolean`                                   | `false`  | Loading state              |
+| `loading`               | `boolean`                                   | `false`  | Loading state. Renders skeleton rows; no row-level callback (`column.render`, `actions.render`, `rowState`, `getCheckboxProps`, `rowExpandable`, `expandedRowRender`, `isRowDisabled`) is called with a placeholder row, so they can dereference the record without guarding |
 | `loadingRowsCount`      | `number`                                    | `10`     | Skeleton rows when loading |
 | `minHeight`             | `number \| string`                          | -        | Minimum height             |
 | `nested`                | `boolean`                                   | `false`  | Whether nested table       |
@@ -70,7 +72,8 @@ import type {
 | `rowHeightPreset`       | `'base' \| 'condensed' \| 'detailed' \| 'roomy'` | `'base'` | Row height preset    |
 | `rowSelection`          | `TableRowSelection<T>`                      | -        | Row selection config       |
 | `rowState`              | `TableRowState \| ((rowData: T) => TableRowState \| undefined)` | -  | Row-level semantic styling |
-| `scroll`                | `TableScroll`                               | -        | Scroll config              |
+| `scroll`                | `TableScroll`                               | -        | Scroll config; when `virtualized: true`, `y` is required (see [Scroll Config](#scroll-config-scroll)) |
+| `scrollbarOptions`      | `PartialOptions` (OverlayScrollbars)        | -        | Options forwarded to the inner `Scrollbar`, merged per key over its defaults. Ignored when `nested`. Do not set `overflow` to `'visible'` together with `scroll.virtualized`. Memoize or hoist the object |
 | `showHeader`            | `boolean`                                   | `true`   | Whether to show header     |
 | `size`                  | `'main' \| 'sub'`                           | `'main'` | Table size                 |
 | `sticky`                | `boolean`                                   | `true`   | Whether header is sticky   |
@@ -106,7 +109,64 @@ interface TableColumnBase<T> {
 }
 ```
 
-> `TableColumn<T>` is a union type requiring either `dataIndex` or `render` (at least one). `TableColumnWithMinWidth<T>` additionally requires `minWidth` (for `resizable` mode).
+> `TableColumn<T>` is a union of `TableColumnWithDataIndex<T>` (`dataIndex` required, `render?: never`) and `TableColumnWithRender<T>` (`render` required, `dataIndex?: never`) — exactly one of the two, not both. `TableColumnWithMinWidth<T>` has the same two variants but additionally requires `minWidth: number` (for `resizable` mode).
+
+### Sorting (column `sortOrder` + `onSort`)
+
+There is **no** top-level `sorting` prop on `Table`, and the Table never sorts `dataSource` itself. Sorting is configured per column: a header only shows the sort icons and becomes clickable when that column has `onSort`. `sortOrder` is fully controlled, and each header click calls `onSort(key, nextOrder)` cycling `null` → `'ascend'` → `'descend'` → `null`. Sort `dataSource` yourself (or request sorted data from the API) in response.
+
+```tsx
+const [sort, setSort] = useState<{ key: string; order: SortOrder }>({ key: '', order: null });
+
+const columns: TableColumn<Row>[] = [
+  {
+    key: 'age',
+    title: 'Age',
+    dataIndex: 'age',
+    sortOrder: sort.key === 'age' ? sort.order : null,
+    onSort: (key, order) => setSort({ key, order }),
+  },
+];
+
+const sortedData = useMemo(() => {
+  if (!sort.order) return data;
+  const dir = sort.order === 'ascend' ? 1 : -1;
+
+  return [...data].sort((a, b) => (Number(a.age) - Number(b.age)) * dir);
+}, [data, sort]);
+
+<Table columns={columns} dataSource={sortedData} />
+```
+
+### Column Resizing (resizable)
+
+`resizable: true` switches the type to `TableResizableProps<T>`: **every column and `actions` must have `minWidth`** (compile error otherwise). Widths are clamped to each column's `minWidth` / `maxWidth`.
+
+- Uncontrolled: omit `columnWidths`; the table keeps dragged widths internally. `onColumnWidthsChange` still fires once when a drag ends (mouseup), with the widths of all columns resized so far, and not at all if the drag changed nothing.
+- Controlled: pass `columnWidths` (keyed by column `key`, px). It takes precedence over `column.width`; non-finite or non-positive values are ignored. Pass `{}` to reset every column back to `column.width`.
+
+```tsx
+const columns: TableColumnWithMinWidth<Row>[] = [
+  { key: 'name', title: 'Name', dataIndex: 'name', width: 200, minWidth: 120 },
+  { key: 'email', title: 'Email', dataIndex: 'email', width: 260, minWidth: 160, maxWidth: 480 },
+];
+
+const [widths, setWidths] = useState<Record<string, number>>(() =>
+  JSON.parse(localStorage.getItem('table-widths') ?? '{}'),
+);
+
+<Table
+  resizable
+  columns={columns}
+  dataSource={data}
+  columnWidths={widths}
+  onColumnWidthsChange={(next) => {
+    setWidths(next);
+    localStorage.setItem('table-widths', JSON.stringify(next));
+  }}
+  actions={{ minWidth: 100, render: (record) => [/* ... */] }}
+/>
+```
 
 ### TableColumnTitleMenu
 
@@ -184,12 +244,29 @@ interface TableRowSelectionRadio<T> {
 
 ```tsx
 interface TableBulkActions<T> {
-  mainActions: [TableBulkGeneralAction<T>, ...TableBulkGeneralAction<T>[]];  // At least one
-  destructiveAction?: TableBulkGeneralAction<T>;
-  overflowAction?: TableBulkOverflowAction<T>;
+  mainActions?: TableBulkGeneralAction<T>[];     // Optional (default []); may be omitted when only a destructive action exists
+  destructiveAction?: TableBulkGeneralAction<T>; // Separator rendered before it only if mainActions precede it
+  overflowAction?: TableBulkOverflowAction<T>;   // Separator rendered before it only if another group precedes it
   renderSelectionSummary?: (count: number, selectedRowKeys: string[], selectedRows: T[]) => string;
 }
+
+interface TableBulkGeneralAction<T> {
+  icon?: IconDefinition;
+  label: string;                                 // Required
+  onClick: (selectedRowKeys: string[], selectedRows: T[]) => void;
+}
+
+interface TableBulkOverflowAction<T> {
+  icon?: IconDefinition;
+  label: string;                                 // Required
+  maxHeight?: number | string;
+  onSelect: (option: DropdownOption, selectedRowKeys: string[], selectedRows: T[]) => void;
+  options: DropdownOption[];
+  placement?: Placement;
+}
 ```
+
+> `bulkActions` only exists on `mode: 'checkbox'` (`TableRowSelectionCheckbox<T>`); `mode: 'radio'` has no `bulkActions`, `getCheckboxProps`, `hideSelectAll`, `onSelectAll` or `preserveSelectedRowKeys` (all typed `never`). The bulk action bar is shown by the Table when rows are selected; you do not render it yourself.
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
@@ -255,6 +332,7 @@ interface TableActionItemDropdown<T> {
   name?: string;
   icon?: IconDefinition;                         // Default DotHorizontalIcon
   iconType?: ButtonIconType;
+  listboxLabel?: string;                         // Accessible name of the opened listbox, default `name`
   options: DropdownOption[];
   onSelect: (option: DropdownOption, record: T, index: number) => void;
   disabled?: (record: T) => boolean;
@@ -273,11 +351,21 @@ interface TableActionItemDropdown<T> {
 ```tsx
 interface TableScroll {
   virtualized?: boolean;                         // Default false
-  y?: number | string;
+  y?: number | string;                           // Sets max-height of the scroll container
 }
 ```
 
-> Cannot use `draggable` when `virtualized` is enabled.
+> At the `TableProps` level `scroll` is a union: `TableScroll & { virtualized?: false }` (y optional) or `TableScroll & { virtualized: true; y: number | string }` (**`y` required**). Virtualization only activates when both `virtualized` and `y` are truthy.
+>
+> Cannot use `draggable` when `virtualized` is enabled (typed `never`); `pinnable` is still allowed. `y` also works without virtualization to make the body scroll vertically with a sticky header.
+
+```tsx
+// Vertical scroll only
+<Table columns={columns} dataSource={data} scroll={{ y: 400 }} />
+
+// Virtualized (y is mandatory)
+<Table columns={columns} dataSource={bigData} scroll={{ virtualized: true, y: 400 }} />
+```
 
 ---
 
@@ -308,6 +396,27 @@ interface TablePinnable<T> {
   onPinChange: (record: T, pinned: boolean) => void;
   pinnedRowKeys: string[];
 }
+```
+
+> `onPinChange` only reports the change: **you must reorder `dataSource` yourself** so pinned rows come first. `pinnable` cannot be combined with `draggable`.
+
+```tsx
+const [pinned, setPinned] = useState<string[]>([]);
+const rows = useMemo(
+  () => [...data].sort((a, b) => Number(pinned.includes(b.key)) - Number(pinned.includes(a.key))),
+  [data, pinned],
+);
+
+<Table
+  columns={columns}
+  dataSource={rows}
+  pinnable={{
+    enabled: true,
+    pinnedRowKeys: pinned,
+    onPinChange: (record, isPinned) =>
+      setPinned((prev) => (isPinned ? [...prev, record.key] : prev.filter((k) => k !== record.key))),
+  }}
+/>
 ```
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
@@ -393,8 +502,8 @@ const { dataSource, transitionState, updateDataSource } = useTableDataSource<T>(
 | Property            | Type     | Default | Description                    |
 | ------------------- | -------- | ------- | ------------------------------ |
 | `initialData`       | `T[]`    | `[]`    | Initial data source            |
-| `highlightDuration` | `number` | `1000`  | Highlight animation duration (ms) |
-| `fadeOutDuration`   | `number` | `200`   | Fade-out animation duration (ms) |
+| `highlightDuration` | `number` | `700`   | Highlight (stay phase) duration (ms) |
+| `fadeOutDuration`   | `number` | `150`   | Fade-out (exit phase) duration (ms) |
 
 #### Return Value
 
@@ -438,6 +547,20 @@ const {
 } = useTableRowSelection<T>({ getSubData });
 ```
 
+`UseTableRowSelectionProps<T>` is `{ getSubData: (record: T) => T[] | undefined }`. Wire it as the parent table's `rowSelection` (`selectedRowKeys: parentSelectedKeys`, `onChange: parentOnChange`, `getCheckboxProps: parentGetCheckboxProps`) and each nested child table's `onChange: getChildOnChange(parentRecord)` / `selectedRowKeys: getChildSelectedRowKeys(parentRecord)`; `totalSelectionCount` is the number of selected rows across parent and children.
+
+### Return type of useTableDataSource
+
+```tsx
+interface UseTableDataSourceReturn<T> {
+  dataSource: T[];
+  updateDataSource: (data: T[], options?: UpdateDataSourceOptions) => void;
+  transitionState: TableTransitionState;
+}
+```
+
+Removed rows (`removedKeys`) must NOT be in the new `data`; the hook keeps them temporarily for the exit animation. Without `addedKeys` / `removedKeys` rows change without animation.
+
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/data-display-table--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
 ---
@@ -449,9 +572,9 @@ The following hooks are used internally by Table and available via the `@mezzani
 | Hook                      | Purpose                  | Parameters                              |
 | ------------------------- | ------------------------ | --------------------------------------- |
 | `useTableSelection`       | Row selection state      | `UseTableSelectionOptions<T>`           |
-| `useTableSorting`         | Column sorting logic     | `UseTableSortingOptions<T>`             |
+| `useTableSorting`         | Column sorting logic     | `UseTableSortingOptions<T>` (`{ columns }`) |
 | `useTableExpansion`       | Row expansion logic      | `UseTableExpansionOptions<T>`           |
-| `useTableResizedColumns`  | Column resize state      | None                                    |
+| `useTableResizedColumns`  | Column resize state      | `UseTableResizedColumnsOptions` (optional; `columnWidths?`, `onColumnWidthsChange?`) |
 | `useTableScroll`          | Scroll state management  | `{ enabled: boolean }`                  |
 | `useTableVirtualization`  | Virtual scrolling        | `UseTableVirtualizationOptions`         |
 | `useTableFixedOffsets`    | Fixed column offsets     | `UseTableFixedOffsetsOptions`           |
@@ -471,15 +594,23 @@ Table internally exports multiple sub-components, usually not needed directly:
 ### Basic Table
 
 ```tsx
-import { Table } from '@mezzanine-ui/react';
+import { Table, type TableColumn } from '@mezzanine-ui/react';
 
-const columns = [
+interface DataType {
+  [key: string]: unknown;
+  key: string;
+  name: string;
+  age: number;
+  email: string;
+}
+
+const columns: TableColumn<DataType>[] = [
   { key: 'name', title: 'Name', dataIndex: 'name' },
   { key: 'age', title: 'Age', dataIndex: 'age' },
   { key: 'email', title: 'Email', dataIndex: 'email' },
 ];
 
-const data = [
+const data: DataType[] = [
   { key: '1', name: 'John', age: 32, email: 'john@example.com' },
   { key: '2', name: 'Jane', age: 28, email: 'jane@example.com' },
 ];
@@ -510,16 +641,17 @@ function SelectableTable() {
 ### With Sorting
 
 ```tsx
+// requires: import type { SortOrder, TableColumn } from '@mezzanine-ui/react';
 function SortableTable() {
   const [sortOrder, setSortOrder] = useState<SortOrder>(null);
 
-  const columns = [
+  const columns: TableColumn<DataType>[] = [
     {
       key: 'name',
       title: 'Name',
       dataIndex: 'name',
       sortOrder,
-      onSort: (key, order) => setSortOrder(order),
+      onSort: (_key, order) => setSortOrder(order),
     },
   ];
 
@@ -584,11 +716,11 @@ function SortableTable() {
 ### Fixed Columns
 
 ```tsx
-const columns = [
+const columns: TableColumn<DataType>[] = [
   { key: 'name', title: 'Name', dataIndex: 'name', fixed: 'start', width: 150 },
   { key: 'col1', title: 'Column 1', dataIndex: 'col1' },
   { key: 'col2', title: 'Column 2', dataIndex: 'col2' },
-  { key: 'actions', title: 'Actions', fixed: 'end', width: 100 },
+  { key: 'status', title: 'Status', render: (record) => String(record.status), fixed: 'end', width: 100 },
 ];
 ```
 
@@ -644,7 +776,24 @@ function AnimatedTable() {
 
 > `TableRowState` type: `'added' | 'deleted' | 'disabled'`. Applies semantic background color styling per row. Accepts a static state string or a function receiving the row data.
 
-### With Bulk Actions
+### With Empty State (emptyProps)
+
+`emptyProps` is spread onto `Empty` (rendered inside a single full-width cell when `dataSource` is empty). `size` defaults to the table's `size`; `height` is applied to the cell. `Empty.type` is one of `'initial-data' | 'result' | 'system' | 'notification' | 'custom'` (default `'initial-data'`).
+
+```tsx
+<Table
+  columns={columns}
+  dataSource={[]}
+  emptyProps={{
+    type: 'result',
+    title: 'No matching results',
+    description: 'Try adjusting the filters',
+    height: 320,
+  }}
+/>
+```
+
+### With Bulk Actions (rowSelection.bulkActions)
 
 ```tsx
 <Table
@@ -688,8 +837,8 @@ function AnimatedTable() {
 
 ## Behavior Notes
 
-- **Row-action accessible names (1.5.0+)**: for an action rendered `iconType="icon-only"`, `TableActionItemButton['name']` is used as the button's `aria-label` (icon-only buttons otherwise render with no visible text, so without this the button had no accessible name). For `TableActionItemDropdown`, `name` is always applied as the trigger button's `aria-label`, since the dropdown trigger is icon-only by default (`DotHorizontalIcon`).
-- **Row-action dropdown menu stays inside the viewport (1.5.0+)**: the internal `Dropdown` used to render a `type: 'dropdown'` action item now sets `shift` in addition to the existing `flip`/`placement`. Row actions sit in the table's last column, so the menu routinely opens against the right edge of the viewport; `flip` only swaps sides along the main axis, so without `shift` the menu could still be clipped. No props changed — this is internal to `TableActionsCell`.
+- **Row-action accessible names**: for an action rendered `iconType="icon-only"`, `TableActionItemButton['name']` is used as the button's `aria-label` (icon-only buttons otherwise render with no visible text, so without this the button had no accessible name). For `TableActionItemDropdown`, `name` is always applied as the trigger button's `aria-label`, since the dropdown trigger is icon-only by default (`DotHorizontalIcon`).
+- **Row-action dropdown menu stays inside the viewport**: the internal `Dropdown` used to render a `type: 'dropdown'` action item sets `shift` in addition to `flip`/`placement`. Row actions sit in the table's last column, so the menu routinely opens against the right edge of the viewport; `flip` only swaps sides along the main axis, so without `shift` the menu could still be clipped. No props changed — this is internal to `TableActionsCell`.
 
 ---
 
@@ -700,6 +849,8 @@ function AnimatedTable() {
 3. **Virtual scrolling for large datasets**: Enable `scroll.virtualized`
 4. **Fix important columns**: Use `fixed` for key columns
 5. **Use ellipsis appropriately**: Long text columns enable ellipsis with tooltip (default true)
-6. **resizable mode requires minWidth**: All columns and actions need `minWidth`
+6. **resizable mode requires minWidth**: All columns and `actions` need `minWidth`; `columnWidths` / `onColumnWidthsChange` exist only with `resizable`
 7. **draggable and pinnable are mutually exclusive**: Cannot enable both simultaneously
-8. **virtualized does not support draggable**: Drag-and-drop is not available in virtual scrolling mode
+8. **virtualized does not support draggable, and requires `scroll.y`**: Drag-and-drop is not available in virtual scrolling mode (`pinnable` is)
+9. **Sorting is per column**: use `column.sortOrder` + `column.onSort` and sort `dataSource` yourself; there is no `sorting` prop
+10. **Pinning does not reorder**: `pinnable.onPinChange` only reports; reorder `dataSource` so pinned rows come first

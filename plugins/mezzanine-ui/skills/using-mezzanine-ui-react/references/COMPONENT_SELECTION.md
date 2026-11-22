@@ -1,6 +1,6 @@
 # 元件選用指引（UI 概念 → 元件）
 
-> 對照版本：`@mezzanine-ui/react` `1.5.1` · `@mezzanine-ui/core` `1.2.1`。Last verified: 2026-09-12。
+> 對照版本：`@mezzanine-ui/react` `1.10.2` · `@mezzanine-ui/core` ≥ `1.3.3`。Last verified: 2026-11-22。
 >
 > 這份文件回答的問題是：**「我知道我要做的 UI 長什麼樣，但不知道它在 Mezzanine 叫什麼。」**
 > 速查表在 [SKILL.md → 元件選用](../SKILL.md#元件選用必讀--先用ui-概念反查元件名)，這裡是完整版與理由。

@@ -1,6 +1,6 @@
 # Calendar
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/calendar) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/calendar) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Standalone calendar panel for date selection. Supports multiple modes (day, week, month, quarter, half-year, year) and range selection. All date operations are delegated to the injected `MZN_CALENDAR_CONFIG` token — you must provide a `CalendarConfigs` instance (typically backed by `dayjs`) at the application root.
 
@@ -18,6 +18,10 @@ import type {
   CalendarConfigOptions,
   CalendarDayAnnotation,
   CalendarQuickSelectOption,
+  MznCalendarBoardProps,
+  MznCalendarFooterControlProps,
+  MznCalendarFooterActionButtonProps,
+  MznCalendarFooterActionsProps,
 } from '@mezzanine-ui/ng/calendar';
 
 // Internal / advanced — exposed for custom-layout compositions only
@@ -104,6 +108,13 @@ If this token is missing, all Calendar and Picker components will throw at const
 | `renderAnnotations`     | `((date: DateType) => CalendarDayAnnotation) \| undefined`   | —         | Per-cell annotation badge rendered below the date number                                |
 | `displayWeekDayLocale`  | `string \| undefined`                                        | —         | Override locale for weekday header labels                                               |
 | `displayMonthLocale`    | `string \| undefined`                                        | —         | Override locale for month labels                                                        |
+| `calendarDaysProps`     | `MznCalendarBoardProps \| undefined`                         | —         | Host props (`className` / `style`) of the day board                                     |
+| `calendarWeeksProps`    | `MznCalendarBoardProps \| undefined`                         | —         | Host props of the week board                                                            |
+| `calendarMonthsProps`   | `MznCalendarBoardProps \| undefined`                         | —         | Host props of the month board                                                           |
+| `calendarQuartersProps` | `MznCalendarBoardProps \| undefined`                         | —         | Host props of the quarter board                                                         |
+| `calendarHalfYearsProps`| `MznCalendarBoardProps \| undefined`                         | —         | Host props of the half-year board                                                       |
+| `calendarYearsProps`    | `MznCalendarBoardProps \| undefined`                         | —         | Host props of the year board                                                            |
+| `calendarFooterControlProps` | `MznCalendarFooterControlProps \| undefined`            | —         | Footer shortcut bundle (`children` label, `className`, `disabled`)                      |
 
 > Inputs declared with signal API (`input()`) accept both static and reactive values.
 
@@ -120,12 +131,30 @@ If this token is missing, all Calendar and Picker components will throw at const
 | `monthControlClicked`| `OutputEmitterRef<void>`           | Fires when the month label button in the header is clicked |
 | `yearControlClicked` | `OutputEmitterRef<void>`           | Fires when the year label button in the header is clicked  |
 
+## Board / footer prop bundles
+
+```ts
+interface MznCalendarBoardProps {
+  readonly className?: string;                        // extra class on the board host
+  readonly style?: Readonly<Record<string, string>>;  // inline style on the board host
+}
+
+interface MznCalendarFooterControlProps {
+  // string applies to every mode; a map overrides listed modes only
+  readonly children?: string | Partial<Record<CalendarMode, string>>;
+  readonly className?: string;
+  readonly disabled?: boolean;
+}
+```
+
+Hoist these objects to a class field or signal (do not create them inline in the template).
+
 ## CalendarDayAnnotation
 
 ```ts
 interface CalendarDayAnnotation {
   readonly value: string;
-  readonly color?: TypographyColor; // e.g. 'text-warning', 'text-error', 'brand'
+  readonly color?: TypographyColor; // e.g. 'text-warning', 'text-error', 'text-brand'
 }
 ```
 
@@ -201,7 +230,7 @@ readonly quickSelectOptions = {
 
 annotationFn = (date: DateType): CalendarDayAnnotation => ({
   value: this.hasEvent(date) ? '●' : '',
-  color: 'brand',
+  color: 'text-brand',
 });
 ```
 
@@ -223,6 +252,7 @@ Dual-calendar range selection component. Renders two `MznCalendar` side-by-side.
 | `value`                 | `DateType \| ReadonlyArray<DateType> \| undefined`           | —         | Currently selected or partially selected range                  |
 | `referenceDate`         | `DateType`                                                   | `''`      | Initial reference date for the left calendar                    |
 | `showFooterActions`     | `boolean`                                                    | `false`   | Show Confirm / Cancel footer buttons                            |
+| `actions`               | `MznCalendarFooterActionsProps \| undefined`                 | —         | Footer action buttons bundle (`primaryButtonProps` = confirm, `secondaryButtonProps` = cancel; each `{ children?, disabled?, onClick? }`). Footer renders when this or `showFooterActions` is set |
 | `quickSelect`           | `{ activeId?: string; options: ReadonlyArray<CalendarQuickSelectOption> } \| undefined` | — | Quick-select panel |
 | `isDateDisabled`        | `((date: DateType) => boolean) \| undefined`                 | —         | Disable specific dates                                          |
 | `isDateInRange`         | `((date: DateType) => boolean) \| undefined`                 | —         | External in-range predicate (overridden by hover range)         |
@@ -322,17 +352,44 @@ These are internal pieces normally composed inside `MznCalendar` / `MznRangeCale
 | `isWeekend`      | `boolean`             | `false`     | 週末樣式                                       |
 | `withAnnotation` | `boolean`             | `false`     | 顯示註記標記（搭配 `CalendarDayAnnotation`）   |
 | `role`           | `string \| undefined` | `undefined` | 覆寫 host 的 `role` 屬性（無障礙用）           |
+| `mode`           | `CalendarMode`        | `'day'`     | 此格所屬的日曆模式                             |
 
-### MznCalendarControls — Inputs
+### MznCalendarControls — Inputs / Outputs
 
 **Selector**: `[mznCalendarControls]`
 
-| Input            | Type      | Default | Description                        |
-| ---------------- | --------- | ------- | ---------------------------------- |
-| `showPrev`       | `boolean` | `false` | 顯示上一頁箭頭                     |
-| `showNext`       | `boolean` | `false` | 顯示下一頁箭頭                     |
-| `showDoublePrev` | `boolean` | `false` | 顯示快速上一頁（雙箭頭，跳一個年度單位） |
-| `showDoubleNext` | `boolean` | `false` | 顯示快速下一頁（雙箭頭）           |
+| Input                 | Type      | Default | Description                        |
+| --------------------- | --------- | ------- | ---------------------------------- |
+| `showPrev`            | `boolean` | `false` | 顯示上一頁箭頭                     |
+| `showNext`            | `boolean` | `false` | 顯示下一頁箭頭                     |
+| `showDoublePrev`      | `boolean` | `false` | 顯示快速上一頁（雙箭頭，跳一個年度單位） |
+| `showDoubleNext`      | `boolean` | `false` | 顯示快速下一頁（雙箭頭）           |
+| `disableOnPrev`       | `boolean` | `false` | 停用上一頁箭頭                     |
+| `disableOnNext`       | `boolean` | `false` | 停用下一頁箭頭                     |
+| `disableOnDoublePrev` | `boolean` | `false` | 停用快速上一頁箭頭                 |
+| `disableOnDoubleNext` | `boolean` | `false` | 停用快速下一頁箭頭                 |
+
+| Output       | Type                       | Description              |
+| ------------ | -------------------------- | ------------------------ |
+| `prev`       | `OutputEmitterRef<void>`   | 上一頁箭頭點擊           |
+| `next`       | `OutputEmitterRef<void>`   | 下一頁箭頭點擊           |
+| `doublePrev` | `OutputEmitterRef<void>`   | 快速上一頁箭頭點擊       |
+| `doubleNext` | `OutputEmitterRef<void>`   | 快速下一頁箭頭點擊       |
+
+### Board panels — Inputs / Outputs
+
+Each board has its own inputs/outputs (the `[mznCalendarDayOfWeek]` row only takes `displayWeekDayLocale`).
+
+| Class                  | Required input  | Other inputs                                                                                                  | Outputs                        |
+| ---------------------- | --------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `MznCalendarDays`      | `referenceDate` | `value`, `isDateDisabled`, `isDateInRange`, `isMonthDisabled`, `isYearDisabled`, `displayWeekDayLocale`, `renderAnnotations` | `dateClick`, `dateHover`       |
+| `MznCalendarWeeks`     | `referenceDate` | `value`, `isWeekDisabled`, `isWeekInRange`, `isMonthDisabled`, `isYearDisabled`, `displayWeekDayLocale`       | `weekClick`, `weekHover`       |
+| `MznCalendarMonths`    | `referenceDate` | `value`, `isMonthDisabled`, `isMonthInRange`, `isYearDisabled`, `displayMonthLocale`                          | `monthClick`, `monthHover`     |
+| `MznCalendarQuarters`  | `referenceDate` | `value`, `isQuarterDisabled`, `isQuarterInRange`                                                              | `quarterClick`, `quarterHover` |
+| `MznCalendarHalfYears` | `referenceDate` | `value`, `isHalfYearDisabled`, `isHalfYearInRange`                                                            | `halfYearClick`, `halfYearHover` |
+| `MznCalendarYears`     | `referenceDate` | `value`, `isYearDisabled`, `isYearInRange`                                                                    | `yearClick`, `yearHover`       |
+
+All outputs are `OutputEmitterRef<DateType>`; `value` is `ReadonlyArray<DateType> | undefined`; predicates are `((date: DateType) => boolean) | undefined`. `MznCalendarFooterControl` and `MznCalendarQuickSelect` are internal and not exported from the sub-path.
 
 `CalendarConfigs` / `CalendarConfigOptions` types (imported above) describe the value supplied to `MZN_CALENDAR_CONFIG` / `createCalendarConfig` — useful when you need to accept or re-expose the config from your own service.
 

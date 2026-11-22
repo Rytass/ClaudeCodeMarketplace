@@ -1,6 +1,6 @@
 # Slider
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/slider) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/slider) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-slider--docs
 
@@ -32,8 +32,8 @@ import type { SliderValue, RangeSliderValue } from '@mezzanine-ui/core/slider';
 | `suffixIcon`        | `IconDefinition`                       | —           | Icon button after the slider                                      |
 | `withInput`         | `boolean`                              | `false`     | Show numeric input field(s) for direct value entry                |
 | `withTick`          | `number \| readonly number[]`          | —           | Tick marks: count (uniform) or specific values                    |
-| `onPrefixIconClick` | `() => void`                           | —           | Custom handler for prefix icon click (overrides decrement default) |
-| `onSuffixIconClick` | `() => void`                           | —           | Custom handler for suffix icon click (overrides increment default) |
+| `onPrefixIconClick` | `(() => void) \| undefined`            | —           | Custom handler for prefix icon click (overrides decrement default; `prefixIconClick` output still fires) |
+| `onSuffixIconClick` | `(() => void) \| undefined`            | —           | Custom handler for suffix icon click (overrides increment default; `suffixIconClick` output still fires) |
 
 > Inputs declared with signal API (`input()`) accept both static and reactive values.
 
@@ -72,8 +72,8 @@ import type { SliderValue, RangeSliderValue } from '@mezzanine-ui/core/slider';
   [(ngModel)]="volume"
   [min]="0"
   [max]="100"
-  [prefixIcon]="VolumeLowIcon"
-  [suffixIcon]="VolumeHighIcon"
+  [prefixIcon]="MinusIcon"
+  [suffixIcon]="PlusIcon"
   [withInput]="true">
 </div>
 
@@ -113,6 +113,7 @@ export class PriceFilterComponent {
 
 ## Notes
 
+- `MznSlider` does not implement `setDisabledState`; `FormControl.disable()` does not disable it. Bind `[disabled]` explicitly.
 - The slider mode (single vs. range) is determined at runtime from `writeValue`'s argument type, not from an explicit prop. When using CVA, initialize the `FormControl` with the correct type.
 - Drag events run outside Angular's NgZone for performance, then re-enter via `ngZone.run()` on each mouse move. This avoids excessive change detection during dragging.
 - The `withInput` flag shows `MznInput` components with `variant="number"`. For range mode, two inputs are shown (start and end).

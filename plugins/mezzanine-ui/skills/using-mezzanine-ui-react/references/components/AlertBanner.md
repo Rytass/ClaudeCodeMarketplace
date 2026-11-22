@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/Alert Banner`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/AlertBanner) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/AlertBanner) · Verified 1.10.2 (2026-11-22)
 
 Alert banner component for displaying important system-level notifications. Supports both component-based and imperative APIs. Internally based on `createNotifier`, with sorting rules: non-info first, newest first. Renders using Portal `alert` level.
 
@@ -54,10 +54,11 @@ Extends `Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'children' | 'title'>`.
 ## AlertBannerAction Type
 
 ```tsx
+// extends Omit<ButtonPropsBase, 'children'>
 interface AlertBannerAction {
-  content?: string;                              // Button text
-  onClick: (event: MouseEvent) => void;          // Click callback
-  // ...other Button props
+  content?: string;                                       // Button text
+  onClick: (event: MouseEvent<HTMLButtonElement>) => void; // Click callback
+  // ...other Button props (except children)
 }
 ```
 
@@ -85,14 +86,17 @@ interface AlertBannerAction {
 
 ### AlertBannerData (`add()` parameter type)
 
-Extends `Omit<NotifierData, 'onClose'>` and `AlertBannerConfigProps` (= `NotifierConfig`).
+Extends `Omit<NotifierData, 'onClose'>` and `AlertBannerConfigProps` (= `NotifierConfig`). `duration` and `reference` exist only on this imperative data type, **not** on component-based `AlertBannerProps`.
 
 | Property    | Type                  | Default      | Description              |
 | ----------- | --------------------- | ------------ | ------------------------ |
 | `actions`   | `AlertBannerAction[]` | -            | Action buttons (max 2)   |
+| `children`  | `ReactNode`           | -            | Inherited from `NotifierData` (not rendered by AlertBanner) |
 | `closable`  | `boolean`             | -            | Whether closable         |
 | `duration`  | `number \| false`     | -            | Auto-close duration (ms) |
 | `icon`      | `IconDefinition`      | -            | Custom icon              |
+| `key`       | `Key`                 | auto-generated | Added by `add()` (`N & { key?: Key }`); shortcut methods accept it via `props.key` |
+| `maxCount`  | `number`              | -            | From `NotifierConfig` (set via `AlertBanner.config()`) |
 | `message`   | `string`              | **required** | Message content          |
 | `onClose`   | `() => void`          | -            | Close callback           |
 | `reference` | `Key`                 | -            | Identification key       |
@@ -224,7 +228,7 @@ AlertBanner.destroy();
 ## Internal Behavior
 
 1. **Sorting rules**: When multiple AlertBanners are displayed simultaneously, non-`info` severity (`error`, `warning`) appears first; same priority sorted by creation time (newest first)
-2. **Animation**: Entry/exit uses `isEntering` / `isExiting` state for animation management, exit animation lasts 250ms (moderate duration)
+2. **Animation**: Entry/exit animates the wrapper's height (250ms); `onClose` fires after the 250ms exit animation completes
 3. **Portal**: Renders in Portal `alert` level
 
 ---

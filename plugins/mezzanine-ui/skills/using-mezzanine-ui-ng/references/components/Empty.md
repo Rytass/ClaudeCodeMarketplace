@@ -1,6 +1,6 @@
 # Empty
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/empty) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/empty) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-display-empty--docs
 
@@ -20,7 +20,7 @@ import type { EmptyType } from '@mezzanine-ui/ng/empty';
 // Note: EmptyActions and EmptyActionConfig are NOT re-exported from the public API.
 // Use inline type definitions or type inference when typing actions locally:
 //
-//   const emptyActions = { primaryButton: { children: '新增', onClick: () => {} } };
+//   const emptyActions = { secondaryButton: { children: '新增', onClick: () => {} } };
 //   // TypeScript infers the shape automatically — no explicit type import needed.
 ```
 
@@ -103,7 +103,7 @@ import { MznButton } from '@mezzanine-ui/ng/button';
 
 // EmptyActions is not publicly exported — use type inference instead
 const createEmptyActions = (onCreate: () => void) => ({
-  primaryButton: { children: '新增項目', onClick: onCreate },
+  secondaryButton: { children: '新增項目', onClick: onCreate },
 });
 
 @Component({
@@ -127,7 +127,7 @@ export class DataListComponent {
 
   // Type is inferred — no explicit EmptyActions import needed
   readonly emptyActions = {
-    primaryButton: { children: '新增項目', onClick: () => this.createItem() },
+    secondaryButton: { children: '新增項目', onClick: () => this.createItem() },
   };
 
   createItem(): void { /* ... */ }

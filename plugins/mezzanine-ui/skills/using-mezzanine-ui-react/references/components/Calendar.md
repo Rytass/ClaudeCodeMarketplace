@@ -2,11 +2,11 @@
 
 > **Category**: Utility
 >
-> **Storybook**: `Utility/Calendar`
+> **Storybook**: `Internal/Calendar`
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/internal-calendar--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Calendar) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Calendar) · Verified 1.10.2 (2026-11-22)
 
 Calendar component for displaying and selecting dates. Requires `CalendarConfigProvider` (which provides `CalendarContext`). Supports six modes: day, week, month, year, quarter, and half-year.
 
@@ -53,6 +53,9 @@ import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
 <CalendarConfigProviderDayjs locale="zh-TW">
   {children}
 </CalendarConfigProviderDayjs>
+
+// 使用 Luxon: CalendarConfigProviderLuxon
+// 使用原生 Temporal API: CalendarConfigProviderTemporal（需 globalThis.Temporal；Safari / Node 22 須安裝 @js-temporal/polyfill，且在 Next.js App Router 中須由 Client Component 註冊 polyfill）
 ```
 
 ### CalendarConfigProvider Props
@@ -60,7 +63,7 @@ import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
 | Property            | Type                   | Default             | Description            |
 | ------------------- | ---------------------- | ------------------- | ---------------------- |
 | `methods`           | `CalendarMethods`      | **required**        | 日期運算方法（Moment/Dayjs） |
-| `locale`            | `CalendarLocaleValue`  | `CalendarLocale.EN_US` | 語系（影響星期起始日、月份名稱） |
+| `locale`            | `CalendarLocaleValue`  | `CalendarLocale.EN_US` | 語系（影響星期起始日、月份名稱）；可傳 `CalendarLocale` enum 或其字串值（如 `'zh-TW'`） |
 | `defaultDateFormat` | `string`               | `'YYYY-MM-DD'`     | 預設日期格式           |
 | `defaultTimeFormat` | `string`               | `'HH:mm:ss'`       | 預設時間格式           |
 
@@ -90,11 +93,12 @@ import {
   useRangeCalendarControls,
 } from '@mezzanine-ui/react';
 
-// CalendarConfigProviderDayjs / Luxon / Moment must be imported from sub-path
+// CalendarConfigProviderDayjs / Luxon / Moment / Temporal must be imported from sub-path
 import {
   CalendarConfigProviderDayjs,
   CalendarConfigProviderLuxon,
   CalendarConfigProviderMoment,
+  CalendarConfigProviderTemporal,
 } from '@mezzanine-ui/react/Calendar';
 
 import type {
@@ -105,6 +109,7 @@ import type {
   CalendarControlsProps,
   CalendarDayOfWeekProps,
   CalendarDaysProps,
+  CalendarFooterControlProps,
   CalendarHalfYearsProps,
   CalendarMonthsProps,
   CalendarQuartersProps,
@@ -115,8 +120,11 @@ import type {
   RangeCalendarProps,
 } from '@mezzanine-ui/react';
 
-// CalendarLocale must be imported from sub-path
+// CalendarLocale is re-exported from the sub-path as a TYPE only.
+// To use its values (e.g. CalendarLocale.ZH_TW) import the enum from core:
 import type { CalendarLocale } from '@mezzanine-ui/react/Calendar';
+import { CalendarLocale as CalendarLocaleEnum } from '@mezzanine-ui/core/calendar';
+// (or from '@mezzanine-ui/react/temporal', which re-exports the enum as a value)
 ```
 
 ---
@@ -131,6 +139,7 @@ import type { CalendarLocale } from '@mezzanine-ui/react/Calendar';
 | `calendarYearsProps`    | `Omit<CalendarYearsProps, ...>`                                    | -       | Additional props for year view       |
 | `calendarQuartersProps` | `Omit<CalendarQuartersProps, ...>`                                 | -       | Additional props for quarter view    |
 | `calendarHalfYearsProps`| `Omit<CalendarHalfYearsProps, ...>`                                | -       | Additional props for half-year view  |
+| `calendarFooterControlProps` | `Omit<CalendarFooterControlProps, 'children' \| 'onClick'> & { children?: CalendarFooterControlChildren }` | - | Props for the footer control. `children` customizes the label: a `string` applies to every mode; a `Partial<Record<CalendarMode, string>>` overrides only the listed modes and keeps the default label for the others (prefer the map form in pickers, whose footer follows the drilled-down panel) |
 | `disableOnDoubleNext`   | `boolean`                                                          | -       | Disable year fast-forward            |
 | `disableOnDoublePrev`   | `boolean`                                                          | -       | Disable year fast-backward           |
 | `disableOnNext`         | `boolean`                                                          | -       | Disable month fast-forward           |
@@ -177,7 +186,14 @@ import type { CalendarLocale } from '@mezzanine-ui/react/Calendar';
 
 ```tsx
 type CalendarMode = 'day' | 'week' | 'month' | 'year' | 'quarter' | 'half-year';
+
+// Label of the footer control: one string for every mode, or a per-mode override map
+type CalendarFooterControlChildren =
+  | string
+  | Partial<Record<CalendarMode, string>>;
 ```
+
+`CalendarFooterControlProps` extends native `<div>` props (without `onClick`) with `children?: string`, `disabled?: boolean` (default `false`) and `onClick?: VoidFunction`.
 
 ---
 
@@ -186,13 +202,14 @@ type CalendarMode = 'day' | 'week' | 'month' | 'year' | 'quarter' | 'half-year';
 ### Basic Usage with useCalendarControls
 
 ```tsx
+import { useState } from 'react';
 import { Calendar, useCalendarControls } from '@mezzanine-ui/react';
 import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
 import dayjs from 'dayjs';
 
+// Calendar uses CalendarContext, so the provider must be an ancestor of it
 function BasicCalendar() {
   const [value, setValue] = useState<string | undefined>();
-  const defaultRef = dayjs().toISOString();
 
   const {
     currentMode,
@@ -203,24 +220,33 @@ function BasicCalendar() {
     onPrev,
     onDoubleNext,
     onDoublePrev,
-    popModeStack,
-    updateReferenceDate,
-  } = useCalendarControls(defaultRef);
+  } = useCalendarControls(dayjs().toISOString());
 
   return (
+    <Calendar
+      isDateDisabled={(date) => {
+        // Disable weekends
+        const dayOfWeek = dayjs(date).day();
+        return dayOfWeek === 0 || dayOfWeek === 6;
+      }}
+      mode={currentMode}
+      onChange={setValue}
+      onDoubleNext={onDoubleNext}
+      onDoublePrev={onDoublePrev}
+      onMonthControlClick={onMonthControlClick}
+      onNext={onNext}
+      onPrev={onPrev}
+      onYearControlClick={onYearControlClick}
+      referenceDate={referenceDate}
+      value={value}
+    />
+  );
+}
+
+export default function Page() {
+  return (
     <CalendarConfigProviderDayjs>
-      <Calendar
-        calendarDaysProps={{}}
-        referenceDate={referenceDate}
-        isDateDisabled={(date) => {
-          // Disable weekends
-          const dayOfWeek = dayjs(date).day();
-          return dayOfWeek === 0 || dayOfWeek === 6;
-        }}
-        onDateHover={(date) => {
-          // Handle date hover
-        }}
-      />
+      <BasicCalendar />
     </CalendarConfigProviderDayjs>
   );
 }
@@ -230,6 +256,7 @@ function BasicCalendar() {
 
 ```tsx
 <Calendar
+  referenceDate={referenceDate}
   isDateInRange={(date) => {
     return dayjs(date).isBetween(startDate, endDate);
   }}
@@ -243,11 +270,12 @@ function BasicCalendar() {
 
 ```tsx
 <Calendar
+  referenceDate={referenceDate}
   renderAnnotations={(date) => {
     const event = events.find(e => dayjs(e.date).isSame(date, 'day'));
     return {
       value: event ? event.label : '--',
-      color: event ? 'primary' : 'text-neutral',
+      color: event ? 'text-brand' : 'text-neutral',
     };
   }}
 />
@@ -256,36 +284,24 @@ function BasicCalendar() {
 ### Using RangeCalendar for Date Ranges
 
 ```tsx
-import { RangeCalendar, useRangeCalendarControls } from '@mezzanine-ui/react';
+import { useState } from 'react';
+import { RangeCalendar } from '@mezzanine-ui/react';
+import dayjs from 'dayjs';
 
+// Must be rendered under a CalendarConfigProvider
 function DateRangeExample() {
-  const [value, setValue] = useState<[string, string | undefined]>(['', undefined]);
+  const [value, setValue] = useState<string[]>([]);
+  const [previewValue, setPreviewValue] = useState<string | undefined>();
 
-  const {
-    currentMode,
-    referenceDates,
-    updateFirstReferenceDate,
-    updateSecondReferenceDate,
-    onFirstNext,
-    onFirstPrev,
-    onFirstDoubleNext,
-    onFirstDoublePrev,
-    onSecondNext,
-    onSecondPrev,
-    onSecondDoubleNext,
-    onSecondDoublePrev,
-  } = useRangeCalendarControls(dayjs().toISOString());
-
+  // RangeCalendar manages its two calendars' navigation internally;
+  // `referenceDate` is only the initial reference date.
   return (
     <RangeCalendar
-      referenceDate={referenceDates[0]}
+      referenceDate={dayjs().toISOString()}
       value={value}
-      onChange={setValue}
-      isDateInRange={(date) => {
-        const [start, end] = value;
-        if (!end) return false;
-        return dayjs(date).isBetween(start, end, null, '[]');
-      }}
+      previewValue={previewValue}
+      onDateHover={setPreviewValue}
+      onChange={([start, end]) => setValue(end ? [start, end] : [start])}
     />
   );
 }
@@ -365,11 +381,11 @@ function useRangeCalendarControls(
 | Property             | Type                                                      | Default  | Description                    |
 | -------------------- | --------------------------------------------------------- | -------- | ------------------------------ |
 | `actions`            | `CalendarFooterActionsProps['actions']`                    | -        | Footer action buttons          |
-| `calendarProps`      | `Omit<CalendarProps, 'mode' \| 'value' \| 'onChange' \| ...>` | -    | Props passed to each calendar  |
+| `calendarProps`      | `Omit<CalendarProps, 'calendarFooterControlProps' \| 'mode' \| 'value' \| 'onChange' \| 'referenceDate' \| 'renderAnnotations' \| 'onNext' \| 'onPrev' \| 'onDoubleNext' \| 'onDoublePrev' \| 'onMonthControlClick' \| 'onYearControlClick'>` | -    | Props passed to each calendar  |
 | `firstCalendarRef`   | `RefObject<HTMLDivElement \| null>`                        | -        | Ref for the first calendar     |
 | `mode`               | `CalendarMode`                                            | `'day'`  | Display mode                   |
 | `onChange`           | `(value: [DateType, DateType \| undefined]) => void`       | -        | Date range selection callback  |
-| `previewValue`       | `DateType`                                                | -        | **New in 1.5.0.** The date currently under the pointer, used to preview the range the user is about to complete. Kept separate from `value` on purpose — see [Behavior Notes](#behavior-notes). |
+| `previewValue`       | `DateType`                                                | -        | The date currently under the pointer, used to preview the range the user is about to complete. Kept separate from `value` on purpose — see [Behavior Notes](#behavior-notes). |
 | `quickSelect`        | `Pick<CalendarQuickSelectProps, 'activeId' \| 'options'>` | -        | Quick select options           |
 | `referenceDate`      | `DateType`                                                | **required** | Reference date             |
 | `secondCalendarRef`  | `RefObject<HTMLDivElement \| null>`                        | -        | Ref for the second calendar    |
@@ -480,10 +496,12 @@ Returns prev/next modifier functions for each CalendarMode (single corresponds t
 
 ## CalendarConfigProviderDayjs / Luxon / Moment
 
-Convenience calendar Provider components with built-in date library methods. Props are the same as `CalendarConfigProviderProps` (excluding `methods`).
+Convenience calendar Provider components with built-in date library methods (Dayjs, Luxon, Moment, Temporal). Props are the same as `CalendarConfigProviderProps` (excluding `methods`).
 
 ```tsx
 import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
+
+import { CalendarLocale } from '@mezzanine-ui/core/calendar'; // enum value, see Import section
 
 <CalendarConfigProviderDayjs locale={CalendarLocale.ZH_TW}>
   <Calendar ... />
@@ -494,8 +512,8 @@ import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
 
 ## Behavior Notes
 
-- **`RangeCalendar` hover preview no longer pollutes the committed selection (1.5.0+)**: the second calendar cell under the pointer is painted via `previewValue`, kept separate from `value`. Anything deciding *how far the selection has got* (the click handler, the in-range highlight, the disabled-range check) reads only the committed `value`, so a half-finished range can never be mistaken for a finished one while hovering.
-- **`RangeCalendar` disabled-range scan (1.5.0+)**: when an `is*Disabled` predicate is supplied for the active `mode`, `RangeCalendar` walks every unit between the two range anchors once — using the displayed calendar's own week/month/quarter/year alignment (e.g. week-mode snaps to each week's first date via `displayWeekDayLocale`, not a raw day-by-day walk) — to decide whether the range crosses a disabled unit. That single check gates both the in-range highlight and whether a click completes the range, so hovering never highlights a range a click would then reject. The walk is capped internally at 4,000 units; a scan that hits the cap is treated as incomplete and the range is withheld from highlighting/selection rather than assumed clear. This cap is an internal implementation detail (not a public prop, not exported from the package). With no disabled-date predicate supplied, no scan runs and every range is clear.
+- **`RangeCalendar` hover preview no longer pollutes the committed selection**: the second calendar cell under the pointer is painted via `previewValue`, kept separate from `value`. Anything deciding *how far the selection has got* (the click handler, the in-range highlight, the disabled-range check) reads only the committed `value`, so a half-finished range can never be mistaken for a finished one while hovering.
+- **`RangeCalendar` disabled-range scan**: when an `is*Disabled` predicate is supplied for the active `mode`, `RangeCalendar` walks every unit between the two range anchors once — using the displayed calendar's own week/month/quarter/year alignment (e.g. week-mode snaps to each week's first date via `displayWeekDayLocale`, not a raw day-by-day walk) — to decide whether the range crosses a disabled unit. That single check gates both the in-range highlight and whether a click completes the range, so hovering never highlights a range a click would then reject. The walk is capped internally at 4,000 units; a scan that hits the cap is treated as incomplete and the range is withheld from highlighting/selection rather than assumed clear. This cap is an internal implementation detail (not a public prop, not exported from the package). With no disabled-date predicate supplied, no scan runs and every range is clear.
 
 ---
 
@@ -523,7 +541,7 @@ import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
 | 快速選擇預設值 | `quickSelect={{activeId: 'today', options: [...]}}` | 便捷按鈕（如「今天」、「本月」） |
 | 自訂日期註記 | `renderAnnotations={date => ({value: count, color: 'primary'})}` | 在日期上顯示事件計數 |
 | 多套日期庫支援 | `<CalendarConfigProviderDayjs \| Luxon \| Moment>` | 根據專案選擇日期工具 |
-| 國際化 | `locale={CalendarLocale.ZH_TW}` | 設定週首、月份名稱等語言 |
+| 國際化 | `locale={CalendarLocale.ZH_TW}`（`CalendarLocale` 值自 `@mezzanine-ui/core/calendar` 匯入）| 設定週首、月份名稱等語言 |
 
 ### 常見錯誤
 
@@ -535,29 +553,42 @@ import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
 
 #### ✅ 正確做法：必須包裹提供者
 ```tsx
+import { CalendarLocale } from '@mezzanine-ui/core/calendar';
+
 <CalendarConfigProviderDayjs locale={CalendarLocale.ZH_TW}>
   <Calendar referenceDate={date} onChange={handleChange} />
 </CalendarConfigProviderDayjs>
 ```
 
-#### ❌ 頻繁重建控制函數
+#### ❌ 直接 spread hook 回傳值
 ```tsx
 const MyCalendar = ({ referenceDate }) => {
-  // 每次渲染重建控制邏輯，效能低落
+  // 直接 spread hook 回傳值：其中 currentMode / popModeStack / updateReferenceDate
+  // 並非 Calendar props，會被當成 div 屬性傳下去
   const controls = useCalendarControls(referenceDate);
   return <Calendar {...controls} />;
 };
 ```
 
-#### ✅ 正確做法：穩定化控制邏輯
+#### ✅ 正確做法：解構所需 handler 逐一傳入
 ```tsx
-const MyCalendar = ({ initialDate }) => {
-  const [referenceDate, setReferenceDate] = useState(initialDate);
-  const controls = useMemo(
-    () => useCalendarControls(referenceDate),
-    [referenceDate]
+const MyCalendar = ({ initialDate }: { initialDate: string }) => {
+  // useCalendarControls 本身是 hook，只能在元件頂層呼叫（不可包在 useMemo 內）
+  const { currentMode, referenceDate, onNext, onPrev, onDoubleNext, onDoublePrev,
+    onMonthControlClick, onYearControlClick } = useCalendarControls(initialDate);
+
+  return (
+    <Calendar
+      mode={currentMode}
+      referenceDate={referenceDate}
+      onNext={onNext}
+      onPrev={onPrev}
+      onDoubleNext={onDoubleNext}
+      onDoublePrev={onDoublePrev}
+      onMonthControlClick={onMonthControlClick}
+      onYearControlClick={onYearControlClick}
+    />
   );
-  return <Calendar {...controls} />;
 };
 ```
 

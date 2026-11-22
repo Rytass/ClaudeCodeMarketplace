@@ -1,6 +1,6 @@
 # FloatingButton
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/floating-button) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/floating-button) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/navigation-floating-button--docs
 
@@ -25,7 +25,7 @@ import type { ButtonIconType } from '@mezzanine-ui/core/button';
 | `icon`             | `IconDefinition` | —       | 按鈕圖示定義（來自 `@mezzanine-ui/icons`）                                 |
 | `iconType`         | `ButtonIconType` | —       | `'leading'`（圖示在左）/ `'trailing'`（圖示在右）/ `'icon-only'`（僅圖示）|
 | `disabled`         | `boolean`        | `false` | 是否禁用內部按鈕                                                           |
-| `disabledTooltip`  | `boolean`        | `false` | 是否禁用 `icon-only` 模式的自動 tooltip                                    |
+| `disabledTooltip`  | `boolean`        | `false` | 轉傳給內部 `MznButton.disabledTooltip`；由於元件不傳 `tooltipText`，目前沒有 tooltip 可被停用 |
 | `loading`          | `boolean`        | `false` | 是否顯示載入狀態                                                           |
 | `open`             | `boolean`        | `false` | 是否為展開狀態（搭配 `autoHideWhenOpen` 使用）                             |
 | `autoHideWhenOpen` | `boolean`        | `false` | 設為 `true` 時，`open` 為 `true` 的情況下自動隱藏按鈕                      |
@@ -111,6 +111,7 @@ export class PageComponent {
 ## Notes
 
 - 內部按鈕強制使用 `variant="base-primary"` 和 `size="main"`，不支援透過 input 覆蓋；如需其他 variant，請改用標準 `MznButton`。
-- `iconType="icon-only"` 時，hover 會在左側（`tooltipPosition="left"`）顯示 tooltip，與 React 版一致。
+- `iconType="icon-only"` 時不會投影 host 的內容，且元件未對內部 `MznButton` 傳入 `tooltipText`，因此**不會顯示 tooltip**（`tooltipPosition="left"` 雖已設定但無作用）；需要文字提示請另行處理（例如外層加 `MznTooltip`）。
+- 內部 standalone `imports`：`MznButton`、`MznIcon`；`autoHideWhenOpen` 為 `true` 且 `open` 為 `true` 時，只隱藏內部 button（加上 `--hidden` class），host 仍留在 DOM。
 - 浮動按鈕的定位（`position: fixed`、`z-index`）需由外部 CSS 控制，元件本身不預設絕對位置。
 - 不同於 React 版的 `<FloatingButton>` 直接渲染 `<button>`，Angular 版的 host element 為 `<div>`，內部才有 `<button mznButton>`。

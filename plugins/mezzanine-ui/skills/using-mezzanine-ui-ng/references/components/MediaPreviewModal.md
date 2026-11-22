@@ -2,7 +2,7 @@
 
 > ℹ️ Angular-only — no direct React equivalent.
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/media-preview-modal) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/media-preview-modal) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Full-screen media gallery modal with prev/next navigation, circular browsing, and automatic adjacent-image preloading. Supports both string URLs and `TemplateRef` items for custom content. Uses `EscapeKeyService`, `TopStackService`, and `ScrollLockService` like `MznModal`.
 
@@ -32,6 +32,7 @@ import type { MediaPreviewItem } from '@mezzanine-ui/ng/media-preview-modal';
 | `disableCloseOnBackdropClick`  | `boolean`                              | `true`   | Prevent backdrop click from closing                      |
 | `disableCloseOnEscapeKeyDown`  | `boolean`                              | `false`  | Prevent Escape key from closing                          |
 | `disablePortal`                | `boolean`                              | `false`  | Render in-place instead of via portal                    |
+| `disableScrollLock`            | `boolean`                              | `false`  | Disable body scroll locking while open; keep the lock for modal overlays since a scrollable background contradicts `aria-modal` |
 
 > `MediaPreviewItem = string | TemplateRef<unknown>`
 
@@ -42,13 +43,15 @@ import type { MediaPreviewItem } from '@mezzanine-ui/ng/media-preview-modal';
 | Output        | Type                        | Description                                        |
 | ------------- | --------------------------- | -------------------------------------------------- |
 | `closed`      | `OutputEmitterRef<void>`    | Fires when modal closes                            |
-| `next`        | `OutputEmitterRef<void>`    | Fires when forward navigation is triggered         |
-| `prev`        | `OutputEmitterRef<void>`    | Fires when backward navigation is triggered        |
-| `indexChange` | `OutputEmitterRef<number>`  | Fires with new index on navigation                 |
+| `next`        | `OutputEmitterRef<void>`    | Fires when forward navigation is triggered (only in controlled mode, i.e. `currentIndex` is set) |
+| `prev`        | `OutputEmitterRef<void>`    | Fires when backward navigation is triggered (only in controlled mode) |
+| `indexChange` | `OutputEmitterRef<number>`  | Fires with new index on navigation (only in uncontrolled mode; the component manages the index internally) |
 
 ## DI Tokens / Services Required
 
 Auto-provided at root; no manual setup needed:
+
+Imported from `@mezzanine-ui/ng/services`.
 
 | Service              | Purpose                                               |
 | -------------------- | ----------------------------------------------------- |
@@ -118,7 +121,7 @@ onIndexChange(index: number): void {
 
 ## Notes
 
-- Adjacent images (previous and next) are preloaded automatically using `new Image()` to improve perceived performance.
+- While open, the previous/current/next `string` items are preloaded immediately with `new Image()`, and all remaining `string` items are preloaded after 500 ms. `TemplateRef` items are not preloaded.
 - `disableCloseOnBackdropClick` defaults to `true` (opposite of `MznModal`) since users often click on the dark background while viewing media without intending to close.
 - `TemplateRef` items in `mediaItems` receive no implicit context — the template should be self-contained.
 - The pagination indicator (`n / total`) only appears when there are two or more items and `showPaginationIndicator=true`.

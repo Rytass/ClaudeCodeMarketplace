@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Inline Messages`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/InlineMessage) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/InlineMessage) · Verified 1.10.2 (2026-11-22)
 
 An inline message component for displaying contextual feedback messages.
 
@@ -41,6 +41,8 @@ Extends `NativeElementPropsWithoutKeyAndRef<'div'>`.
 | `onClose`   | `() => void`                        | -          | Close callback                   |
 | `severity`  | `InlineMessageSeverity`             | **Required** | Severity level                 |
 
+> `content` and `severity` are required in source (no `?`). Root element defaults to `role="status"` and `aria-live="polite"`; other native `<div>` props are spread after these defaults, so both can be overridden (e.g. `aria-live="assertive"` for failures). The component accepts a `ref` (`HTMLDivElement`).
+
 ---
 
 ## InlineMessageSeverity Type
@@ -49,7 +51,7 @@ Extends `NativeElementPropsWithoutKeyAndRef<'div'>`.
 type InlineMessageSeverity = 'info' | 'warning' | 'error';
 ```
 
-Note: InlineMessage does not support `success` type (unlike Alert).
+Note: `InlineMessageSeverity` is derived from `keyof typeof inlineMessageIcons`; these three are the only members (no other values exist). InlineMessage does not support `success` type (unlike Alert).
 
 ---
 
@@ -129,6 +131,8 @@ function FormFieldWithHint() {
 A group component that combines multiple InlineMessages together.
 
 ### InlineMessageGroup Props
+
+Extends `Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'children'>` (`children` redeclared below). Root defaults to `role="region"` and `aria-live="polite"`. The component accepts a `ref` (`HTMLDivElement`).
 
 | Property      | Type                        | Default | Description                                 |
 | ------------- | --------------------------- | ------- | ------------------------------------------- |

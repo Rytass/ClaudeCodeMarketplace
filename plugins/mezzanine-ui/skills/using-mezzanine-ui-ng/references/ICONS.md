@@ -8,7 +8,7 @@ Canonical source: ../../../using-mezzanine-ui-react/references/ICONS.md
 
 Complete icon library list, based on `@mezzanine-ui/icons` `1.x` (1.0.2).
 
-**Last verified**: 2026-04-24
+**Last verified**: 2026-11-22
 
 > Source: [GitHub](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/icons/src)
 

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Separator`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Separator) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Separator) · Verified 1.10.2 (2026-11-22)
 
 Separator component for visually dividing content sections. Supports horizontal and vertical orientations, rendering as an `<hr>` element.
 
@@ -29,7 +29,7 @@ import type { SeparatorProps } from '@mezzanine-ui/react';
 | `className`   | `string`                | -              | Additional CSS class                 |
 | `style`       | `CSSProperties`         | -              | Inline style (inherited from `<hr>`) |
 
-> In addition to the above, all native HTML attributes supported by `<hr>` can also be passed.
+> In addition to the above, all native HTML attributes supported by `<hr>` can also be passed. `className` and `style` come from the native `<hr>` props (not declared in the `SeparatorProps` body) and are real props. `aria-orientation="vertical"` is set automatically when `orientation="vertical"`. The component accepts a `ref` (`HTMLHRElement`).
 
 ---
 

@@ -1,6 +1,6 @@
 # Notifier
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/notifier) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/notifier) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Low-level notification queue manager. `MznNotifierService` is the singleton backbone used by `MznMessageService` and `MznAlertBannerService`. It manages a displayed list and a queue, enforcing `maxCount` with automatic promotion.
 
@@ -29,8 +29,8 @@ private readonly notifier = inject(MznNotifierService);
 
 | Method                                                                    | Returns                   | Description                                                    |
 | ------------------------------------------------------------------------- | ------------------------- | -------------------------------------------------------------- |
-| `add(data: Omit<NotifierData, 'key'> & { key?: string })`                 | `string`                  | Add a notification; `key` is auto-generated if omitted; returns the key used |
-| `remove(key: string)`                                                     | `void`                    | Remove by key; promotes queued item if slot opens              |
+| `add(data: Omit<NotifierData, 'key'> & { key?: string })`                 | `string`                  | Add a notification; `key` is auto-generated if omitted; returns the key used. An existing displayed `key` is updated in place |
+| `remove(key: string)`                                                     | `void`                    | Remove by key (displayed or queued); promotes queued item if slot opens |
 | `destroy()`                                                               | `void`                    | Remove all displayed and queued notifications                  |
 | `config(cfg: Partial<NotifierConfig>)`                                    | `void`                    | Partially update `duration` and/or `maxCount`                  |
 | `getConfig()`                                                             | `Readonly<NotifierConfig>`| Read the current notifier configuration                        |

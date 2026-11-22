@@ -1,6 +1,6 @@
 # Upload
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/upload) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/upload) · Verified 1.0.0-rc.26 (2026-11-22)
 
 File upload component with drag-and-drop support, file list rendering, progress tracking, and card modes. Manages `UploadFile[]` state externally — the component emits events and the parent updates the list. Provides `MznUpload` (orchestrator), `MznUploader` (dropzone), `MznUploadPictureCard` (card tile), `MznUploadItem` (list item), and `MznUploadMediaPreviewModal` (preview overlay).
 
@@ -14,9 +14,9 @@ import {
   MznUploadItem,
   MznUploadMediaPreviewModal,
   // Value helpers — re-exported from @mezzanine-ui/ng/upload/upload-utils
-  isImageFile,            // (file: File) => boolean — true when MIME type starts with 'image/'
-  resolveFileType,        // resolves a File/URL into a display-friendly file type label
-  extractFileNameFromUrl, // derives the trailing file name segment from a URL string
+  isImageFile,            // (file?: File, url?: string) => boolean — true when resolved MIME type starts with 'image/'
+  resolveFileType,        // (file?: File, url?: string) => string — file.type, else MIME inferred from URL image extension, else ''
+  extractFileNameFromUrl, // (url: string) => string — derives the trailing file name segment from a URL
 } from '@mezzanine-ui/ng/upload';
 import type {
   UploadFile,
@@ -26,28 +26,27 @@ import type {
   UploadAriaLabels,
   UploadPictureCardAriaLabels,
   UploadItemSize,
+  UploadItemStatus,
+  UploadMode,
   UploadPictureCardImageFit,
   UploadPictureCardSize,
+  UploadSize,
+  UploadType,
+  UploaderMode,
 } from '@mezzanine-ui/ng/upload';
 
-// `UploadFileActionEvent` and `UploadMaxFilesExceededEvent` are NOT
-// re-exported from the `@mezzanine-ui/ng/upload` barrel. Use output
-// type inference (recommended) or declare the shape locally:
-//
-//   interface UploadFileActionEvent { fileId: string; file: File; }
-//   interface UploadMaxFilesExceededEvent { files: File[]; maxFiles: number; }
+// `UploadFileActionEvent`, `UploadMaxFilesExceededEvent`, `UploadHandler`
+// and `UploadHandlerResult` are NOT re-exported from the
+// `@mezzanine-ui/ng/upload` barrel. Use output / input type inference
+// (recommended) or declare the shape locally (see sections below).
 import type {
-  UploadMode,
-  UploadSize,
-  UploadItemStatus,
-  UploaderMode,
-  UploadType,
+  UploadItemType, // not re-exported from the barrel
 } from '@mezzanine-ui/core/upload';
 ```
 
 ## Selector
 
-`[mznUpload]` — component applied to a container element.
+`[mznUpload]` — component applied to a container element (e.g. `<div mznUpload>`). `exportAs: 'mznUpload'`.
 
 ## MznUpload — Inputs
 
@@ -67,7 +66,7 @@ import type {
 | `errorMessage`  | `string \| undefined`                                      | —        | Global error message for upload failures                     |
 | `errorIcon`     | `IconDefinition \| undefined`                              | —        | Custom error icon                                            |
 | `showFileSize`  | `boolean`                                                  | `true`   | Show file size next to file name in list modes               |
-| `uploadHandler` | `UploadHandler \| undefined`                               | —        | Custom upload implementation (see UploadHandler type)        |
+| `uploadHandler` | `UploadHandler \| undefined`                               | —        | Custom upload implementation (see UploadHandler Shape below) |
 | `uploaderIcon`  | `UploaderIconConfig \| undefined`                          | —        | Custom uploader icon config                                  |
 | `uploaderLabel` | `UploaderLabelConfig \| undefined`                         | —        | Custom uploader label config                                 |
 | `ariaLabels`    | `UploadAriaLabels \| undefined`                            | —        | Accessibility label overrides for card actions               |
@@ -87,6 +86,8 @@ import type {
 | `reload`           | `OutputEmitterRef<UploadFileActionEvent>`   | Reload/retry icon clicked                                    |
 | `zoomIn`           | `OutputEmitterRef<UploadFileActionEvent>`   | Preview/zoom icon clicked                                    |
 | `maxFilesExceeded` | `OutputEmitterRef<UploadMaxFilesExceededEvent>` | Fires when user selects more files than `maxFiles` allows |
+
+> `delete` / `download` / `reload` / `zoomIn` 只有在該筆 `UploadFile` 帶有 `file`（原始 `File`）時才會 emit（僅有 `url` 的檔案不會觸發）。`delete` 與 `reload` 同時會先透過 `filesChange` 發出更新後的清單（`delete` 移除該筆、`reload` 將其設為 `loading`）。`zoomIn` 同時開啟內建圖片預覽。
 
 ## ControlValueAccessor
 
@@ -115,6 +116,23 @@ interface UploadFileActionEvent {
   file: File;      // the underlying File object
 }
 ```
+
+## UploadHandler Shape
+
+```ts
+type UploadHandlerResult =
+  | readonly UploadFile[]       // replace temp entries with server-assigned entries
+  | readonly { id: string }[]   // keep temp entries, assign real ids, mark 'done'
+  | void
+  | undefined;                  // mark all temp entries 'done'
+
+type UploadHandler = (
+  files: File[],
+  setProgress?: (fileIndex: number, progress: number) => void,
+) => Promise<UploadHandlerResult> | UploadHandlerResult;
+```
+
+Throw / reject → all temp entries become `status: 'error'` (message: `errorMessage` input, else `'Upload error'`).
 
 ## UploadMaxFilesExceededEvent Shape
 
@@ -203,7 +221,7 @@ Standalone dropzone/button trigger that wraps a hidden `<input type="file">`. Us
 
 ### Selector
 
-`[mznUploader]` — component applied to a `<label>` element.
+`[mznUploader]` — component applied to a `<label>` element. `exportAs: 'mznUploader'`.
 
 ### MznUploader — Inputs
 
@@ -229,6 +247,8 @@ Standalone dropzone/button trigger that wraps a hidden `<input type="file">`. Us
 | -------- | ---------------------------- | --------------------------------------------------------- |
 | `upload` | `OutputEmitterRef<File[]>`   | Fires after user selects or drops files                   |
 | `change` | `OutputEmitterRef<Event>`    | Raw native `input change` event forwarded                 |
+
+Also exposes an `inputRef` getter (`ElementRef<HTMLInputElement>`) for the native input.
 
 ### MznUploader — Public Methods
 
@@ -259,7 +279,7 @@ Card tile that displays an uploaded file with status-driven overlays (loading sp
 
 ### Selector
 
-`[mznUploadPictureCard]`
+`[mznUploadPictureCard]` — `exportAs: 'mznUploadPictureCard'`
 
 ### MznUploadPictureCard — Inputs
 
@@ -298,7 +318,7 @@ Single-file list item. Renders three states: `loading` (spinner + cancel), `done
 
 ### Selector
 
-`[mznUploadItem]`
+`[mznUploadItem]` — `exportAs: 'mznUploadItem'`
 
 ### MznUploadItem — Inputs
 
@@ -327,6 +347,7 @@ Single-file list item. Renders three states: `loading` (spinner + cancel), `done
 | `download` | `OutputEmitterRef<MouseEvent>` | Download clicked (status='done')         |
 | `reload`   | `OutputEmitterRef<MouseEvent>` | Retry clicked (status='error')           |
 | `delete`   | `OutputEmitterRef<MouseEvent>` | Delete clicked (status='done' or 'error') |
+| `remove`   | `OutputEmitterRef<MouseEvent>` | Legacy-compat output, same semantics as `delete`; prefer `delete` |
 
 ---
 
@@ -336,7 +357,7 @@ Single-image preview overlay. Used internally by `MznUpload` when the user click
 
 ### Selector
 
-`mzn-upload-media-preview-modal`
+`mzn-upload-media-preview-modal` — element selector (tag), no `exportAs`
 
 ### Inputs — MznUploadMediaPreviewModal
 
@@ -362,3 +383,5 @@ Single-image preview overlay. Used internally by `MznUpload` when the user click
 - `cards` mode with `maxFiles=1` automatically enters Replace mode (click card to swap file).
 - `upload` and `fileSelect` outputs both fire with the same `File[]`; `fileSelect` is a legacy alias.
 - `uploadHandler` is optional — when omitted, files are immediately marked `done`.
+- When `maxFiles` is reached the uploader is disabled; selecting more than the remaining quota uploads only the allowed slice and emits `maxFilesExceeded`.
+- Component standalone `imports`: `MznUpload` → `MznIcon`, `MznUploader`, `MznUploadItem`, `MznUploadPictureCard`, `MznUploadMediaPreviewModal`; no DI tokens.

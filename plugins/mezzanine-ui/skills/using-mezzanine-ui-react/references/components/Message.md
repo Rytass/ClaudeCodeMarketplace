@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Message`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Message) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Message) · Verified 1.10.2 (2026-11-22)
 
 A global message notification component for displaying operation feedback, system notifications, and other lightweight messages. Uses an imperative API.
 
@@ -62,11 +62,11 @@ Extends `Omit<NotifierData, 'onClose'>` and `MessageConfigProps` (including Tran
 | `severity`    | `MessageSeverity`   | -       | Severity level                                   |
 | `easing`      | `TranslateProps['easing']` | - | Transition easing                                |
 | `from`        | `TranslateProps['from']`   | - | Transition direction                             |
-| `onEnter`     | `() => void`        | -       | Enter transition start                           |
-| `onEntering`  | `() => void`        | -       | Enter transition in progress                     |
-| `onEntered`   | `() => void`        | -       | Enter transition complete                        |
-| `onExit`      | `() => void`        | -       | Exit transition start                            |
-| `onExiting`   | `() => void`        | -       | Exit transition in progress                      |
+| `onEnter`     | `(node: HTMLElement, isAppearing: boolean) => void` | - | Enter transition start                           |
+| `onEntering`  | `(node: HTMLElement, isAppearing: boolean) => void` | - | Enter transition in progress                     |
+| `onEntered`   | `(node: HTMLElement, isAppearing: boolean) => void` | - | Enter transition complete                        |
+| `onExit`      | `(node: HTMLElement) => void` | - | Exit transition start                            |
+| `onExiting`   | `(node: HTMLElement) => void` | - | Exit transition in progress                      |
 | `onExited`    | `(node: HTMLElement) => void` | - | Exit transition complete                     |
 
 ---
@@ -97,7 +97,7 @@ type MessageType = typeof Message;
 | `warning` | Warning     | WarningFilledIcon   |
 | `error`   | Error       | ErrorFilledIcon     |
 | `info`    | Info        | InfoFilledIcon      |
-| `loading` | Loading     | SpinnerIcon (spinning) |
+| `loading` | Loading     | `Spin` component (spinning, no icon definition) |
 
 ---
 

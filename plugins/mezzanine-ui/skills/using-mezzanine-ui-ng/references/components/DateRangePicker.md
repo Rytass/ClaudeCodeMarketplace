@@ -1,10 +1,10 @@
 # DateRangePicker
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/date-range-picker) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/date-range-picker) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-date-range-picker--docs
 
-A date range picker showing two formatted inputs (start/end) and a dual-panel calendar. First click sets the start date; second click sets the end date and auto-normalises to `[start, end]`. In `confirmMode: 'manual'`, a footer with Confirm/Cancel buttons appears. Implements `ControlValueAccessor` binding `RangePickerValue` (`[DateType, DateType]`). Requires `MZN_CALENDAR_CONFIG`.
+A date range picker showing two formatted inputs (start/end) and a dual-panel calendar. First click sets the start date; second click sets the end date and auto-normalises to `[start, end]`. In `confirmMode: 'manual'`, a footer with Confirm/Cancel buttons appears. Implements `ControlValueAccessor` binding `RangePickerValue` (`undefined[] | [DateType, DateType]`; the empty state is `[undefined, undefined]`). Requires `MZN_CALENDAR_CONFIG`.
 
 ## Import
 
@@ -16,8 +16,8 @@ import {
 import type { RangePickerValue } from '@mezzanine-ui/core/picker';
 import type { DateType, CalendarMode } from '@mezzanine-ui/core/calendar';
 
-// Required provider:
-import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
+// Required provider (see "Required Provider" below):
+import { MZN_CALENDAR_CONFIG, createCalendarConfig, CalendarLocale } from '@mezzanine-ui/ng/calendar';
 ```
 
 ## Selector
@@ -57,6 +57,9 @@ import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 | `isHalfYearDisabled`    | `(date: DateType) => boolean`       | —              | Disable half-years                                             |
 | `quickSelect`           | `{ activeId?: string, options: CalendarQuickSelectOption[] }` | — | Quick select shortcuts                |
 | `renderAnnotations`     | `(date: DateType) => CalendarDayAnnotation` | —      | Per-date annotation                                            |
+| `actions`               | `MznCalendarFooterActionsProps`     | —              | Footer action buttons (`primaryButtonProps` = confirm, `secondaryButtonProps` = cancel; each `{ children?, disabled?, onClick? }`). When provided, picking a range stages it instead of committing and closing; in `manual` mode it overrides the auto-generated Confirm/Cancel buttons, handlers included. Hoist to a class field or signal |
+| `validateFrom`          | `(isoDate: string) => boolean`      | —              | Validation for typed input in the start field; a rejected value is not committed. `isXDisabled` predicates only affect the calendar |
+| `validateTo`            | `(isoDate: string) => boolean`      | —              | Validation for typed input in the end field; a rejected value is not committed             |
 
 > Inputs declared with signal API (`input()`) accept both static and reactive values.
 
@@ -68,7 +71,7 @@ import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 
 ## ControlValueAccessor
 
-`MznDateRangePicker` implements `ControlValueAccessor` binding `RangePickerValue` (`[DateType | undefined, DateType | undefined]`).
+`MznDateRangePicker` implements `ControlValueAccessor` binding `RangePickerValue` (`undefined[] | [DateType, DateType]`).
 
 ```html
 <!-- formControlName -->
@@ -97,14 +100,22 @@ import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 
 ```ts
 // app.config.ts
-import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
+import { MZN_CALENDAR_CONFIG, createCalendarConfig, CalendarLocale } from '@mezzanine-ui/ng/calendar';
+import CalendarMethodsDayjs from '@mezzanine-ui/core/calendarMethodsDayjs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    MznCalendarConfigProvider({ firstDayOfWeek: 1, locale: 'zh-TW' }),
+    {
+      provide: MZN_CALENDAR_CONFIG,
+      useValue: createCalendarConfig(CalendarMethodsDayjs, {
+        locale: CalendarLocale.ZH_TW,
+      }),
+    },
   ],
 };
 ```
+
+(`MznCalendarConfigProvider` is an attribute directive `[mznCalendarConfigProvider]`, not a provider function; see `Calendar.md`.)
 
 ## Usage
 
@@ -189,6 +200,7 @@ Standalone range-calendar popper that wraps `MznRangeCalendar` inside `MznPopper
 | `quickSelect`          | `{ activeId?: string; options: ReadonlyArray<CalendarQuickSelectOption> } \| undefined` | — | Quick-select shortcut configuration              |
 | `renderAnnotations`    | `((date: DateType) => CalendarDayAnnotation) \| undefined`        | —                   | Per-date annotation render function                      |
 | `showFooterActions`    | `boolean`                                                         | `false`             | Show footer Cancel/Ok buttons                            |
+| `actions`              | `MznCalendarFooterActionsProps \| undefined`                      | `undefined`         | Footer action buttons bundle; footer renders when this or `showFooterActions` is set |
 
 #### Outputs — MznDateRangePickerCalendar
 
@@ -204,7 +216,9 @@ The component also exposes a public method `resetPickingState()` that forwards t
 
 ## Notes
 
-- `RangePickerValue` is `[DateType | undefined, DateType | undefined]`. Initialise `FormControl` with `[undefined, undefined]` when no default range is needed.
+- `RangePickerValue` is `undefined[] | [DateType, DateType]`. Initialise `FormControl` with `[undefined, undefined]` when no default range is needed.
 - In `confirmMode: 'immediate'`, the calendar closes automatically after the second date is picked. In `manual` mode, the footer appears and the range is committed only on Confirm.
 - The component internally tracks `committedValue` (confirmed range) and `pendingSelection` (in-progress range). The trigger displays the pending selection state during picking.
+- `MznDateRangePicker` does not implement `setDisabledState`；`formControl.disable()` 不會讓元件進入 disabled，請另外綁定 `[disabled]`。
+- 點擊元件外部（`ClickAwayService`）時會執行 cancel：清除 staged 選取並關閉面板（同時觸發 `onTouched`）。
 - See `DatePicker.md` for the single-date variant and `MznCalendarConfigProvider` setup details.

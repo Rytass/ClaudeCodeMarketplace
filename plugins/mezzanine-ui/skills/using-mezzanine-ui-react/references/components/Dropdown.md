@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Internal/Dropdown`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Dropdown) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Dropdown) · Verified 1.10.2 (2026-11-22)
 
 A low-level dropdown component for displaying option lists. Typically used as the internal implementation of higher-level components like Select and AutoComplete, but can also be used independently with Button or Input. Supports flat list, grouped, and tree structures, with built-in scrolling, loading states, keyboard shortcuts, and action buttons.
 
@@ -49,7 +49,7 @@ import type { DropdownLoadingPosition } from '@mezzanine-ui/core/dropdown';
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/internal-dropdown--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
-> **Note**: The `scrollbar*` props in Dropdown are for internal dropdown scrolling configuration, backed internally by the `Scrollbar` component. `Scrollbar` still exists in the source tree in 1.4.1 but is **not exported** from the `@mezzanine-ui/react` package entrypoint — do not import or use it directly; configure scrolling exclusively through the `scrollbar*` props documented here.
+> **Note**: The `scrollbar*` props in Dropdown are for internal dropdown scrolling configuration, backed internally by the `Scrollbar` component. `Scrollbar` still exists in the source tree but is **not exported** from the `@mezzanine-ui/react` package entrypoint — do not import or use it directly; configure scrolling exclusively through the `scrollbar*` props documented here.
 
 ---
 
@@ -59,14 +59,14 @@ import type { DropdownLoadingPosition } from '@mezzanine-ui/core/dropdown';
 
 Main container component, responsible for trigger element, popup positioning (Popper), toggle logic, and option rendering. Internally uses `Translate` transition and `Popper` positioning.
 
-Extends `DropdownItemSharedProps`.
+Extends `DropdownItemSharedProps` (`disabled`, `mode`, `onSelect`, `type`, `value`, all optional). `children` and `options` are the only required props; `mode` is optional (effective value `'single'`, applied by `DropdownItem`).
 
 | Property                  | Type                                                                       | Default     | Description                                                                     |
 | ------------------------- | -------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------- |
 | `children`                | `ReactElement<ButtonProps> \| ReactElement<InputProps>`                    | **required** | Trigger element (Button or Input)                                               |
 | `options`                 | `DropdownOption[]`                                                         | **required** | Option list (structure varies by `type`)                                        |
 | `type`                    | `DropdownType`                                                             | `'default'` | Dropdown type: `'default'` (flat) / `'grouped'` / `'tree'`                     |
-| `mode`                    | `DropdownMode`                                                             | `'single'`  | Selection mode: `'single'` / `'multiple'`                                       |
+| `mode`                    | `DropdownMode`                                                             | `'single'` (effective, applied by `DropdownItem`) | Selection mode: `'single'` / `'multiple'`; optional                              |
 | `value`                   | `string \| string[]`                                                      | -           | Selected value(s)                                                               |
 | `disabled`                | `boolean`                                                                  | `false`     | Whether disabled                                                                |
 | `open`                    | `boolean`                                                                  | -           | Controlled open state                                                           |
@@ -76,14 +76,14 @@ Extends `DropdownItemSharedProps`.
 | `inputPosition`           | `DropdownInputPosition`                                                    | `'outside'` | Input position mode: `'outside'` (popup) / `'inside'` (inline)                 |
 | `isMatchInputValue`       | `boolean`                                                                  | `false`     | Whether to match input value and highlight option text                          |
 | `followText`              | `string`                                                                   | -           | Custom highlight match text (takes priority over auto-extraction from children) |
-| `placement`               | `PopperPlacement`                                                          | `'bottom-start'` | Popup placement (aligns with trigger left edge)                                  |
+| `placement`               | `PopperPlacement`                                                          | `'bottom-start'` | Popup placement (aligns with trigger left edge); only applied when `inputPosition='outside'` (inside mode always uses `'bottom'`) |
 | `customWidth`             | `number \| string`                                                        | -           | Custom dropdown width (takes priority over `sameWidth`)                         |
 | `sameWidth`               | `boolean`                                                                  | `false`     | Whether to match trigger element width                                          |
 | `flip`                    | `boolean`                                                                  | `false`     | Enable floating-ui `flip` middleware; flips to the opposite side (main-axis only) when the dropdown would overflow the viewport |
-| `shift`                   | `boolean`                                                                  | `false`     | **New in 1.5.0.** Enable floating-ui `shift` middleware; slides the dropdown along the cross axis to stay inside the viewport instead of being clipped (used internally by `Table`'s row-action menu, which sits in the last column near the viewport edge) |
+| `shift`                   | `boolean`                                                                  | `true`      | Defaults to `true`. Enable floating-ui `shift` middleware (pass `shift={false}` to disable); slides the dropdown along the cross axis to stay inside the viewport instead of being clipped (used internally by `Table`'s row-action menu, which sits in the last column near the viewport edge) |
 | `maxHeight`               | `number \| string`                                                        | -           | Max height of dropdown list (enables scrolling when set)                        |
 | `minWidth`                | `number \| string`                                                        | spacing token `size-container-tiny` | Override the default min-width; pass `0` to remove constraint |
-| `zIndex`                  | `number \| string`                                                        | `-`         | z-index                                                                         |
+| `zIndex`                  | `number \| string`                                                        | -           | z-index                                                                         |
 | `globalPortal`            | `boolean`                                                                  | `true`      | Whether to use Portal (only effective when `inputPosition='outside'`)           |
 | `listboxId`               | `string`                                                                   | -           | Listbox DOM id (for ARIA)                                                       |
 | `listboxLabel`            | `string`                                                                   | -           | Listbox aria-label                                                              |
@@ -153,22 +153,22 @@ Extends `Omit<DropdownItemSharedProps, 'type'>`.
 | Property           | Type                       | Default   | Description                                                         |
 | ------------------ | -------------------------- | --------- | ------------------------------------------------------------------- |
 | `actionConfig`     | `DropdownActionProps`      | -         | Action button configuration                                         |
-| `activeIndex`      | `number \| null`          | -         | Currently highlighted option index                                  |
+| `activeIndex`      | `number \| null`          | **required** | Currently highlighted option index                               |
 | `keyboardActiveIndex` | `number \| null`        | -         | Keyboard-only active index (falls back to `activeIndex`)            |
-| `disabled`         | `boolean`                  | -         | Whether disabled (from `DropdownItemSharedProps`)                   |
+| `disabled`         | `boolean`                  | `false`   | Whether disabled (from `DropdownItemSharedProps`)                   |
 | `expandedNodes`    | `Set<string>`              | -         | Controlled set of expanded node IDs (tree type)                     |
 | `onToggleExpand`   | `(id: string) => void`     | -         | Toggle expansion of a tree node (required when `expandedNodes` is set) |
 | `followText`       | `string`                   | -         | Highlight match text                                                |
 | `headerContent`    | `ReactNode`                | -         | Custom content at the top of the list (e.g., inline mode trigger)   |
-| `listboxId`        | `string`                   | -         | Listbox DOM id                                                      |
+| `listboxId`        | `string`                   | **required** | Listbox DOM id                                                   |
 | `listboxLabel`     | `string`                   | -         | Listbox aria-label                                                  |
 | `maxHeight`        | `number \| string`        | -         | List max height                                                     |
 | `minWidth`         | `number \| string`        | spacing token `size-container-tiny` | Override the default min-width; pass `0` to remove constraint |
-| `mode`             | `DropdownMode`             | -         | Selection mode (from `DropdownItemSharedProps`)                     |
+| `mode`             | `DropdownMode`             | `'single'` | Selection mode (from `DropdownItemSharedProps`)                    |
 | `sameWidth`        | `boolean`                  | `false`   | Whether to match trigger element width                              |
 | `onHover`          | `(index: number) => void` | -         | Option hover callback                                               |
 | `onSelect`         | `(option: DropdownOption) => void` | -  | Selection callback (from `DropdownItemSharedProps`)                 |
-| `options`          | `DropdownOptionsByType<T>` | -         | Option list (type depends on `type`)                                |
+| `options`          | `DropdownOptionsByType<T>` | **required** | Option list (type depends on `type`); `DropdownItem` is generic: `DropdownItemProps<T extends DropdownType \| undefined = DropdownType>` |
 | `toggleCheckedOnClick` | `boolean`               | -         | Whether clicking an option row toggles checked state in multiple mode |
 | `type`             | `DropdownType`             | -         | Dropdown type                                                       |
 | `value`            | `string \| string[]`       | -         | Selected value(s) (from `DropdownItemSharedProps`)                  |
@@ -198,7 +198,7 @@ Single option card render component, responsible for displaying label, icon, che
 | `defaultChecked`  | `boolean`                 | `false`     | Uncontrolled default checked state                   |
 | `indeterminate`   | `boolean`                 | `false`     | Indeterminate state (for tree mode partial selection) |
 | `disabled`        | `boolean`                 | -           | Whether disabled                                     |
-| `mode`            | `DropdownMode`            | -           | Selection mode (`'single'` / `'multiple'`)           |
+| `mode`            | `DropdownMode`            | **required** | Selection mode (`'single'` / `'multiple'`)          |
 | `label`           | `string`                  | -           | Display label                                        |
 | `name`            | `string`                  | -           | Accessible name (falls back to `label`)              |
 | `subTitle`        | `string`                  | -           | Subtitle                                             |
@@ -225,7 +225,7 @@ Loading and empty state display component.
 
 | Property      | Type                 | Default                  | Description                     |
 | ------------- | -------------------- | ------------------------ | ------------------------------- |
-| `status`      | `DropdownStatusType` | -                        | Status: `'loading'` / `'empty'` |
+| `status`      | `DropdownStatusType` | **required**             | Status: `'loading'` / `'empty'` |
 | `loadingText` | `string`             | `'Loading...'`           | Loading text                    |
 | `emptyText`   | `string`             | `'No matching options.'` | Empty state text                |
 | `emptyIcon`   | `IconDefinition`     | `FolderOpenIcon`         | Empty state icon                |
@@ -384,7 +384,7 @@ function GroupedDropdown() {
 ```tsx
 import { useState } from 'react';
 import { Dropdown, Button } from '@mezzanine-ui/react';
-import type { DropdownOptionTree } from '@mezzanine-ui/react';
+import type { DropdownOption, DropdownOptionTree } from '@mezzanine-ui/react';
 
 const treeOptions: DropdownOptionTree[] = [
   {
@@ -410,7 +410,7 @@ const treeOptions: DropdownOptionTree[] = [
 function TreeDropdown() {
   const [selected, setSelected] = useState<string[]>([]);
 
-  const handleSelect = (option: DropdownOptionTree) => {
+  const handleSelect = (option: DropdownOption) => {
     setSelected((prev) =>
       prev.includes(option.id)
         ? prev.filter((id) => id !== option.id)
@@ -531,7 +531,7 @@ function FlippingDropdown() {
 }
 ```
 
-> `flip` flips the dropdown to the opposite side along the main axis (e.g. `bottom-start` → `top-start`) when it would overflow the viewport. It is main-axis only (no `shift`/`crossAxis`), so a `sameWidth` menu stays horizontally aligned with its anchor. Off by default to preserve existing placement behavior.
+> `flip` flips the dropdown to the opposite side along the main axis (e.g. `bottom-start` → `top-start`) when it would overflow the viewport. The `flip` middleware itself is main-axis only (no `crossAxis`); cross-axis sliding is handled separately by `shift`, which is on by default. `flip` is off by default to preserve existing placement behavior.
 
 ### Viewport-aware Shift
 
@@ -552,14 +552,14 @@ function ShiftingDropdown() {
 }
 ```
 
-> `shift` (1.5.0+) slides the dropdown along the cross axis so it stays inside the viewport instead of being clipped — `flip` only swaps sides on the main axis, so an anchor near a viewport edge (e.g. a row action in a table's last column) can still lose part of its menu without `shift`. When both `flip` and `shift` are enabled, they are ordered per the floating-ui guidance (`flip` before `shift` for `-start`/`-end` placements, reversed otherwise) — the same ordering `Tooltip` follows. Off by default to preserve existing placement behavior.
+> `shift` (**enabled by default**) slides the dropdown along the cross axis so it stays inside the viewport instead of being clipped — `flip` only swaps sides on the main axis, so an anchor near a viewport edge (e.g. a row action in a table's last column) can still lose part of its menu without `shift`. When both `flip` and `shift` are enabled, they are ordered per the floating-ui guidance (`flip` before `shift` for `-start`/`-end` placements, reversed otherwise) — the same ordering `Tooltip` follows. Unlike `flip` (default `false`), `shift` defaults to `true`; pass `shift={false}` to opt out.
 
 ---
 
 ## Behavior Notes
 
 - **Empty status with `loadingPosition='bottom'`**: When `loadingPosition='bottom'` is set and `status='empty'`, the empty status always renders as full-area regardless of `loadingPosition`, ensuring it is visible.
-- **`shift` middleware (1.5.0+)**: see [Viewport-aware Shift](#viewport-aware-shift) above. `Table`'s dropdown-type row actions enable `shift` internally for exactly this reason — see `Table.md`'s Behavior Notes.
+- **`shift` middleware**: see [Viewport-aware Shift](#viewport-aware-shift) above. `Table`'s dropdown-type row actions enable `shift` internally for exactly this reason — see `Table.md`'s Behavior Notes.
 
 ---
 
@@ -630,12 +630,12 @@ function ShiftingDropdown() {
    // ❌ 錯誤：超過3層會被截斷
    const deepTreeOptions = [
      {
-       value: '1',
-       content: 'Level 1',
+       id: '1',
+       name: 'Level 1',
        children: [
-         { value: '1-1', content: 'Level 2', children: [
-           { value: '1-1-1', content: 'Level 3', children: [
-             { value: '1-1-1-1', content: 'Level 4 (被截斷)' }
+         { id: '1-1', name: 'Level 2', children: [
+           { id: '1-1-1', name: 'Level 3', children: [
+             { id: '1-1-1-1', name: 'Level 4 (被截斷)' }
            ]}
          ]}
        ]
@@ -643,7 +643,7 @@ function ShiftingDropdown() {
    ];
 
    // ✅ 正確：保持在3層以內
-   const properTreeOptions = [{ value: '1', content: 'Level 1', ... }];
+   const properTreeOptions = [{ id: '1', name: 'Level 1', ... }];
    ```
 
 5. **混淆受控與非受控模式**
@@ -658,7 +658,7 @@ function ShiftingDropdown() {
      open={open}
      onVisibilityChange={setOpen}
      value={value}
-     onSelect={(option) => setValue(option.value)}
+     onSelect={(option) => setValue(option.id)}
      options={options}
    />
    ```

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Skeleton`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Skeleton) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Skeleton) · Verified 1.10.2 (2026-11-22)
 
 Skeleton screen component for providing placeholder effects while content is loading.
 
@@ -29,9 +29,9 @@ import type { SkeletonProps } from '@mezzanine-ui/react';
 | Property  | Type                     | Default | Description                          |
 | --------- | ------------------------ | ------- | ------------------------------------ |
 | `circle`  | `boolean`                | -       | Whether circular                     |
-| `height`  | `number \| string`       | `100%`  | Height                               |
+| `height`  | `number \| string`       | -       | Height                               |
 | `variant` | `TypographySemanticType` | -       | Typography type (auto-calculates height) |
-| `width`   | `number \| string`       | `100%`  | Width                                |
+| `width`   | `number \| string`       | -       | Width                                |
 
 ---
 

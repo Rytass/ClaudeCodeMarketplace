@@ -2,7 +2,7 @@
 
 Foundation visual variable definitions for the design system. Mezzanine-UI uses a **Primitives + Semantic** two-layer architecture.
 
-> Baseline: `@mezzanine-ui/react` `1.5.1` · `@mezzanine-ui/core` `1.2.1` · `@mezzanine-ui/system` / `@mezzanine-ui/icons` `1.0.2`. Last verified: 2026-09-12.
+> Baseline: `@mezzanine-ui/react` `1.10.2` · `@mezzanine-ui/core` ≥ `1.3.3` · `@mezzanine-ui/system` / `@mezzanine-ui/icons` ≥ `1.0.2`. Last verified: 2026-11-22.
 >
 > Source: [GitHub](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/system/src)
 
@@ -174,11 +174,11 @@ Defined by usage context, automatically mapped to light/dark modes.
 | Context      | Purpose                                                                               |
 | ------------ | ------------------------------------------------------------------------------------- |
 | `layer`      | Layer backgrounds (01, 02, 03)                                                        |
-| `background` | Background colors (33 tones)                                                          |
+| `background` | Background colors (35 tones: 33 in TS `BackgroundTone` + 2 SCSS-only)                 |
 | `text`       | Text colors (17 tones)                                                                |
 | `icon`       | Icon colors (19 tones)                                                                |
-| `border`     | Border colors (11 tones)                                                              |
-| `separator`  | Separator colors (4 tones)                                                            |
+| `border`     | Border colors (14 tones: 11 in TS `BorderTone` + 3 SCSS-only)                         |
+| `separator`  | Separator colors (5 tones: 4 in TS `SeparatorTone` + 1 SCSS-only)                     |
 | `scrollbar`  | Scrollbar colors (SCSS-only, 3 tones: `neutral-light`, `neutral`, `strong`)           |
 | `overlay`    | Overlay colors (3 tones)                                                              |
 | `surface`    | Surface colors (4 tones)                                                              |
@@ -221,6 +221,8 @@ Defined by usage context, automatically mapped to light/dark modes.
 | `info-ghost`         | Info ghost              |
 | `info-faint`         | Info faint              |
 | `info`               | Info background         |
+| `fixed-solid`        | Fixed solid background (SCSS-only, not in TS `BackgroundTone`; gray-800 in both modes) |
+| `neutral-light`      | Neutral light background (SCSS-only, not in TS `BackgroundTone`) |
 
 ### Text Tones
 
@@ -283,6 +285,13 @@ Defined by usage context, automatically mapped to light/dark modes.
 | `error`              | Error border                |
 | `warning-subtle`     | Warning subtle border       |
 | `warning`            | Warning border              |
+| `ghost`              | Ghost border (SCSS-only, not in TS `BorderTone`; transparent) |
+| `invisible`          | Invisible border (SCSS-only, not in TS `BorderTone`; transparent in light mode, gray-700 in dark) |
+| `neutral-ghost`      | Neutral ghost border (SCSS-only, not in TS `BorderTone`) |
+
+### Separator Tones
+
+TS `SeparatorTone` has 4 tones (`neutral-faint`, `neutral-light`, `neutral`, `brand`); SCSS additionally defines `ghost` (transparent), for 5 CSS variables in total.
 
 ### CSS Variable Format
 
@@ -368,7 +377,9 @@ v2 uses a semantic spacing system supporting default/compact densities.
 | `relaxed`     | 32px    | 28px    |
 | `loose`       | 40px    | 36px    |
 
-#### TypeScript `GapTone` Type (15 kinds)
+#### TypeScript `GapTone` Type (15 kinds) — legacy names, no matching CSS variables
+
+> ⚠️ 下列 `GapTone` 舊名（如 `comfortable`、`micro`、`compact`、`airy`）**沒有對應的 CSS 變數**；實際可用的 `--mzn-spacing-gap-*` 以上方 SCSS 12 種為準（`none`、`tiny`、`tight`、`tight-fixed`、`slim`、`base`、`calm`、`comfort`、`roomy`、`spacious`、`relaxed`、`loose`）。`gap-comfortable` 不存在，請用 `gap-comfort`。
 
 `'none' | 'micro' | 'tiny' | 'tight' | 'compact' | 'base' | 'base-fixed' | 'comfortable' | 'roomy' | 'spacious' | 'relaxed' | 'airy' | 'generous' | 'breath' | 'wide'`
 

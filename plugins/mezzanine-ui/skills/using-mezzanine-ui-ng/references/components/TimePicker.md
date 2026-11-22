@@ -1,6 +1,6 @@
 # TimePicker
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/time-picker) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/time-picker) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-time-picker--docs
 
@@ -12,13 +12,13 @@ A time picker with a formatted input field that opens a scrollable `MznTimePicke
 import { MznTimePicker, MznTimePickerPanel } from '@mezzanine-ui/ng/time-picker';
 import type { DateType } from '@mezzanine-ui/core/calendar';
 
-// Required provider:
-import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
+// Required config (ApplicationConfig provider, or ancestor [mznCalendarConfigProvider] directive):
+import { MZN_CALENDAR_CONFIG, createCalendarConfig, MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 ```
 
 ## Selector
 
-`<div mznTimePicker ...>` — attribute-directive component
+`[mznTimePicker]` — attribute-directive component（如 `<div mznTimePicker ...>`）；`MznTimePickerPanel` 的 selector 為 `[mznTimePickerPanel]`
 
 ## Inputs
 
@@ -71,7 +71,7 @@ import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 </div>
 ```
 
-`writeValue(DateType | undefined)` stores the value in `internalValue`. `null`/`undefined` clears the selection. CVA's `onChange` fires on two paths: panel Confirm click and direct keyboard-typed input (when the full typed value parses successfully).
+`writeValue(DateType | undefined)` stores the value in `internalValue`. `null`/`undefined` clears the selection. CVA's `onChange` fires on three paths: panel Ok click, direct keyboard-typed input (when the full typed value parses successfully and passes the hour/minute/second step check), and the clear button (`undefined`).
 
 ## Two-Phase Commit
 
@@ -80,7 +80,7 @@ The component maintains an `internalValue` / `pendingValue` signal pair:
 - **`pendingValue`** — live value while the panel is open; initialised to `internalValue` (or current time if unset) on panel open
 - **`internalValue`** — the last confirmed value; drives the input display and CVA
 - Clicking **Ok** → `pendingValue` is committed to `internalValue`, `onChange` fires, panel closes
-- Clicking **Cancel** or pressing **Escape** → `pendingValue` is discarded, panel closes
+- Clicking **Cancel**, pressing **Escape**, or clicking outside → `pendingValue` is discarded, panel closes
 - Pressing **Enter** while the panel is open confirms the pending value
 
 Typed input bypasses the panel and commits directly via `onTriggerValueChange`.
@@ -89,11 +89,16 @@ Typed input bypasses the panel and commits directly via `onTriggerValueChange`.
 
 ```ts
 // app.config.ts
-import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
+import { ApplicationConfig } from '@angular/core';
+import { MZN_CALENDAR_CONFIG, createCalendarConfig, CalendarLocale } from '@mezzanine-ui/ng/calendar';
+import CalendarMethodsDayjs from '@mezzanine-ui/core/calendarMethodsDayjs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    MznCalendarConfigProvider({ firstDayOfWeek: 1, locale: 'zh-TW' }),
+    {
+      provide: MZN_CALENDAR_CONFIG,
+      useValue: createCalendarConfig(CalendarMethodsDayjs, { locale: CalendarLocale.ZH_TW }),
+    },
   ],
 };
 ```
@@ -180,7 +185,7 @@ The floating time-picker panel. Wraps `MznTimePanel` inside `MznPopper`. Normall
 </div>
 ```
 
-> Panel close is Popper-driven (`MznPopper` with `[open]` binding). `ClickAwayService` is **not** injected by `MznTimePickerPanel` or `MznTimePicker`.
+> Panel close is Popper-driven (`MznPopper` with `[open]` binding). `MznTimePicker` injects `ClickAwayService` (registered in `ngAfterViewInit`): a click outside while the panel is open discards `pendingValue` (same as Cancel) and calls `onTouched()`. `MznTimePickerPanel` does not inject it. `MznTimePicker` also injects `MZN_CALENDAR_CONFIG`; `DestroyRef` / `ElementRef` are Angular platform primitives.
 
 ## Notes
 
@@ -189,4 +194,6 @@ The floating time-picker panel. Wraps `MznTimePanel` inside `MznPopper`. Normall
 - Typed input is handled by `MznPickerTrigger`'s character-by-character mask using `resolvedFormat`. A complete, valid typed value commits immediately without requiring the panel Ok button.
 - Pressing **Enter** in the trigger field triggers `onConfirm()` even when the panel is not open — it commits whatever value is in `pendingValue` (which may be `undefined` if no panel was opened).
 - `(panelToggled)` is useful for coordinating layout changes (e.g. adjusting a sibling element's height) when the panel opens or closes — separate from `(timeChanged)`.
-- Requires `MZN_CALENDAR_CONFIG`. See `DatePicker.md` for `MznCalendarConfigProvider` setup details.
+- Component standalone `imports`: `MznIcon`, `MznPickerTrigger`, `MznTimePickerPanel`（面板另引入 `MznPopper`、`MznTimePanel`）；消費端只需 import `MznTimePicker`。
+- Typed input 會以 `validate` 檢查 `hourStep`/`minuteStep`/`secondStep`，不在步長上的時間不會被接受。
+- Requires `MZN_CALENDAR_CONFIG`. See `DatePicker.md` for `MZN_CALENDAR_CONFIG` setup details (`MznCalendarConfigProvider` is an attribute directive `[mznCalendarConfigProvider]`, not a provider function).

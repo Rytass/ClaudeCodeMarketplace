@@ -4,11 +4,9 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/data-entry-autocomplete--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/AutoComplete) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/AutoComplete) · Verified 1.10.2 (2026-11-22)
 >
-> ⚠️ **1.4.2 行為變更**：選項比對的預設從**大小寫敏感改為不敏感**。先前的比對 RegExp 漏了 `i` flag，
-> 輸入 `vir` 找不到 `Virginia`；1.4.2 修正後預設不分大小寫，並新增 `caseSensitive` prop 供退回舊行為。
-> 若你的專案倚賴舊的大小寫敏感行為，升級後需明確傳 `caseSensitive`。
+> ⚠️ **大小寫比對**：選項比對預設**不分大小寫**（輸入 `vir` 可找到 `Virginia`），可傳 `caseSensitive` 改為大小寫敏感。
 > 同時 `addable` 模式的重複檢查也改為尊重這個 flag（`isSameOptionName()`），
 > 避免對清單上已存在、只差大小寫的選項再次提供「建立」動作。
 
@@ -43,7 +41,7 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | ---------------------------- | ------------------------------------------------------ | ---------------------- | ---------------------------------------- |
 | `addable`                    | `boolean`                                              | `false`                | Whether options can be dynamically added |
 | `asyncData`                  | `boolean`                                              | `false`                | Whether data is async                    |
-| `caseSensitive`              | `boolean`                                              | `false`                | **New in 1.4.2.** Whether option matching respects letter casing. When `false` (default), typing `colorado` matches an option named `Colorado`. Applies to both option filtering and the `addable` duplicate check. |
+| `caseSensitive`              | `boolean`                                              | `false`                | Whether option matching respects letter casing. When `false` (default), typing `colorado` matches an option named `Colorado`. Applies to both option filtering and the `addable` duplicate check. |
 | `clearSearchText`            | `boolean`                                              | `true`                 | Whether to clear search text on blur. When false, typed text persists after blur. In single mode, a clearable icon appears if user typed without selecting. |
 | `createSeparators`           | `string[]`                                             | `[',', '+', '\n']`     | Separator characters for creating options |
 | `createActionText`           | `(text: string) => string`                             | -                      | Custom create button text function       |
@@ -70,14 +68,15 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `open`                       | `boolean`                                              | -                      | Controlled dropdown open state           |
 | `options`                    | `SelectValue[]`                                        | **required**           | Options list                             |
 | `placeholder`                | `string`                                               | `''`                   | Placeholder text                         |
-| `popperOptions`              | `PopperProps['options']`                               | -                      | Popper options                           |
+| `popperOptions`              | `PopperProps['options']`                               | -                      | Declared in the type (renamed from `PopperProps['options']`) but **not read by the implementation** in 1.10.2; has no effect |
+| `readOnly`                   | `boolean`                                              | `false`                | Read-only: value stays visible and focusable, but the dropdown never opens and typing, selecting, clearing, tag removal and creation are blocked |
 | `required`                   | `boolean`                                              | `false`                | Whether required                         |
 | `searchDebounceTime`         | `number`                                               | `300`                  | Search debounce time (ms)                |
 | `searchTextControlRef`       | `RefObject<{ reset: () => void; setSearchText: Dispatch<SetStateAction<string>> } \| undefined>` | - | Ref for external search text control |
 | `stepByStepBulkCreate`       | `boolean`                                              | `false`                | Process bulk pasted text item-by-item vs all at once |
 | `trimOnCreate`               | `boolean`                                              | `true`                 | Whether to trim whitespace on create     |
 
-> Also inherits `SelectTriggerProps` (excluding `active`, `clearable`, `forceHideSuffixActionIcon`, `fullWidth`, `mode`, `onClick`, `onKeyDown`, `onChange`, `renderValue`, `inputProps`, `suffixActionIcon`, `value`), including `className`, `disabled`, `error`, `inputRef`, `onClear`, `prefix`, `size`, etc. Note: `fullWidth` is excluded — the component always renders full width internally.
+> Also extends `Omit<SelectTriggerProps, 'active' | 'clearable' | 'forceHideSuffixActionIcon' | 'fullWidth' | 'mode' | 'onClick' | 'onKeyDown' | 'onChange' | 'renderValue' | 'inputProps' | 'suffixActionIcon' | 'value'>`, so these inherited props are valid and consumed: `className`, `disabled` (default: FormControl `disabled` or `false`), `error` (default: `severity === 'error'` or `false`), `inputRef`, `onClear`, `prefix`, `size`, `overflowStrategy` (multiple mode). `required` default also falls back to FormControl. Note: `clearable` and `fullWidth` are omitted — `clearable` is managed internally and the component always renders full width. Other inherited keys (e.g. `isForceClearable`, `searchText`, `showTextInputAfterTags`, `warning`) are accepted by the type but not consumed.
 
 ---
 
@@ -89,7 +88,7 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `value`        | `SelectValue \| null`                   | -          | Selected value       |
 | `defaultValue` | `SelectValue`                           | -          | Default value        |
 | `onChange`      | `(newOptions: SelectValue) => void`     | -          | Change event         |
-| `selector`     | `AutoCompleteSelector`                  | `'input'`  | Input selector type  |
+| `selector`     | `AutoCompleteSelector`                  | -          | Declared in the type but not read by the implementation; has no effect |
 
 ---
 
@@ -101,8 +100,8 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 | `value`             | `SelectValue[]`                       | -           | Selected values array |
 | `defaultValue`      | `SelectValue[]`                       | -           | Default values array |
 | `onChange`           | `(newOptions: SelectValue[]) => void` | -           | Change callback; committed only on Enter/click or dropdown click, not on typing          |
-| `overflowStrategy`  | `'counter' \| 'wrap'`                | `'counter'` | Tag overflow strategy; shows "+N" with 'counter', displays all with 'wrap' |
-| `selector`          | `AutoCompleteSelector`                | `'input'`   | Input selector type  |
+| `overflowStrategy`  | `'counter' \| 'wrap'`                | `'wrap'`    | Tag overflow strategy; shows "+N" with 'counter', displays all with 'wrap'. The implementation falls back to `'wrap'` in multiple mode (the JSDoc says `'counter'`, the code does not) |
+| `selector`          | `AutoCompleteSelector`                | -           | Declared in the type but not read by the implementation; has no effect |
 
 ---
 
@@ -112,6 +111,7 @@ type AutoCompleteProps = AutoCompleteSingleProps | AutoCompleteMultipleProps;
 
 ```tsx
 import { AutoComplete } from '@mezzanine-ui/react';
+import type { SelectValue } from '@mezzanine-ui/react';
 import { useState } from 'react';
 
 const options = [
@@ -345,7 +345,7 @@ type AutoCompleteSelector = 'input' | 'selection';
 | 使用情境 | 推薦用法 | 原因 |
 | ------- | ------- | ---- |
 | 單一選項，小選項列表 | `mode="single"` + `options={smallList}` | 簡化 UI，快速選擇 |
-| 多重選項，少量標籤 | `mode="multiple" overflowStrategy="wrap"` | 展示所有選項，清晰可見 |
+| 多重選項，少量標籤 | `mode="multiple"`（預設 wrap） | 展示所有選項，清晰可見 |
 | 多重選項，大量標籤 | `mode="multiple" overflowStrategy="counter"` | 節省空間，顯示 "+N" |
 | 動態建立選項 | `addable onInsert={handleInsert}` | 允許使用者新增自訂選項 |
 | 大型資料集搜尋 | `asyncData onSearch={handleAsync}` | 非同步載入，避免前端卡頓 |
@@ -452,5 +452,5 @@ const handleSearch = async (input) => {
 1. **選項提交時機**：選項僅在按下 Enter 或點擊時提交，不再在搜尋或輸入時自動提交
 2. **內建文字預設值**：`emptyText` 和 `loadingText` 已有內建中文預設值（'沒有符合的項目'、'載入中...'），毋需額外設定
 3. **loadingPosition 預設值**：預設為 'bottom'
-4. **overflowStrategy 預設值**：多重模式預設為 'counter'（顯示 "+N"），若需顯示所有標籤改為 'wrap'
-5. **新增 onRemoveCreated**：允許在模糊時自動清理未選中的已建立項目
+4. **overflowStrategy 預設值**：多重模式實際預設為 'wrap'（顯示所有標籤），若需 "+N" 收合請明確傳 'counter'
+5. **onRemoveCreated**：允許在模糊時自動清理未選中的已建立項目

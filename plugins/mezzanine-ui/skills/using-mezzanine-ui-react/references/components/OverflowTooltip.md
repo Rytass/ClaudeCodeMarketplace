@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/OverflowTooltip`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/OverflowTooltip)  · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/OverflowTooltip)  · Verified 1.10.2 (2026-11-22)
 
 Overflow tag tooltip component for displaying truncated tag lists. Typically used with Select in multi-select mode.
 
@@ -37,7 +37,7 @@ Extends `NativeElementPropsWithoutKeyAndRef<'span'>` and `Pick<OverflowTooltipPr
 | `placement`    | `Placement`               | -       | Popup placement              |
 | `readOnly`     | `boolean`                 | -       | Whether read-only            |
 | `tagSize`      | `TagProps['size']`        | -       | Tag size                     |
-| `tags`         | `string[]`                | `[]`    | Tag list                     |
+| `tags`         | `string[]`                | `[]`    | Tag list (typed as required via `Pick<OverflowTooltipProps, 'tags'>`; the component falls back to `[]` when undefined) |
 
 ### OverflowCounterTag Usage Example
 
@@ -69,6 +69,8 @@ import { OverflowCounterTag } from '@mezzanine-ui/react';
 | `readOnly`     | `boolean`                  | -             | Whether read-only    |
 | `tagSize`      | `TagProps['size']`         | -             | Tag size             |
 | `tags`         | `string[]`                 | **required**  | Tag list             |
+
+> `anchor`, `onTagDismiss`, `open`, `tags` are required (no `?` in source) — the table above already marks them **required**. `placement` default `'top-start'` comes from the destructuring; `tagSize` has no destructuring default (the JSDoc `@default main` is not applied in the component, `Tag` decides). The sub-path `@mezzanine-ui/react/OverflowTooltip` also exports the `OverflowTooltipProps` type and `OverflowCounterTag`.
 
 ---
 

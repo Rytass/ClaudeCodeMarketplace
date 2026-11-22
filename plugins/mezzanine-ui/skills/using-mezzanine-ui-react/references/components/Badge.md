@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Badge`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Badge) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Badge) · Verified 1.10.2 (2026-11-22)
 
 Badge component for marking status, quantity, or hint messages.
 
@@ -24,7 +24,7 @@ import type { BadgeProps } from '@mezzanine-ui/react';
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/data-display-badge--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
-> **Note**: `BadgeContainer` is deprecated (`@deprecated`), use the `Badge` component directly. `BadgeContainerProps` is equivalent to `NativeElementPropsWithoutKeyAndRef<'span'>`.
+> **Note**: `BadgeContainer` is deprecated (`@deprecated`), use the `Badge` component directly. `BadgeContainerProps` is equivalent to `NativeElementPropsWithoutKeyAndRef<'span'>` (the type is not exported from the main entry). `BadgeTextSize` / `BadgeVariant` etc. come from `@mezzanine-ui/core/badge`.
 
 `BadgeProps` extends `Omit<NativeElementPropsWithoutKeyAndRef<'span'>, 'children'>` and unions with `BadgeVariantProps`.
 
@@ -173,7 +173,7 @@ Badge props are divided into mutually exclusive structures based on `variant` ty
 | --------- | ------------------ | ------- | ------------------------------ |
 | `variant` | `BadgeTextVariant` | -       | Required, text variant         |
 | `text`    | `string`           | -       | Required, text to display      |
-| `size`    | `BadgeTextSize`    | -       | Size of the text               |
+| `size`    | `BadgeTextSize`    | -        | Size of the text               |
 
 > Text badge does not support `children`, `count`, and `overflowCount`.
 
@@ -503,7 +503,7 @@ interface BadgeTextProps {
 
 // 點 + 圖示，醒目標記
 <Badge variant="dot-error">
-  <Icon icon={AlertIcon} />
+  <Icon icon={WarningFilledIcon} />
 </Badge>
 ```
 

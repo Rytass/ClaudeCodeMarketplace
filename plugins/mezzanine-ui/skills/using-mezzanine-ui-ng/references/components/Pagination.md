@@ -1,6 +1,6 @@
 # Pagination
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/pagination) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/pagination) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Navigation control for paged datasets. Automatically computes page items (previous, number pages, ellipses, next) from `total`, `pageSize`, `current`, `boundaryCount` and `siblingCount`. Optionally renders a page-size selector and a jump-to-page input.
 
@@ -14,6 +14,8 @@ import {
   MznPaginationPageSize,
 } from '@mezzanine-ui/ng/pagination';
 import type { PaginationItem } from '@mezzanine-ui/ng/pagination';
+// PaginationItem = { readonly active: boolean; readonly disabled: boolean; readonly page: number; readonly type: string }
+import type { PaginationItemType } from '@mezzanine-ui/core/pagination'; // not re-exported by ng
 ```
 
 ## Selector
@@ -39,9 +41,10 @@ import type { PaginationItem } from '@mezzanine-ui/ng/pagination';
 | `pageSizeOptions`         | `ReadonlyArray<number> \| undefined`              | —           | Per-page option values                                |
 | `renderPageSizeOptionName`| `((pageSize: number) => string) \| undefined`     | —           | Customise per-page option display string              |
 | `renderResultSummary`     | `((from: number, to: number, total: number) => string) \| undefined` | — | Render result count summary text   |
-| `itemTemplate`            | `TemplateRef<{ $implicit: PaginationItem }>`      | —           | Custom template for individual page items             |
 
-> Inputs declared with signal API (`input()`, `model()`) accept both static and reactive values.
+> Inputs declared with signal API (`input()`) accept both static and reactive values.
+>
+> `itemTemplate` is **not** an input — it is a `contentChild<TemplateRef<{ $implicit: PaginationItem }>>('itemTemplate')` content query. Provide it by projecting `<ng-template #itemTemplate let-item>` inside `<nav mznPagination>` (see Usage); binding `[itemTemplate]` is invalid.
 
 ## Outputs
 

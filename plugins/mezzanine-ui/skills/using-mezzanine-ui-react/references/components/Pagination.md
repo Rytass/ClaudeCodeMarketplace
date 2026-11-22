@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Pagination`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Pagination) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Pagination) · Verified 1.10.2 (2026-11-22)
 
 Pagination component for paginated navigation of long data lists.
 
@@ -52,11 +52,13 @@ Extends `DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>` (excluding
 | `pageSizeLabel`            | `PaginationPageSizeProps['label']`             | -                                       | Page size label                   |
 | `pageSizeOptions`          | `PaginationPageSizeProps['options']`           | -                                       | Page size options                 |
 | `renderResultSummary`      | `(from: number, to: number, total: number) => string` | -                              | Custom result summary renderer    |
-| `renderPageSizeOptionName` | `PaginationPageSizeProps['renderOptionName']`  | -                                       | Custom page size option name renderer |
+| `renderPageSizeOptionName` | `PaginationPageSizeProps['renderOptionName']`  | -                                       | Custom page size option name renderer (when omitted, `PaginationPageSize` falls back to `` (p) => `${p}` ``) |
 | `showJumper`               | `boolean`                                     | `false`                                 | Show page jumper input            |
 | `showPageSizeOptions`      | `boolean`                                     | `false`                                 | Show page size selector           |
 | `siblingCount`             | `number`                                      | `1`                                     | Pages shown on each side of current |
 | `total`                    | `number`                                      | `0`                                     | Total number of items             |
+
+> `Pagination` has no `items` prop; the item list is computed internally by `usePagination` (its return value `{ items }` is documented below). The component accepts a `ref` (`HTMLElement`, the root `<nav>`).
 
 ---
 

@@ -3,21 +3,21 @@
     "framework": "react",
     "branch": "main",
     "packagePath": "packages/react/src",
-    "fromVersion": "1.4.2",
-    "toVersion": "1.5.1",
-    "generatedAt": "2026-09-12T13:36:12Z",
+    "fromVersion": "1.5.1",
+    "toVersion": "1.10.2",
+    "generatedAt": "2026-11-22T04:35:08Z",
     "description": "Mezzanine-UI upgrade work manifest. Consume this file to drive .md documentation updates."
   },
   "summary": {
     "componentsAdded": 0,
     "componentsRemoved": 4,
     "componentsUnchanged": 65,
-    "componentsWithPropChanges": 36,
+    "componentsWithPropChanges": 44,
     "componentsWithAngularChanges": 0,
-    "releasesCovered": 4,
-    "workItemsTotal": 56,
-    "workItemsHigh": 46,
-    "workItemsMedium": 10,
+    "releasesCovered": 13,
+    "workItemsTotal": 65,
+    "workItemsHigh": 53,
+    "workItemsMedium": 12,
     "workItemsLow": 0
   },
   "componentDiff": {
@@ -98,40 +98,101 @@
   },
   "changelog": [
     {
-      "tag": "@mezzanine-ui/react@1.5.1",
-      "name": "@mezzanine-ui/react@1.5.1",
-      "published": "2026-09-08T07:39:16Z",
-      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.5.1",
-      "body": "## `@mezzanine-ui/react@1.5.1`\r\n\r\n> Patch release fixing a Storybook-only defect in the `Tabs` size demo, and picking up `core@1.2.1`.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Tabs`** *(story only)* — The `TabsSize` story rendered all four tab groups with nothing selected, despite `activeKey` being wired to state initialised at `'0'`. The shared item lists were fragments, and `flattenChildren` concatenates a fragment's own key onto each child's — so `<TabItem key=\"0\">` inside one ended up keyed `\"0.0\"` and never matched `activeKey`. Passing the items as an array keeps their keys intact. **The component itself is untouched**; this only corrects the demo.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.1, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.5.0...@mezzanine-ui/react@1.5.1"
+      "tag": "@mezzanine-ui/react@1.10.2",
+      "name": "@mezzanine-ui/react@1.10.2",
+      "published": "2026-11-17T04:43:27Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.10.2",
+      "body": "## `@mezzanine-ui/react@1.10.2`\r\n\r\n> Fixes tooltips being painted over inside pinned `Table` columns ([#527](https://github.com/Mezzanine-UI/mezzanine/issues/527)). Icon-only `Button` and table cell truncation tooltips now render through the portal.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Button`** — The tooltip of an icon-only button now renders through the portal. In place, it lived inside the button's stacking context, so in a pinned `Table` column the next row's sticky cell painted over it.\r\n- **`Button`** — While the button's popup is open, its tooltip is hidden. The now-portaled tooltip used to cover the first option of a `Dropdown` opened from the button and catch the clicks meant for it. This only applies when the button has both `aria-haspopup` and `aria-expanded` (which `Dropdown` sets), so a plain disclosure toggle keeps its tooltip while expanded. The button node itself is unchanged, so focus and the `Dropdown` anchor are kept.\r\n- **`Table`** — The cell truncation tooltip now renders through the portal. On the first row of a pinned column, the pinned header cell used to paint over it.\r\n- **`Tooltip`** — A portaled tooltip now stacks by mount order, like `Dropdown` and `Modal`, instead of always sitting on top of anything opened after it. It also stays open while the pointer moves onto it *(via `core@1.3.3`)*.\r\n\r\n---\r\n\r\n**Compatibility**: requires `react` ≥ 19, `react-dom` ≥ 19, `@mezzanine-ui/core` ≥ 1.3.3, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.10.1...@mezzanine-ui/react@1.10.2"
     },
     {
-      "tag": "@mezzanine-ui/react@1.5.0",
-      "name": "@mezzanine-ui/react@1.5.0",
-      "published": "2026-09-02T03:04:31Z",
-      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.5.0",
-      "body": "## `@mezzanine-ui/react@1.5.0`\r\n\r\n> Minor release on two fronts: a broad **accessibility** pass — `Modal` gains a real dialog focus model and `Tooltip` becomes reachable by keyboard and assistive tech, plus a11y fixes across Navigation, Table, Dropdown, and more — and a **`DateRangePicker` correctness + performance** overhaul that stops the hover preview from wiping the range and ends multi-second freezes on large ranges.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`Modal` / `MediaPreviewModal`** — Implements the dialog focus model behind `role=\"dialog\"`. A new `useFocusTrap` hook (now listed in the component index) moves focus into the dialog on open (first focusable element, or the content wrapper itself via `tabIndex={-1}` when nothing is focusable), cycles `Tab` / `Shift+Tab` within the dialog, restores focus to the previously focused element on close, and is aware of nested dialogs. Keyboard users can no longer Tab out of an open dialog into the page behind it. The dialog is also now announced as modal (`aria-modal`).\r\n- **`Tooltip`** — Tooltip content is now reachable by pointer, keyboard, and assistive technology. The render-prop payload gains `onFocus` / `onBlur` (focus opens, blur closes), and the content node emits `role=\"tooltip\"` with a stable `useId` id wired to the trigger's `aria-describedby`. This means an icon-only `Button`'s tooltip text now exists for keyboard and screen-reader users, not just mouse hover.\r\n\r\n### 🐛 Bug Fixes — Accessibility\r\n\r\n- **`Tooltip`** — The new focus trigger now only opens the tooltip on **keyboard** focus (`:focus-visible`), not on the mousedown focus browsers give a `<button>`. Previously clicking an icon-only button left the tooltip stuck on screen (overlapping, e.g., a Table row action's dropdown) until the button lost focus. Remains WCAG 2.1 SC 1.4.13 conformant.\r\n- **`Button`** — Composes the caller's `ref` with the tooltip's `ref` in icon-only mode, so passing your own ref no longer disables the tooltip wiring.\r\n- **`Navigation`** — Every navigation control now announces itself to assistive tech; the invalid `menuitem` role is dropped from both navigation options and the option category. (Groups/leaves are labelled correctly instead.)\r\n- **`Table`** — Icon-only and dropdown row-action buttons now have accessible names, and the row-action menu is kept inside the viewport (last-column / horizontally-scrolled tables previously clipped it against the right edge with no consumer-facing knob to fix it).\r\n- **`Dropdown`** — Adds floating-ui's `shift` middleware (ordered against `flip` per floating-ui guidance) so a menu anchored near the viewport's right edge is pulled back into view instead of being clipped.\r\n- **`TextField`** — Keeps ARIA input semantics on the native control.\r\n- **`InlineMessage`** — Spreads caller DOM props onto the root element.\r\n- **`ContentHeader`** — The back-button label is now translatable.\r\n- **`PageFooter`** — Stops rendering unnamed empty buttons.\r\n\r\n### 🐛 Bug Fixes — Date range selection & performance\r\n\r\n- **`DateRangePicker`** — The hover preview no longer resets the range. Selecting a start date, moving the pointer, then clicking the end date previously threw the start away and restarted selection (reproducible by switching months in between — the month arrows just guarantee the pointer crosses a cell, and it's that hover that broke it). `RangeCalendar` now reads the committed value rather than the hover-polluted `calendarValue` when deciding whether a click starts or closes a range.\r\n- **`DateRangePicker`** — The hover-highlight preview and the click guard now ask the **same** question, so the preview never highlights a range the next click then rejects. Hover display anchors are validated before highlighting.\r\n- **`DateRangePicker`** — Ends multi-second freezes on large ranges. The selected range was re-walked one day at a time, six times per render (once per granularity), regardless of whether a disabled-date predicate existed — a 20-year range cost ~524ms per render and a mistyped year (e.g. `4026`, reachable through the inputs) cost ~50s. The scan now lives in `RangeCalendar`, runs only when a predicate exists, steps by the active mode's unit, and is capped at `maxRangeScanSteps` (past the cap it reports \"nothing disabled found\", leaving an over-long range usable rather than frozen).\r\n- **`Calendar`** — Aligns week scans and rejects incomplete range validation.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.0, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.4.4...@mezzanine-ui/react@1.5.0"
+      "tag": "@mezzanine-ui/react@1.10.1",
+      "name": "@mezzanine-ui/react@1.10.1",
+      "published": "2026-11-12T08:37:51Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.10.1",
+      "body": "## `@mezzanine-ui/react@1.10.1`\r\n\r\n> Patch release: listboxes opened from `Table` dropdown actions now have an accessible name.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Table`** — The listbox opened by a dropdown row action is now named after the action's `name`, and the bulk overflow listbox after its `label`. These listboxes had no accessible name, which failed axe's `aria-input-field-name` rule. No change is needed on your side. To give the listbox a different name from its trigger, set the new optional `listboxLabel` on the row action *(via `core@1.3.2`)*.\r\n\r\n  ```tsx\r\n  {\r\n    listboxLabel: 'Row actions menu',\r\n    name: 'More actions',\r\n    onSelect,\r\n    options,\r\n    type: 'dropdown',\r\n  }\r\n  ```\r\n\r\n---\r\n\r\n**Compatibility**: requires `react` ≥ 19, `react-dom` ≥ 19, `@mezzanine-ui/core` ≥ 1.3.2, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.10.0...@mezzanine-ui/react@1.10.1"
     },
     {
-      "tag": "@mezzanine-ui/react@1.4.4",
-      "name": "@mezzanine-ui/react@1.4.4",
-      "published": "2026-08-26T07:43:43Z",
-      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.4.4",
-      "body": "## `@mezzanine-ui/react@1.4.4`\r\n\r\n> Patch release fixing two bugs: rapidly-fired `Notifier` messages could silently collapse into one, and `Table` fed fabricated placeholder rows to consumer record callbacks while loading.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Notifier` / `Message`** — Auto-keyed notifiers raised in a tight loop no longer collide and drop. `add()` fell back to `Date.now()` when no key was supplied, which only has millisecond resolution — so several notifiers created within the same millisecond shared a key, and a notifier keyed the same as a live one is treated as an *update* to it. Firing five messages in a loop could therefore display as few as one, silently dropping the rest. Auto-keys now step past the last issued key whenever the clock hasn't advanced, staying numeric and monotonic.\r\n- **`Table`** — Consumer record callbacks are no longer invoked with placeholder rows while `loading`. Previously the table fabricated `{ key: idx }` rows and pushed them through the normal render path, so any `column.render`, `actions.render`, `rowState`, `getCheckboxProps`, `rowExpandable`, `expandedRowRender`, or `isRowDisabled` callback that dereferenced a record field threw a `TypeError` (the value was then discarded in favour of a Skeleton anyway). The body now renders `loadingRowsCount` skeleton rows with **no record at all**, and `record` is optional down the row/cell tree so the \"no record callback runs while loading\" contract is enforced by the type system. Placeholder rows also no longer borrow real row keys — which previously let them pick up selection / transition styling, be expanded by controlled `expandedRowKeys`, or be wrapped in `Draggable` (the last of which could reorder the real `dataSource` by placeholder index).\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.0, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.4.3...@mezzanine-ui/react@1.4.4"
+      "tag": "@mezzanine-ui/react@1.10.0",
+      "name": "@mezzanine-ui/react@1.10.0",
+      "published": "2026-11-11T07:15:28Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.10.0",
+      "body": "## `@mezzanine-ui/react@1.10.0`\r\n\r\n> `Textarea` gains a `fullWidth` prop and now fills its container by default, matching `Input` ([#523](https://github.com/Mezzanine-UI/mezzanine/issues/523)).\r\n>\r\n> ⚠️ **Visible change:** a `Textarea` without `fullWidth` used to size to its content; it now fills its container. Pass `fullWidth={false}` to keep the previous width.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`Textarea`** — New `fullWidth` prop, forwarded to `TextField`. It defaults to `true`, the same as `Input`.\r\n\r\n  ```tsx\r\n  <Textarea /> // fills its container\r\n  <Textarea fullWidth={false} /> // sizes to its content, as before\r\n  ```\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Textarea`** — The full-width style now actually applies. The textarea's own `width: fit-content` had the same specificity as the full-width modifier and came later, so `Textarea` could never fill its container *(via `core@1.3.1`)*.\r\n\r\n---\r\n\r\n**Compatibility**: requires `react` ≥ 19, `react-dom` ≥ 19, `@mezzanine-ui/core` ≥ 1.3.1, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.9.0...@mezzanine-ui/react@1.10.0"
     },
     {
-      "tag": "@mezzanine-ui/react@1.4.3",
-      "name": "@mezzanine-ui/react@1.4.3",
-      "published": "2026-08-17T06:37:39Z",
-      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.4.3",
-      "body": "## `@mezzanine-ui/react@1.4.3`\r\n\r\n> Patch release fixing a class of CJK IME bug: pressing Enter to confirm an input-method candidate no longer leaks through as a submit / select / confirm across `Form`, `AutoComplete`, `Dropdown`, `Pagination`, and the picker family. Powered by a shared `isImeComposing` helper new in `core@1.2.0`.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Form` / `TagsField`** — Confirming an IME candidate with Enter no longer adds a stray tag. The composition check now also treats Safari's `keyCode 229` as composing (previously only `nativeEvent.isComposing` was checked, which Safari clears too early), via `isImeComposing` *(via `core@1.2.0`)*.\r\n- **`AutoComplete`** — The Enter that confirms an IME candidate no longer selects a highlighted option or triggers the create action. Both are now skipped while composition is active *(via `core@1.2.0`)*.\r\n- **`Dropdown`** — Keyboard selection is skipped while an IME is composing, so confirming a candidate with Enter no longer selects the focused option *(via `core@1.2.0`)*.\r\n- **`Pagination`** — The page-jumper input no longer submits on the Enter that confirms an IME candidate; submission waits until composition ends *(via `core@1.2.0`)*.\r\n- **`DatePicker` / `TimePicker`** — The picker no longer closes or validates on the Enter that confirms an IME candidate. `usePickerValue` skips confirm and blur handling while composing *(via `core@1.2.0`)*.\r\n\r\n### 🏗 Internal\r\n\r\n- **AutoComplete demo** — Adds a Chinese-option example to the story, useful for exercising the IME behaviour above.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.0, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.4.2...@mezzanine-ui/react@1.4.3"
+      "tag": "@mezzanine-ui/react@1.9.0",
+      "name": "@mezzanine-ui/react@1.9.0",
+      "published": "2026-11-06T05:56:22Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.9.0",
+      "body": "## `@mezzanine-ui/react@1.9.0`\r\n\r\n> The `Calendar` footer shortcut can now be relabelled, and it no longer lets users pick a disabled period ([#521](https://github.com/Mezzanine-UI/mezzanine/issues/521)).\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`Calendar`** — New `calendarFooterControlProps` prop customises the footer shortcut (`Today`, `This month`, …), alongside the other `calendar*Props` bundles. The label was previously a fixed English string. `children` takes a string for every mode, or a per-mode map that overrides the listed modes and keeps the default label for the rest. `CalendarFooterControl` also gains a `disabled` prop, and `CalendarFooterControlProps` is now exported.\r\n\r\n  Pickers reach it through `calendarProps`. Prefer a map there, because the footer follows the panel the user drills down to:\r\n\r\n  ```tsx\r\n  // Define it outside the render so the object stays stable.\r\n  const calendarProps = {\r\n    calendarFooterControlProps: {\r\n      children: { day: '今天', month: '本月', year: '今年' },\r\n    },\r\n  };\r\n\r\n  <DatePicker calendarProps={calendarProps} onChange={setDate} value={date} />;\r\n  ```\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Calendar`** — The footer shortcut is now disabled when the current period is disabled. It used to ignore the `is*Disabled` predicates, so it could pick a date the board showed as disabled. The check combines the predicates the same way the cells of each mode do *(via `core@1.3.0`)*.\r\n\r\n---\r\n\r\n**Compatibility**: requires `react` ≥ 19, `react-dom` ≥ 19, `@mezzanine-ui/core` ≥ 1.3.0, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.8.1...@mezzanine-ui/react@1.9.0"
+    },
+    {
+      "tag": "@mezzanine-ui/react@1.8.1",
+      "name": "@mezzanine-ui/react@1.8.1",
+      "published": "2026-11-05T07:37:08Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.8.1",
+      "body": "## `@mezzanine-ui/react@1.8.1`\r\n\r\n> Patch release: fast typing in picker inputs no longer drops digits or commits the wrong date ([#518](https://github.com/Mezzanine-UI/mezzanine/issues/518)), and `AutoComplete` now honours `readOnly` ([#517](https://github.com/Mezzanine-UI/mezzanine/issues/517)).\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`DatePicker` / `DateRangePicker` / `TimePicker` and other pickers** — Fast typing no longer drops digits or commits dates the user never typed. The caret was restored in `requestAnimationFrame`, but `keydown` reads it from the DOM, so a key arriving within the same frame saw it at the end of the input. It is now restored in a layout effect right after the commit. Paste and outside value changes keep the browser's caret.\r\n- **`AutoComplete`** — `readOnly` now works. The prop was accepted by the type but dropped at runtime, and hard-coded to `false` on the native input and `SelectTrigger`. With `readOnly`, the dropdown never opens, the input is natively read-only, and select, clear, tag close, paste and create are all blocked. Blur also no longer wipes the displayed value in single mode.\r\n\r\n---\r\n\r\n**Compatibility**: requires `react` ≥ 19, `react-dom` ≥ 19, `@mezzanine-ui/core` ≥ 1.2.5, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.8.0...@mezzanine-ui/react@1.8.1"
+    },
+    {
+      "tag": "@mezzanine-ui/react@1.8.0",
+      "name": "@mezzanine-ui/react@1.8.0",
+      "published": "2026-11-03T05:44:36Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.8.0",
+      "body": "## `@mezzanine-ui/react@1.8.0`\r\n\r\n> This version lands a broad accessibility pass (#491–#506), a dialog focus model for `Drawer`, an SSR hydration fix for `Portal`, and viewport-aware `Dropdown` menus by default.\r\n\r\n---\r\n\r\n### ⚠️ Requirement change — React 19 or newer\r\n\r\n- The `react` / `react-dom` peer dependencies are now `>=19` (previously `>=18`). The old range was already inaccurate: `Navigation` uses React 19's `use()`, so it did not work on React 18. The whole package now targets React 19: components take `ref` as a regular prop instead of `forwardRef`.\r\n- `useIsomorphicLayoutEffect` is kept for compatibility but is now simply `useLayoutEffect`, since React 19 no longer warns about it during SSR.\r\n\r\n### 🚀 Improvements\r\n\r\n- **`Drawer`** — Implements the dialog focus model, matching `Modal` ([#490](https://github.com/Mezzanine-UI/mezzanine/issues/490)). Opening a drawer used to leave focus on the trigger, so Tab walked through the page behind it. Focus now moves into the panel on open (first focusable element, or the panel itself), Tab / Shift+Tab cycle within it, and focus returns to the trigger on close. Only the topmost overlay traps Tab. The panel now has `role=\"dialog\"` and `aria-modal` while open.\r\n- **`Dropdown`** — `shift` is now enabled by default ([#494](https://github.com/Mezzanine-UI/mezzanine/issues/494)), so menus anchored near the viewport edge are pulled back into view instead of overflowing. Pass `shift={false}` to keep the raw placement.\r\n- **`PageFooter`** — New `dropdownTriggerAriaLabel` prop names the overflow trigger ([#495](https://github.com/Mezzanine-UI/mezzanine/issues/495)).\r\n- **Utilities** — New `splitAriaProps` / `pickAriaProps` helpers for forwarding `aria-*` props.\r\n\r\n### 🐛 Bug Fixes — Accessibility\r\n\r\n- **`Modal`** — The dialog is labelled by its `ModalHeader` title ([#497](https://github.com/Mezzanine-UI/mezzanine/issues/497)).\r\n- **`Select`** — The input now exposes combobox ARIA and accepts `aria-label` ([#506](https://github.com/Mezzanine-UI/mezzanine/issues/506)).\r\n- **`Input`** — `aria-*` props are forwarded to the native input ([#504](https://github.com/Mezzanine-UI/mezzanine/issues/504)).\r\n- **`Navigation`** — Collapsed options are named by their title ([#496](https://github.com/Mezzanine-UI/mezzanine/issues/496)), and an image-only user menu trigger now has a name ([#505](https://github.com/Mezzanine-UI/mezzanine/issues/505)).\r\n- **`Dropdown`** — A native `<button>` trigger keeps its button semantics ([#503](https://github.com/Mezzanine-UI/mezzanine/issues/503)).\r\n- **`ButtonGroup`** — `aria-orientation` is only emitted for roles that support it ([#502](https://github.com/Mezzanine-UI/mezzanine/issues/502)).\r\n- **`Section`** — Native and `aria-*` props are forwarded to the root ([#501](https://github.com/Mezzanine-UI/mezzanine/issues/501)).\r\n- **`ClearActions`** — A caller-supplied `aria-label` now overrides the default \"Close\" ([#498](https://github.com/Mezzanine-UI/mezzanine/issues/498)).\r\n\r\n### 🐛 Bug Fixes — Components\r\n\r\n- **`Portal`** — No more hydration mismatch (React error #418) under SSR ([#500](https://github.com/Mezzanine-UI/mezzanine/issues/500)). The server rendered nothing while the first hydration render already placed the children. Portal content is now held back until hydration finishes; a plain client render behaves exactly as before. `disablePortal` content is now rendered in place on the server too.\r\n- **`TextField` / `Input`** — The first keystroke after focus is no longer dropped in a controlled input ([#485](https://github.com/Mezzanine-UI/mezzanine/issues/485)). An internal native `input` listener ran before React's `onChange` and caused a re-render with the stale value. Typing detection now runs in React's `onInput`, batched with your `onChange`; your own `onInput` is still called.\r\n- **`AutoComplete`** — In single mode you can search again right after selecting ([#489](https://github.com/Mezzanine-UI/mezzanine/issues/489)). Clicks now reopen the list, typed characters no longer overwrite the selected name, and the selected name no longer leaks into the next search when `clearSearchText` is false.\r\n- **`Modal` / `MediaPreviewModal`** — `disableScrollLock` is now passed to the backdrop instead of landing on the dialog element ([#499](https://github.com/Mezzanine-UI/mezzanine/issues/499)).\r\n- **`Table`** — Bulk action separators only render after a preceding group, so a destructive-only bulk action no longer shows a leading separator ([#493](https://github.com/Mezzanine-UI/mezzanine/issues/493)). `mainActions` is now optional *(via `core@1.2.5`)*.\r\n- **`NotificationCenter`** — The sub-minute timestamp is localized via `Intl.RelativeTimeFormat` instead of a hard-coded \"now\", and relative times refresh every 30 seconds ([#492](https://github.com/Mezzanine-UI/mezzanine/issues/492)).\r\n- **`ButtonGroup`** — Fragment children are unwrapped, so buttons inside a fragment get the group's `disabled` / `size` / `variant`.\r\n- **`Empty` / `ResultState`** — Action buttons are passed as a keyed array, removing React key warnings ([#491](https://github.com/Mezzanine-UI/mezzanine/issues/491)).\r\n\r\n### 🏗 Internal\r\n\r\n- All components moved from `forwardRef`, `<Context.Provider>` and `useContext` to React 19's ref-as-prop, `<Context>` and `use`. No behaviour change.\r\n\r\n---\r\n\r\n**Compatibility**: requires `react` ≥ 19, `react-dom` ≥ 19, `@mezzanine-ui/core` ≥ 1.2.5, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.7.4...@mezzanine-ui/react@1.8.0"
+    },
+    {
+      "tag": "@mezzanine-ui/react@1.7.4",
+      "name": "@mezzanine-ui/react@1.7.4",
+      "published": "2026-10-29T05:54:05Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.7.4",
+      "body": "## `@mezzanine-ui/react@1.7.4`\r\n\r\n> Patch release fixing two `Modal` focus bugs: focus moved inside the dialog during its enter transition is no longer pulled back ([#482](https://github.com/Mezzanine-UI/mezzanine/issues/482)), and Tab no longer gets stuck on controls disabled by a `<fieldset disabled>` ([#481](https://github.com/Mezzanine-UI/mezzanine/issues/481)).\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Modal`** — Focus moved inside the dialog during its enter transition is now kept. When the transition ended, the modal unconditionally moved focus back to the first focusable element, overriding anything the user (or your code, e.g. an `autoFocus` input) had focused in the meantime. It now only re-asserts focus when focus is outside the dialog.\r\n- **`Modal` / `MediaPreviewModal` (`useFocusTrap`)** — Controls disabled by an ancestor `<fieldset disabled>` are no longer treated as focusable. The focus trap only checked an element's own `disabled` attribute, so such a control could be picked as the first or last focusable element. Focusing it does nothing, so Tab / Shift+Tab appeared to do nothing at the edge of the dialog. The trap now uses `:disabled`, which also covers fieldset-disabled controls.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.4, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.7.3...@mezzanine-ui/react@1.7.4"
+    },
+    {
+      "tag": "@mezzanine-ui/react@1.7.3",
+      "name": "@mezzanine-ui/react@1.7.3",
+      "published": "2026-10-27T05:51:41Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.7.3",
+      "body": "## `@mezzanine-ui/react@1.7.3`\r\n\r\n> Patch release: `FilterArea` actions gain a loading state and button escape hatches ([#478](https://github.com/Mezzanine-UI/mezzanine/issues/478)), and an uncontrolled `Dropdown` now closes when an option is clicked ([#477](https://github.com/Mezzanine-UI/mezzanine/issues/477)).\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`FilterArea`** — New `loading` prop puts the submit button into its loading state, e.g. while a search request is in flight. New `submitButtonProps` / `resetButtonProps` let you customise the two action buttons. When both are set, the flat `loading` prop wins over `submitButtonProps.loading`. `size`, `type` and `onClick` stay controlled by `FilterArea`, and the reset button stays disabled while `isDirty` is false.\r\n\r\n  ```tsx\r\n  <FilterArea loading={isSearching} onSubmit={search} … />\r\n  ```\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Dropdown`** — An uncontrolled menu now closes after an option is clicked. Only the Enter key path closed it before; a mouse click called `onSelect` but left the menu open. This applies when `open` is not controlled and `mode` is not `multiple`. Controlled menus are unchanged — close them yourself as before. This also fixes `Table` dropdown row actions staying open after a click.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.4, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.7.2...@mezzanine-ui/react@1.7.3"
+    },
+    {
+      "tag": "@mezzanine-ui/react@1.7.2",
+      "name": "@mezzanine-ui/react@1.7.2",
+      "published": "2026-10-22T09:01:41Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.7.2",
+      "body": "## `@mezzanine-ui/react@1.7.2`\r\n\r\n> Patch release: `Select`'s `isForceClearable` prop now actually works ([#475](https://github.com/Mezzanine-UI/mezzanine/issues/475)).\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Select`** — `isForceClearable` is now forwarded to the trigger, so a single-mode `Select` can show the clear icon. The prop was accepted on `Select` but never passed down to `SelectTrigger`, so setting it had no effect.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.4, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.7.1...@mezzanine-ui/react@1.7.2"
+    },
+    {
+      "tag": "@mezzanine-ui/react@1.7.1",
+      "name": "@mezzanine-ui/react@1.7.1",
+      "published": "2026-10-21T06:43:51Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.7.1",
+      "body": "## `@mezzanine-ui/react@1.7.1`\r\n\r\n> Fixes typing into picker inputs ([#473](https://github.com/Mezzanine-UI/mezzanine/issues/473)): you can now type over a filled value, and the Day.js adapter now honours formats and parses week / quarter / half-year text.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`DatePicker` / `DateRangePicker` / `DateTimePicker` / `TimePicker` / `TimeRangePicker`** — Typing now replaces a filled cell, like a native date input. The first digit typed into a cell used to be range-checked together with the old digits, so months `10`–`12`, days `30`–`31` and hours `20`–`23` could not be typed over an existing value. A first digit that no valid value starts with is now padded (month `5` → `05`), and one that cannot reach the minimum (year `0`) is blocked.\r\n- **Pickers** — Re-typing the value that is already committed no longer calls `onChange`. Paste still does, so cross-field sync keeps working.\r\n- **Pickers (Day.js adapter)** — Typed text is now parsed with the configured format. Without the `customParseFormat` plugin, Day.js ignored the format: time-only text such as `21:30` never parsed, and overflowing dates such as `2026-02-30` or `2026-13` were accepted *(via `core@1.2.4`)*.\r\n- **`DatePicker` in week / ISO week / quarter / half-year mode (Day.js adapter)** — Typed input now resolves instead of being cleared on blur. Day.js cannot parse the `GGGG` / `gggg` / `WW` / `ww` / `Q` / `n` tokens, so these are now matched manually and resolved to the first day of the period — the same dates the Moment adapter returns *(via `core@1.2.4`)*.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.4, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.7.0...@mezzanine-ui/react@1.7.1"
+    },
+    {
+      "tag": "@mezzanine-ui/react@1.7.0",
+      "name": "@mezzanine-ui/react@1.7.0",
+      "published": "2026-10-20T08:10:13Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.7.0",
+      "body": "## `@mezzanine-ui/react@1.7.0`\r\n\r\n> Resizable `Table` columns can now be persisted and reset: new `columnWidths` / `onColumnWidthsChange` props ([#471](https://github.com/Mezzanine-UI/mezzanine/issues/471)). Also fixes resizing being completely broken when `pinnable` and `resizable` are combined.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`Table`** — New `onColumnWidthsChange` and `columnWidths` props for resizable columns. Resized widths used to live only in internal state, so you could not persist them or reset them without remounting.\r\n  - `onColumnWidthsChange` fires **once per drag, on mouseup**, with every resized width — in both controlled and uncontrolled mode.\r\n  - `columnWidths` makes widths controlled and takes precedence over `column.width`. Pass `{}` to reset every column back to its `column.width`.\r\n  - Drag widths are held in a draft layer until mouseup, so a controlled table still gets live feedback while dragging without a callback on every mousemove.\r\n\r\n  ```tsx\r\n  const [widths, setWidths] = useState(() => loadWidths());\r\n\r\n  <Table\r\n    columnWidths={widths}\r\n    onColumnWidthsChange={(next) => {\r\n      setWidths(next);\r\n      saveWidths(next);\r\n    }}\r\n    …\r\n  />\r\n  ```\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Table`** — A table that is both `pinnable` and `resizable` can now be resized. The resize handle counted only draggable / expansion / selection as leading action columns, but the colgroup also renders a handle column for `pinnable`. Every width was read from the neighbouring `<col>`, so constraint checks never passed and no handle could be dragged.\r\n- **`Table`** — `columnWidths` values are sanitised: they are clamped to `minWidth` / `maxWidth`, and non-finite or non-positive values are dropped, so stale persisted widths stay valid after column definitions change.\r\n- **`Table`** — A drag released at its start point no longer reports (or pins) the measured widths of untouched columns. Document listeners of an in-progress drag are also removed on unmount, so a later mouseup can no longer report into an unmounted table.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.3, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.6.1...@mezzanine-ui/react@1.7.0"
+    },
+    {
+      "tag": "@mezzanine-ui/react@1.6.1",
+      "name": "@mezzanine-ui/react@1.6.1",
+      "published": "2026-10-12T04:35:45Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.6.1",
+      "body": "## `@mezzanine-ui/react@1.6.1`\r\n\r\n> Patch release picking up a `Tooltip` sizing fix from `core@1.2.3` ([#469](https://github.com/Mezzanine-UI/mezzanine/issues/469)). No React source changed.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Tooltip`** — Tooltip text no longer stacks one character per line inside narrow containers. An inline tooltip (the default) is absolutely positioned, so it used to shrink to its containing block — and in an icon-only trigger such as a `Table` dropdown row action, that block is only icon-wide. The tooltip is now sized by its content, while `max-width` still wraps long text *(via `core@1.2.3`)*.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.3, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.6.0...@mezzanine-ui/react@1.6.1"
+    },
+    {
+      "tag": "@mezzanine-ui/react@1.6.0",
+      "name": "@mezzanine-ui/react@1.6.0",
+      "published": "2026-10-02T06:47:57Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/react%401.6.0",
+      "body": "## `@mezzanine-ui/react@1.6.0`\r\n\r\n> Fixes wide tables stretching their grid / flex parents ([#467](https://github.com/Mezzanine-UI/mezzanine/issues/467)), and adds a `scrollbarOptions` prop so you can configure a table's scrolling without overriding its markup.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`Table`** — New `scrollbarOptions` prop forwards [OverlayScrollbars options](https://kingsora.github.io/OverlayScrollbars/) to the table's inner `Scrollbar`. This replaces the need to override generated markup with `!important` — for example, hand scrolling to an outer container with:\r\n\r\n  ```tsx\r\n  <Table scrollbarOptions={{ overflow: { x: 'visible', y: 'visible' } }} … />\r\n  ```\r\n\r\n  Nested tables render without a `Scrollbar` and ignore this prop.\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`Table`** — A wide table no longer widens the grid or flex layout around it. Inside a grid `1fr` cell or a `flex: 1` item, the table host used to grow to the full width of the table, so the table's own viewport never overflowed: the overlay scrollbar was unusable, `fixed: 'end'` columns were pushed out of view, and an ancestor showed its native scrollbar instead. The scroll area now contains its inline size, and a zero-height intrinsic sizer keeps shrink-to-fit parents such as the `wide` `Modal` sized to the table instead of collapsing to its header *(via `core@1.2.2`)*.\r\n- **`Scrollbar`** — A caller-supplied `options.overflow` is now respected. It used to be written before the defaults were applied, so it was always discarded; it is now merged per key over the `{ x: 'scroll', y: 'scroll' }` defaults, the same way `scrollbars` already was. Existing behaviour is unchanged unless you pass `overflow`.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.2, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/react@1.5.1...@mezzanine-ui/react@1.6.0"
     }
   ],
   "propsDiff": [
     {
       "component": "AlertBanner",
-      "propsAdded": [
-        "disablePortal"
-      ],
+      "propsAdded": [],
       "propsRemoved": [
         "duration",
         "reference"
@@ -152,14 +213,9 @@
         "subAnchors"
       ],
       "propsRemoved": [],
-      "typeMismatches": [
-        {
-          "prop": "children",
-          "doc": "string | ReactElement<AnchorProps> | Array<string | ReactElement<AnchorProps>>",
-          "source": "string | ReactElement<AnchorPropsWithChildren, typeof Anchor> | Array<string | ReactElement<AnchorPropsWithChildren, typeof Anchor>> | AnchorChildren"
-        }
-      ],
+      "typeMismatches": [],
       "typeUnverifiable": [
+        "children",
         "onClick"
       ],
       "defaultMismatches": [],
@@ -175,6 +231,7 @@
         "error",
         "inputRef",
         "onClear",
+        "readOnly",
         "resolvedInputProps",
         "size"
       ],
@@ -203,6 +260,7 @@
       "propsAdded": [],
       "propsRemoved": [
         "children",
+        "className",
         "container",
         "disablePortal"
       ],
@@ -255,16 +313,8 @@
     {
       "component": "Calendar",
       "propsAdded": [
-        "active",
-        "disabled",
-        "isRangeEnd",
-        "isRangeStart",
-        "isWeekend",
-        "onClick",
-        "previewValue",
-        "role",
-        "today",
-        "withAnnotation"
+        "calendarFooterControlProps",
+        "onClick"
       ],
       "propsRemoved": [],
       "typeMismatches": [],
@@ -285,16 +335,7 @@
         "onPrev"
       ],
       "defaultMismatches": [],
-      "defaultMissing": [
-        {
-          "prop": "displayMonthLocale",
-          "source": "locale"
-        },
-        {
-          "prop": "displayWeekDayLocale",
-          "source": "locale"
-        }
-      ],
+      "defaultMissing": [],
       "requiredMismatches": [
         {
           "prop": "methods",
@@ -358,7 +399,8 @@
       "component": "Checkbox",
       "propsAdded": [],
       "propsRemoved": [
-        "active"
+        "active",
+        "className"
       ],
       "typeMismatches": [],
       "typeUnverifiable": [
@@ -377,10 +419,6 @@
       ],
       "defaultMissing": [
         {
-          "prop": "name",
-          "source": "nameFromGroup"
-        },
-        {
           "prop": "options",
           "source": "[]"
         },
@@ -394,14 +432,10 @@
     {
       "component": "ClearActions",
       "propsAdded": [],
-      "propsRemoved": [],
-      "typeMismatches": [
-        {
-          "prop": "onClick",
-          "doc": "MouseEventHandler",
-          "source": "React.MouseEventHandler<HTMLButtonElement>"
-        }
+      "propsRemoved": [
+        "className"
       ],
+      "typeMismatches": [],
       "typeUnverifiable": [
         "variant"
       ],
@@ -412,11 +446,11 @@
     {
       "component": "ContentHeader",
       "propsAdded": [
-        "backButtonLabel",
         "breakpoint",
         "mock"
       ],
       "propsRemoved": [
+        "className",
         "onBackClick",
         "size"
       ],
@@ -707,9 +741,7 @@
     },
     {
       "component": "Dropdown",
-      "propsAdded": [
-        "shift"
-      ],
+      "propsAdded": [],
       "propsRemoved": [
         "value"
       ],
@@ -719,7 +751,13 @@
         "options",
         "scrollbarOptions"
       ],
-      "defaultMismatches": [],
+      "defaultMismatches": [
+        {
+          "prop": "shift",
+          "doc": "false",
+          "source": "true"
+        }
+      ],
       "defaultMissing": [],
       "requiredMismatches": [
         {
@@ -741,7 +779,11 @@
     },
     {
       "component": "FilterArea",
-      "propsAdded": [],
+      "propsAdded": [
+        "loading",
+        "resetButtonProps",
+        "submitButtonProps"
+      ],
       "propsRemoved": [],
       "typeMismatches": [],
       "typeUnverifiable": [
@@ -972,7 +1014,6 @@
     {
       "component": "Navigation",
       "propsAdded": [
-        "collapseToggleLabel",
         "items"
       ],
       "propsRemoved": [
@@ -984,12 +1025,7 @@
         "onTriggerClick"
       ],
       "defaultMismatches": [],
-      "defaultMissing": [
-        {
-          "prop": "children",
-          "source": "[]"
-        }
-      ],
+      "defaultMissing": [],
       "requiredMismatches": [
         {
           "prop": "title",
@@ -1017,16 +1053,7 @@
         "onViewAll"
       ],
       "defaultMismatches": [],
-      "defaultMissing": [
-        {
-          "prop": "cancelButtonProps",
-          "source": "{}"
-        },
-        {
-          "prop": "confirmButtonProps",
-          "source": "{}"
-        }
-      ],
+      "defaultMissing": [],
       "requiredMismatches": []
     },
     {
@@ -1081,6 +1108,20 @@
       ]
     },
     {
+      "component": "PageFooter",
+      "propsAdded": [
+        "dropdownTriggerAriaLabel"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [
+        "type"
+      ],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": []
+    },
+    {
       "component": "Pagination",
       "propsAdded": [],
       "propsRemoved": [
@@ -1129,14 +1170,35 @@
         "prefix",
         "size"
       ],
-      "typeMismatches": [],
+      "typeMismatches": [
+        {
+          "prop": "inputFromProps",
+          "doc": "Native <input> props (reserved value/state/ARIA props omitted)",
+          "source": "Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >"
+        },
+        {
+          "prop": "inputLeftProps",
+          "doc": "Native <input> props (reserved value/state/ARIA props omitted)",
+          "source": "Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >"
+        },
+        {
+          "prop": "inputProps",
+          "doc": "Native <input> props (reserved value/state/ARIA props omitted)",
+          "source": "Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >"
+        },
+        {
+          "prop": "inputRightProps",
+          "doc": "Native <input> props (reserved value/state/ARIA props omitted)",
+          "source": "Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >"
+        },
+        {
+          "prop": "inputToProps",
+          "doc": "Native <input> props (reserved value/state/ARIA props omitted)",
+          "source": "Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >"
+        }
+      ],
       "typeUnverifiable": [
         "errorMessages",
-        "inputFromProps",
-        "inputLeftProps",
-        "inputProps",
-        "inputRightProps",
-        "inputToProps",
         "onChange",
         "validate",
         "value"
@@ -1207,6 +1269,148 @@
         }
       ],
       "requiredMismatches": []
+    },
+    {
+      "component": "ResultState",
+      "propsAdded": [],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [
+        {
+          "prop": "title",
+          "doc": false,
+          "source": true
+        }
+      ]
+    },
+    {
+      "component": "Scrollbar",
+      "propsAdded": [],
+      "propsRemoved": [
+        "className",
+        "style"
+      ],
+      "typeMismatches": [],
+      "typeUnverifiable": [
+        "maxHeight",
+        "maxWidth",
+        "onViewportReady"
+      ],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": []
+    },
+    {
+      "component": "Section",
+      "propsAdded": [],
+      "propsRemoved": [
+        "children"
+      ],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": []
+    },
+    {
+      "component": "Select",
+      "propsAdded": [
+        "active",
+        "containerRef",
+        "enabled",
+        "forceHideSuffixActionIcon",
+        "innerRef",
+        "suffixAction",
+        "tagsRef"
+      ],
+      "propsRemoved": [
+        "clearable",
+        "error",
+        "fullWidth",
+        "onBlur",
+        "onClear",
+        "onFocus",
+        "prefix"
+      ],
+      "typeMismatches": [],
+      "typeUnverifiable": [
+        "defaultValue",
+        "inputProps",
+        "mode",
+        "onChange",
+        "renderValue",
+        "size",
+        "type",
+        "value"
+      ],
+      "defaultMismatches": [],
+      "defaultMissing": [
+        {
+          "prop": "showTextInputAfterTags",
+          "source": "false"
+        },
+        {
+          "prop": "size",
+          "source": "'main'"
+        },
+        {
+          "prop": "value",
+          "source": "[]"
+        }
+      ],
+      "requiredMismatches": []
+    },
+    {
+      "component": "SelectionCard",
+      "propsAdded": [
+        "selections"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [
+        {
+          "prop": "selector",
+          "doc": false,
+          "source": true
+        },
+        {
+          "prop": "text",
+          "doc": false,
+          "source": true
+        }
+      ]
+    },
+    {
+      "component": "Separator",
+      "propsAdded": [],
+      "propsRemoved": [
+        "className",
+        "style"
+      ],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": []
+    },
+    {
+      "component": "Slider",
+      "propsAdded": [
+        "onChange",
+        "value"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": []
     }
   ],
   "angularSpecific": [],
@@ -1214,11 +1418,9 @@
     {
       "component": "AlertBanner",
       "action": "UPDATE_PROPS",
-      "reason": "Undocumented in source: disablePortal; Documented but not found in source: duration, reference",
+      "reason": "Documented but not found in source: duration, reference",
       "priority": "HIGH",
-      "propsAdded": [
-        "disablePortal"
-      ],
+      "propsAdded": [],
       "propsRemoved": [
         "duration",
         "reference"
@@ -1239,22 +1441,9 @@
       "propsRemoved": []
     },
     {
-      "component": "Anchor",
-      "action": "UPDATE_TYPES",
-      "reason": "Type differs from source: children doc=string | ReactElement<AnchorProps> | Array<string | ReactElement<AnchorProps>> source=string | ReactElement<AnchorPropsWithChildren, typeof Anchor> | Array<string | ReactElement<AnchorPropsWithChildren, typeof Anchor>> | AnchorChildren",
-      "priority": "HIGH",
-      "typeMismatches": [
-        {
-          "prop": "children",
-          "doc": "string | ReactElement<AnchorProps> | Array<string | ReactElement<AnchorProps>>",
-          "source": "string | ReactElement<AnchorPropsWithChildren, typeof Anchor> | Array<string | ReactElement<AnchorPropsWithChildren, typeof Anchor>> | AnchorChildren"
-        }
-      ]
-    },
-    {
       "component": "AutoComplete",
       "action": "UPDATE_PROPS",
-      "reason": "Undocumented in source: active, clearable, disabled, error, inputRef, onClear, resolvedInputProps, size; Documented but not found in source: popperOptions",
+      "reason": "Undocumented in source: active, clearable, disabled, error, inputRef, onClear, readOnly, resolvedInputProps, size; Documented but not found in source: popperOptions",
       "priority": "HIGH",
       "propsAdded": [
         "active",
@@ -1263,6 +1452,7 @@
         "error",
         "inputRef",
         "onClear",
+        "readOnly",
         "resolvedInputProps",
         "size"
       ],
@@ -1286,11 +1476,12 @@
     {
       "component": "Backdrop",
       "action": "UPDATE_PROPS",
-      "reason": "Documented but not found in source: children, container, disablePortal",
+      "reason": "Documented but not found in source: children, className, container, disablePortal",
       "priority": "HIGH",
       "propsAdded": [],
       "propsRemoved": [
         "children",
+        "className",
         "container",
         "disablePortal"
       ]
@@ -1334,37 +1525,13 @@
     {
       "component": "Calendar",
       "action": "UPDATE_PROPS",
-      "reason": "Undocumented in source: active, disabled, isRangeEnd, isRangeStart, isWeekend, onClick, previewValue, role, today, withAnnotation",
+      "reason": "Undocumented in source: calendarFooterControlProps, onClick",
       "priority": "MEDIUM",
       "propsAdded": [
-        "active",
-        "disabled",
-        "isRangeEnd",
-        "isRangeStart",
-        "isWeekend",
-        "onClick",
-        "previewValue",
-        "role",
-        "today",
-        "withAnnotation"
+        "calendarFooterControlProps",
+        "onClick"
       ],
       "propsRemoved": []
-    },
-    {
-      "component": "Calendar",
-      "action": "UPDATE_DEFAULTS",
-      "reason": "Source sets a default the table leaves blank: displayMonthLocale=locale; displayWeekDayLocale=locale",
-      "priority": "MEDIUM",
-      "defaultMissing": [
-        {
-          "prop": "displayMonthLocale",
-          "source": "locale"
-        },
-        {
-          "prop": "displayWeekDayLocale",
-          "source": "locale"
-        }
-      ]
     },
     {
       "component": "Calendar",
@@ -1427,11 +1594,12 @@
     {
       "component": "Checkbox",
       "action": "UPDATE_PROPS",
-      "reason": "Documented but not found in source: active",
+      "reason": "Documented but not found in source: active, className",
       "priority": "HIGH",
       "propsAdded": [],
       "propsRemoved": [
-        "active"
+        "active",
+        "className"
       ]
     },
     {
@@ -1450,13 +1618,9 @@
     {
       "component": "Checkbox",
       "action": "UPDATE_DEFAULTS",
-      "reason": "Source sets a default the table leaves blank: name=nameFromGroup; options=[]; value=[]",
+      "reason": "Source sets a default the table leaves blank: options=[]; value=[]",
       "priority": "MEDIUM",
       "defaultMissing": [
-        {
-          "prop": "name",
-          "source": "nameFromGroup"
-        },
         {
           "prop": "options",
           "source": "[]"
@@ -1469,28 +1633,25 @@
     },
     {
       "component": "ClearActions",
-      "action": "UPDATE_TYPES",
-      "reason": "Type differs from source: onClick doc=MouseEventHandler source=React.MouseEventHandler<HTMLButtonElement>",
+      "action": "UPDATE_PROPS",
+      "reason": "Documented but not found in source: className",
       "priority": "HIGH",
-      "typeMismatches": [
-        {
-          "prop": "onClick",
-          "doc": "MouseEventHandler",
-          "source": "React.MouseEventHandler<HTMLButtonElement>"
-        }
+      "propsAdded": [],
+      "propsRemoved": [
+        "className"
       ]
     },
     {
       "component": "ContentHeader",
       "action": "UPDATE_PROPS",
-      "reason": "Undocumented in source: backButtonLabel, breakpoint, mock; Documented but not found in source: onBackClick, size",
+      "reason": "Undocumented in source: breakpoint, mock; Documented but not found in source: className, onBackClick, size",
       "priority": "HIGH",
       "propsAdded": [
-        "backButtonLabel",
         "breakpoint",
         "mock"
       ],
       "propsRemoved": [
+        "className",
         "onBackClick",
         "size"
       ]
@@ -1762,13 +1923,24 @@
     {
       "component": "Dropdown",
       "action": "UPDATE_PROPS",
-      "reason": "Undocumented in source: shift; Documented but not found in source: value",
+      "reason": "Documented but not found in source: value",
       "priority": "HIGH",
-      "propsAdded": [
-        "shift"
-      ],
+      "propsAdded": [],
       "propsRemoved": [
         "value"
+      ]
+    },
+    {
+      "component": "Dropdown",
+      "action": "UPDATE_DEFAULTS",
+      "reason": "Default differs from source: shift doc=false source=true",
+      "priority": "HIGH",
+      "defaultMismatches": [
+        {
+          "prop": "shift",
+          "doc": "false",
+          "source": "true"
+        }
       ]
     },
     {
@@ -1793,6 +1965,18 @@
           "source": true
         }
       ]
+    },
+    {
+      "component": "FilterArea",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: loading, resetButtonProps, submitButtonProps",
+      "priority": "MEDIUM",
+      "propsAdded": [
+        "loading",
+        "resetButtonProps",
+        "submitButtonProps"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "FilterArea",
@@ -2006,26 +2190,13 @@
     {
       "component": "Navigation",
       "action": "UPDATE_PROPS",
-      "reason": "Undocumented in source: collapseToggleLabel, items; Documented but not found in source: placement",
+      "reason": "Undocumented in source: items; Documented but not found in source: placement",
       "priority": "HIGH",
       "propsAdded": [
-        "collapseToggleLabel",
         "items"
       ],
       "propsRemoved": [
         "placement"
-      ]
-    },
-    {
-      "component": "Navigation",
-      "action": "UPDATE_DEFAULTS",
-      "reason": "Source sets a default the table leaves blank: children=[]",
-      "priority": "MEDIUM",
-      "defaultMissing": [
-        {
-          "prop": "children",
-          "source": "[]"
-        }
       ]
     },
     {
@@ -2054,22 +2225,6 @@
         "onClose",
         "open",
         "severity"
-      ]
-    },
-    {
-      "component": "NotificationCenter",
-      "action": "UPDATE_DEFAULTS",
-      "reason": "Source sets a default the table leaves blank: cancelButtonProps={}; confirmButtonProps={}",
-      "priority": "MEDIUM",
-      "defaultMissing": [
-        {
-          "prop": "cancelButtonProps",
-          "source": "{}"
-        },
-        {
-          "prop": "confirmButtonProps",
-          "source": "{}"
-        }
       ]
     },
     {
@@ -2117,6 +2272,16 @@
           "source": true
         }
       ]
+    },
+    {
+      "component": "PageFooter",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: dropdownTriggerAriaLabel",
+      "priority": "MEDIUM",
+      "propsAdded": [
+        "dropdownTriggerAriaLabel"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "Pagination",
@@ -2171,6 +2336,39 @@
         "onKeyDown",
         "prefix",
         "size"
+      ]
+    },
+    {
+      "component": "Picker",
+      "action": "UPDATE_TYPES",
+      "reason": "Type differs from source: inputFromProps doc=Native <input> props (reserved value/state/ARIA props omitted) source=Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >; inputLeftProps doc=Native <input> props (reserved value/state/ARIA props omitted) source=Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >; inputProps doc=Native <input> props (reserved value/state/ARIA props omitted) source=Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >; inputRightProps doc=Native <input> props (reserved value/state/ARIA props omitted) source=Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >; inputToProps doc=Native <input> props (reserved value/state/ARIA props omitted) source=Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >",
+      "priority": "HIGH",
+      "typeMismatches": [
+        {
+          "prop": "inputFromProps",
+          "doc": "Native <input> props (reserved value/state/ARIA props omitted)",
+          "source": "Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >"
+        },
+        {
+          "prop": "inputLeftProps",
+          "doc": "Native <input> props (reserved value/state/ARIA props omitted)",
+          "source": "Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >"
+        },
+        {
+          "prop": "inputProps",
+          "doc": "Native <input> props (reserved value/state/ARIA props omitted)",
+          "source": "Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >"
+        },
+        {
+          "prop": "inputRightProps",
+          "doc": "Native <input> props (reserved value/state/ARIA props omitted)",
+          "source": "Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >"
+        },
+        {
+          "prop": "inputToProps",
+          "doc": "Native <input> props (reserved value/state/ARIA props omitted)",
+          "source": "Omit< NativeElementPropsWithoutKeyAndRef<'input'>, | 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}` >"
+        }
       ]
     },
     {
@@ -2243,6 +2441,134 @@
           "source": "nameFromGroup"
         }
       ]
+    },
+    {
+      "component": "ResultState",
+      "action": "UPDATE_REQUIRED",
+      "reason": "Required in source, optional in docs: title",
+      "priority": "HIGH",
+      "requiredMismatches": [
+        {
+          "prop": "title",
+          "doc": false,
+          "source": true
+        }
+      ]
+    },
+    {
+      "component": "Scrollbar",
+      "action": "UPDATE_PROPS",
+      "reason": "Documented but not found in source: className, style",
+      "priority": "HIGH",
+      "propsAdded": [],
+      "propsRemoved": [
+        "className",
+        "style"
+      ]
+    },
+    {
+      "component": "Section",
+      "action": "UPDATE_PROPS",
+      "reason": "Documented but not found in source: children",
+      "priority": "HIGH",
+      "propsAdded": [],
+      "propsRemoved": [
+        "children"
+      ]
+    },
+    {
+      "component": "Select",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: active, containerRef, enabled, forceHideSuffixActionIcon, innerRef, suffixAction, tagsRef; Documented but not found in source: clearable, error, fullWidth, onBlur, onClear, onFocus, prefix",
+      "priority": "HIGH",
+      "propsAdded": [
+        "active",
+        "containerRef",
+        "enabled",
+        "forceHideSuffixActionIcon",
+        "innerRef",
+        "suffixAction",
+        "tagsRef"
+      ],
+      "propsRemoved": [
+        "clearable",
+        "error",
+        "fullWidth",
+        "onBlur",
+        "onClear",
+        "onFocus",
+        "prefix"
+      ]
+    },
+    {
+      "component": "Select",
+      "action": "UPDATE_DEFAULTS",
+      "reason": "Source sets a default the table leaves blank: showTextInputAfterTags=false; size='main'; value=[]",
+      "priority": "MEDIUM",
+      "defaultMissing": [
+        {
+          "prop": "showTextInputAfterTags",
+          "source": "false"
+        },
+        {
+          "prop": "size",
+          "source": "'main'"
+        },
+        {
+          "prop": "value",
+          "source": "[]"
+        }
+      ]
+    },
+    {
+      "component": "SelectionCard",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: selections",
+      "priority": "MEDIUM",
+      "propsAdded": [
+        "selections"
+      ],
+      "propsRemoved": []
+    },
+    {
+      "component": "SelectionCard",
+      "action": "UPDATE_REQUIRED",
+      "reason": "Required in source, optional in docs: selector, text",
+      "priority": "HIGH",
+      "requiredMismatches": [
+        {
+          "prop": "selector",
+          "doc": false,
+          "source": true
+        },
+        {
+          "prop": "text",
+          "doc": false,
+          "source": true
+        }
+      ]
+    },
+    {
+      "component": "Separator",
+      "action": "UPDATE_PROPS",
+      "reason": "Documented but not found in source: className, style",
+      "priority": "HIGH",
+      "propsAdded": [],
+      "propsRemoved": [
+        "className",
+        "style"
+      ]
+    },
+    {
+      "component": "Slider",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: onChange, value",
+      "priority": "MEDIUM",
+      "propsAdded": [
+        "onChange",
+        "value"
+      ],
+      "propsRemoved": []
     }
   ]
 }

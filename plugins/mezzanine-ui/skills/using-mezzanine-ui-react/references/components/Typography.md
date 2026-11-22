@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Foundation/Typography`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Typography) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Typography) · Verified 1.10.2 (2026-11-22)
 
 Typography component for consistent text styling.
 

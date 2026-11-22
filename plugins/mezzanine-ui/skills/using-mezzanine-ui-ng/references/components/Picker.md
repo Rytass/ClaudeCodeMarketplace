@@ -1,6 +1,6 @@
 # Picker
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/picker) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/picker) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-picker--docs
 
@@ -24,12 +24,12 @@ import {
   MaskFormat,
 } from '@mezzanine-ui/ng/picker';
 import type { FormattedInputErrorMessages } from '@mezzanine-ui/ng/picker';
-import { TextFieldSize } from '@mezzanine-ui/core/text-field';
+import type { TextFieldSize } from '@mezzanine-ui/core/text-field';
 ```
 
 ## Selector
 
-`<div mznPickerTrigger [format]="'YYYY-MM-DD'" ...>` — attribute-directive component
+`[mznPickerTrigger]` — attribute-selector component, e.g. `<div mznPickerTrigger [format]="'YYYY-MM-DD'" ...>`. Sibling selectors: `[mznPickerTriggerWithSeparator]`, `[mznRangePickerTrigger]`, `[mznFormattedInput]`. None declares `exportAs`.
 
 ## Inputs — MznPickerTrigger
 
@@ -51,6 +51,8 @@ import { TextFieldSize } from '@mezzanine-ui/core/text-field';
 | `errorMessages`    | `FormattedInputErrorMessages`     | `{ enabled: true, ... }` | Error message config for invalid input / paste                            |
 
 > Inputs declared with signal API (`input()`) accept both static and reactive values.
+
+三個 trigger 皆提供 `<ng-content select="[suffix]" />` 插槽（例如放日曆圖示）；`MznRangePickerTrigger` 未投射內容時預設渲染日曆圖示，點擊會觸發 `iconClick`。
 
 ## Outputs — MznPickerTrigger
 
@@ -169,7 +171,7 @@ Dual-field trigger for date range pickers (from / to), separated by a right-arro
 
 ## MznFormattedInput — Additional Inputs
 
-`MznFormattedInput` is used inside all trigger components. Key inputs beyond `format`, `value`, `placeholder`, `disabled`, `hoverValue`, `validate`, and `errorMessages`:
+**Selector**: `[mznFormattedInput]`. `MznFormattedInput` is used inside all trigger components. It injects `MZN_CALENDAR_CONFIG` (required, see `DatePicker.md`) and `MznMessageService`. Outputs: `valueChanged` (`{ isoValue: string; rawDigits: string }`), `inputFocused` (`FocusEvent`), `inputBlurred` (`FocusEvent`), `valueCleared` (`void`), `inputKeydown` (`KeyboardEvent`), `pasteIsoValue` (`string`). `FormattedInputErrorMessages` is `{ enabled?: boolean; invalidInput?: string; invalidPaste?: string }`；所有 `errorMessages*` input 的預設值皆為 `{ enabled: true, invalidInput: 'Input value is not valid.', invalidPaste: 'Pasted content is not valid.' }`。 Key inputs beyond `format`, `value`, `placeholder`, `disabled`, `hoverValue`, `validate`, and `errorMessages`:
 
 | Input           | Type                        | Default | Description                                       |
 | --------------- | --------------------------- | ------- | ------------------------------------------------- |
@@ -210,7 +212,7 @@ interface Cell {
 }
 ```
 
-The package also re-exports `FORMAT_KEYS` and `getMaskRange(key)` helpers — see source for the full list of supported mask keys (`YYYY`, `gggg`, `GGGG`, `WW`, `MM`, `DD`, `HH`, `mm`, `ss`, `SSS`, `Q`).
+`FORMAT_KEYS`, `getMaskRange` and the `Cell` type are internal and **not** exported from `@mezzanine-ui/ng/picker`. Supported mask keys: `YYYY`, `gggg`, `GGGG`, `WW`, `MM`, `DD`, `HH`, `mm`, `ss`, `SSS`, `Q`.
 
 ### Usage example
 
@@ -257,14 +259,22 @@ Inside `MznFormattedInput`, `MaskFormat` is built from the `format` input and us
 ```
 
 ```ts
+import { Component } from '@angular/core';
+import { MznIcon } from '@mezzanine-ui/ng/icon';
 import { MznPickerTrigger } from '@mezzanine-ui/ng/picker';
-import type { FormattedInputErrorMessages } from '@mezzanine-ui/ng/picker';
+import { CalendarIcon } from '@mezzanine-ui/icons';
 
 @Component({
+  selector: 'app-custom-date-picker',
   imports: [MznPickerTrigger, MznIcon],
+  templateUrl: './custom-date-picker.component.html',
 })
 export class CustomDatePickerComponent {
+  readonly CalendarIcon = CalendarIcon;
   selectedDateString = '';
+
+  openCalendar(): void { /* ... */ }
+  toggleCalendar(event: MouseEvent): void { /* ... */ }
 
   onValueChange(payload: { isoValue: string; rawDigits: string }): void {
     this.selectedDateString = payload.isoValue;

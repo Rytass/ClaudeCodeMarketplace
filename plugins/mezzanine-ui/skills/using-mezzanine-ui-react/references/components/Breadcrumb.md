@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Breadcrumb`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Breadcrumb) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Breadcrumb) · Verified 1.10.2 (2026-11-22)
 
 Breadcrumb component for displaying hierarchical page navigation paths.
 
@@ -47,7 +47,7 @@ type BreadcrumbItemProps<C extends BreadcrumbItemComponent = 'span'> =
 | `children`  | `ReactElement<BreadcrumbItemProps> \| ReactElement<...>[]`  | -       | BreadcrumbItem elements                   |
 | `className` | `string`                                                    | -       | Custom CSS class                          |
 
-> Extends `nav` element native attributes (excluding `children`).
+> Extends `nav` element native attributes (excluding `children`). `items` and `children` are a discriminated union (exactly one of them is allowed); `condensed` is available in both branches. The component accepts a `ref` (`HTMLElement`) and always renders `aria-label="Breadcrumb"`.
 
 ---
 
@@ -57,7 +57,7 @@ type BreadcrumbItemProps<C extends BreadcrumbItemComponent = 'span'> =
 
 | Property    | Type       | Default  | Description                   |
 | ----------- | ---------- | -------- | ----------------------------- |
-| `component` | `'span'`   | `'span'` | Renders as text               |
+| `component` | `'span'`   | -        | Renders as text (no destructuring default; renders `<span>` unless `href`/`onClick` is present) |
 | `name`      | `string`   | required | Item name                     |
 | `current`   | `boolean`  | -        | Whether current page          |
 | `id`        | `string`   | -        | Unique identifier             |
@@ -286,6 +286,7 @@ const items = [
 <Breadcrumb
   items={items.map(item => ({
     name: item.name,
+    href: item.path, // link item requires href; onClick alone fails typing
     onClick: () => {
       // 自訂邏輯：路由、分析、驗證等
       router.push(item.path);

@@ -1,6 +1,6 @@
 # TimePanel
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/time-panel) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/time-panel) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Scrollable time column panel for hour, minute, and second selection. Used internally by `MznTimePicker` and `MznTimeRangePicker`. Requires `MZN_CALENDAR_CONFIG` for date manipulation.
 
@@ -8,6 +8,7 @@ Scrollable time column panel for hour, minute, and second selection. Used intern
 
 ```ts
 import { MznTimePanel, MznTimePanelColumn } from '@mezzanine-ui/ng/time-panel';
+import type { TimePanelUnit } from '@mezzanine-ui/core/time-panel'; // { value: number; label: string } (not re-exported by ng)
 // Also requires:
 import { MZN_CALENDAR_CONFIG, createCalendarConfig } from '@mezzanine-ui/ng/calendar';
 ```
@@ -29,7 +30,7 @@ import { MZN_CALENDAR_CONFIG, createCalendarConfig } from '@mezzanine-ui/ng/cale
 | `secondStep` | `number`                          | `1`       | Increment step for seconds                               |
 | `cellHeight` | `number`                          | (CSS var) | Height of each time cell in px                           |
 
-> Inputs declared with signal API (`input()`, `model()`) accept both static and reactive values.
+> Inputs declared with signal API (`input()`) accept both static and reactive values.
 
 ## Outputs
 

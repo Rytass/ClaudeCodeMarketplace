@@ -1,6 +1,6 @@
 # Progress
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/progress) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/progress) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/feedback-progress--docs
 
@@ -29,7 +29,7 @@ import type { ProgressPercentProps } from '@mezzanine-ui/ng/progress';
 | `percent`      | `number`                                   | `0`          | 進度百分比（0～100），超出範圍會被 clamp 至 0 或 100                           |
 | `type`         | `ProgressType`                             | `'progress'` | `'progress'`（純進度條）/ `'percent'`（進度條 + 百分比文字）/ `'icon'`（進度條 + 狀態圖示）|
 | `status`       | `ProgressStatus`                           | auto         | 強制指定狀態；未設定時依 `percent` 自動判斷（`< 100` → `enabled`，`= 100` → `success`）|
-| `tick`         | `number`                                   | `0`          | 進度條上的標記位置（0～100），設 0 不顯示                                       |
+| `tick`         | `number`                                   | `0`          | 進度條上的標記位置（0～100），設 0（或 ≥ 100）不顯示                                      |
 | `percentProps` | `ProgressPercentProps`                     | —            | 百分比文字的排版屬性（`type="percent"` 時生效）                                 |
 | `icons`        | `{ error?: IconDefinition; success?: IconDefinition }` | — | 自訂狀態圖示（`type="icon"` 時生效）；未設定時使用預設圖示                    |
 
@@ -73,7 +73,7 @@ import type { ProgressPercentProps } from '@mezzanine-ui/ng/progress';
   mznProgress
   type="percent"
   [percent]="75"
-  [percentProps]="{ color: 'text-secondary', variant: 'caption' }"
+  [percentProps]="{ color: 'text-neutral', variant: 'caption' }"
 ></div>
 ```
 

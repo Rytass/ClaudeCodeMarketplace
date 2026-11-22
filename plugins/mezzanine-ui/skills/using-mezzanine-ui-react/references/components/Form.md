@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/Form`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Form) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Form) · Verified 1.10.2 (2026-11-22)
 
 Form-related components including field containers, labels, hint text, and more.
 
@@ -37,6 +37,8 @@ import type { FormElementFocusHandlers } from '@mezzanine-ui/react/Form';
 
 An integrated form field component including label, input area, hint text, etc.
 
+> Extends `NativeElementPropsWithoutKeyAndRef<'div'>`. `layout`, `density`, `labelSpacing`, `counterColor` and `controlFieldSlotLayout` are TypeScript **string enums** from `@mezzanine-ui/core/form` — in TSX use the enum members (e.g. `FormFieldLayout.VERTICAL`); bare string literals such as `layout="vertical"` do not type-check. The snippets below assume `FormFieldLayout` / `FormFieldCounterColor` are imported from `@mezzanine-ui/core/form`. `FormFieldProps` is a plain interface (no discriminated union); `name` is the only required prop.
+
 | Property                 | Type                       | Default                       | Description                                |
 | ------------------------ | -------------------------- | ----------------------------- | ------------------------------------------ |
 | `name`                   | `string`                   | **Required**                  | Field name (also used as label's htmlFor)  |
@@ -49,12 +51,12 @@ An integrated form field component including label, input area, hint text, etc.
 | `required`               | `boolean`                  | `false`                       | Whether required                           |
 | `disabled`               | `boolean`                  | `false`                       | Whether disabled                           |
 | `fullWidth`              | `boolean`                  | `false`                       | Whether full width                         |
-| `severity`               | `SeverityWithInfo`         | `'info'`                      | Severity level                             |
-| `showHintTextIcon`       | `boolean`                  | `true`                        | Whether to display the hint text icon      |
+| `severity`               | `SeverityWithInfo` (`'success' \| 'warning' \| 'error' \| 'info'`) | `'info'`                      | Severity level                             |
+| `showHintTextIcon`       | `boolean`                  | `true` (applied by `FormHintText`) | Whether to display the hint text icon      |
 | `hintText`               | `string`                   | -                             | Hint text                                  |
 | `hintTextIcon`           | `IconDefinition`           | -                             | Hint text icon                             |
 | `counter`                | `string`                   | -                             | Counter text                               |
-| `counterColor`           | `FormFieldCounterColor`    | `FormFieldCounterColor.INFO`  | Counter color                              |
+| `counterColor`           | `FormFieldCounterColor`    | `FormFieldCounterColor.INFO`  | Counter color (`INFO` / `WARNING` / `ERROR`) |
 | `labelInformationIcon`   | `IconDefinition`           | -                             | Label information icon (shows tooltip)     |
 | `labelInformationText`   | `string`                   | -                             | Label information tooltip text             |
 | `labelOptionalMarker`    | `string`                   | -                             | Label optional marker (e.g., "(Optional)") |
@@ -110,7 +112,7 @@ An integrated form field component including label, input area, hint text, etc.
 
 ```tsx
 import { FormField, Input } from '@mezzanine-ui/react';
-import { FormFieldLayout } from '@mezzanine-ui/core/form';
+import { FormFieldCounterColor, FormFieldLayout } from '@mezzanine-ui/core/form';
 
 <FormField
   name="username"
@@ -141,7 +143,7 @@ import { FormFieldLayout } from '@mezzanine-ui/core/form';
 <FormField
   name="password"
   label="Password"
-  layout="vertical"
+  layout={FormFieldLayout.VERTICAL}
   required
   hintText="Password must be at least 8 characters"
 >
@@ -155,7 +157,7 @@ import { FormFieldLayout } from '@mezzanine-ui/core/form';
 <FormField
   name="email"
   label="Email"
-  layout="vertical"
+  layout={FormFieldLayout.VERTICAL}
   required
   severity="error"
   hintText="Invalid email format"
@@ -175,9 +177,13 @@ function TextareaWithCounter() {
     <FormField
       name="description"
       label="Description"
-      layout="vertical"
+      layout={FormFieldLayout.VERTICAL}
       counter={`${value.length}/${maxLength}`}
-      counterColor={value.length > maxLength ? 'error' : 'info'}
+      counterColor={
+        value.length > maxLength
+          ? FormFieldCounterColor.ERROR
+          : FormFieldCounterColor.INFO
+      }
     >
       <Textarea
         value={value}
@@ -197,7 +203,7 @@ import { QuestionOutlineIcon } from '@mezzanine-ui/icons';
 <FormField
   name="apiKey"
   label="API Key"
-  layout="vertical"
+  layout={FormFieldLayout.VERTICAL}
   labelInformationIcon={QuestionOutlineIcon}
   labelInformationText="API Key can be obtained from the settings page"
 >
@@ -211,7 +217,7 @@ import { QuestionOutlineIcon } from '@mezzanine-ui/icons';
 <FormField
   name="nickname"
   label="Nickname"
-  layout="vertical"
+  layout={FormFieldLayout.VERTICAL}
   labelOptionalMarker="(Optional)"
 >
   <Input placeholder="Enter nickname" />
@@ -224,7 +230,7 @@ import { QuestionOutlineIcon } from '@mezzanine-ui/icons';
 <FormField
   name="note"
   label="Note"
-  layout="vertical"
+  layout={FormFieldLayout.VERTICAL}
   hintText="This hint has no icon"
   showHintTextIcon={false}
 >
@@ -245,7 +251,7 @@ import { QuestionOutlineIcon } from '@mezzanine-ui/icons';
 <FormField
   label="Credit Card"
   name="creditCard"
-  layout="vertical"
+  layout={FormFieldLayout.VERTICAL}
   controlFieldSlotColumns={2}
 >
   <Input placeholder="Card Number" />
@@ -275,7 +281,7 @@ function ContactForm() {
       <FormField
         name="name"
         label="Name"
-        layout="vertical"
+        layout={FormFieldLayout.VERTICAL}
         required
         severity={errors.name ? 'error' : 'info'}
         hintText={errors.name}
@@ -293,7 +299,7 @@ function ContactForm() {
       <FormField
         name="email"
         label="Email"
-        layout="vertical"
+        layout={FormFieldLayout.VERTICAL}
         required
         severity={errors.email ? 'error' : 'info'}
         hintText={errors.email || 'We will not share your email'}
@@ -312,7 +318,7 @@ function ContactForm() {
       <FormField
         name="message"
         label="Message"
-        layout="vertical"
+        layout={FormFieldLayout.VERTICAL}
         required
         counter={`${formData.message.length}/500`}
       >
@@ -534,7 +540,7 @@ Discriminated by `mode`, mirroring `Select`'s own single/multiple split.
 | `onClear`      | `(e: MouseEvent<Element>) => void`                              | -       | Clear callback |
 | `onClose`      | `() => void`                                                    | -       | Called before commit in single mode (closes the dropdown on selection) |
 
-Returns `{ value, onChange, onClear }` — `onChange` and `onClear` here are the resolved handlers that update internal state and invoke the callbacks above; they are not the same function references you passed in.
+Returns `{ value, onChange, onClear }` (typed `SelectValueControl`: single `onChange: (v: SelectValue | null) => SelectValue | null`; multiple `onChange: (v: SelectValue | SelectValue[] | null) => SelectValue[]`) — `onChange` and `onClear` here are the resolved handlers that update internal state and invoke the callbacks above; they are not the same function references you passed in.
 
 ### `useAutoCompleteValueControl(props)`
 
@@ -553,7 +559,7 @@ The value-control hook backing `AutoComplete`. Discriminated by `mode` like `use
 | `onClose`                | `() => void`                                  | -            | Close callback |
 | `onSearch`                | `(input: string) => any`                     | -            | Search callback |
 
-Returns `{ focused, onClear, onFocus, options, searchText, selectedOptions, setSearchText, unselectedOptions, onChange, value }`.
+Returns `{ focused, onClear, onFocus, options, searchText, selectedOptions, setSearchText, unselectedOptions, onChange, value }` (`onFocus: (focused: boolean) => void`; `setSearchText` is a `Dispatch<SetStateAction<string>>`; `onChange: (v: SelectValue | null) => SelectValue | null` in single mode, `=> SelectValue[]` in multiple mode).
 
 > **Not exported**: `useInputWithTagsModeValue` (in `Form/useInputWithTagsModeValue.ts`, with an `initialTagsValue` / `maxTagsLength` / `onTagsChange` / `skip` / `tagValueMaxLength` prop shape) exists in the source tree but is **not** re-exported from `@mezzanine-ui/react`'s main entry or the `@mezzanine-ui/react/Form` sub-path, and nothing else in the package imports it — treat it as dead/internal code, not part of the public API. Do not document it as importable.
 

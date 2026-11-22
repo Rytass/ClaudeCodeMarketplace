@@ -2,13 +2,15 @@
 
 > **Note**: Not exported from the `@mezzanine-ui/react` main entry — import it via the sub-path `@mezzanine-ui/react/ContentHeader`.
 >
+> **匯出狀態（1.10.2 核對）**：原始碼 `packages/react/src/ContentHeader/` 仍存在且持續維護，但 `packages/react/src/index.ts` 未匯出；請用 sub-path 匯入 default export 與 `ContentHeaderProps` 型別。**並非 deprecated**。
+>
 > **Important**: ContentHeader **remains internally required** by [`Section`](Section.md) (via `contentHeader` prop) and [`PageHeader`](PageHeader.md) (as a required child). Both components enforce this via runtime type validation. Continue using ContentHeader via sub-path import when composing pages with Section or PageHeader.
 
 > **Category**: Internal (sub-path only)
 >
 > **Storybook**: `Internal/ContentHeader`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/ContentHeader) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/ContentHeader) · Verified 1.10.2 (2026-11-22)
 
 Content header component for displaying title, description, filters, and action buttons.
 
@@ -23,6 +25,8 @@ import type { ContentHeaderProps } from '@mezzanine-ui/react/ContentHeader';
 ---
 
 ## ContentHeader Props
+
+`ContentHeaderProps` = `Omit<NativeElementPropsWithoutKeyAndRef<'header'>, 'children'>` plus the props below (other native `<header>` attributes pass through; `ref` is `HTMLElement`).
 
 | Property         | Type                                      | Default    | Description                     |
 | ---------------- | ----------------------------------------- | ---------- | ------------------------------- |

@@ -1,6 +1,6 @@
 # Radio
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/radio) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/radio) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-radio--docs
 
@@ -34,9 +34,9 @@ import { RadioSize, RadioType } from '@mezzanine-ui/core/radio';
 
 ## Selector
 
-`<div mznRadio value="..." ...>` — attribute-directive component (`value` is required)
+`<div mznRadio value="..." ...>` — attribute-selector component `[mznRadio]`（`value` is required；無 `exportAs`）
 
-`<div mznRadioGroup ...>` — attribute-directive component
+`<div mznRadioGroup ...>` — attribute-selector component `[mznRadioGroup]`（`role="radiogroup"`；無 `exportAs`）
 
 ## Inputs — MznRadio
 
@@ -49,7 +49,7 @@ import { RadioSize, RadioType } from '@mezzanine-ui/core/radio';
 | `hint`            | `string`                 | —          | Secondary hint text (radio type only)                     |
 | `icon`            | `IconDefinition`         | —          | Icon shown in the segment (segment type only)             |
 | `name`            | `string`                 | —          | Input name attribute                                      |
-| `size`            | `RadioSize`              | `'main'`   | `'main' \| 'minor'`                                       |
+| `size`            | `RadioSize`              | `'main'`   | `'main' \| 'sub'`（群組內以群組的 `size` 為準）            |
 | `type`            | `RadioType`              | `'radio'`  | `'radio' \| 'segment'`                                    |
 | `withInputConfig` | `RadioWithInputConfig`   | —          | Inline text input config shown alongside the radio button |
 
@@ -61,9 +61,9 @@ import { RadioSize, RadioType } from '@mezzanine-ui/core/radio';
 | ------------- | -------------------------------- | -------------- | -------------------------------------------------------- |
 | `options`     | `ReadonlyArray<RadioGroupOption>`| `[]`           | Declarative option list; renders before projected children |
 | `disabled`    | `boolean`                        | `false`        | Disable all radios                                       |
-| `orientation` | `RadioGroupOrientation`          | `'horizontal'` | `'horizontal' \| 'vertical'`                             |
+| `orientation` | `InputCheckGroupOrientation`     | `'horizontal'` | `'horizontal' \| 'vertical'`（與公開匯出的 `RadioGroupOrientation` 為同一 union，無其他成員） |
 | `name`        | `string`                         | `''`           | Input name propagated to all radios                      |
-| `size`        | `InputCheckSize`                 | `'main'`       | Size propagated to all radios                            |
+| `size`        | `InputCheckSize`                 | `'main'`       | `'main' \| 'sub' \| 'minor'`；propagated to all radios   |
 | `type`        | `RadioType`                      | `'radio'`      | Type propagated to all radios                            |
 
 ## Outputs

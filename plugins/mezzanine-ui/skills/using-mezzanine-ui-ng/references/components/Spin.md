@@ -1,6 +1,6 @@
 # Spin
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/spin) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/spin) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/feedback-spin--docs
 
@@ -45,7 +45,7 @@ import type { GeneralSize } from '@mezzanine-ui/system/size';
 | `class`                     | `string`          | —        | 套用在遮罩容器的 CSS class          |
 | `disableCloseOnBackdropClick` | `boolean`       | `true`   | 禁用點擊遮罩關閉（巢狀模式預設禁用）|
 | `disableScrollLock`         | `boolean`         | `true`   | 禁用 scroll lock（巢狀模式預設禁用）|
-| `variant`                   | `BackdropVariant` | `'light'`| 遮罩顏色變體                        |
+| `variant`                   | `BackdropVariant` | `'light'`| `'dark' \| 'light'` — 遮罩顏色變體   |
 
 ## Usage
 

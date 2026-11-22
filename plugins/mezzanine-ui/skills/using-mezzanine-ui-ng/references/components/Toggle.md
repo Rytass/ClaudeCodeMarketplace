@@ -1,6 +1,6 @@
 # Toggle
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/toggle) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/toggle) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-toggle--docs
 
@@ -13,7 +13,7 @@ A binary on/off toggle switch component (supersedes the React `Switch` component
 
 ```ts
 import { MznToggle } from '@mezzanine-ui/ng/toggle';
-import { ToggleSize } from '@mezzanine-ui/core/toggle';
+import type { ToggleSize } from '@mezzanine-ui/core/toggle';
 ```
 
 ## Selector
@@ -27,7 +27,7 @@ import { ToggleSize } from '@mezzanine-ui/core/toggle';
 | `checked`        | `boolean`    | —        | Controlled checked state                       |
 | `disabled`       | `boolean`    | `false`  | Disabled state                                 |
 | `label`          | `string`     | —        | Primary label text shown to the right          |
-| `size`           | `ToggleSize` | `'main'` | `'main' \| 'minor'`                            |
+| `size`           | `ToggleSize` | `'main'` | `'main' \| 'sub'`                              |
 | `supportingText` | `string`     | —        | Secondary supporting text beneath the label    |
 
 > Inputs declared with signal API (`input()`) accept both static and reactive values.
@@ -69,7 +69,7 @@ import { ToggleSize } from '@mezzanine-ui/core/toggle';
   <div mznToggle
     formControlName="smsNotifications"
     label="SMS Notifications"
-    [size]="'minor'">
+    [size]="'sub'">
   </div>
 </form>
 
@@ -104,4 +104,4 @@ export class SettingsComponent {
 - `setDisabledState` is fully implemented — calling `formControl.disable()` / `formControl.enable()` will correctly toggle the disabled state via `internalDisabled` signal.
 - The `checked` input provides a controlled mode: if `[checked]` is bound, it overrides `internalChecked`. In most form scenarios, use CVA (`formControlName` / `[(ngModel)]`) instead of `[checked]`.
 - Unlike `MznCheckbox`, the toggle has no group component — each toggle independently manages its boolean value.
-- `size: 'minor'` renders a smaller knob and track suitable for compact layouts.
+- `size: 'sub'` renders a smaller knob and track suitable for compact layouts.

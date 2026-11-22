@@ -1,6 +1,6 @@
 # DateTimePicker
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/date-time-picker) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/date-time-picker) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-date-time-picker--docs
 
@@ -10,14 +10,10 @@ A combined date-and-time picker with two side-by-side formatted inputs separated
 
 ```ts
 import { MznDateTimePicker } from '@mezzanine-ui/ng/date-time-picker';
-// Note: MznDateTimePickerCalendarProps, MznDateTimePickerInputProps, and
-// MznDateTimePickerPopperProps are NOT re-exported from the package index.
-// Import them directly from the component file if needed:
-import type {
-  MznDateTimePickerCalendarProps,
-  MznDateTimePickerInputProps,
-  MznDateTimePickerPopperProps,
-} from '@mezzanine-ui/ng/date-time-picker/date-time-picker.component';
+// Note: the package index exports only `MznDateTimePicker`. The bundle types
+// MznDateTimePickerCalendarProps / MznDateTimePickerInputProps /
+// MznDateTimePickerPopperProps are NOT exported — derive them from the inputs when needed:
+type CalendarBundle = NonNullable<ReturnType<MznDateTimePicker['calendarProps']>>;
 import type { DateType } from '@mezzanine-ui/core/calendar';
 
 // Required provider:
@@ -99,7 +95,7 @@ import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 | `hover`               | `OutputEmitterRef<DateType>`                            | Calendar date hovered (for preview)                           |
 | `leave`               | `OutputEmitterRef<void>`                                | Calendar mouseleave                                           |
 | `leftComplete`        | `OutputEmitterRef<void>`                                | Left input mask fully filled                                  |
-| `panelToggle`         | `OutputEmitterRef<{ open: boolean; focusedInput: 'left' \| 'right' \| null }>` | Panel open/close toggle     |
+| `panelToggle`         | `OutputEmitterRef<{ open: boolean; focusedInput: FocusedInput }>` | Panel open/close toggle (`FocusedInput` = `'left' \| 'right' \| null`; module-private alias, not exported) |
 | `pasteIsoValueLeft`   | `OutputEmitterRef<string>`                              | Valid ISO date pasted into left input                         |
 | `pasteIsoValueRight`  | `OutputEmitterRef<string>`                              | Valid ISO time pasted into right input                        |
 | `rightComplete`       | `OutputEmitterRef<void>`                                | Right input mask fully filled                                 |
@@ -125,14 +121,22 @@ import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 
 ```ts
 // app.config.ts
-import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
+import { MZN_CALENDAR_CONFIG, createCalendarConfig, CalendarLocale } from '@mezzanine-ui/ng/calendar';
+import CalendarMethodsDayjs from '@mezzanine-ui/core/calendarMethodsDayjs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    MznCalendarConfigProvider({ firstDayOfWeek: 1, locale: 'zh-TW' }),
+    {
+      provide: MZN_CALENDAR_CONFIG,
+      useValue: createCalendarConfig(CalendarMethodsDayjs, {
+        locale: CalendarLocale.ZH_TW,
+      }),
+    },
   ],
 };
 ```
+
+(`MznCalendarConfigProvider` is an attribute directive `[mznCalendarConfigProvider]`, not a provider function; see `Calendar.md`.)
 
 ## Usage
 
@@ -158,7 +162,6 @@ export const appConfig: ApplicationConfig = {
 
 ```ts
 import { MznDateTimePicker } from '@mezzanine-ui/ng/date-time-picker';
-import type { MznDateTimePickerCalendarProps } from '@mezzanine-ui/ng/date-time-picker';
 import type { DateType } from '@mezzanine-ui/core/calendar';
 
 @Component({
@@ -166,7 +169,7 @@ import type { DateType } from '@mezzanine-ui/core/calendar';
 })
 export class ScheduleFormComponent {
   // Hoist bundle to a field to ensure stable reference for OnPush
-  readonly calBundle: MznDateTimePickerCalendarProps = {
+  readonly calBundle: NonNullable<ReturnType<MznDateTimePicker['calendarProps']>> = {
     displayMonthLocale: 'zh-TW',
     isDateDisabled: (d: DateType) => d < '2024-01-01',
   };
@@ -195,6 +198,10 @@ export class ScheduleFormComponent {
 | `isWeekDisabled`       | `(date: DateType) => boolean`    | Custom week disable predicate                             |
 | `isYearDisabled`       | `(date: DateType) => boolean`    | Custom year disable predicate                             |
 | `referenceDate`        | `DateType`                       | Initial reference date for calendar display               |
+
+`MznDateTimePickerCalendarProps` also `extends MznDatePickerCalendarProps`, so it additionally accepts the fields documented in `DatePicker.md` (`calendarDaysProps`, `calendarWeeksProps`, `calendarMonthsProps`, `calendarQuartersProps`, `calendarHalfYearsProps`, `calendarYearsProps`, `calendarFooterControlProps`, `disabledFooterControl`, `quickSelect`, `renderAnnotations`).
+
+`MznDateTimePickerInputProps` has a single field `ariaLabel?: string`. `MznDateTimePickerPopperProps` has `placement?: PopperPlacement` (default `'bottom-start'`) and `offsetOptions?: PopperOffsetOptions` (default `{ mainAxis: 4 }`).
 
 ## Dependency Injection
 

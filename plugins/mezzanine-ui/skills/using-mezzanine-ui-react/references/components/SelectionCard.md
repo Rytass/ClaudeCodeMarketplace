@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/SelectionCard`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/SelectionCard) · Verified 1.5.1 (2026-09-12)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/SelectionCard) · Verified 1.10.2 (2026-11-22)
 
 SelectionCard component providing selection items with images or icons. Supports single-select (radio) and multi-select (checkbox) modes.
 
@@ -62,6 +62,10 @@ Extends `SelectionCardPropsBase` with additional:
 | Property         | Type                                           | Default | Description      |
 | ---------------- | ---------------------------------------------- | ------- | ---------------- |
 | `onClick`        | `(event: MouseEvent<HTMLLabelElement>) => void` | -       | Label click callback |
+
+> `selector` and `text` are required in source (no `?`); the table above marks them **required**. When `text` is empty the component logs `console.error` and renders `null`; a missing `supportingText` only logs a `console.warn`. The component accepts a `ref` (`HTMLLabelElement`).
+>
+> **`selections` is not a `SelectionCard` prop.** It belongs to the internal `SelectionCardGroup` (`SelectionCardGroupProps`: `children?` or `selections?: SelectionCardProps[]`, plus native `<div>` props), which exists in `packages/react/src/SelectionCard/SelectionCardGroup.tsx` but is **not exported** from `src/index.ts` nor from `SelectionCard/index.ts` in 1.10.2. Render several `<SelectionCard>` elements yourself (e.g. inside a `<div>`).
 
 ---
 
@@ -205,7 +209,7 @@ function SelectionCardWithClick() {
 
 | Figma Variant                      | React Props                              |
 | ---------------------------------- | ---------------------------------------- |
-| `SelectionCard / Radio`            | `selector="radio"` (default)             |
+| `SelectionCard / Radio`            | `selector="radio"`                       |
 | `SelectionCard / Checkbox`         | `selector="checkbox"`                    |
 | `SelectionCard / Horizontal`       | `direction="horizontal"` (default)       |
 | `SelectionCard / Vertical`         | `direction="vertical"`                   |

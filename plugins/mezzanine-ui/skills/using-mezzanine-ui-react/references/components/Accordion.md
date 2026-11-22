@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Accordion`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Accordion) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Accordion) · Verified 1.10.2 (2026-11-22)
 
 Collapsible accordion panels for expanding/collapsing content areas. Supports controlled/uncontrolled modes and group management.
 
@@ -163,7 +163,7 @@ Extends `NativeElementPropsWithoutKeyAndRef<'div'>`.
 | ----------- | ------------------ | -------- | -------------------------------------------- |
 | `children`  | `ReactNode`        | -        | Children (should contain multiple `Accordion`) |
 | `exclusive` | `boolean`          | `false`  | If true, only one accordion can be expanded at a time (mutex mode) |
-| `size`      | `'main' \| 'sub'` | `'main'` | Uniform size for all Accordions in the group |
+| `size`      | `'main' \| 'sub'` | -        | Uniform size for all Accordions in the group (no default; when omitted each child falls back to Accordion's `'main'`) |
 
 ---
 
@@ -394,8 +394,8 @@ function ExclusiveAccordion() {
   <Button variant="base-ghost" size="minor">
     Edit
   </Button>
-  <Dropdown>
-    <DropdownItem>Option</DropdownItem>
+  <Dropdown options={[{ id: 'more', name: 'Option' }]}>
+    <Button icon={DotHorizontalIcon} iconType="icon-only" />
   </Dropdown>
 </AccordionActions>
 ```

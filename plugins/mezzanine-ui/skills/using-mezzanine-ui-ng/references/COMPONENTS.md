@@ -1,6 +1,6 @@
 # Mezzanine-UI Angular Component Reference
 
-> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.4` · Last verified 2026-04-24.
+> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.26` · Last verified 2026-11-22.
 
 Consolidated flat API index. For deeper examples see
 [PATTERNS.md](PATTERNS.md) and `references/components/`.
@@ -100,8 +100,8 @@ All components are **standalone**. All inputs use the Angular 21 signal API
 
 ```html
 <i mznIcon [icon]="SearchIcon"></i>
-<i mznIcon [icon]="LoadingIcon" [spin]="true"></i>
-<i mznIcon [icon]="CheckIcon" color="success" [size]="20"></i>
+<i mznIcon [icon]="SpinnerIcon" [spin]="true"></i>
+<i mznIcon [icon]="CheckedIcon" color="success" [size]="20"></i>
 ```
 
 ---
@@ -138,7 +138,7 @@ All components are **standalone**. All inputs use the Angular 21 signal API
 
 ```html
 <h1 mznTypography variant="h2">頁面標題</h1>
-<p mznTypography variant="body" color="text-secondary">說明文字</p>
+<p mznTypography variant="body" color="text-neutral-light">說明文字</p>
 <span mznTypography variant="caption" [ellipsis]="true">長文字截斷…</span>
 ```
 
@@ -187,7 +187,7 @@ All components are **standalone**. All inputs use the Angular 21 signal API
 ```html
 <div mznBadge variant="count-alert" [count]="notifications()"></div>
 <div mznBadge variant="dot-error">
-  <i mznIcon [icon]="BellIcon"></i>
+  <i mznIcon [icon]="NotificationIcon"></i>
 </div>
 <div mznBadge variant="count-brand" [count]="120" [overflowCount]="99"></div>
 ```
@@ -733,6 +733,7 @@ Use slot `prefix` / `suffix` for leading/trailing icons.
 | `error`      | `boolean`                      | `false` | Error state                         |
 | `fullWidth`  | `boolean`                      | `false` | Full width                          |
 | `active`     | `boolean`                      | `false` | Forced active state                 |
+| `caseSensitive` | `boolean`                   | `false` | Case-sensitive option matching      |
 
 Use `[mznAutocompletePrefix]` on a host element to mark prefix content.
 
@@ -1410,9 +1411,9 @@ Image/video thumbnail container with overlay actions.
 
 ---
 
-### MznSingleThumbnailCard *(已廢棄 v1.0.0-rc.4)*
+### MznSingleThumbnailCard
 
-> **已廢棄** — `thumbnail-cards` package removed in v1.0.0-rc.4. These components still resolve from their individual sub-paths but the shared `thumbnail-cards` entry point is gone. Prefer the individual packages listed below or migrate to `MznQuickActionCard`.
+> **注意** — `thumbnail-cards` 聚合入口已於 v1.0.0-rc.4 移除；請改從各元件自己的 sub-path 匯入（本元件於 rc.26 仍正常匯出，並未廢棄）。
 
 **Import**: `@mezzanine-ui/ng/single-thumbnail-card`
 
@@ -1426,7 +1427,7 @@ Card layout with a single `16:9` thumbnail. Includes
 
 ---
 
-### MznFourThumbnailCard *(已廢棄 v1.0.0-rc.4)*
+### MznFourThumbnailCard
 
 **Import**: `@mezzanine-ui/ng/four-thumbnail-card`
 
@@ -1439,7 +1440,7 @@ Card layout with a 2×2 thumbnail grid. Includes
 
 ---
 
-### MznThumbnailCardInfo *(已廢棄 v1.0.0-rc.4)*
+### MznThumbnailCardInfo
 
 **Selector**: `[mznThumbnailCardInfo]`
 **Import**: `@mezzanine-ui/ng/thumbnail-card-info`

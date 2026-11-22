@@ -1,6 +1,6 @@
 # Tab
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/tab) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/tab) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/navigation-tab--docs
 
@@ -21,25 +21,25 @@ import type { TabsContext } from '@mezzanine-ui/ng/tab';
 
 `<div mznTabs [(activeKey)]="currentTab">` — tabs container
 
-`<button mznTabItem [key]="'tab1'">` — 單一 tab item，host element 必須為 `<button>`
+`<button mznTabItem [key]="'tab1'">` — 單一 tab item（selector 為 `[mznTabItem]`，host 固定帶 `type="button"`；請使用 `<button>` 以確保鍵盤可及性）
 
 ## Children Validation (重要)
 
-`MznTabs` 透過 `contentChildren(MznTabItem)` 蒐集子代，並依靠注入 `MZN_TABS_CONTEXT` 給每個 `MznTabItem` 取得 active state。**只有「直接子代」且 host 為 `<button mznTabItem>` 才會被識別**。
+`MznTabs` 透過 `contentChildren(MznTabItem)`（預設不含深層後代）蒐集子代，並由 `MznTabs` 提供 `MZN_TABS_CONTEXT` 給每個 `MznTabItem` 取得 active state。**只有「直接子代」的 `<button mznTabItem>` 會列入 `tabItems`**，active bar 才能定位。
 
 ### 常見靜默失敗
 
 ```html
-<!-- ❌ 包一層 div：mznTabItem 雖渲染但找不到 context，行為錯亂或不顯示 active bar -->
+<!-- ❌ 包一層 div：不在 contentChildren 內，不會列入 tabItems，active bar 無法定位 -->
 <div mznTabs>
   <div class="tabs">
     <button mznTabItem [key]="'a'">A</button>
   </div>
 </div>
 
-<!-- ❌ 用 a / span 套 mznTabItem：directive selector 是 button[mznTabItem]，不會生效 -->
+<!-- ⚠️ 用 a / span 套 mznTabItem：selector 是 [mznTabItem]，仍會套用，但失去 button 語意與鍵盤可及性，不建議 -->
 <div mznTabs>
-  <a mznTabItem [key]="'a'">A</a>           <!-- 不渲染 mzn 樣式 -->
+  <a mznTabItem [key]="'a'">A</a>
 </div>
 
 <!-- ❌ 忘了在 standalone 元件 imports 內加入 MznTabs / MznTabItem -->
@@ -137,7 +137,7 @@ import type { TabsContext } from '@mezzanine-ui/ng/tab';
 
 <!-- 帶徽章計數與圖示 -->
 <div mznTabs [activeKey]="activeTab()" (activeKeyChange)="activeTab.set($event)">
-  <button mznTabItem [key]="'inbox'" [icon]="InboxIcon" [badgeCount]="unreadCount()">
+  <button mznTabItem [key]="'inbox'" [icon]="MailIcon" [badgeCount]="unreadCount()">
     收件匣
   </button>
   <button mznTabItem [key]="'sent'">已傳送</button>
@@ -149,7 +149,7 @@ import type { TabsContext } from '@mezzanine-ui/ng/tab';
 ```ts
 import { Component, signal } from '@angular/core';
 import { MznTabs, MznTabItem } from '@mezzanine-ui/ng/tab';
-import { InboxIcon } from '@mezzanine-ui/icons';
+import { MailIcon } from '@mezzanine-ui/icons';
 import type { IconDefinition } from '@mezzanine-ui/icons';
 
 @Component({
@@ -172,7 +172,7 @@ import type { IconDefinition } from '@mezzanine-ui/icons';
   `,
 })
 export class EmailComponent {
-  readonly inboxIcon: IconDefinition = InboxIcon;
+  readonly inboxIcon: IconDefinition = MailIcon;
   readonly activeTab = signal<string>('inbox');
   readonly unreadCount = signal(5);
 }

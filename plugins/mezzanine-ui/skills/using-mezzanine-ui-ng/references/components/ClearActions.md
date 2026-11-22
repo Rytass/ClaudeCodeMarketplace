@@ -1,8 +1,8 @@
 # ClearActions
 
-> ⚠️ Internal helper — `MznClearActions` is used internally by `MznSelect`, `MznInput`, `MznTextField`, `MznModal`, and other components to render close/clear icons. **Not recommended for direct usage.** Prefer using the `clearable` or `showDismissButton` inputs on the parent component instead.
+> ⚠️ Internal helper — `MznClearActions` is used internally by `MznSelect`, `MznAutocomplete`, `MznTextField` (and thus `MznInput`), `MznModal`, `MznDrawer`, `MznPicker`, and other components to render close/clear icons. **Not recommended for direct usage.** Prefer using the `clearable` or `showDismissButton` inputs on the parent component instead.
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/clear-actions) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/clear-actions) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Small button component for close, clear, or dismiss interactions. Renders a `CloseIcon` (standard/embedded) or `DangerousFilledIcon` (clearable) depending on `type`.
 
@@ -15,7 +15,7 @@ import type {
   ClearActionsEmbeddedVariant,
   ClearActionsStandardVariant,
   ClearActionsVariant,
-} from '@mezzanine-ui/core/clear-actions';
+} from '@mezzanine-ui/ng/clear-actions';
 ```
 
 ## Selector
@@ -27,7 +27,8 @@ import type {
 | Input     | Type                                                         | Default      | Description                                                    |
 | --------- | ------------------------------------------------------------ | ------------ | -------------------------------------------------------------- |
 | `type`    | `ClearActionsType`                                           | `'standard'` | `'standard' \| 'embedded' \| 'clearable'`                      |
-| `variant` | `ClearActionsEmbeddedVariant \| ClearActionsStandardVariant` | —            | Visual variant (depends on type; computed internally if unset) |
+| `aria-label` | `string`                                                  | `'Close'`    | 按鈕的可及名稱（signal input，property 名稱為 `ariaLabel`，template 以 alias `aria-label` 綁定）；請與介面其餘文案一起翻譯 |
+| `variant` | `ClearActionsEmbeddedVariant \| ClearActionsStandardVariant` | —            | Visual variant: `standard` → `'base' \| 'inverse'`, `embedded` → `'contrast' \| 'emphasis'`; ignored when `type='clearable'` (always `'default'`) |
 
 > There is no `disabled` input on `MznClearActions`. Disable via the parent component.
 >
@@ -50,5 +51,5 @@ import type {
 ## Notes
 
 - The host selector is `button[mznClearActions]` — only valid on `<button>` elements.
-- `aria-label="Close"` is automatically applied. Button type is forced to `"button"` to prevent form submission.
+- `aria-label` defaults to `"Close"`; override it via the `aria-label` input (e.g. `<button mznClearActions aria-label="清除">`). Button type is forced to `"button"` to prevent form submission.
 - For clearable inputs, use `[clearable]="true"` on the input/select component; it will render `MznClearActions` internally.

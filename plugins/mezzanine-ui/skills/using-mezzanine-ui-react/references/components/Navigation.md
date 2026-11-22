@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Navigation`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Navigation) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Navigation) · Verified 1.10.2 (2026-11-22)
 
 Side navigation component supporting expand/collapse, multi-level, categories, search, and more.
 
@@ -161,7 +161,7 @@ Navigation 系列在 runtime 透過 `isValidElement` + `switch (child.type)` 檢
 | Property              | Type           | Default               | Description                              |
 | --------------------- | -------------- | --------------------- | ---------------------------------------- |
 | `children`            | `ReactNode`    | -                     | Header content (usually a Logo icon)     |
-| `collapseToggleLabel` | `string`       | `'Toggle navigation'` | **New in 1.5.0.** Accessible name (`aria-label`) for the collapse/expand toggle button. The toggle renders only an icon, so this is the only thing a screen reader can announce for it — translate it along with the rest of your interface. |
+| `collapseToggleLabel` | `string`       | `'Toggle navigation'` | Accessible name (`aria-label`) for the collapse/expand toggle button. The toggle renders only an icon, so this is the only thing a screen reader can announce for it — translate it along with the rest of your interface. |
 | `title`               | `string`       | (required)            | Title text                               |
 | `onBrandClick`        | `() => void`   | -                     | Brand area (Logo + title) click callback |
 
@@ -186,7 +186,8 @@ Navigation 系列在 runtime 透過 `isValidElement` + `switch (child.type)` 檢
 | Property | Type             | Default | Description                  |
 | -------- | ---------------- | ------- | ---------------------------- |
 | `icon`   | `IconDefinition` | -       | **Required**, display icon   |
-| `active` | `boolean`        | `false` | When true, applies active state styling class |
+| `active` | `boolean`        | -       | When true, applies active state styling class |
+| `aria-label` | `string`     | -       | Accessible name. The button renders only an icon (no `children`), so without this it has no accessible name — always provide it |
 
 > Extends native `<button>` attributes (excluding `children`).
 
@@ -202,6 +203,7 @@ Navigation 系列在 runtime 透過 `isValidElement` + `switch (child.type)` 檢
 | `className` | `string`       | -           | Custom className     |
 | `imgSrc`    | `string`       | -           | User avatar URL      |
 | `onClick`   | `() => void`   | -           | Click event          |
+| `aria-label` | `string`      | -           | Accessible name; defaults to `children` when it is a string, otherwise `'User menu'` when there are no children |
 | `collapsedPlacement` | `DropdownProps['placement']` | `'right-end'` | Dropdown position when navigation is collapsed |
 | `placement` | `DropdownProps['placement']` | `'top-end'` | Dropdown position (inherited) |
 
@@ -366,8 +368,8 @@ import { SettingIcon, QuestionOutlineIcon } from '@mezzanine-ui/icons';
     >
       Username
     </NavigationUserMenu>
-    <NavigationIconButton icon={SettingIcon} onClick={handleSettings} />
-    <NavigationIconButton icon={QuestionOutlineIcon} onClick={handleHelp} />
+    <NavigationIconButton aria-label="Settings" icon={SettingIcon} onClick={handleSettings} />
+    <NavigationIconButton aria-label="Help" icon={QuestionOutlineIcon} onClick={handleHelp} />
   </NavigationFooter>
 </Navigation>
 ```
@@ -388,8 +390,8 @@ import { SettingIcon, QuestionOutlineIcon } from '@mezzanine-ui/icons';
 
 ## Behavior Notes
 
-- **Collapsed overflow menu (1.5.0+)**: when `collapsed` is true and the top-level items (`NavigationOption` / `NavigationOptionCategory` children) don't all fit within the available height, Navigation automatically hides the overflow and appends a `···` (`DotHorizontalIcon`) button at the end of the list. Clicking it opens a flyout menu containing the hidden items, with up to 3 levels of nested sub-menus. This is computed automatically via a `ResizeObserver` — there is no prop to control it, and it only applies while collapsed.
-- **`menuitem` ARIA role removed (1.5.0+)**: a side navigation is a set of links, not a menu widget, so per the ARIA Authoring Practices Guide it must not claim `role="menuitem"` (which additionally requires a `menu`/`menubar`/`group` ancestor that Navigation does not render). Navigation options now render with no explicit `role` when rendered as an anchor (the native `link` role already applies) and `role="button"` when rendered as a `<div>` (an activatable control driven by Enter/Space). This affects `NavigationOption` and the internal overflow-menu's option rendering.
+- **Collapsed overflow menu**: when `collapsed` is true and the top-level items (`NavigationOption` / `NavigationOptionCategory` children) don't all fit within the available height, Navigation automatically hides the overflow and appends a `···` (`DotHorizontalIcon`) button at the end of the list. Clicking it opens a flyout menu containing the hidden items, with up to 3 levels of nested sub-menus. This is computed automatically via a `ResizeObserver` — there is no prop to control it, and it only applies while collapsed.
+- **`menuitem` ARIA role removed**: a side navigation is a set of links, not a menu widget, so per the ARIA Authoring Practices Guide it must not claim `role="menuitem"` (which additionally requires a `menu`/`menubar`/`group` ancestor that Navigation does not render). Navigation options now render with no explicit `role` when rendered as an anchor (the native `link` role already applies) and `role="button"` when rendered as a `<div>` (an activatable control driven by Enter/Space). This affects `NavigationOption` and the internal overflow-menu's option rendering.
 
 ---
 

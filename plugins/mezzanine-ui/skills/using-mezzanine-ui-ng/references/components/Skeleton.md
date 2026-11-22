@@ -1,6 +1,6 @@
 # Skeleton
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/skeleton) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/skeleton) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/feedback-skeleton--docs
 
@@ -19,7 +19,7 @@ import type { TypographySemanticType } from '@mezzanine-ui/core/typography';
 
 ## Selector
 
-`<div mznSkeleton [variant]="'h3'">` — attribute-directive component
+`[mznSkeleton]` — attribute-directive component（host 元素如 `<div mznSkeleton variant="h3">`）
 
 ## Inputs
 

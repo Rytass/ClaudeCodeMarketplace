@@ -1,6 +1,6 @@
 # Description
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/description) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/description) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Key–value pair display. `MznDescription` wraps a `MznDescriptionTitle` (label) and a projected `MznDescriptionContent` (value). Group multiple pairs with `MznDescriptionGroup`.
 
@@ -59,7 +59,7 @@ import type {
 | `badge`            | `BadgeDotVariant \| undefined` | —           | Dot badge shown left of title text                    |
 | `icon`             | `IconDefinition \| undefined`  | —           | Info icon shown right of title text                   |
 | `tooltip`          | `string \| undefined`          | —           | Tooltip on the icon                                   |
-| `tooltipPlacement` | `Placement \| undefined`       | `'top'`     | Floating-UI placement for the tooltip                 |
+| `tooltipPlacement` | `Placement \| undefined`       | —           | Floating-UI placement (template falls back to 'top')              |
 | `widthType`        | `DescriptionWidthType`         | `'stretch'` | Title column width: `'stretch' \| 'narrow' \| 'wide'` |
 
 ## MznDescription — Inputs

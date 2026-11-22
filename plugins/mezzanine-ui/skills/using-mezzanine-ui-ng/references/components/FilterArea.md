@@ -1,6 +1,6 @@
 # FilterArea
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/filter-area) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/filter-area) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Multi-row filter form container with built-in expand/collapse and submit/reset actions. Composes `MznFilterLine` rows (each containing `MznFilter` field wrappers). By default only the first row is visible; additional rows are revealed with an expand toggle.
 
@@ -13,13 +13,15 @@ import {
   MznFilter,
 } from '@mezzanine-ui/ng/filter-area';
 
+// 型別同樣由 ng sub-path 匯出（re-export 自 @mezzanine-ui/core/filter-area）
 import type {
+  FilterAreaButtonProps,
   FilterAreaSize,
   FilterAlign,
   FilterAreaActionsAlign,
   FilterAreaRowAlign,
   FilterSpan,
-} from '@mezzanine-ui/core/filter-area';
+} from '@mezzanine-ui/ng/filter-area';
 ```
 
 ## Selectors
@@ -38,12 +40,25 @@ import type {
 | `submitText`        | `string`                 | `'Search'`  | Submit button label                                         |
 | `resetText`         | `string`                 | `'Reset'`   | Reset button label                                          |
 | `isDirty`           | `boolean`                | `true`      | When `false`, reset button is disabled                      |
-| `actionsAlign`      | `FilterAreaActionsAlign` | `'end'`     | `'start' \| 'end'` — button row alignment                  |
-| `rowAlign`          | `FilterAreaRowAlign`     | `'center'`  | Vertical alignment of items within a row                    |
+| `actionsAlign`      | `FilterAreaActionsAlign` | `'end'`     | `'start' \| 'center' \| 'end'` — button row alignment      |
+| `rowAlign`          | `FilterAreaRowAlign`     | `'center'`  | `'start' \| 'center' \| 'end'` — vertical alignment of items within a row |
 | `submitButtonType`  | `'button' \| 'submit' \| 'reset'` | `'button'` | HTML button type for submit               |
 | `resetButtonType`   | `'button' \| 'submit' \| 'reset'` | `'button'` | HTML button type for reset                |
+| `loading`           | `boolean \| undefined`   | `undefined` | 送出按鈕是否顯示 loading；loading 時點擊會被忽略。有設定時優先於 `submitButtonProps.loading` |
+| `submitButtonProps` | `FilterAreaButtonProps`  | —           | 送出按鈕的額外設定；`loading` 會被 `loading` input 覆寫      |
+| `resetButtonProps`  | `FilterAreaButtonProps`  | —           | 重設按鈕的額外設定；`disabled` 會與 `isDirty` 合併（reset 預設 variant 為 `'base-secondary'`） |
 
-> Inputs declared with signal API (`input()`, `model()`) accept both static and reactive values.
+> Inputs declared with signal API (`input()`) accept both static and reactive values.
+
+### FilterAreaButtonProps
+
+`size` 與 `type` 由 FilterArea 控制，因此不開放（React 為完整 `ButtonProps`，Angular 僅為以下子集）。
+
+| 欄位       | Type            | Description  |
+| ---------- | --------------- | ------------ |
+| `disabled` | `boolean`       | 是否禁用     |
+| `loading`  | `boolean`       | 是否載入中   |
+| `variant`  | `ButtonVariant` | 按鈕樣式變體 |
 
 ## MznFilterArea — Outputs
 
@@ -58,7 +73,7 @@ import type {
 | ---------- | -------------- | ----------- | -------------------------------------------------------------------- |
 | `span`     | `FilterSpan`   | `2`         | Column span within the 6-column grid row (1–6)                      |
 | `grow`     | `boolean`      | `false`     | Allow field to grow and fill remaining space (overrides `span`)      |
-| `align`    | `FilterAlign`  | `'stretch'` | Vertical alignment: `'stretch' \| 'center'`                         |
+| `align`    | `FilterAlign`  | `'stretch'` | Vertical alignment: `'start' \| 'center' \| 'end' \| 'stretch'`        |
 | `minWidth` | `string`       | —           | Optional minimum width of the field (e.g. `'200px'`); sets `min-width` inline style |
 
 ## ControlValueAccessor
@@ -150,4 +165,4 @@ onReset(): void {
 - `FilterSpan` ranges from `1` to `6` (six-column grid). The previous "1–4" documentation was incorrect.
 - Multi-row expand/collapse is automatic: when more than one `[mznFilterLine]` is projected, a chevron toggle button appears. The first row is always visible.
 - `isDirty=false` disables the reset button — useful when the form is in its default state.
-- `actionsAlign='end'` right-aligns the submit/reset group; `'start'` left-aligns it. The actions are always on the last rendered row next to the filter fields.
+- `actionsAlign='end'` right-aligns the submit/reset group; `'start'` left-aligns it, `'center'` centres it. The actions are always on the last rendered row next to the filter fields.

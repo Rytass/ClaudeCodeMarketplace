@@ -1,6 +1,6 @@
 # Typography
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/typography) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/typography) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/foundation-typography--docs
 
@@ -16,13 +16,22 @@ import type {
   TypographyDisplay,
   TypographySemanticType,
 } from '@mezzanine-ui/ng/typography';
-// TypographySemanticType 常用值（非完整清單）：
-// 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-// 'body' | 'body-highlight'
+// TypographySemanticType 完整清單（@mezzanine-ui/system/typography）：
+// 'h1' | 'h2' | 'h3'
+// 'body' | 'body-highlight' | 'body-mono' | 'body-mono-highlight'
+// 'text-link-body' | 'text-link-caption'
 // 'caption' | 'caption-highlight'
-// 'label-primary' | 'label-primary-highlight'
-// 'label-secondary' | 'label-secondary-highlight'
-// 'input' | 'title' 等
+// 'annotation' | 'annotation-highlight'
+// 'button' | 'button-highlight'
+// 'input' | 'input-mono' | 'input-highlight'
+// 'label-primary' | 'label-primary-highlight' | 'label-secondary'
+// TypographyAlign: 'left' | 'center' | 'right' | 'justify'
+// TypographyDisplay: 'block' | 'flex' | 'inline-block' | 'inline-flex'
+// TypographyColor: 'inherit' | `text-${TextTone}`，TextTone =
+//   'fixed-light' | 'neutral-faint' | 'neutral-light' | 'neutral' | 'neutral-strong' | 'neutral-solid'
+//   | 'brand' | 'brand-strong' | 'brand-solid' | 'error' | 'error-strong' | 'error-solid'
+//   | 'warning' | 'warning-strong' | 'success' | 'info' | 'info-strong'
+// （沒有 text-primary / text-secondary）
 ```
 
 ## Selector
@@ -46,11 +55,11 @@ import type {
 
 `MznTypography` 無 output 事件。
 
-## TypographySemanticType 常用對照
+## TypographySemanticType 對照
 
 | Variant                      | 適用場景                        |
 | ---------------------------- | ------------------------------- |
-| `'h1'` ~ `'h6'`              | 頁面各級標題                     |
+| `'h1'` ~ `'h3'`              | 頁面各級標題（僅三級）           |
 | `'body'`                     | 一般正文                         |
 | `'body-highlight'`           | 強調正文（通常加粗）              |
 | `'caption'`                  | 說明文字、標籤                    |
@@ -58,8 +67,11 @@ import type {
 | `'label-primary'`            | 主要標籤（如按鈕文字）            |
 | `'label-primary-highlight'`  | 強調主要標籤                      |
 | `'label-secondary'`          | 次要標籤（如次要按鈕文字）        |
-| `'input'`                    | 輸入框文字                        |
-| `'title'`                    | 標題欄文字                        |
+| `'body-mono'` / `'body-mono-highlight'` | 等寬正文               |
+| `'text-link-body'` / `'text-link-caption'` | 文字連結樣式        |
+| `'annotation'` / `'annotation-highlight'` | 註記文字（最小字級）  |
+| `'button'` / `'button-highlight'` | 按鈕文字                    |
+| `'input'` / `'input-mono'` / `'input-highlight'` | 輸入框文字      |
 
 ## Usage
 
@@ -73,7 +85,7 @@ import type {
 <p mznTypography variant="body-highlight">這段文字較為重要，以加粗呈現。</p>
 
 <!-- 說明標籤 -->
-<span mznTypography variant="caption" color="text-secondary">最後更新：2026-04-21</span>
+<span mznTypography variant="caption" color="text-neutral">最後更新：2026-04-21</span>
 <span mznTypography variant="caption-highlight" color="text-warning">注意事項</span>
 
 <!-- 文字截斷 -->
@@ -117,7 +129,7 @@ export class StatusBadgeComponent {
       error: 'text-error',
       warning: 'text-warning',
     };
-    return map[this.status()] ?? 'text-primary';
+    return map[this.status()] ?? 'text-neutral';
   };
 
   readonly statusText = (): string => {

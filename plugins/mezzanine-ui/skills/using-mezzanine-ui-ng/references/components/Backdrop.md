@@ -1,6 +1,6 @@
 # Backdrop
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/backdrop) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/backdrop) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/overlay-backdrop--docs
 
@@ -99,6 +99,7 @@ export class ModalComponent {
 
 - `MznBackdrop` 本身即為內容容器（`<ng-content />`），子元素會渲染在遮罩之上的 `.mzn-backdrop__content` 區塊中。
 - scroll lock 由 `ScrollLockService` 管理，`DestroyRef.onDestroy` 時自動解鎖，避免元件銷毀後 body 永久鎖定。
+- `open` 為 `false` 且退場動畫結束後，整個遮罩與內容會從 DOM 卸載（不會以 `aria-hidden` 留在 DOM），對齊 React `useModalContainer`。
 - 淡入/淡出動畫由內層 `MznFade` directive 處理，不需要額外配置。
 - 設定 `container` 可讓遮罩限縮在特定區塊而非全螢幕，結合 `position: relative` 的父容器使用。
 - 不同於 React 版的 `open` prop 直接控制，Angular 版使用 signal input，支援 signal 和靜態值雙向綁定。

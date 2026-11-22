@@ -4,7 +4,7 @@
 >
 > **Live Examples**: 此元件在 Storybook 沒有獨立頁面（內部基底元件），請直接參考各 Picker 家族元件的 Storybook 頁面。
 >
-> **Source**: Verified 1.5.1 (2026-09-12) — Internal module. Directory exists at [packages/react/src/Picker](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Picker); there is no single `Picker.tsx` entry. Table content below was last independently verified against PickerTrigger.tsx, PickerTriggerWithSeparator.tsx, RangePickerTrigger.tsx, usePickerValue.ts, usePickerDocumentEventClose.ts, and useTabKeyClose.ts in a prior pass. **Note**: this upgrade's source payload only captured the `Picker/index.ts` barrel (hook/component re-exports), not the individual sub-file bodies, so the flagged prop-level diffs for this component could not be independently re-verified this round — a follow-up source fetch of the individual files is recommended before trusting any further edits here.
+> **Source**: Verified 1.10.2 (2026-11-22) — Internal module. Directory exists at [packages/react/src/Picker](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Picker); there is no single `Picker.tsx` entry. Props below were checked against the 1.10.2 sources of PickerTrigger.tsx, PickerTriggerWithSeparator.tsx, RangePickerTrigger.tsx, FormattedInput.tsx, useDateInputFormatter.ts, usePickerValue.ts, usePickerInputValue.ts, usePickerDocumentEventClose.ts and useTabKeyClose.ts.
 
 Internal shared Picker base components and Hooks, used by picker components such as DatePicker, DateRangePicker, TimePicker, TimeRangePicker, DateTimePicker, etc. Not recommended for direct use, but can be referenced or composed when building custom pickers.
 
@@ -48,11 +48,11 @@ A single input trigger based on TextField, with FormattedInput support for forma
 | Property          | Type                                        | Default  | Description                    |
 | ----------------- | ------------------------------------------- | -------- | ------------------------------ |
 | `className`       | `string`                                    | -        | CSS class                      |
-| `clearable`       | `boolean`                                   | `true`   | Whether clearable              |
-| `disabled`        | `boolean`                                   | `false`  | Whether disabled               |
+| `clearable`       | `boolean`                                   | `true`   | Whether clearable (forced off when `readOnly`) |
+| `disabled`        | `boolean`                                   | -        | Whether disabled               |
 | `error`           | `boolean`                                   | `false`  | Error state                    |
-| `errorMessages`   | `FormattedInputProps['errorMessages']`      | -        | Error message configuration    |
-| `format`          | `string`                                    | -        | Input format (e.g. `'YYYY-MM-DD'`) |
+| `errorMessages`   | `FormattedInputProps['errorMessages']`      | `{ enabled: true, invalidInput: 'Input value is not valid.', invalidPaste: 'Pasted content is not valid.' }` | Error message configuration (default applied inside `FormattedInput`) |
+| `format`          | `string`                                    | **required** | Input format (e.g. `'YYYY-MM-DD'`) |
 | `fullWidth`       | `boolean`                                   | `true`   | Whether full width             |
 | `hoverValue`      | `string`                                    | -        | Pre-formatted date string to preview when input is empty and not focused |
 | `inputProps`      | Native `<input>` props (reserved value/state/ARIA props omitted) | - | Additional input props |
@@ -60,12 +60,14 @@ A single input trigger based on TextField, with FormattedInput support for forma
 | `onChange`        | `ChangeEventHandler<HTMLInputElement>`      | -        | Input change callback          |
 | `placeholder`     | `string`                                    | -        | placeholder                    |
 | `prefix`          | `ReactNode`                                 | -        | Prefix element                 |
-| `readOnly`        | `boolean`                                   | `false`  | Whether read-only              |
-| `required`        | `boolean`                                   | `false`  | Whether required               |
-| `size`            | `'main' \| 'sub'`                           | `'main'` | Size                           |
+| `readOnly`        | `boolean`                                   | -        | Whether read-only              |
+| `required`        | `boolean`                                   | -        | Whether required               |
+| `size`            | `'main' \| 'sub'`                           | `'main'` | Size (inherited from TextField) |
 | `suffix`          | `ReactNode`                                 | -        | Suffix element                 |
 | `validate`        | `FormattedInputProps['validate']`           | -        | Custom validation function     |
 | `value`           | `string`                                    | -        | Input value                    |
+
+> `PickerTriggerProps extends Omit<TextFieldProps, 'active' | 'children' | 'defaultChecked' | 'disabled' | 'readonly' | 'typing'>, Pick<FormattedInputProps, 'errorMessages' | 'hoverValue' | 'validate' | 'format'>`, so the remaining `TextFieldProps` (e.g. `fullWidth`, `error`, `size`, `prefix`, `onClear`) are inherited. `onChange` is invoked with a synthetic `{ target: { value: formatted } }` event. Because `onBlur` / `onKeyDown` on `PickerTrigger` itself attach to the TextField `<div>` root, pass input-level handlers through `inputProps`. Component accepts a `ref` (`HTMLDivElement`, the TextField root).
 
 ---
 
@@ -77,10 +79,10 @@ A dual input trigger based on TextField (left and right separated by a divider),
 | ----------------------- | ------------------------------------------------------ | -------- | ---------------------------------------------- |
 | `className`             | `string`                                               | -        | CSS class                                      |
 | `clearable`             | `boolean`                                              | `true`   | Whether clearable                              |
-| `disabled`              | `boolean`                                              | `false`  | Whether disabled                               |
+| `disabled`              | `boolean`                                              | -        | Whether disabled                               |
 | `error`                 | `boolean`                                              | `false`  | Error state                                    |
-| `errorMessagesLeft`     | `FormattedInputProps['errorMessages']`                 | -        | Left input field error messages                |
-| `errorMessagesRight`    | `FormattedInputProps['errorMessages']`                 | -        | Right input field error messages               |
+| `errorMessagesLeft`     | `FormattedInputProps['errorMessages']`                 | -        | Left input field error messages (FormattedInput default applies when omitted) |
+| `errorMessagesRight`    | `FormattedInputProps['errorMessages']`                 | -        | Right input field error messages (FormattedInput default applies when omitted) |
 | `formatLeft`            | `string`                                               | required | Left input format (e.g. `'YYYY-MM-DD'`)       |
 | `formatRight`           | `string`                                               | required | Right input format (e.g. `'HH:mm:ss'`)        |
 | `fullWidth`             | `boolean`                                              | `true`   | Whether full width                             |
@@ -102,14 +104,16 @@ A dual input trigger based on TextField (left and right separated by a divider),
 | `placeholderLeft`       | `string`                                               | -        | Left placeholder                               |
 | `placeholderRight`      | `string`                                               | -        | Right placeholder                              |
 | `prefix`                | `ReactNode`                                            | -        | Prefix element                                 |
-| `readOnly`              | `boolean`                                              | `false`  | Whether read-only                              |
-| `required`              | `boolean`                                              | `false`  | Whether required                               |
-| `size`                  | `'main' \| 'sub'`                                      | -        | Size                                           |
+| `readOnly`              | `boolean`                                              | -        | Whether read-only                              |
+| `required`              | `boolean`                                              | -        | Whether required                               |
+| `size`                  | `'main' \| 'sub'`                                      | `'main'` | Size (inherited from TextField)                |
 | `suffix`                | `ReactNode`                                            | -        | Suffix element                                 |
 | `validateLeft`          | `(isoDate: string) => boolean`                         | -        | Left custom validation function                |
 | `validateRight`         | `(isoDate: string) => boolean`                         | -        | Right custom validation function               |
 | `valueLeft`             | `string`                                               | -        | Left input value                               |
 | `valueRight`            | `string`                                               | -        | Right input value                              |
+
+> Extends `Omit<TextFieldProps, 'active' | 'children' | 'defaultChecked' | 'disabled' | 'readonly' | 'typing'>`; there is only `hoverValueLeft` (no `hoverValueRight`) in source. `inputLeftProps` / `inputRightProps` are `Omit<NativeElementPropsWithoutKeyAndRef<'input'>, 'defaultValue' | 'disabled' | 'onChange' | 'placeholder' | 'readOnly' | 'required' | 'value' | `aria-${'disabled' | 'multiline' | 'readonly' | 'required'}`>`. Exported from the `@mezzanine-ui/react/Picker` sub-path (with `PickerTriggerWithSeparatorProps`), not from the main entry.
 
 ---
 
@@ -121,7 +125,7 @@ A dual input trigger based on TextField, used for range pickers (e.g. DateRangeP
 | ------------------------ | -------------------------------------------------------- | -------- | ------------------------------ |
 | `className`              | `string`                                                 | -        | CSS class                      |
 | `clearable`              | `boolean`                                                | `true`   | Whether clearable              |
-| `disabled`               | `boolean`                                                | `false`  | Whether disabled               |
+| `disabled`               | `boolean`                                                | -        | Whether disabled               |
 | `error`                  | `boolean`                                                | `false`  | Error state                    |
 | `errorMessagesFrom`      | `FormattedInputProps['errorMessages']`                   | -        | From field error messages      |
 | `errorMessagesTo`        | `FormattedInputProps['errorMessages']`                   | -        | To field error messages        |
@@ -145,13 +149,15 @@ A dual input trigger based on TextField, used for range pickers (e.g. DateRangeP
 | `onToBlur`               | `FocusEventHandler<HTMLInputElement>`                    | -        | To field blur callback         |
 | `onToFocus`              | `FocusEventHandler<HTMLInputElement>`                    | -        | To field focus callback        |
 | `prefix`                 | `ReactNode`                                              | -        | Prefix element                 |
-| `readOnly`               | `boolean`                                                | `false`  | Whether read-only              |
-| `required`               | `boolean`                                                | `false`  | Whether required               |
-| `size`                   | `'main' \| 'sub'`                                        | -        | Size                           |
+| `readOnly`               | `boolean`                                                | -        | Whether read-only              |
+| `required`               | `boolean`                                                | -        | Whether required               |
+| `size`                   | `'main' \| 'sub'`                                        | `'main'` | Size (inherited from TextField) |
 | `suffix`                 | `ReactNode`                                              | -        | Suffix element                 |
 | `suffixActionIcon`       | `ReactNode`                                              | -        | Suffix action icon (takes priority over suffix) |
 | `validateFrom`           | `(isoDate: string) => boolean`                           | -        | From field custom validation   |
 | `validateTo`             | `(isoDate: string) => boolean`                           | -        | To field custom validation     |
+
+> Extends `Omit<TextFieldProps, 'active' | 'children' | 'defaultChecked' | 'disabled' | 'placeholder' | 'readonly' | 'typing'>` (hence no `placeholder` prop; use `inputFromPlaceholder` / `inputToPlaceholder`). `suffix` defaults to a `CalendarIcon` (`aria-label="Open calendar"`, `onClick={onIconClick}`) unless `suffixActionIcon` is given.
 
 ---
 
@@ -167,7 +173,7 @@ Manages picker popup close behavior, including: click outside to close, Escape k
 | `lastElementRefInFlow`     | `RefObject<HTMLElement \| null>`     | Last element ref in flow (for Tab key)       |
 | `onClose`                  | `VoidFunction`                       | Escape key close callback (does not commit changes) |
 | `onChangeClose`            | `VoidFunction`                       | Click outside/Tab key close callback (commits changes) |
-| `open`                     | `boolean`                            | Whether open                                 |
+| `open`                     | `boolean` (optional)                 | Whether open                                 |
 | `popperRef`                | `RefObject<HTMLElement \| null>`     | Popup ref (to determine if click is inside popup) |
 
 ---
@@ -180,10 +186,10 @@ Tracks synchronization between Picker internal value and input value.
 
 | Property        | Type                                    | Description        |
 | --------------- | --------------------------------------- | ------------------ |
-| `defaultValue`  | `DateType`                              | Default value      |
-| `format`        | `string`                                | Display format     |
-| `inputRef`      | `RefObject<HTMLInputElement \| null>`   | Input ref          |
-| `value`         | `DateType`                              | Controlled value   |
+| `defaultValue`  | `DateType` (optional)                   | Default value      |
+| `format`        | `string` (required)                     | Display format     |
+| `inputRef`      | `RefObject<HTMLInputElement \| null>` (required) | Input ref  |
+| `value`         | `DateType` (optional)                   | Controlled value   |
 
 ### Return Value
 
@@ -195,6 +201,38 @@ Tracks synchronization between Picker internal value and input value.
 | `onInputChange` | `ChangeEventHandler<HTMLInputElement>`          | Input text change handler            |
 | `onKeyDown`     | `KeyboardEventHandler<HTMLInputElement>`        | Keyboard event handler (Enter/Escape) |
 | `value`         | `DateType \| undefined`                         | Current internal value               |
+
+---
+
+## Sub-path-only Exports
+
+The following are exported from `@mezzanine-ui/react/Picker` only (not from the main entry): `PickerTriggerWithSeparator` (+ `PickerTriggerWithSeparatorProps`), `FormattedInput` (+ `FormattedInputProps`), `usePickerInputValue` (+ `UsePickerInputValueProps`), `useDateInputFormatter` (+ `UseDateInputFormatterProps`), `MaskFormat`.
+
+### FormattedInputProps
+
+Extends `Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'>` and `Pick<UseDateInputFormatterProps, 'errorMessages' | 'validate' | 'format' | 'onChange' | 'onPasteIsoValue'>`.
+
+| Property          | Type                                                | Default | Description |
+| ----------------- | --------------------------------------------------- | ------- | ----------- |
+| `errorMessages`   | `{ enabled?: boolean; invalidInput?: string; invalidPaste?: string }` | `{ enabled: true, invalidInput: 'Input value is not valid.', invalidPaste: 'Pasted content is not valid.' }` | Error message config |
+| `format`          | `string`                                            | **required** | Mask format |
+| `hoverValue`      | `string`                                            | -       | Pre-formatted preview shown when empty and not focused |
+| `onChange`        | `(formattedValue: string, rawDigits: string) => void` | -     | Change callback |
+| `onFocus`         | `FocusEventHandler<HTMLInputElement>`               | -       | Focus callback |
+| `onPasteIsoValue` | `(isoValue: string) => void`                        | -       | Called when a valid ISO value is pasted |
+| `placeholder`     | `string`                                            | -       | Shown when not focused and empty |
+| `validate`        | `(isoDate: string) => boolean`                      | -       | Custom validation |
+| `value`           | `string`                                            | -       | Current value |
+
+### UsePickerInputValueProps
+
+| Property       | Type                      | Default | Description |
+| -------------- | ------------------------- | ------- | ----------- |
+| `defaultValue` | `string`                  | `''`    | Default value |
+| `initialValue` | `string`                  | `''`    | Initial value (takes priority over `defaultValue`) |
+| `onChange`     | `(val: string) => void`   | -       | Value change callback |
+
+Returns `{ inputValue, inputChangeHandler, onChange }`.
 
 ---
 
@@ -229,7 +267,7 @@ function CustomPicker() {
   const popperRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
 
-  const { inputValue, onChange, onBlur, onKeyDown, value } = usePickerValue({
+  const { inputValue, onBlur, onInputChange, onKeyDown, value } = usePickerValue({
     format: 'YYYY-MM-DD',
     inputRef,
     value: controlledValue,
@@ -251,8 +289,9 @@ function CustomPicker() {
     <PickerTrigger
       ref={anchorRef}
       format="YYYY-MM-DD"
+      inputProps={{ onBlur, onKeyDown }}
       inputRef={inputRef}
-      onBlur={onBlur}
+      onChange={onInputChange}
       placeholder="Select date"
       value={inputValue}
     />

@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Navigation/Stepper`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Stepper) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Stepper) · Verified 1.10.2 (2026-11-22)
 
 Stepper component for guiding users through multi-step processes.
 
@@ -88,7 +88,7 @@ Hook for managing step state.
 ### Usage Example
 
 ```tsx
-import { Stepper, Step, useStepper } from '@mezzanine-ui/react';
+import { Button, Stepper, Step, useStepper } from '@mezzanine-ui/react';
 
 function WizardWithHook() {
   const { currentStep, nextStep, prevStep, isFirstStep, isLastStep } = useStepper({

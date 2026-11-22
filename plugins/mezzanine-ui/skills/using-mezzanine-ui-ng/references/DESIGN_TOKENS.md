@@ -8,7 +8,7 @@ Canonical source: ../../../using-mezzanine-ui-react/references/DESIGN_TOKENS.md
 
 Foundation visual variable definitions for the design system. Mezzanine-UI uses a **Primitives + Semantic** two-layer architecture.
 
-> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.0.4`, icons/system `1.0.2`). Last verified: 2026-04-24.
+> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.0.4`, icons/system `1.0.2`). Last verified: 2026-11-22.
 >
 > Source: [GitHub](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/system/src)
 
@@ -379,6 +379,8 @@ v2 uses a semantic spacing system supporting default/compact densities.
 `'none' | 'micro' | 'tiny' | 'tight' | 'compact' | 'base' | 'base-fixed' | 'comfortable' | 'roomy' | 'spacious' | 'relaxed' | 'airy' | 'generous' | 'breath' | 'wide'`
 
 > 💡 TypeScript types are for component prop type checking; SCSS-generated CSS variables are the actual rendered values. The name mismatch between the two is a known issue.
+>
+> **實際存在的 gap CSS 變數只有 SCSS 這 12 個**：`none`、`tiny`、`tight`、`tight-fixed`、`slim`、`base`、`calm`、`comfort`、`roomy`、`spacious`、`relaxed`、`loose`。TS `GapTone` 中的 `comfortable`、`micro`、`compact` 等名稱沒有對應的 `--mzn-spacing-gap-*`（例如 `--mzn-spacing-gap-comfortable` 不存在）；用 `calm`（12px／compact 10px）或 `comfort`（16px／compact 14px）。
 
 ### Padding
 

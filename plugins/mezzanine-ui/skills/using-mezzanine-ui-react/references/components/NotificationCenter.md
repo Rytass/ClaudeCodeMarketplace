@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Notification Center`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/NotificationCenter) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/NotificationCenter) · Verified 1.10.2 (2026-11-22)
 
 Notification center component for displaying global notifications. Supports both popup notification and drawer list modes.
 
@@ -33,7 +33,7 @@ import type {
 | `NotificationCenter.add(data)`  | Add a notification             |
 | `NotificationCenter.remove(key)`| Remove a specific notification |
 | `NotificationCenter.destroy()`  | Remove all notifications       |
-| `NotificationCenter.config(cfg)`| Set global configuration       |
+| `NotificationCenter.config(cfg)`| Set global configuration (`NotificationConfigProps`) |
 | `NotificationCenter.success()`  | Success notification (sugar)   |
 | `NotificationCenter.warning()`  | Warning notification (sugar)   |
 | `NotificationCenter.error()`    | Error notification (sugar)     |
@@ -43,7 +43,9 @@ import type {
 
 ## NotificationData Props
 
-Extends `NotifierData` (`children`, `onClose`, `duration`) and `NotificationConfigProps` (`onViewAll`, `viewAllButtonText`, and other Slide transition props).
+Extends `NotifierData` (`children`, `onClose`, `duration`) and `NotificationConfigProps` (`duration`, `onViewAll`, `viewAllButtonText`, plus the Slide transition props `easing`, `from`, `onEnter`, `onEntered`, `onExit`, `onExited`).
+
+> `NotificationCenter.add()` ignores `type: 'drawer'` (returns the placeholder key `'NOT_SET'` and shows nothing); drawer-type items are rendered only through `NotificationCenterDrawer` or by rendering `<NotificationCenter type="drawer" />` as children of it. `maxVisibleNotifications`, `onViewAll` and `viewAllButtonText` are read from the first notification in the stack. The confirm button renders only when `onConfirm` is provided; the cancel button renders only when `onCancel` or `onClose` is provided. Buttons render only in `type: 'notification'`.
 
 | Property                     | Type                                    | Default           | Description                                 |
 | ---------------------------- | --------------------------------------- | ----------------- | ------------------------------------------- |
@@ -54,12 +56,18 @@ Extends `NotifierData` (`children`, `onClose`, `duration`) and `NotificationConf
 | `confirmButtonProps`         | `ButtonProps`                           | `{}`              | Confirm button props                        |
 | `confirmButtonText`          | `string`                                | `'Confirm'`       | Confirm button text                         |
 | `description`                | `string`                                | -                 | Notification description                    |
-| `duration`                   | `number \| false`                       | `false`           | Auto-close time (ms); `false` means no auto-close |
+| `easing`                     | `TransitionEasing`                      | `{ enter: MOTION_EASING.standard, exit: MOTION_EASING.exit }` | Slide transition easing (`string \| { enter?: string; exit?: string }`) |
+| `from`                       | `'right' \| 'top'`                      | `'top'`           | Slide-in direction                          |
+| `duration`                   | `number \| false`                       | `false`           | Auto-close time (ms); `false` means no auto-close (default comes from `createNotifier` config) |
 | `maxVisibleNotifications`    | `number`                                | `3`               | Max visible count (notification mode only)  |
 | `onBadgeClick`               | `() => void`                            | -                 | Badge click (drawer mode)                   |
 | `onBadgeSelect`              | `(option: DropdownOption) => void`      | -                 | Badge select (drawer mode)                  |
 | `onCancel`                   | `() => void`                            | -                 | Cancel callback                             |
-| `onClose`                    | `(key: Key) => void`                    | -                 | Close callback                              |
+| `onEnter`                    | `(node: HTMLElement, isAppearing: boolean) => void` | -     | Transition enter callback                   |
+| `onEntered`                  | `(node: HTMLElement, isAppearing: boolean) => void` | -     | Transition entered callback                 |
+| `onExit`                     | `(node: HTMLElement) => void`           | -                 | Transition exit callback                    |
+| `onExited`                   | `(node: HTMLElement) => void`           | -                 | Transition exited callback                  |
+| `onClose`                    | `(key: Key) => void`                    | -                 | Close callback (invoked only when `reference` is set; inherited from NotifierData) |
 | `onConfirm`                  | `() => void`                            | -                 | Confirm callback                            |
 | `onViewAll`                  | `() => void`                            | -                 | View all callback                           |
 | `options`                    | `DropdownOption[]`                      | -                 | Dropdown options (drawer mode)              |
@@ -67,7 +75,7 @@ Extends `NotifierData` (`children`, `onClose`, `duration`) and `NotificationConf
 | `reference`                  | `Key`                                   | -                 | Notification identifier key                 |
 | `severity`                   | `NotificationSeverity`                  | `'info'`          | Severity level                              |
 | `showBadge`                  | `boolean`                               | -                 | Show badge (drawer mode)                    |
-| `timeStamp`                  | `string \| number`                      | Current time      | Timestamp                                   |
+| `timeStamp`                  | `string \| number`                      | `new Date().toLocaleTimeString()` | Timestamp                       |
 | `timeStampLocale`            | `string`                                | `'zh-TW'`         | Timestamp locale                            |
 | `title`                      | `string`                                | -                 | Notification title                          |
 | `type`                       | `NotificationType`                      | `'notification'`  | Notification type: `'notification'` / `'drawer'` |
@@ -79,6 +87,11 @@ Extends `NotifierData` (`children`, `onClose`, `duration`) and `NotificationConf
 
 ```tsx
 type NotificationSeverity = 'success' | 'warning' | 'error' | 'info';
+
+type NotificationType = 'notification' | 'drawer';
+
+// Sugar methods take NotificationCenterShorthandProps = Omit<NotificationData, 'severity'>
+// (the `type` is fixed to 'notification'); each returns the notification Key.
 ```
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/feedback-notification-center--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
@@ -234,6 +247,8 @@ Notification list drawer component that displays notifications in a Drawer forma
 ### Props
 
 > `NotificationCenterDrawerProps` is a discriminated union: provide **either** `children` **or** `notificationList`, never both (the other is typed as `never` in each branch).
+>
+> `NotificationDataForDrawer = NotificationData & { key: Key; type: 'drawer' }` (internal type, not exported). With `notificationList`, items are sorted by `timeStamp` (newest first) and grouped by `todayLabel` / `yesterdayLabel` / `past7DaysLabel` / `earlierLabel`; the drawer header shows only when `title` is set. The `filterBar*` props are forwarded to `Drawer`'s `filterArea*` props (see Drawer.md for their effective defaults, e.g. `filterAreaCustomButtonLabel` falls back to `'全部已讀'`, the default radio value is `'all'`).
 
 | Property                         | Type                                     | Default                    | Description                                    |
 | -------------------------------- | ---------------------------------------- | -------------------------- | ---------------------------------------------- |
@@ -262,7 +277,7 @@ Notification list drawer component that displays notifications in a Drawer forma
 | `filterBarOptions`               | `DrawerProps['filterAreaOptions']`       | -                          | Filter bar dropdown options; when non-empty, replaces the filter area button with a `DotHorizontalIcon`-triggered Dropdown |
 | `filterBarOnSelect`              | `DrawerProps['filterAreaOnSelect']`      | -                          | Filter bar dropdown select callback (only used when `filterBarOptions` is non-empty) |
 
-> **Note (breaking rename)**: as of the current source, all `filterArea*` props documented in older versions were renamed to `filterBar*` (e.g. `filterAreaShow` → `filterBarShow`). The `emptyNotificationIcon` prop and `renderFilterArea` render-prop no longer exist; `emptyNotificationDescription` is new.
+> The drawer has no `emptyNotificationIcon` prop or `renderFilterArea` render-prop; customise the empty state with `emptyNotificationTitle` / `emptyNotificationDescription`.
 
 ---
 

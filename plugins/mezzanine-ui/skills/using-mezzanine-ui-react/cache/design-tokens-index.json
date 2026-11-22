@@ -190,7 +190,7 @@
     },
     "BorderTone": {
       "countTS": 11,
-      "countSCSS": 15,
+      "countSCSS": 14,
       "valuesTS": [
         "fixed-light",
         "fixed-light-alpha",
@@ -321,50 +321,7 @@
   },
   "spacing": {
     "ElementTone": {
-      "countTS": 18,
-      "countSCSS_toneList": 19,
-      "countSCSS_semanticMap": 27,
-      "valuesTS": [
-        "hairline",
-        "tiny",
-        "tight",
-        "compact",
-        "slim",
-        "narrow",
-        "base",
-        "base-fixed",
-        "gentle",
-        "relaxed",
-        "airy",
-        "roomy",
-        "loose",
-        "extra-wide",
-        "extra-wide-condense",
-        "expansive",
-        "extra",
-        "max"
-      ],
-      "valuesSCSS_toneList": [
-        "hairline",
-        "micro",
-        "tiny",
-        "tight",
-        "compact",
-        "slim",
-        "narrow",
-        "base",
-        "base-fixed",
-        "gentle",
-        "relaxed",
-        "airy",
-        "roomy",
-        "loose",
-        "extra-wide",
-        "extra-wide-condense",
-        "expansive",
-        "extra",
-        "max"
-      ],
+      "countSCSS_semanticMap": 25,
       "valuesSCSS_semanticMap": [
         "hairline",
         "micro",
@@ -393,67 +350,11 @@
         "xwide"
       ],
       "diff": {
-        "onlyInSCSS_toneList": [
-          "micro"
-        ],
-        "onlyInTS": [],
-        "onlyInSCSS_semanticMap": [
-          "micro",
-          "gentle-fixed",
-          "airy-fixed",
-          "loose-fixed",
-          "wide-expanded",
-          "ultra-fixed",
-          "xwide"
-        ],
-        "note": "SCSS $semantic-spacings map has 27 element tones (includes extra entries not in $element-tones list or TS type)"
+        "note": "2026-11-22 依 packages/system/src/spacing/_semantic.scss 的 $semantic-spacings 修正；TS typings 不作為 spacing 來源（GapTone 不採用）"
       }
     },
     "ContainerTone": {
-      "countTS": 12,
-      "countSCSS_toneList": 24,
-      "countSCSS_semanticMap": 24,
-      "valuesTS": [
-        "collapsed",
-        "tiny",
-        "tight",
-        "slim",
-        "narrow",
-        "compact",
-        "standard",
-        "balanced",
-        "broad",
-        "wide",
-        "expanded",
-        "max"
-      ],
-      "valuesSCSS_toneList": [
-        "atomic",
-        "minimal",
-        "micro",
-        "minimized",
-        "collapsed",
-        "reduced",
-        "condensed",
-        "compressed",
-        "concentrate-fixed",
-        "tightened",
-        "tiny",
-        "medium",
-        "small",
-        "snug",
-        "tight",
-        "slim",
-        "narrow",
-        "compact",
-        "standard",
-        "balanced",
-        "broad",
-        "wide",
-        "expanded",
-        "max",
-        "xwide"
-      ],
+      "countSCSS_semanticMap": 26,
       "valuesSCSS_semanticMap": [
         "atomic",
         "minimal",
@@ -471,6 +372,7 @@
         "snug",
         "tight",
         "slim",
+        "slender",
         "narrow",
         "compact",
         "standard",
@@ -482,46 +384,11 @@
         "xwide"
       ],
       "diff": {
-        "onlyInSCSS": [
-          "atomic",
-          "minimal",
-          "micro",
-          "minimized",
-          "reduced",
-          "condensed",
-          "compressed",
-          "concentrate-fixed",
-          "tightened",
-          "medium",
-          "small",
-          "snug",
-          "xwide"
-        ],
-        "onlyInTS": [],
-        "note": "SCSS has 13 extra container tones not in TS type"
+        "note": "2026-11-22 依 packages/system/src/spacing/_semantic.scss 的 $semantic-spacings 修正；TS typings 不作為 spacing 來源（GapTone 不採用）"
       }
     },
     "GapTone": {
-      "countTS": 15,
-      "countSCSS_toneList": null,
       "countSCSS_semanticMap": 12,
-      "valuesTS": [
-        "none",
-        "micro",
-        "tiny",
-        "tight",
-        "compact",
-        "base",
-        "base-fixed",
-        "comfortable",
-        "roomy",
-        "spacious",
-        "relaxed",
-        "airy",
-        "generous",
-        "breath",
-        "wide"
-      ],
       "valuesSCSS_semanticMap": [
         "none",
         "tiny",
@@ -537,74 +404,11 @@
         "loose"
       ],
       "diff": {
-        "onlyInTS": [
-          "micro",
-          "compact",
-          "base-fixed",
-          "comfortable",
-          "airy",
-          "generous",
-          "breath",
-          "wide"
-        ],
-        "onlyInSCSS": [
-          "tight-fixed",
-          "slim",
-          "calm",
-          "comfort",
-          "loose"
-        ],
-        "note": "Gap tones differ significantly between TS and SCSS. TS has 15, SCSS semantic map has 12."
+        "note": "2026-11-22 依 packages/system/src/spacing/_semantic.scss 的 $semantic-spacings 修正；TS typings 不作為 spacing 來源（GapTone 不採用）"
       }
     },
     "HorizontalPaddingTone": {
-      "countTS": 18,
-      "countSCSS_toneList": 21,
-      "countSCSS_semanticMap": 21,
-      "valuesTS": [
-        "none",
-        "micro",
-        "tiny",
-        "tiny-fixed",
-        "tight",
-        "tight-fixed",
-        "base",
-        "base-fixed",
-        "calm",
-        "comfort",
-        "comfort-fixed",
-        "roomy",
-        "spacious",
-        "relaxed",
-        "airy",
-        "breath",
-        "wide",
-        "max"
-      ],
-      "valuesSCSS_toneList": [
-        "none",
-        "micro",
-        "tiny",
-        "tiny-fixed",
-        "tight",
-        "tight-fixed",
-        "base",
-        "base-fixed",
-        "calm",
-        "comfort",
-        "comfort-fixed",
-        "roomy",
-        "spacious",
-        "open",
-        "relaxed",
-        "airy",
-        "breath",
-        "loose",
-        "wide",
-        "max",
-        "ultra",
-        "xultra"
-      ],
+      "countSCSS_semanticMap": 22,
       "valuesSCSS_semanticMap": [
         "none",
         "micro",
@@ -630,63 +434,11 @@
         "xultra"
       ],
       "diff": {
-        "onlyInTS": [
-          "calm"
-        ],
-        "onlyInSCSS_toneList": [
-          "open",
-          "loose",
-          "ultra",
-          "xultra"
-        ],
-        "onlyInSCSS_semanticMap": [
-          "cozy",
-          "open",
-          "loose",
-          "ultra",
-          "xultra"
-        ],
-        "note": "SCSS tone list has 'calm' but semantic map has 'cozy' instead. TS type has 'calm'."
+        "note": "2026-11-22 依 packages/system/src/spacing/_semantic.scss 的 $semantic-spacings 修正；TS typings 不作為 spacing 來源（GapTone 不採用）"
       }
     },
     "VerticalPaddingTone": {
-      "countTS": 11,
-      "countSCSS_toneList": 18,
-      "countSCSS_semanticMap": 18,
-      "valuesTS": [
-        "none",
-        "micro",
-        "tiny",
-        "tight",
-        "base",
-        "calm",
-        "comfort",
-        "roomy",
-        "spacious",
-        "generous",
-        "relaxed"
-      ],
-      "valuesSCSS_toneList": [
-        "none",
-        "micro",
-        "tiny",
-        "tight",
-        "tight-fixed",
-        "base",
-        "base-fixed",
-        "calm",
-        "comfort",
-        "roomy",
-        "spacious",
-        "generous",
-        "relaxed",
-        "airy",
-        "breath",
-        "loose",
-        "wide",
-        "max",
-        "ultra"
-      ],
+      "countSCSS_semanticMap": 19,
       "valuesSCSS_semanticMap": [
         "none",
         "micro",
@@ -709,18 +461,7 @@
         "ultra"
       ],
       "diff": {
-        "onlyInTS": [],
-        "onlyInSCSS": [
-          "tight-fixed",
-          "base-fixed",
-          "airy",
-          "breath",
-          "loose",
-          "wide",
-          "max",
-          "ultra"
-        ],
-        "note": "SCSS has 7 extra vertical padding tones not in TS type"
+        "note": "2026-11-22 依 packages/system/src/spacing/_semantic.scss 的 $semantic-spacings 修正；TS typings 不作為 spacing 來源（GapTone 不採用）"
       }
     }
   },
@@ -942,7 +683,7 @@
       ]
     },
     "spacingScalesSCSS": {
-      "count": 59,
+      "count": 51,
       "values": [
         0,
         1,
@@ -984,6 +725,7 @@
         140,
         160,
         240,
+        280,
         320,
         360,
         400,
@@ -994,12 +736,11 @@
         960,
         1140,
         1280
-      ],
-      "note": "SCSS has many more spacing primitive scales than TS (59 vs 32)"
+      ]
     }
   },
   "meta": {
-    "generatedAt": "2026-09-12",
+    "generatedAt": "2026-11-22",
     "sourceFiles": {
       "typescriptPalette": "packages/system/src/palette/typings.ts",
       "typescriptSpacing": "packages/system/src/spacing/typings.ts",
@@ -1019,12 +760,11 @@
           "scrollbar"
         ],
         "totalTonesTS": 100,
-        "totalTonesSCSS": 110
+        "totalTonesSCSS": 109
       },
       "spacing": {
-        "totalTonesTS": 74,
-        "totalTonesSCSS_semanticMap": 102,
-        "note": "SCSS defines significantly more spacing tones than TS types, especially for container and padding"
+        "totalTonesSCSS_semanticMap": 104,
+        "note": "spacing 全部以 SCSS semantic map 為準（2026-11-22 修正）"
       },
       "typography": {
         "semanticTypesTS": 20,
@@ -1034,7 +774,7 @@
         ]
       }
     },
-    "version": "1.5.1"
+    "version": "1.10.2"
   },
-  "lastUpdated": "2026-09-12"
+  "lastUpdated": "2026-11-22T00:00:00Z"
 }

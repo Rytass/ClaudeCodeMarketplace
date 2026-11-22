@@ -2,9 +2,9 @@
 
 > **Category**: Navigation
 >
-> **Storybook**: `Navigation/Drawer`
+> **Storybook**: `Feedback/Drawer`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Drawer) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Drawer) · Verified 1.10.2 (2026-11-22)
 
 A drawer component that slides out from the edge of the page, used to display detailed information or forms.
 
@@ -21,7 +21,7 @@ import type { DrawerProps, DrawerPlacement } from '@mezzanine-ui/react';
 
 ## Drawer Props
 
-> Extends `NativeElementPropsWithoutKeyAndRef<'div'>` and partial `BackdropProps`.
+> Extends `NativeElementPropsWithoutKeyAndRef<'div'>` and `Pick<BackdropProps, 'container' | 'disableCloseOnBackdropClick' | 'disablePortal' | 'onBackdropClick' | 'onClose' | 'open'>`. `open`, `onClose`, `container`, `disablePortal`, `disableCloseOnBackdropClick`, `onBackdropClick` are therefore present (inherited from `BackdropProps` / `PortalProps`); `children` comes from the native `div` props.
 
 ### Core Props
 
@@ -31,12 +31,12 @@ import type { DrawerProps, DrawerPlacement } from '@mezzanine-ui/react';
 | `onClose`                       | `VoidFunction`     | -            | Close event handler                                                                                |
 | `children`                      | `ReactNode`        | -            | Content                                                                                            |
 | `size`                          | `DrawerSize`       | `'medium'`   | Width size                                                                                         |
-| `container`                     | `Element`          | -            | Portal container                                                                                   |
+| `container`                     | `HTMLElement \| RefObject<HTMLElement \| null> \| RefObject<HTMLElement> \| null` | -            | Portal container                                                                                   |
 | `disablePortal`                 | `boolean`          | -            | Disable Portal                                                                                     |
 | `disableCloseOnBackdropClick`   | `boolean`          | `false`      | Disable close on backdrop click                                                                    |
 | `disableCloseOnEscapeKeyDown`   | `boolean`          | `false`      | Disable closing when Escape key is pressed                                                         |
 | `contentKey`                    | `string \| number` | -            | Forces remount when data changes, prevents stale DOM state                                         |
-| `onBackdropClick`               | `() => void`       | -            | Backdrop click event handler                                                                       |
+| `onBackdropClick`               | `MouseEventHandler` | -           | Backdrop click event handler                                                                       |
 
 ### Header Props
 
@@ -47,7 +47,7 @@ import type { DrawerProps, DrawerPlacement } from '@mezzanine-ui/react';
 
 ### Bottom Action Props
 
-The bottom action area supports three button slots: primary, secondary, and ghost. Each slot shares the same pattern of props.
+The bottom action area supports three button slots: primary, secondary, and ghost. Each slot shares the same pattern of props. A slot's button is rendered only when BOTH its `*ActionText` and its `bottomOn*ActionClick` handler are provided.
 
 | Property                          | Type              | Default            | Description                                      |
 | --------------------------------- | ----------------- | ------------------ | ------------------------------------------------ |
@@ -79,13 +79,15 @@ The bottom action area supports three button slots: primary, secondary, and ghos
 
 ### Filter Area Props
 
+> The filter area renders only when `filterAreaShow` is `true`. The "Unread" radio is rendered only when both `filterAreaUnreadRadioLabel` and `filterAreaShowUnreadButton` are set. The right-side button appears when `filterAreaOptions` is non-empty (Dropdown) or `filterAreaOnCustomButtonClick` is provided; nothing renders if there are neither radios nor a button.
+
 | Property                        | Type                                    | Default | Description                                                                        |
 | ------------------------------- | --------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
 | `filterAreaShow`                | `boolean`                               | `false` | Controls whether to display the filter area                                        |
 | `filterAreaAllRadioLabel`       | `string`                                | -       | Label of the "All" radio in filter area                                            |
 | `filterAreaReadRadioLabel`      | `string`                                | -       | Label of the "Read" radio in filter area                                           |
 | `filterAreaUnreadRadioLabel`    | `string`                                | -       | Label of the "Unread" radio in filter area                                         |
-| `filterAreaDefaultValue`        | `string`                                | -       | Default value of the radio group in filter area                                    |
+| `filterAreaDefaultValue`        | `string`                                | `'all'` | Default value of the radio group in filter area (falls back to `'all'` in the component)  |
 | `filterAreaValue`               | `string`                                | -       | Controlled value of the radio group in filter area                                 |
 | `filterAreaOnRadioChange`       | `ChangeEventHandler<HTMLInputElement>`  | -       | Callback when the radio group value changes in filter area                         |
 | `filterAreaShowUnreadButton`    | `boolean`                               | `false` | Controls whether to display the unread button in filter area                       |
@@ -216,7 +218,7 @@ function DataDrawer() {
 
   return (
     <>
-      <Drawer open={open} onClose={() => setOpen(false)} contentKey={selectedId}>
+      <Drawer open={open} onClose={() => setOpen(false)} contentKey={selectedId ?? undefined}>
         {selectedId && <DataContent id={selectedId} />}
       </Drawer>
     </>

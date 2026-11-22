@@ -1,6 +1,6 @@
 # TextField
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/text-field) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/text-field) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-text-field--docs
 
@@ -13,7 +13,7 @@ A low-level field container component that wraps a native `<input>` or `<textare
 ```ts
 import { MznTextField } from '@mezzanine-ui/ng/text-field';
 import { MznTextFieldHost } from '@mezzanine-ui/ng/text-field';
-import { TextFieldSize } from '@mezzanine-ui/core/text-field';
+import type { TextFieldSize } from '@mezzanine-ui/ng/text-field'; // re-export of @mezzanine-ui/core/text-field
 ```
 
 ## Selector
@@ -98,8 +98,9 @@ export class CustomInputComponent {
 
 ## Notes
 
+- The `[prefix]` slot only renders when `hasPrefix` is `true`; the `[suffix]` slot only renders when `hasSuffix` is `true` (or when `hideSuffixWhenClearable` and `clearable` are both set).
 - `MznTextFieldHost` is applied via Angular's `hostDirectives` API and handles all DOM event listeners. When consumed inside another standalone component (like `MznInput`), it is imported in that component's `imports` array automatically.
 - The clear button uses opacity transitions controlled by the `--clearing` host class modifier. It is always rendered in the DOM (to reserve layout space) but hidden until hovered/focused with a value present — this avoids layout shifts on hover. To force it visible, use `[forceShowClearable]="true"`.
 - Unlike the React `<TextField>`, Angular's version does not accept `children` directly — it uses Angular content projection (`<ng-content>`) with named slots (`[prefix]` and `[suffix]`).
 - `MznTextField` is typically not used in app templates directly; prefer `MznInput`, `MznTextarea`, or the picker-family trigger components.
-- `hasPrefix` and `hasSuffix` are declared as own `input()` signals on `MznTextField` in addition to being forwarded from `MznTextFieldHost`. This means you can bind `[hasPrefix]="true"` directly on `<div mznTextField>` without going through the host directive — `MznTextField` re-declares them so both the host-class computation and any slot-layout logic within the component template see the same value.
+- `clearable`, `hasPrefix` and `hasSuffix` are declared as own `input()` signals on `MznTextField` in addition to being forwarded from `MznTextFieldHost`. This means you can bind `[hasPrefix]="true"` directly on `<div mznTextField>` without going through the host directive — `MznTextField` re-declares them so both the host-class computation and any slot-layout logic within the component template see the same value.

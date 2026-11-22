@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Display/Tooltip`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Tooltip) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Tooltip) · Verified 1.10.2 (2026-11-22)
 
 Tooltip component for displaying additional information on mouse hover. Extends `PopperProps` (excluding `arrow`, `children`, `disablePortal`, `title`).
 
@@ -28,20 +28,20 @@ Extends `PopperProps` (excluding `arrow`, `children`, `disablePortal`, `title`).
 
 | Property          | Type                                                                                                           | Default | Description                    |
 | ----------------- | -------------------------------------------------------------------------------------------------------------- | ------ | ------------------------------ |
-| `anchor`          | `Element \| RefObject`                                                                                         | -      | Anchor element (alternative to children) |
+| `anchor`          | `ElementGetter` (`HTMLElement \| (() => HTMLElement) \| RefObject<HTMLElement \| null> \| null`)                                                                                     | -      | Anchor element (alternative to children) |
 | `arrow`           | `boolean`                                                                                                      | `true` | Whether to show arrow          |
-| `children`        | `(opt: { 'aria-describedby': string \| undefined; onBlur: FocusEventHandler; onFocus: FocusEventHandler; onMouseEnter: MouseEventHandler; onMouseLeave: MouseEventHandler; ref: RefCallback<HTMLElement> }) => ReactElement` | - | Trigger element render function. **Since 1.5.0** the payload also carries `onFocus`/`onBlur` and `'aria-describedby'` — see Accessibility section below |
+| `children`        | `(opt: { 'aria-describedby': string \| undefined; onBlur: FocusEventHandler; onFocus: FocusEventHandler; onMouseEnter: MouseEventHandler; onMouseLeave: MouseEventHandler; ref: RefCallback<HTMLElement> }) => ReactElement` | - | Trigger element render function. The payload also carries `onFocus`/`onBlur` and `'aria-describedby'` — see Accessibility section below |
 | `className`       | `string`                                                                                                       | -      | Custom style class             |
-| `container`       | `Element \| RefObject<Element \| null> \| null`                                                                | -      | Portal container element (from `PortalProps`) |
+| `container`       | `HTMLElement \| RefObject<HTMLElement \| null> \| null`                                                                | -      | Portal container element (from `PortalProps`; only effective when `disablePortal={false}`) |
 | `controllerRef`   | `Ref<PopperController>`                                                                                        | -      | Ref to access the underlying `useFloating` result |
 | `disablePortal`   | `boolean`                                                                                                      | `true` | Whether to disable Portal      |
 | `mouseLeaveDelay` | `number`                                                                                                       | `0.1`  | Mouse leave delay (seconds)    |
 | `offsetMainAxis`  | `number`                                                                                                       | -      | Tooltip distance to anchor on main axis (px, overrides default) |
-| `onMouseEnter`    | `(event: MouseEvent) => void`                                                                                  | -      | Mouse enter callback           |
-| `onMouseLeave`    | `(event: MouseEvent) => void`                                                                                  | -      | Mouse leave callback           |
 | `onPlacementChange` | `(placement: PopperPlacement) => void`                                                                       | -      | Fired when the resolved placement changes (e.g. after a `flip` middleware adjustment) |
 | `open`            | `boolean`                                                                                                      | `false`| Controlled open state (auto-triggers on hover when not set) |
 | `options`         | `UseFloatingOptions`                                                                                           | `{}`   | 轉發給 `Popper` 的 floating-ui 設定（`packages/react/src/Popper/Popper.tsx:65`）。**沒有 `PopperOptions` 這個型別** |
+| `id`              | `string`                                                                                                       | `useId()` | Tooltip content node id (used by `aria-describedby`) |
+| `role`            | `string`                                                                                                       | `'tooltip'` | ARIA role of the content node |
 | `ref`             | `RefObject<HTMLElement>`                                                                                       | -      | Tooltip root element ref       |
 | `title`           | `ReactNode`                                                                                                    | -      | Tooltip content                |
 
@@ -49,9 +49,9 @@ Extends `PopperProps` (excluding `arrow`, `children`, `disablePortal`, `title`).
 
 ---
 
-## Accessibility (重要 — 1.5.0 起鍵盤與螢幕閱讀器可用)
+## Accessibility (重要 — 鍵盤與螢幕閱讀器可用)
 
-Tooltip 在 1.5.0 做了一輪無障礙補強，讓內容不再只有滑鼠使用者拿得到：
+Tooltip 內建無障礙支援，讓內容不再只有滑鼠使用者拿得到：
 
 - **render-prop payload 新增 `onFocus` / `onBlur`**：`focus` 開啟提示、`blur` 關閉提示，讓純鍵盤操作（Tab 到觸發元素）也能看到提示文字。
 - **提示內容節點帶 `role="tooltip"`**，並以 `useId()` 產生穩定 `id`（可用 `id` prop 覆寫），透過 `aria-describedby` 掛回觸發元素——僅在提示顯示時才有值，關閉時為 `undefined`。
@@ -208,7 +208,7 @@ function AnchorTooltip() {
         title="Tooltip using anchor"
         open={open}
       >
-        {() => null}
+        {() => <></>}
       </Tooltip>
     </>
   );

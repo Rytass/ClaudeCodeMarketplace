@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/story/data-entry-multipledatepicker--playground) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/MultipleDatePicker) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/MultipleDatePicker) · Verified 1.10.2 (2026-11-22)
 
 A multiple date picker that allows selecting multiple dates from a calendar, displaying selected dates as Tags. Requires manual confirmation before triggering onChange. Must be used with `CalendarContext`.
 
@@ -57,7 +57,7 @@ import type {
 | Property               | Type                                        | Default        | Description                          |
 | ---------------------- | ------------------------------------------- | -------------- | ------------------------------------ |
 | `actions`              | `Partial<CalendarFooterActionsProps['actions']>` | -           | Custom confirm/cancel button props   |
-| `calendarProps`        | `CalendarProps` (partial omit)              | -              | Calendar extra props                 |
+| `calendarProps`        | `Omit<CalendarProps, 'disableOnNext' \| 'disableOnPrev' \| 'disableOnDoubleNext' \| 'disableOnDoublePrev' \| 'displayMonthLocale' \| 'isDateDisabled' \| 'locale' \| 'mode' \| 'onChange' \| 'onMonthControlClick' \| 'onNext' \| 'onDoubleNext' \| 'onPrev' \| 'onDoublePrev' \| 'onYearControlClick' \| 'referenceDate' \| 'updateReferenceDate' \| 'value'>` | - | Other props passed to `Calendar` |
 | `className`            | `string`                                    | -              | Outer container CSS class            |
 | `clearable`            | `boolean`                                   | `true`         | Whether clearable                    |
 | `disabled`             | `boolean`                                   | `false`        | Whether disabled                     |
@@ -77,13 +77,15 @@ import type {
 | `onChange`             | `(value: MultipleDatePickerValue) => void`  | -              | Change callback after confirmation   |
 | `overflowStrategy`    | `'counter' \| 'wrap'`                       | `'counter'`    | Tag overflow strategy                |
 | `placeholder`          | `string`                                    | -              | Placeholder text when none selected  |
-| `popperProps`          | `InputTriggerPopperProps` (partial omit)    | -              | Popper positioning props             |
+| `popperProps`          | `Omit<InputTriggerPopperProps, 'anchor' \| 'children' \| 'fadeProps' \| 'open'>` | - | Popper positioning props |
 | `prefix`               | `ReactNode`                                 | -              | Prefix element                       |
 | `readOnly`             | `boolean`                                   | `false`        | Whether read-only                    |
 | `referenceDate`        | `DateType`                                  | -              | Reference date (defaults to now)     |
 | `required`             | `boolean`                                   | -              | Whether required                     |
 | `size`                 | `'main' \| 'sub'`                           | `'main'`       | Size                                 |
 | `value`                | `MultipleDatePickerValue`                   | `[]`           | Selected dates array (controlled)    |
+
+> `MultipleDatePickerProps` picks `className`, `clearable`, `disabled`, `error`, `fullWidth`, `overflowStrategy`, `prefix`, `readOnly`, `size` from `MultipleDatePickerTriggerProps`, and `disabledMonthSwitch`, `disableOnNext`, `disableOnPrev`, `disableOnDoubleNext`, `disableOnDoublePrev`, `disabledYearSwitch`, `displayMonthLocale`, `isDateDisabled` from `CalendarProps`. No other `TextField` / `Calendar` props are accepted (e.g. no `warning`, no `onClear`, no `inputProps`, no `onClick` / `style` / native `<div>` props); `ref` points to the root `HTMLDivElement`.
 
 ---
 
@@ -137,7 +139,7 @@ Extends `TextFieldProps` (excluding `active`, `children`, `defaultChecked`, `dis
 
 ---
 
-## Portal Behavior (v1.0.4+)
+## Portal Behavior
 
 Since v1.0.4 the calendar popper portals out by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors. To restore inline rendering per call site:
 
@@ -149,7 +151,7 @@ Since v1.0.4 the calendar popper portals out by default, fixing clipping inside 
 />
 ```
 
-### Keyboard Navigation (v1.1.0+)
+### Keyboard Navigation
 
 `Tab` / `Shift+Tab` navigation between the trigger and the portalled calendar is restored in v1.1.0 via an explicit logical focus loop.
 
@@ -181,8 +183,10 @@ type OverflowStrategy = 'counter' | 'wrap';
 ```tsx
 import { CalendarConfigProviderDayjs } from '@mezzanine-ui/react/Calendar';
 import MultipleDatePicker from '@mezzanine-ui/react/MultipleDatePicker';
+import type { DateType } from '@mezzanine-ui/core/calendar';
 // MultipleDatePickerValue (= DateType[]) is not exported from the react package, use DateType[] directly
 // Or from core: import type { MultipleDatePickerValue } from '@mezzanine-ui/core/multiple-date-picker';
+import { useState } from 'react';
 
 function BasicExample() {
   const [value, setValue] = useState<DateType[]>([]);
@@ -225,6 +229,8 @@ function BasicExample() {
 ### Disable Specific Dates
 
 ```tsx
+import dayjs from 'dayjs';
+
 <MultipleDatePicker
   isDateDisabled={(date) => {
     // Disable weekends
@@ -253,6 +259,8 @@ function BasicExample() {
 
 ```tsx
 import { useMultipleDatePickerValue } from '@mezzanine-ui/react/MultipleDatePicker';
+import type { MultipleDatePickerValue } from '@mezzanine-ui/core/multiple-date-picker';
+import { useState } from 'react';
 
 function CustomMultipleDatePicker() {
   const [value, setValue] = useState<MultipleDatePickerValue>([]);

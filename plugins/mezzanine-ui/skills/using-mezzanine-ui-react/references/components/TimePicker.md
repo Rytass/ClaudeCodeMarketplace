@@ -4,7 +4,7 @@
 >
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/data-entry-timepicker--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/TimePicker) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/TimePicker) · Verified 1.10.2 (2026-11-22)
 
 Time picker for selecting time. Must be used with `CalendarContext`.
 
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-> 也可使用便捷封裝 `CalendarConfigProviderMoment` 或 `CalendarConfigProviderDayjs`。
+> 也可使用便捷封裝 `CalendarConfigProviderMoment` 或 `CalendarConfigProviderDayjs`（未從主入口匯出，須 `import { ... } from '@mezzanine-ui/react/Calendar'`）。
 > 詳見 [Calendar.md](./Calendar.md) 的完整設定說明。
 
 ---
@@ -53,7 +53,7 @@ import type { TimePickerProps, TimePickerPanelProps } from '@mezzanine-ui/react'
 | Property        | Type                          | Default                                        | Description          |
 | --------------- | ----------------------------- | ---------------------------------------------- | -------------------- |
 | `defaultValue`  | `DateType`                    | -                                              | Default value        |
-| `format`        | `string`                      | `'HH:mm:ss'` (`'HH:mm'` when hideSecond)      | Display format       |
+| `format`        | `string`                      | calendar context `defaultTimeFormat` (`'HH:mm'` when hideSecond)      | Display format       |
 | `onChange`      | `(value?: DateType) => void`  | -                                              | Change callback      |
 | `onPanelToggle` | `(open: boolean) => void`     | -                                              | Panel toggle callback |
 | `value`         | `DateType`                    | -                                              | Selected value (controlled) |
@@ -80,11 +80,12 @@ import type { TimePickerProps, TimePickerPanelProps } from '@mezzanine-ui/react'
 | `className`               | `string`           | -       | CSS class             |
 | `clearable`               | `boolean`          | `true`  | Whether clearable    |
 | `disabled`                | `boolean`          | `false` | Whether disabled     |
-| `errorMessages`           | `FormattedInputProps['errorMessages']` | - | Error messages |
+| `error`                   | `boolean`          | `false` | Error state (from `TextFieldProps`) |
+| `errorMessages`           | `{ enabled?: boolean; invalidInput?: string; invalidPaste?: string }` | `{ enabled: true, invalidInput: 'Input value is not valid.', invalidPaste: 'Pasted content is not valid.' }` | Error messages (an object, not an array) |
 | `forceShowClearable`      | `boolean`          | `false` | Force clear button visibility (ignore value check), from `TextFieldProps` |
 | `fullWidth`               | `boolean`          | `false` | Whether full width   |
 | `hideSuffixWhenClearable` | `boolean`          | `false` | Overlay clear icon at suffix position, from `TextFieldProps` |
-| `inputProps`              | `InputProps`       | -       | Input props          |
+| `inputProps`              | `Omit<NativeInputProps, 'defaultValue' \| 'disabled' \| 'onChange' \| 'placeholder' \| 'readOnly' \| 'required' \| 'value' \| aria-disabled \| aria-multiline \| aria-readonly \| aria-required>` | - | Native input props |
 | `placeholder`             | `string`           | -       | placeholder          |
 | `prefix`                  | `ReactNode`        | -       | Prefix element       |
 | `readOnly`                | `boolean`          | -       | Whether read-only    |
@@ -94,9 +95,9 @@ import type { TimePickerProps, TimePickerPanelProps } from '@mezzanine-ui/react'
 
 ---
 
-## Portal Behavior (v1.0.4+)
+## Portal Behavior
 
-Since v1.0.4 the time panel portals out of the DOM subtree by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors and enabling viewport-edge flip. To restore inline rendering per call site:
+The time panel portals out of the DOM subtree by default, fixing clipping inside `Modal` / `overflow: hidden` ancestors and enabling viewport-edge flip. To restore inline rendering per call site:
 
 ```tsx
 <TimePicker
@@ -106,9 +107,9 @@ Since v1.0.4 the time panel portals out of the DOM subtree by default, fixing cl
 />
 ```
 
-### Keyboard Navigation (v1.1.0+)
+### Keyboard Navigation
 
-`Tab` / `Shift+Tab` navigation between the trigger input and the portalled time panel is restored in v1.1.0 via an explicit logical focus loop, reliable even inside a `Modal` focus trap.
+`Tab` / `Shift+Tab` navigation between the trigger input and the portalled time panel works via an explicit logical focus loop, reliable even inside a `Modal` focus trap.
 
 ---
 
@@ -228,7 +229,7 @@ Keyboard input commits immediately and typed values show as pending preview:
 
 ## TimePickerPanel Props
 
-> Extends `TimePanelProps` (className, hideHour, hideMinute, hideSecond, hourStep, minuteStep, secondStep, style) and `InputTriggerPopperProps` (anchor, fadeProps, open).
+> Extends `Pick<TimePanelProps, 'className' | 'hideHour' | 'hideMinute' | 'hideSecond' | 'hourStep' | 'minuteStep' | 'secondStep' | 'style'>` and `Pick<InputTriggerPopperProps, 'anchor' | 'fadeProps' | 'open'>`. `ref` (`HTMLDivElement`) is forwarded to the popper. `anchor`, `open`, `fadeProps` are required by the popper to position/show the panel.
 
 | Property      | Type                                                              | Default | Description            |
 | ------------- | ----------------------------------------------------------------- | ------- | ---------------------- |

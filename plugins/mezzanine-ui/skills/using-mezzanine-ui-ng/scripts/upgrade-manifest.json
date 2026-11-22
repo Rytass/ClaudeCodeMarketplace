@@ -3,145 +3,45 @@
     "framework": "ng",
     "branch": "main",
     "packagePath": "packages/ng",
-    "fromVersion": "1.0.0-rc.3",
-    "toVersion": "1.0.0-rc.4",
-    "generatedAt": "2026-04-24T12:42:26Z",
+    "fromVersion": "1.0.0-rc.10",
+    "toVersion": "1.0.0-rc.26",
+    "generatedAt": "2026-11-22T04:34:56Z",
     "description": "Mezzanine-UI upgrade work manifest. Consume this file to drive .md documentation updates."
   },
   "summary": {
-    "componentsAdded": 94,
-    "componentsRemoved": 12,
-    "componentsUnchanged": 59,
-    "componentsWithPropChanges": 0,
-    "componentsWithAngularChanges": 46,
-    "releasesCovered": 1,
-    "workItemsTotal": 63,
-    "workItemsHigh": 12,
-    "workItemsMedium": 51,
+    "componentsAdded": 1,
+    "componentsRemoved": 2,
+    "componentsUnchanged": 72,
+    "componentsWithPropChanges": 23,
+    "componentsWithAngularChanges": 0,
+    "releasesCovered": 16,
+    "workItemsTotal": 29,
+    "workItemsHigh": 9,
+    "workItemsMedium": 20,
     "workItemsLow": 0
   },
   "componentDiff": {
     "added": [
-      "AccordionActions",
-      "AccordionContent",
-      "AccordionGroup",
-      "AccordionTitle",
-      "AlertBannerContainer",
-      "AnchorGroup",
-      "BadgeContainer",
-      "BaseCardSkeleton",
-      "BreadcrumbItem",
-      "BreadcrumbOverflowMenu",
-      "BreadcrumbOverflowMenuItem",
-      "ButtonGroup",
-      "CalendarCell",
-      "CalendarConfigProvider",
-      "CalendarControls",
-      "CalendarDayOfWeek",
-      "CalendarDays",
-      "CalendarHalfYears",
-      "CalendarMonths",
-      "CalendarQuarters",
-      "CalendarWeeks",
-      "CalendarYears",
-      "CardGroup",
-      "CascaderPanel",
-      "CheckAll",
-      "CheckboxGroup",
-      "Collapse",
-      "CropperElement",
-      "CropperModal",
-      "DatePickerCalendar",
-      "DateRangePickerCalendar",
-      "DescriptionContent",
-      "DescriptionGroup",
-      "DescriptionTitle",
-      "DropdownItemCard",
-      "Fade",
-      "Filter",
-      "FilterLine",
-      "FormattedInput",
-      "FormField",
-      "FormGroup",
-      "FormHintText",
-      "FormLabel",
-      "FourThumbnailCard",
-      "FourThumbnailCardSkeleton",
-      "InlineMessageGroup",
-      "LayoutLeftPanel",
-      "LayoutMain",
-      "LayoutRightPanel",
-      "ModalBodyContainer",
-      "ModalBodyForVerification",
-      "ModalFooter",
-      "ModalHeader",
-      "MultipleDatePickerTrigger",
-      "NavigationFooter",
-      "NavigationHeader",
-      "NavigationIconButton",
-      "NavigationOption",
-      "NavigationOptionCategory",
-      "NavigationUserMenu",
-      "NotificationCenterContainer",
-      "NotificationCenterDrawer",
-      "OverflowCounterTag",
-      "PaginationItem",
-      "PaginationJumper",
-      "PaginationPageSize",
-      "PickerTrigger",
-      "PickerTriggerWithSeparator",
-      "PortalRegistry",
-      "QuickActionCard",
-      "QuickActionCardSkeleton",
-      "RadioGroup",
-      "RangeCalendar",
-      "RangePickerTrigger",
-      "Rotate",
-      "Scale",
-      "SelectTrigger",
-      "SelectTriggerTags",
-      "SingleThumbnailCard",
-      "SingleThumbnailCardSkeleton",
-      "Slide",
-      "StepperState",
-      "TabItem",
-      "TableCellRender",
-      "Tabs",
-      "TagGroup",
-      "TextFieldHost",
-      "TimePanelColumn",
-      "TimePickerPanel",
-      "Translate",
-      "Uploader",
-      "UploadItem",
-      "UploadMediaPreviewModal",
-      "UploadPictureCard"
+      "Autocomplete"
     ],
     "removed": [
-      "Anchor",
       "AutoComplete",
-      "Card",
-      "ContentHeader",
-      "Form",
-      "MediaPreviewModal",
-      "Notifier",
-      "Picker",
-      "Popper",
-      "Tab",
-      "ThumbnailCards",
-      "Transition"
+      "ThumbnailCards"
     ],
     "unchanged": [
       "Accordion",
       "AlertBanner",
+      "Anchor",
       "Backdrop",
       "Badge",
       "Breadcrumb",
       "Button",
       "Calendar",
+      "Card",
       "Cascader",
       "Checkbox",
       "ClearActions",
+      "ContentHeader",
       "Cropper",
       "DatePicker",
       "DateRangePicker",
@@ -153,19 +53,25 @@
       "Empty",
       "FilterArea",
       "FloatingButton",
+      "Form",
+      "FourThumbnailCard",
       "Icon",
       "InlineMessage",
       "Input",
       "Layout",
+      "MediaPreviewModal",
       "Message",
       "Modal",
       "MultipleDatePicker",
       "Navigation",
       "NotificationCenter",
+      "Notifier",
       "OverflowTooltip",
       "PageFooter",
       "PageHeader",
       "Pagination",
+      "Picker",
+      "Popper",
       "Portal",
       "Progress",
       "Radio",
@@ -175,1531 +81,1086 @@
       "Select",
       "SelectionCard",
       "Separator",
+      "SingleThumbnailCard",
       "Skeleton",
       "Slider",
       "Spin",
       "Stepper",
+      "Tab",
       "Table",
       "Tag",
       "Textarea",
       "TextField",
       "Thumbnail",
+      "ThumbnailCardInfo",
       "TimePanel",
       "TimePicker",
       "TimeRangePicker",
       "Toggle",
       "Tooltip",
+      "Transition",
       "Typography",
       "Upload"
     ]
   },
   "changelog": [
     {
-      "tag": "@mezzanine-ui/ng@1.0.0-rc.4",
-      "name": "@mezzanine-ui/ng@1.0.0-rc.4",
-      "published": "2026-04-22T08:52:05Z",
-      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.4",
-      "body": "## `@mezzanine-ui/ng@1.0.0-rc.4`\r\n\r\n> Compatibility bump paired with `@mezzanine-ui/core@1.0.4`. No Angular source changed — `MznInputTriggerPopper` already ships with `globalPortal=true` and `MznPopper` already enables `flip()` by default, so the React-side picker fixes in this release cycle do not introduce behaviour changes on the Angular side. Pick this version up together with `core@1.0.4` to stay aligned.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.0.4, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.3...@mezzanine-ui/ng@1.0.0-rc.4"
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.26",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.26",
+      "published": "2026-11-17T04:43:04Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.26",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.26`\r\n\r\n> Compatibility bump paired with `@mezzanine-ui/core@1.3.3`. No Angular source changed, and no visible change is expected: `MznTooltip` attaches portaled tooltips to `document.body` rather than the shared portal layer, so the new tooltip stacking rule in core does not apply to it.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.3.3, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.25...@mezzanine-ui/ng@1.0.0-rc.26"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.25",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.25",
+      "published": "2026-11-12T08:37:29Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.25",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.25`\r\n\r\n> Mirrors React `1.10.1`: listboxes opened from `MznTable` dropdown actions now have an accessible name.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`MznTable`** — The listbox opened by a dropdown row action is now named after the action's label, and the bulk overflow listbox after its `label`, instead of having no accessible name. Set the new optional `listboxLabel` on the row action to give the listbox a different name *(via `core@1.3.2`)*.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.3.2, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.24...@mezzanine-ui/ng@1.0.0-rc.25"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.24",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.24",
+      "published": "2026-11-11T07:15:09Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.24",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.24`\r\n\r\n> Mirrors React `1.10.0`: `MznTextarea` gains `fullWidth` and fills its container by default ([#523](https://github.com/Mezzanine-UI/mezzanine/issues/523)). The component's DOM now matches React.\r\n>\r\n> ⚠️ Two visible changes: the default width, and the host element structure — see Behaviour Changes.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`MznTextarea`** — New inputs mirroring React: `fullWidth` (default `true`), `textareaClassName` and `textareaId`.\r\n\r\n### ⚠️ Behaviour Changes\r\n\r\n- **`MznTextarea` width** — Without `fullWidth`, the textarea used to size to its content; it now fills its container. Set `[fullWidth]=\"false\"` to keep the previous width.\r\n- **`MznTextarea` DOM** — The `[mznTextarea]` host is now the text-field frame itself, instead of wrapping a nested `mznTextField`. If your styles or tests target that inner element, point them at the host instead. Frame state classes now follow React: `disabled` wins over `readonly`, `error` and `warning` come from `type`, and the typing state is set on mousedown or input until blur.\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`MznTextarea`** — The full-width style now actually applies; the textarea's own `width: fit-content` used to override it *(via `core@1.3.1`)*.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.3.1, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.23...@mezzanine-ui/ng@1.0.0-rc.24"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.23",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.23",
+      "published": "2026-11-06T05:55:54Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.23",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.23`\r\n\r\n> Mirrors React `1.9.0`: the calendar footer shortcut can be relabelled and respects disabled periods ([#521](https://github.com/Mezzanine-UI/mezzanine/issues/521)). Also adds the `calendarProps` and `actions` bundles that Angular was missing.\r\n>\r\n> ⚠️ Contains a breaking change to `MznCalendarFooterControl` and a default label change — see below.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`MznCalendar`** — New `calendarFooterControlProps` input customises the footer shortcut. `children` takes a string for every mode, or a per-mode map. Six board bundles are added too (`calendarDaysProps`, `calendarWeeksProps`, `calendarMonthsProps`, `calendarYearsProps`, `calendarQuartersProps`, `calendarHalfYearsProps`); these carry `className` and `style` only.\r\n- **`MznDatePicker` / `MznDateTimePicker`** — New `calendarProps` input reaches the calendar, including its footer. Flat inputs still take priority. Keep the object in a class field or signal rather than an inline literal.\r\n- **`MznDateRangePicker`** — New `actions` input relabels the footer buttons. Providing it stages the picked range instead of committing and closing, as React does. In manual mode it overrides the auto-generated Confirm and Cancel buttons, handlers included.\r\n\r\n### ⚠️ Breaking Changes\r\n\r\n| What changed | Before | After |\r\n|---|---|---|\r\n| `MznCalendarFooterControl` label | `<div mznCalendarFooterControl label=\"Today\">` | `<div mznCalendarFooterControl>Today</div>` |\r\n\r\nThis only affects templates using `MznCalendarFooterControl` directly. The label is now projected, like React's `children`.\r\n\r\n### ⚠️ Behaviour Changes\r\n\r\n- **`MznDateRangePicker`** — In manual mode, the primary button now reads **Confirm** instead of **Ok**, matching React.\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`MznCalendar`** — The footer shortcut is now disabled when the current period is disabled, instead of picking a date the board shows as disabled *(via `core@1.3.0`)*.\r\n- **`MznCalendar`** — Clicking the footer shortcut on a drilled-down panel now only navigates. It used to select a value, writing the first of the month and closing the picker.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.3.0, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.22...@mezzanine-ui/ng@1.0.0-rc.23"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.22",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.22",
+      "published": "2026-11-05T07:36:51Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.22",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.22`\r\n\r\n> Mirrors React `1.8.1`: fast typing in picker inputs no longer drops digits or commits the wrong date ([#518](https://github.com/Mezzanine-UI/mezzanine/issues/518)), and the remaining `readOnly` gaps in `MznAutoComplete` are closed ([#517](https://github.com/Mezzanine-UI/mezzanine/issues/517)).\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **Pickers (`MznFormattedInput`)** — Fast typing no longer drops digits or commits dates the user never typed. Without zone.js the next key can arrive before change detection runs, so the input value and caret are now written synchronously, then re-applied after the render in case it brings a different value. The value effect also skips the component's own commit, which could otherwise wipe digits typed before a late render.\r\n- **`MznAutoComplete`** — Closes the remaining `readOnly` gaps. The multiple-mode search input now gets the `readonly` attribute, and typing, Backspace / Delete tag removal, clear and paste are all blocked.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.5, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.21...@mezzanine-ui/ng@1.0.0-rc.22"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.21",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.21",
+      "published": "2026-11-03T05:42:24Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.21",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.21`\r\n\r\n> Mirrors React `1.8.0`'s accessibility pass (#492–#506), adds a dialog focus model to `MznDrawer`, and enables viewport-aware `MznDropdown` menus by default.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`MznDrawer`** — Implements the dialog focus model, matching React: focus moves into the panel on open, Tab cycles within it, and focus returns to the trigger on close.\r\n- **`MznDropdown`** — `shift` is now enabled by default ([#494](https://github.com/Mezzanine-UI/mezzanine/issues/494)), so menus near the viewport edge are pulled back into view. Set `[shift]=\"false\"` to keep the raw placement.\r\n- **`MznModal` / `MznMediaPreviewModal`** — New `disableScrollLock` input ([#499](https://github.com/Mezzanine-UI/mezzanine/issues/499)).\r\n- **`MznPageFooter`** — New `dropdownTriggerAriaLabel` input names the overflow trigger ([#495](https://github.com/Mezzanine-UI/mezzanine/issues/495)).\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`MznModal`** — The dialog is labelled by its header title ([#497](https://github.com/Mezzanine-UI/mezzanine/issues/497)).\r\n- **`MznSelect`** — The input exposes combobox ARIA and accepts `aria-label` ([#506](https://github.com/Mezzanine-UI/mezzanine/issues/506)).\r\n- **`MznInput`** — `aria-label` is forwarded to the native input ([#504](https://github.com/Mezzanine-UI/mezzanine/issues/504)).\r\n- **`MznDropdown`** — A native `<button>` trigger keeps its button semantics ([#503](https://github.com/Mezzanine-UI/mezzanine/issues/503)).\r\n- **`MznButtonGroup`** — `aria-orientation` is only emitted for roles that support it ([#502](https://github.com/Mezzanine-UI/mezzanine/issues/502)).\r\n- **`MznClearActions` / `MznUpload`** — A caller-supplied `aria-label` overrides the default \"Close\", and the upload cancel label is bound through it ([#498](https://github.com/Mezzanine-UI/mezzanine/issues/498)).\r\n- **`MznAutoComplete`** — The selected name no longer leaks into the search. Reopening used to filter the list down to the selected option, and typing searched `<name><char>`. Search mode now resumes on focus, click, typing or composition, and blur shows the selection again — mirroring React's fix for [#489](https://github.com/Mezzanine-UI/mezzanine/issues/489).\r\n- **`MznTable`** — Bulk action separators only render after a preceding group ([#493](https://github.com/Mezzanine-UI/mezzanine/issues/493)). `mainActions` is now optional *(via `core@1.2.5`)*.\r\n- **`MznNotificationCenter`** — The sub-minute timestamp is localized, and relative times refresh every 30 seconds ([#492](https://github.com/Mezzanine-UI/mezzanine/issues/492)).\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.5, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.20...@mezzanine-ui/ng@1.0.0-rc.21"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.20",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.20",
+      "published": "2026-10-29T05:53:46Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.20",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.20`\r\n\r\n> Fixes Tab getting stuck in `MznModal` on controls disabled by a `<fieldset disabled>` ([#481](https://github.com/Mezzanine-UI/mezzanine/issues/481)), mirroring React `1.7.4`.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`MznModal` (`FocusTrapService`)** — Controls disabled by an ancestor `<fieldset disabled>` are no longer treated as focusable. Previously such a control could be picked as the first or last focusable element, and since focusing it does nothing, Tab / Shift+Tab appeared to do nothing at the edge of the dialog. The trap now uses `:disabled`, which also covers fieldset-disabled controls.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.4, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.19...@mezzanine-ui/ng@1.0.0-rc.20"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.19",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.19",
+      "published": "2026-10-27T05:51:25Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.19",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.19`\r\n\r\n> Mirrors React `1.7.3`: `MznFilterArea` actions gain a loading state and button escape hatches ([#478](https://github.com/Mezzanine-UI/mezzanine/issues/478)).\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`MznFilterArea`** — New `loading` input puts the submit button into its loading state. New `submitButtonProps` / `resetButtonProps` inputs accept a subset of button props (`disabled`, `loading`, `variant`) for the two action buttons, following the same pattern as the dropdown action buttons. The flat `loading` input wins over `submitButtonProps.loading`.\r\n\r\n  ```html\r\n  <div mznFilterArea [loading]=\"isSearching()\" (submit)=\"search()\" …></div>\r\n  ```\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.4, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.18...@mezzanine-ui/ng@1.0.0-rc.19"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.18",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.18",
+      "published": "2026-10-21T06:43:26Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.18",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.18`\r\n\r\n> Makes typed input actually work across the picker family ([#473](https://github.com/Mezzanine-UI/mezzanine/issues/473)), aligns typed-input validation with React, and closes time panels on click-away.\r\n>\r\n> ⚠️ `MznDateRangePicker` typed input is no longer validated against the `isXDisabled` predicates — see Behaviour Changes.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`MznDateRangePicker`** — New `validateFrom` / `validateTo` inputs, mirroring React. Use them to validate typed start / end values.\r\n\r\n### ⚠️ Behaviour Changes\r\n\r\n- **`MznDateRangePicker`** — Typed input is now validated with `validateFrom` / `validateTo` instead of the `isXDisabled` predicates, which React applies only to the calendar. If you relied on `isDateDisabled` (and friends) to reject typed dates, move that check into `validateFrom` / `validateTo`.\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`MznDatePicker` / `MznDateRangePicker` / `MznDateTimePicker` / `MznTimePicker` / `MznTimeRangePicker`** — Typed input now reaches the change output. The handlers re-parsed the already-parsed ISO value with the display format, which strict adapters (Moment, and Day.js with `customParseFormat`) reject — so typed values were silently dropped. They now use the parsed value directly, as React does.\r\n- **`MznTimePicker` / `MznTimeRangePicker`** — The panel's pending value now follows typed input, so pressing OK no longer restores the previous time. Typed time is also validated against the step options, as in React.\r\n- **`MznTimePicker` / `MznTimeRangePicker`** — Clicking outside now cancels the pending value and closes the panel, matching React.\r\n- **`MznDatePicker`** — Typed input is validated only with the predicate for the current mode (e.g. `isMonthDisabled` in month mode) instead of every `isXDisabled` predicate.\r\n- **Pickers** — Typing now replaces a filled cell, like a native date input, so months `10`–`12`, days `30`–`31` and hours `20`–`23` can be typed over an existing value. Re-typing the committed value no longer emits a change.\r\n- **Pickers (Day.js adapter)** — Formats are honoured when parsing, and week / ISO week / quarter / half-year text now resolves instead of being cleared on blur *(via `core@1.2.4`)*.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.4, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.17...@mezzanine-ui/ng@1.0.0-rc.18"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.17",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.17",
+      "published": "2026-10-20T08:09:42Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.17",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.17`\r\n\r\n> Mirrors React `1.7.0`: `MznTable` gains a `columnWidths` input and `columnWidthsChange` output so resized column widths can be persisted and reset ([#471](https://github.com/Mezzanine-UI/mezzanine/issues/471)). Also fixes the first resize drag being rejected when the table has leading action columns.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`MznTable`** — New `columnWidths` input and `columnWidthsChange` output, mirroring React's `columnWidths` / `onColumnWidthsChange`.\r\n  - `columnWidths` (controlled, keyed by column key) takes precedence over `column.width`. Pass `{}` to reset.\r\n  - `columnWidthsChange` emits **once per drag, on pointerup**, with every resized width merged with the current drag. It does not emit while dragging, for a drag released at its start point, or after the table is destroyed mid-drag.\r\n  - Drag widths are held in a draft layer for live feedback. In controlled mode they snap back to `columnWidths` if the parent ignores the change.\r\n  - A new `WithPersistedColumnWidths` story demonstrates the pattern.\r\n\r\n  ```html\r\n  <div mznTable\r\n    [columnWidths]=\"widths()\"\r\n    (columnWidthsChange)=\"widths.set($event); saveWidths($event)\"\r\n    …>\r\n  </div>\r\n  ```\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`MznTable`** — The first resize drag no longer fails on tables with leading action columns. The resize snapshot indexed every `<col>` against the column list, so expandable, draggable / pinnable and row-selection columns shifted the mapping — the first drag measured a 40px action column as the dragged column and was rejected by the min-width check. The table now reads its own colgroup and skips the leading action columns, matching React.\r\n- **`MznTable`** — `columnWidths` values are clamped to `minWidth` / `maxWidth`, and non-finite or non-positive values are dropped, so stale persisted widths stay valid.\r\n- **`MznTable`** — Resized widths are now keyed by plain column key (previously `${key}_${idx}`), which also lets the row drag preview pick up resized widths.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.3, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.16...@mezzanine-ui/ng@1.0.0-rc.17"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.16",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.16",
+      "published": "2026-10-12T04:35:28Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.16",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.16`\r\n\r\n> Picks up a `Tooltip` sizing fix from `core@1.2.3` ([#469](https://github.com/Mezzanine-UI/mezzanine/issues/469)). No Angular source changed.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`MznTooltip`** — Tooltip text no longer stacks one character per line inside narrow containers such as a `MznTable` dropdown row action. The tooltip is now sized by its content, while `max-width` still wraps long text *(via `core@1.2.3`)*.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.3, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.15...@mezzanine-ui/ng@1.0.0-rc.16"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.15",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.15",
+      "published": "2026-10-02T06:46:34Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.15",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.15`\r\n\r\n> Mirrors React `1.6.0`: fixes wide tables stretching their grid / flex parents ([#467](https://github.com/Mezzanine-UI/mezzanine/issues/467)) and adds a `scrollbarOptions` input to `MznTable`.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`MznTable`** — New `scrollbarOptions` input forwards OverlayScrollbars options to the table's inner scrollbar, mirroring React's prop. For example, `[scrollbarOptions]=\"{ overflow: { x: 'visible', y: 'visible' } }\"` hands scrolling to an outer container.\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`MznTable`** — A wide table no longer widens the grid or flex layout around it, which previously made the overlay scrollbar unusable and pushed `fixed: 'end'` columns out of view *(via `core@1.2.2`)*.\r\n- **`MznTable`** — The table no longer briefly shows the native scrollbar on load. The inner scrollbar now initializes immediately (`[defer]=\"false\"`), as React and Vue already do; with deferred init, OverlayScrollbars started on idle.\r\n- **`MznScrollbar`** — A caller-supplied `options.overflow` is now respected. It is merged per key over the `{ x: 'scroll', y: 'scroll' }` defaults instead of being discarded.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.2, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.14...@mezzanine-ui/ng@1.0.0-rc.15"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.14",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.14",
+      "published": "2026-09-08T07:37:50Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.14",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.14`\r\n\r\n> Compatibility bump paired with `@mezzanine-ui/core@1.2.1`. No Angular source changed — this release exists to keep the ecosystem aligned as `core` drops its undeclared `@floating-ui/react-dom` import. Upgrade alongside `core@1.2.1`.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.1, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2, `@angular/cdk` ≥ 21.0.0\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.13...@mezzanine-ui/ng@1.0.0-rc.14"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.13",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.13",
+      "published": "2026-09-02T03:03:58Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.13",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.13`\r\n\r\n> RC update mirroring React `1.5.0`'s accessibility pass: `MznModal` gains a real dialog focus model, `MznInlineMessage` exposes typed live-region inputs, and a batch of a11y / parity fixes lands across Navigation, Tooltip, Table, Dropdown, and Backdrop.\r\n\r\n---\r\n\r\n### 🚀 Improvements\r\n\r\n- **`MznModal`** — Implements the dialog focus model behind `role=\"dialog\"`, matching React. A new `FocusTrapService` (wired into the effect that already registers with `TopStackService` for Escape, so the same stack entry owns `Tab`) moves focus into the content wrapper's first focusable element on open — falling back to the wrapper itself (`tabindex=\"-1\"`) — cycles focus within the dialog, and restores it on close. The dialog is also announced as modal (`aria-modal`).\r\n- **`MznInlineMessage`** — `role` and `aria-live` are now typed inputs (defaulting to `status` / `polite`) driven through host bindings, mirroring React's overridable props. Previously the live-region defaults were static host attributes — overridable but undocumented and not bindable. Use `aria-live=\"assertive\"` for a failure from a destructive action that must interrupt.\r\n\r\n### 🐛 Bug Fixes — Accessibility & parity\r\n\r\n- **`MznBackdrop`** — Now unmounts its content once closed, matching React. Previously it always rendered its subtree and only marked it `aria-hidden`, so a closed `Modal` / `Drawer` left its entire subtree (dialog, header, footer, every button) in the DOM.\r\n- **`MznNavigation`** — A leaf option with `href` now renders as a real `<a>` anchor (was always a `<div>` claiming `role=\"button\"`), restoring middle-click, open-in-new-tab, and native link affordances. Every navigation control now announces itself, and the invalid `menuitem` role is dropped — all matching React.\r\n- **`MznTooltip`** — Tooltip content is now reachable by keyboard and assistive technology, matching React.\r\n- **`MznDropdown`** — The menu can now be pushed back inside the viewport (shift correction) instead of being clipped near the right edge.\r\n- **`MznTable`** — The dropdown row action now has an accessible name.\r\n- **`MznContentHeader`** — The back-button label is now translatable.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.0, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.12...@mezzanine-ui/ng@1.0.0-rc.13"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.12",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.12",
+      "published": "2026-08-26T07:43:12Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.12",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.12`\r\n\r\n> RC update fixing a missing `MznRadio` label and aligning `MznTable`'s loading behaviour with React (no record callbacks for placeholder rows). Also restores the package's Jest runner, which had silently stopped running any of the 84 spec files.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`MznRadio`** — The default `type=\"radio\"` now renders its projected label. The template declared a bare `<ng-content />` in both the `radio` and `segment` branches, but both shared one projection slot, so only the `segment` branch ever received the projected nodes and the default radio rendered with no label. The projection is now declared once in an `<ng-template>` and stamped into whichever branch renders.\r\n- **`MznTable`** — `rowState` is no longer called with placeholder rows while loading. `rowClassesMap` ran eagerly over the render dataset and handed the consumer's `rowState` the `{ key }` placeholder rows instead of a record — the same defect fixed on the React side. It now sits behind a loading guard like every other record callback in the template.\r\n\r\n### 🏗 Internal\r\n\r\n- **Build** — Restores the package's Jest runner and build target. `packages/ng` was the only workspace package without a `project.json`, so Nx inferred its targets from `package.json` scripts and ran them through Yarn without the workspace `node_modules/.bin` on `PATH` — both `test` and `build` died with `command not found`, meaning the 84 spec files never ran and `yarn build` never actually built `ng`. Added `project.json`, the missing `jest.config.js`, and an SCSS style stub, mirroring the other packages.\r\n- **Tests** — Migrated the spec suite's DOM queries off `<mzn-x>` element selectors onto the components' attribute selectors (the components moved to attribute selectors during the earlier CDK Overlay / parity rewrite), and updated overlay queries and portalled-content assertions so the now-running suites pass.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.0, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.11...@mezzanine-ui/ng@1.0.0-rc.12"
+    },
+    {
+      "tag": "@mezzanine-ui/ng@1.0.0-rc.11",
+      "name": "@mezzanine-ui/ng@1.0.0-rc.11",
+      "published": "2026-08-17T06:36:27Z",
+      "url": "https://github.com/Mezzanine-UI/mezzanine/releases/tag/%40mezzanine-ui/ng%401.0.0-rc.11",
+      "body": "## `@mezzanine-ui/ng@1.0.0-rc.11`\r\n\r\n> RC update fixing the same CJK IME class of bug as `react@1.4.3`: the Enter that confirms an input-method candidate no longer leaks through as a select / submit / confirm across `MznAutoComplete`, `MznDropdown`, `MznPagination`, and the picker family. Powered by the shared `isImeComposing` helper new in `core@1.2.0`.\r\n\r\n---\r\n\r\n### 🐛 Bug Fixes\r\n\r\n- **`MznAutoComplete`** — The Enter that confirms an IME candidate no longer selects a highlighted option or triggers the create action; both are skipped while composition is active *(via `core@1.2.0`)*.\r\n- **`MznDropdown`** — Keyboard selection is skipped while an IME is composing, so confirming a candidate with Enter no longer selects the focused option *(via `core@1.2.0`)*.\r\n- **`MznPagination`** — The page-jumper input no longer submits on the Enter that confirms an IME candidate; submission waits until composition ends *(via `core@1.2.0`)*.\r\n- **`MznDatePicker` / `MznTimePicker`** — The picker no longer confirms or closes on the Enter that confirms an IME candidate while composing *(via `core@1.2.0`)*.\r\n\r\n---\r\n\r\n**Compatibility**: requires `@mezzanine-ui/core` ≥ 1.2.0, `@mezzanine-ui/system` ≥ 1.0.2, `@mezzanine-ui/icons` ≥ 1.0.2\r\n\r\n**Full Changelog**: https://github.com/Mezzanine-UI/mezzanine/compare/@mezzanine-ui/ng@1.0.0-rc.10...@mezzanine-ui/ng@1.0.0-rc.11"
     }
   ],
-  "propsDiff": [],
-  "angularSpecific": [
-    {
-      "component": "Accordion",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [
-          "MZN_ACCORDION_CONTROL"
-        ],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznAccordionTitle"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "AlertBanner",
-      "selectorChanged": {
-        "from": "mzn-alert-banner-container",
-        "to": "[mznAlertBanner]",
-        "typeChanged": true
-      },
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznButton",
-          "MznClearActions",
-          "MznIcon",
-          "MznPortal"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "Backdrop",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznFade",
-          "MznPortal"
-        ],
-        "removed": []
-      }
-    },
+  "propsDiff": [
     {
       "component": "Breadcrumb",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznBreadcrumbItem",
-          "MznBreadcrumbOverflowMenu",
-          "MznIcon"
-        ],
-        "removed": []
+      "propsAdded": [
+        "collapsed"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
+      }
+    },
+    {
+      "component": "Button",
+      "propsAdded": [
+        "role"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "Calendar",
-      "selectorChanged": {
-        "from": "[mznCalendarHalfYears]",
-        "to": "[mznCalendar]",
-        "typeChanged": false
-      },
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznCalendarControls",
-          "MznCalendarDays",
-          "MznCalendarFooterControl",
-          "MznCalendarHalfYears",
-          "MznCalendarMonths",
-          "MznCalendarQuarters",
-          "MznCalendarQuickSelect",
-          "MznCalendarWeeks",
-          "MznCalendarYears"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "Cascader",
-      "selectorChanged": {
-        "from": "[mznCascaderPanel]",
-        "to": "[mznCascader]",
-        "typeChanged": false
-      },
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznCascaderPanel",
-          "MznInputTriggerPopper",
-          "MznSelectTrigger",
-          "MznTranslate"
-        ],
-        "removed": []
+      "propsAdded": [
+        "actions",
+        "calendarDaysProps",
+        "calendarFooterControlProps",
+        "calendarHalfYearsProps",
+        "calendarMonthsProps",
+        "calendarQuartersProps",
+        "calendarWeeksProps",
+        "calendarYearsProps"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [
+        {
+          "prop": "methods",
+          "doc": false,
+          "source": true
+        },
+        {
+          "prop": "referenceDate",
+          "doc": false,
+          "source": true
+        }
+      ],
+      "outputsAdded": [
+        "dateClick",
+        "dateHover",
+        "doubleNext",
+        "doublePrev",
+        "halfYearClick",
+        "halfYearHover",
+        "monthClick",
+        "monthHover",
+        "next",
+        "prev",
+        "quarterClick",
+        "quarterHover",
+        "weekClick",
+        "weekHover",
+        "yearClick",
+        "yearHover"
+      ],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "Checkbox",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon",
-          "MznTextField",
-          "MznTypography"
-        ],
-        "removed": []
+      "propsAdded": [
+        "hintClass",
+        "mznInputContainerClass",
+        "mznInputHostClass"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": true
       }
     },
     {
       "component": "ClearActions",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon"
-        ],
-        "removed": []
+      "propsAdded": [
+        "aria-label"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
+      }
+    },
+    {
+      "component": "ContentHeader",
+      "propsAdded": [
+        "backButtonLabel"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "DatePicker",
-      "selectorChanged": {
-        "from": "[mznDatePickerPanel]",
-        "to": "[mznDatePicker]",
-        "typeChanged": false
-      },
-      "cvaChange": "added",
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznDatePickerCalendar",
-          "MznIcon",
-          "MznPickerTrigger"
-        ],
-        "removed": []
+      "propsAdded": [
+        "calendarProps"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": true
       }
     },
     {
       "component": "DateRangePicker",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznDateRangePickerCalendar",
-          "MznRangePickerTrigger"
-        ],
-        "removed": []
+      "propsAdded": [
+        "actions",
+        "validateFrom",
+        "validateTo"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": true
       }
     },
     {
       "component": "DateTimePicker",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznClearActions",
-          "MznDatePickerCalendar",
-          "MznFormattedInput",
-          "MznIcon",
-          "MznTimePickerPanel"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "DateTimeRangePicker",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznDateTimePicker",
-          "MznIcon"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "Description",
-      "selectorChanged": {
-        "from": "[mznDescriptionGroup]",
-        "to": "[mznDescription]",
-        "typeChanged": false
-      },
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [
-          "MZN_DESCRIPTION_CONTEXT"
-        ],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznDescriptionTitle"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "Drawer",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "FormsModule",
-          "MznBackdrop",
-          "MznButton",
-          "MznClearActions",
-          "MznDropdown",
-          "MznIcon",
-          "MznRadio",
-          "MznRadioGroup",
-          "MznSlide"
-        ],
-        "removed": []
+      "propsAdded": [],
+      "propsRemoved": [],
+      "typeMismatches": [
+        {
+          "output": "panelToggle",
+          "doc": "OutputEmitterRef<{ open: boolean; focusedInput: 'left' | 'right' | null }>",
+          "source": "{ open: boolean; focusedInput: FocusedInput; }"
+        }
+      ],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": true
       }
     },
     {
       "component": "Dropdown",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznDropdownItem",
-          "MznPopper",
-          "MznPortal",
-          "MznTranslate"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "Empty",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznButton",
-          "MznButtonGroup",
-          "MznEmptyMainInitialDataIcon",
-          "MznEmptyMainNotificationIcon",
-          "MznEmptyMainResultIcon",
-          "MznEmptyMainSystemIcon",
-          "MznIcon"
-        ],
-        "removed": []
+      "propsAdded": [
+        "shift"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [
+        {
+          "prop": "anchor",
+          "doc": "HTMLElement | ElementRef | null",
+          "source": "HTMLElement | ElementRef<HTMLElement> | null"
+        }
+      ],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "FilterArea",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [
-          "MZN_FILTER_AREA_CONTEXT"
-        ],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznButton",
-          "MznIcon"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "FloatingButton",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznButton",
-          "MznIcon"
-        ],
-        "removed": []
+      "propsAdded": [
+        "loading",
+        "resetButtonProps",
+        "submitButtonProps"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "InlineMessage",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznClearActions",
-          "MznIcon"
-        ],
-        "removed": []
+      "propsAdded": [
+        "aria-live",
+        "role"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "Input",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon",
-          "MznInputActionButton",
-          "MznInputSelectButton",
-          "MznInputSpinnerButton",
-          "MznPasswordStrengthIndicator",
-          "MznTextField"
-        ],
-        "removed": []
+      "propsAdded": [
+        "aria-describedby",
+        "aria-label",
+        "aria-labelledby"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [
+        "actionButton",
+        "passwordStrengthIndicator",
+        "selectButton"
+      ],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": true
       }
     },
     {
-      "component": "Message",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon",
-          "MznSpin"
-        ],
-        "removed": []
+      "component": "MediaPreviewModal",
+      "propsAdded": [
+        "disableScrollLock"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "Modal",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [
-          "MZN_MODAL_CONTEXT"
-        ],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznBackdrop",
-          "MznClearActions",
-          "MznScale"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "MultipleDatePicker",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznCalendar",
-          "MznCalendarFooterActions",
-          "MznMultipleDatePickerTrigger",
-          "MznPopper"
-        ],
-        "removed": []
+      "propsAdded": [
+        "disableScrollLock"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "Navigation",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [
-          "MZN_NAVIGATION_ACTIVATED",
-          "MZN_NAVIGATION_OPTION_LEVEL"
-        ],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznInput",
-          "MznNavigationOption",
-          "MznNavigationOptionCategory",
-          "MznScrollbar"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "NotificationCenter",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznBadge",
-          "MznButton",
-          "MznButtonGroup",
-          "MznDropdown",
-          "MznIcon",
-          "MznPopper",
-          "MznTypography"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "OverflowTooltip",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznFade",
-          "MznPopper",
-          "MznTag"
-        ],
-        "removed": []
+      "propsAdded": [
+        "collapseToggleLabel"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [
+        {
+          "prop": "items",
+          "doc": "ReadonlyArray<NavItem>",
+          "source": "readonly NavigationItemConfig[]"
+        }
+      ],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "PageFooter",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznButton",
-          "MznIcon"
-        ],
-        "removed": []
+      "propsAdded": [
+        "dropdownTriggerAriaLabel"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "Pagination",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznPaginationItem",
-          "MznPaginationJumper",
-          "MznPaginationPageSize",
-          "MznTypography"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "Portal",
-      "selectorChanged": {
-        "from": "ng-container",
-        "to": "[mznPortal]",
-        "typeChanged": true
-      },
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [],
-        "removed": []
-      }
-    },
-    {
-      "component": "Progress",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon",
-          "MznTypography"
-        ],
-        "removed": []
+      "propsAdded": [],
+      "propsRemoved": [
+        "itemTemplate"
+      ],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "Radio",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon",
-          "MznInput"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "ResultState",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznButtonGroup",
-          "MznIcon"
-        ],
-        "removed": []
+      "propsAdded": [
+        "hintClass",
+        "labelClass",
+        "radioControlClass"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [
+        {
+          "prop": "orientation",
+          "doc": "RadioGroupOrientation",
+          "source": "InputCheckGroupOrientation"
+        }
+      ],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": true
       }
     },
     {
       "component": "Select",
-      "selectorChanged": {
-        "from": "[mznSelectTrigger]",
-        "to": "[mznSelect]",
-        "typeChanged": false
-      },
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznDropdownItemCard",
-          "MznInputTriggerPopper",
-          "MznSelectTrigger",
-          "MznSelectTriggerTags",
-          "MznSpin",
-          "MznTranslate"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "SelectionCard",
-      "selectorChanged": null,
-      "cvaChange": "added",
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon",
-          "MznTypography"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "Slider",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon",
-          "MznInput",
-          "MznTooltip"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "Spin",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznBackdrop"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "Stepper",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [
-          "MZN_STEPPER_CONTEXT"
-        ],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [],
-        "removed": []
+      "propsAdded": [
+        "aria-label",
+        "ariaLabel"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [
+        "suffixActionIcon"
+      ],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": true
       }
     },
     {
       "component": "Table",
-      "selectorChanged": {
-        "from": "[mznTableContainer]",
-        "to": "[mznTable]",
-        "typeChanged": false
-      },
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [
-          "MZN_TABLE_CONTEXT"
-        ],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "CdkDrag",
-          "CdkDragHandle",
-          "CdkDropList",
-          "FormsModule",
-          "MznButton",
-          "MznCheckbox",
-          "MznDropdown",
-          "MznEmpty",
-          "MznIcon",
-          "MznPagination",
-          "MznPortal",
-          "MznRadio",
-          "MznScrollbar",
-          "MznSkeleton",
-          "MznToggle",
-          "MznTooltip"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "Tag",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznBadge",
-          "MznIcon"
-        ],
-        "removed": []
+      "propsAdded": [
+        "columnWidths",
+        "scrollbarOptions"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [
+        "rowState"
+      ],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [
+        "columnWidthsChange",
+        "expandedRowKeysChange",
+        "selectedRowKeysChange",
+        "sortChange"
+      ],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     },
     {
       "component": "Textarea",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon",
-          "MznTextField"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "TextField",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznClearActions"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "TimePanel",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznCalendarFooterActions",
-          "MznTimePanelColumn"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "TimePicker",
-      "selectorChanged": {
-        "from": "[mznTimePickerPanel]",
-        "to": "[mznTimePicker]",
-        "typeChanged": false
-      },
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon",
-          "MznPickerTrigger",
-          "MznTimePickerPanel"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "TimeRangePicker",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon",
-          "MznPopper",
-          "MznRangePickerTrigger",
-          "MznTimePanel"
-        ],
-        "removed": []
-      }
-    },
-    {
-      "component": "Toggle",
-      "selectorChanged": null,
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznTypography"
-        ],
-        "removed": []
+      "propsAdded": [
+        "fullWidth",
+        "textareaClassName",
+        "textareaId"
+      ],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": true
       }
     },
     {
       "component": "Upload",
-      "selectorChanged": {
-        "from": "[mznUploader]",
-        "to": "[mznUpload]",
-        "typeChanged": false
-      },
-      "cvaChange": null,
-      "providersTokensChanged": {
-        "added": [],
-        "removed": []
-      },
-      "standaloneImportsChanged": {
-        "added": [
-          "MznIcon",
-          "MznUploader",
-          "MznUploadItem",
-          "MznUploadMediaPreviewModal",
-          "MznUploadPictureCard"
-        ],
-        "removed": []
+      "propsAdded": [],
+      "propsRemoved": [],
+      "typeMismatches": [],
+      "typeUnverifiable": [],
+      "defaultMismatches": [],
+      "defaultMissing": [],
+      "requiredMismatches": [],
+      "outputsAdded": [
+        "remove"
+      ],
+      "outputsRemoved": [],
+      "tokensAdded": [],
+      "tokensRemoved": [],
+      "importsAdded": [],
+      "importsRemoved": [],
+      "cva": {
+        "doc": null,
+        "source": false
       }
     }
   ],
+  "angularSpecific": [],
   "workItems": [
     {
-      "component": "Accordion",
-      "action": "UPDATE_PROVIDERS_TOKENS",
-      "reason": "DI tokens added (1)",
-      "priority": "MEDIUM",
-      "tokens": [
-        "MZN_ACCORDION_CONTROL"
-      ]
-    },
-    {
-      "component": "Accordion",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (1)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznAccordionTitle"
-      ]
-    },
-    {
-      "component": "AlertBanner",
-      "action": "UPDATE_SELECTOR",
-      "reason": "Selector changed: mzn-alert-banner-container -> [mznAlertBanner] (kind change: attribute<->tag)",
-      "priority": "HIGH"
-    },
-    {
-      "component": "AlertBanner",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (4)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznButton",
-        "MznClearActions",
-        "MznIcon",
-        "MznPortal"
-      ]
-    },
-    {
-      "component": "Backdrop",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznFade",
-        "MznPortal"
-      ]
-    },
-    {
       "component": "Breadcrumb",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (3)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: collapsed",
       "priority": "MEDIUM",
-      "imports": [
-        "MznBreadcrumbItem",
-        "MznBreadcrumbOverflowMenu",
-        "MznIcon"
+      "propsAdded": [
+        "collapsed"
+      ],
+      "propsRemoved": []
+    },
+    {
+      "component": "Button",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: role",
+      "priority": "MEDIUM",
+      "propsAdded": [
+        "role"
+      ],
+      "propsRemoved": []
+    },
+    {
+      "component": "Calendar",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: actions, calendarDaysProps, calendarFooterControlProps, calendarHalfYearsProps, calendarMonthsProps, calendarQuartersProps, calendarWeeksProps, calendarYearsProps",
+      "priority": "MEDIUM",
+      "propsAdded": [
+        "actions",
+        "calendarDaysProps",
+        "calendarFooterControlProps",
+        "calendarHalfYearsProps",
+        "calendarMonthsProps",
+        "calendarQuartersProps",
+        "calendarWeeksProps",
+        "calendarYearsProps"
+      ],
+      "propsRemoved": []
+    },
+    {
+      "component": "Calendar",
+      "action": "UPDATE_REQUIRED",
+      "reason": "Required in source, optional in docs: methods, referenceDate",
+      "priority": "HIGH",
+      "requiredMismatches": [
+        {
+          "prop": "methods",
+          "doc": false,
+          "source": true
+        },
+        {
+          "prop": "referenceDate",
+          "doc": false,
+          "source": true
+        }
       ]
     },
     {
       "component": "Calendar",
-      "action": "UPDATE_SELECTOR",
-      "reason": "Selector changed: [mznCalendarHalfYears] -> [mznCalendar]",
-      "priority": "HIGH"
-    },
-    {
-      "component": "Calendar",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (9)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznCalendarControls",
-        "MznCalendarDays",
-        "MznCalendarFooterControl",
-        "MznCalendarHalfYears",
-        "MznCalendarMonths",
-        "MznCalendarQuarters",
-        "MznCalendarQuickSelect",
-        "MznCalendarWeeks",
-        "MznCalendarYears"
-      ]
-    },
-    {
-      "component": "Cascader",
-      "action": "UPDATE_SELECTOR",
-      "reason": "Selector changed: [mznCascaderPanel] -> [mznCascader]",
-      "priority": "HIGH"
-    },
-    {
-      "component": "Cascader",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (4)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznCascaderPanel",
-        "MznInputTriggerPopper",
-        "MznSelectTrigger",
-        "MznTranslate"
-      ]
+      "action": "UPDATE_OUTPUTS",
+      "reason": "Undocumented outputs: dateClick, dateHover, doubleNext, doublePrev, halfYearClick, halfYearHover, monthClick, monthHover, next, prev, quarterClick, quarterHover, weekClick, weekHover, yearClick, yearHover",
+      "priority": "HIGH",
+      "outputsAdded": [
+        "dateClick",
+        "dateHover",
+        "doubleNext",
+        "doublePrev",
+        "halfYearClick",
+        "halfYearHover",
+        "monthClick",
+        "monthHover",
+        "next",
+        "prev",
+        "quarterClick",
+        "quarterHover",
+        "weekClick",
+        "weekHover",
+        "yearClick",
+        "yearHover"
+      ],
+      "outputsRemoved": []
     },
     {
       "component": "Checkbox",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (3)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: hintClass, mznInputContainerClass, mznInputHostClass",
       "priority": "MEDIUM",
-      "imports": [
-        "MznIcon",
-        "MznTextField",
-        "MznTypography"
-      ]
+      "propsAdded": [
+        "hintClass",
+        "mznInputContainerClass",
+        "mznInputHostClass"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "ClearActions",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (1)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: aria-label",
       "priority": "MEDIUM",
-      "imports": [
-        "MznIcon"
-      ]
+      "propsAdded": [
+        "aria-label"
+      ],
+      "propsRemoved": []
     },
     {
-      "component": "DatePicker",
-      "action": "UPDATE_SELECTOR",
-      "reason": "Selector changed: [mznDatePickerPanel] -> [mznDatePicker]",
-      "priority": "HIGH"
-    },
-    {
-      "component": "DatePicker",
-      "action": "UPDATE_CVA",
-      "reason": "ControlValueAccessor added - affects Reactive Forms integration docs",
-      "priority": "HIGH"
-    },
-    {
-      "component": "DatePicker",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (3)",
+      "component": "ContentHeader",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: backButtonLabel",
       "priority": "MEDIUM",
-      "imports": [
-        "MznDatePickerCalendar",
-        "MznIcon",
-        "MznPickerTrigger"
-      ]
+      "propsAdded": [
+        "backButtonLabel"
+      ],
+      "propsRemoved": []
+    },
+    {
+      "component": "DatePicker",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: calendarProps",
+      "priority": "MEDIUM",
+      "propsAdded": [
+        "calendarProps"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "DateRangePicker",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: actions, validateFrom, validateTo",
       "priority": "MEDIUM",
-      "imports": [
-        "MznDateRangePickerCalendar",
-        "MznRangePickerTrigger"
-      ]
+      "propsAdded": [
+        "actions",
+        "validateFrom",
+        "validateTo"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "DateTimePicker",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (5)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznClearActions",
-        "MznDatePickerCalendar",
-        "MznFormattedInput",
-        "MznIcon",
-        "MznTimePickerPanel"
-      ]
-    },
-    {
-      "component": "DateTimeRangePicker",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznDateTimePicker",
-        "MznIcon"
-      ]
-    },
-    {
-      "component": "Description",
-      "action": "UPDATE_SELECTOR",
-      "reason": "Selector changed: [mznDescriptionGroup] -> [mznDescription]",
-      "priority": "HIGH"
-    },
-    {
-      "component": "Description",
-      "action": "UPDATE_PROVIDERS_TOKENS",
-      "reason": "DI tokens added (1)",
-      "priority": "MEDIUM",
-      "tokens": [
-        "MZN_DESCRIPTION_CONTEXT"
-      ]
-    },
-    {
-      "component": "Description",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (1)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznDescriptionTitle"
-      ]
-    },
-    {
-      "component": "Drawer",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (9)",
-      "priority": "MEDIUM",
-      "imports": [
-        "FormsModule",
-        "MznBackdrop",
-        "MznButton",
-        "MznClearActions",
-        "MznDropdown",
-        "MznIcon",
-        "MznRadio",
-        "MznRadioGroup",
-        "MznSlide"
+      "action": "UPDATE_TYPES",
+      "reason": "Type differs from source: panelToggle doc=OutputEmitterRef<{ open: boolean; focusedInput: 'left' | 'right' | null }> source={ open: boolean; focusedInput: FocusedInput; }",
+      "priority": "HIGH",
+      "typeMismatches": [
+        {
+          "output": "panelToggle",
+          "doc": "OutputEmitterRef<{ open: boolean; focusedInput: 'left' | 'right' | null }>",
+          "source": "{ open: boolean; focusedInput: FocusedInput; }"
+        }
       ]
     },
     {
       "component": "Dropdown",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (4)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: shift",
       "priority": "MEDIUM",
-      "imports": [
-        "MznDropdownItem",
-        "MznPopper",
-        "MznPortal",
-        "MznTranslate"
-      ]
+      "propsAdded": [
+        "shift"
+      ],
+      "propsRemoved": []
     },
     {
-      "component": "Empty",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (7)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznButton",
-        "MznButtonGroup",
-        "MznEmptyMainInitialDataIcon",
-        "MznEmptyMainNotificationIcon",
-        "MznEmptyMainResultIcon",
-        "MznEmptyMainSystemIcon",
-        "MznIcon"
+      "component": "Dropdown",
+      "action": "UPDATE_TYPES",
+      "reason": "Type differs from source: anchor doc=HTMLElement | ElementRef | null source=HTMLElement | ElementRef<HTMLElement> | null",
+      "priority": "HIGH",
+      "typeMismatches": [
+        {
+          "prop": "anchor",
+          "doc": "HTMLElement | ElementRef | null",
+          "source": "HTMLElement | ElementRef<HTMLElement> | null"
+        }
       ]
     },
     {
       "component": "FilterArea",
-      "action": "UPDATE_PROVIDERS_TOKENS",
-      "reason": "DI tokens added (1)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: loading, resetButtonProps, submitButtonProps",
       "priority": "MEDIUM",
-      "tokens": [
-        "MZN_FILTER_AREA_CONTEXT"
-      ]
-    },
-    {
-      "component": "FilterArea",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznButton",
-        "MznIcon"
-      ]
-    },
-    {
-      "component": "FloatingButton",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznButton",
-        "MznIcon"
-      ]
+      "propsAdded": [
+        "loading",
+        "resetButtonProps",
+        "submitButtonProps"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "InlineMessage",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: aria-live, role",
       "priority": "MEDIUM",
-      "imports": [
-        "MznClearActions",
-        "MznIcon"
-      ]
+      "propsAdded": [
+        "aria-live",
+        "role"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "Input",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (6)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: aria-describedby, aria-label, aria-labelledby",
       "priority": "MEDIUM",
-      "imports": [
-        "MznIcon",
-        "MznInputActionButton",
-        "MznInputSelectButton",
-        "MznInputSpinnerButton",
-        "MznPasswordStrengthIndicator",
-        "MznTextField"
-      ]
+      "propsAdded": [
+        "aria-describedby",
+        "aria-label",
+        "aria-labelledby"
+      ],
+      "propsRemoved": []
     },
     {
-      "component": "Message",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
+      "component": "MediaPreviewModal",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: disableScrollLock",
       "priority": "MEDIUM",
-      "imports": [
-        "MznIcon",
-        "MznSpin"
-      ]
-    },
-    {
-      "component": "Modal",
-      "action": "UPDATE_PROVIDERS_TOKENS",
-      "reason": "DI tokens added (1)",
-      "priority": "MEDIUM",
-      "tokens": [
-        "MZN_MODAL_CONTEXT"
-      ]
+      "propsAdded": [
+        "disableScrollLock"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "Modal",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (3)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: disableScrollLock",
       "priority": "MEDIUM",
-      "imports": [
-        "MznBackdrop",
-        "MznClearActions",
-        "MznScale"
-      ]
-    },
-    {
-      "component": "MultipleDatePicker",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (4)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznCalendar",
-        "MznCalendarFooterActions",
-        "MznMultipleDatePickerTrigger",
-        "MznPopper"
-      ]
+      "propsAdded": [
+        "disableScrollLock"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "Navigation",
-      "action": "UPDATE_PROVIDERS_TOKENS",
-      "reason": "DI tokens added (2)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: collapseToggleLabel",
       "priority": "MEDIUM",
-      "tokens": [
-        "MZN_NAVIGATION_ACTIVATED",
-        "MZN_NAVIGATION_OPTION_LEVEL"
-      ]
+      "propsAdded": [
+        "collapseToggleLabel"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "Navigation",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (4)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznInput",
-        "MznNavigationOption",
-        "MznNavigationOptionCategory",
-        "MznScrollbar"
-      ]
-    },
-    {
-      "component": "NotificationCenter",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (7)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznBadge",
-        "MznButton",
-        "MznButtonGroup",
-        "MznDropdown",
-        "MznIcon",
-        "MznPopper",
-        "MznTypography"
-      ]
-    },
-    {
-      "component": "OverflowTooltip",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (3)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznFade",
-        "MznPopper",
-        "MznTag"
+      "action": "UPDATE_TYPES",
+      "reason": "Type differs from source: items doc=ReadonlyArray<NavItem> source=readonly NavigationItemConfig[]",
+      "priority": "HIGH",
+      "typeMismatches": [
+        {
+          "prop": "items",
+          "doc": "ReadonlyArray<NavItem>",
+          "source": "readonly NavigationItemConfig[]"
+        }
       ]
     },
     {
       "component": "PageFooter",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: dropdownTriggerAriaLabel",
       "priority": "MEDIUM",
-      "imports": [
-        "MznButton",
-        "MznIcon"
-      ]
+      "propsAdded": [
+        "dropdownTriggerAriaLabel"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "Pagination",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (4)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznPaginationItem",
-        "MznPaginationJumper",
-        "MznPaginationPageSize",
-        "MznTypography"
-      ]
-    },
-    {
-      "component": "Portal",
-      "action": "UPDATE_SELECTOR",
-      "reason": "Selector changed: ng-container -> [mznPortal] (kind change: attribute<->tag)",
-      "priority": "HIGH"
-    },
-    {
-      "component": "Progress",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznIcon",
-        "MznTypography"
+      "action": "UPDATE_PROPS",
+      "reason": "Documented but not found in source: itemTemplate",
+      "priority": "HIGH",
+      "propsAdded": [],
+      "propsRemoved": [
+        "itemTemplate"
       ]
     },
     {
       "component": "Radio",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: hintClass, labelClass, radioControlClass",
       "priority": "MEDIUM",
-      "imports": [
-        "MznIcon",
-        "MznInput"
-      ]
+      "propsAdded": [
+        "hintClass",
+        "labelClass",
+        "radioControlClass"
+      ],
+      "propsRemoved": []
     },
     {
-      "component": "ResultState",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznButtonGroup",
-        "MznIcon"
+      "component": "Radio",
+      "action": "UPDATE_TYPES",
+      "reason": "Type differs from source: orientation doc=RadioGroupOrientation source=InputCheckGroupOrientation",
+      "priority": "HIGH",
+      "typeMismatches": [
+        {
+          "prop": "orientation",
+          "doc": "RadioGroupOrientation",
+          "source": "InputCheckGroupOrientation"
+        }
       ]
     },
     {
       "component": "Select",
-      "action": "UPDATE_SELECTOR",
-      "reason": "Selector changed: [mznSelectTrigger] -> [mznSelect]",
-      "priority": "HIGH"
-    },
-    {
-      "component": "Select",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (6)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: aria-label, ariaLabel",
       "priority": "MEDIUM",
-      "imports": [
-        "MznDropdownItemCard",
-        "MznInputTriggerPopper",
-        "MznSelectTrigger",
-        "MznSelectTriggerTags",
-        "MznSpin",
-        "MznTranslate"
-      ]
-    },
-    {
-      "component": "SelectionCard",
-      "action": "UPDATE_CVA",
-      "reason": "ControlValueAccessor added - affects Reactive Forms integration docs",
-      "priority": "HIGH"
-    },
-    {
-      "component": "SelectionCard",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznIcon",
-        "MznTypography"
-      ]
-    },
-    {
-      "component": "Slider",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (3)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznIcon",
-        "MznInput",
-        "MznTooltip"
-      ]
-    },
-    {
-      "component": "Spin",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (1)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznBackdrop"
-      ]
-    },
-    {
-      "component": "Stepper",
-      "action": "UPDATE_PROVIDERS_TOKENS",
-      "reason": "DI tokens added (1)",
-      "priority": "MEDIUM",
-      "tokens": [
-        "MZN_STEPPER_CONTEXT"
-      ]
+      "propsAdded": [
+        "aria-label",
+        "ariaLabel"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "Table",
-      "action": "UPDATE_SELECTOR",
-      "reason": "Selector changed: [mznTableContainer] -> [mznTable]",
-      "priority": "HIGH"
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: columnWidths, scrollbarOptions",
+      "priority": "MEDIUM",
+      "propsAdded": [
+        "columnWidths",
+        "scrollbarOptions"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "Table",
-      "action": "UPDATE_PROVIDERS_TOKENS",
-      "reason": "DI tokens added (1)",
-      "priority": "MEDIUM",
-      "tokens": [
-        "MZN_TABLE_CONTEXT"
-      ]
-    },
-    {
-      "component": "Table",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (16)",
-      "priority": "MEDIUM",
-      "imports": [
-        "CdkDrag",
-        "CdkDragHandle",
-        "CdkDropList",
-        "FormsModule",
-        "MznButton",
-        "MznCheckbox",
-        "MznDropdown",
-        "MznEmpty",
-        "MznIcon",
-        "MznPagination",
-        "MznPortal",
-        "MznRadio",
-        "MznScrollbar",
-        "MznSkeleton",
-        "MznToggle",
-        "MznTooltip"
-      ]
-    },
-    {
-      "component": "Tag",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznBadge",
-        "MznIcon"
-      ]
+      "action": "UPDATE_OUTPUTS",
+      "reason": "Undocumented outputs: columnWidthsChange, expandedRowKeysChange, selectedRowKeysChange, sortChange",
+      "priority": "HIGH",
+      "outputsAdded": [
+        "columnWidthsChange",
+        "expandedRowKeysChange",
+        "selectedRowKeysChange",
+        "sortChange"
+      ],
+      "outputsRemoved": []
     },
     {
       "component": "Textarea",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
+      "action": "UPDATE_PROPS",
+      "reason": "Undocumented in source: fullWidth, textareaClassName, textareaId",
       "priority": "MEDIUM",
-      "imports": [
-        "MznIcon",
-        "MznTextField"
-      ]
-    },
-    {
-      "component": "TextField",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (1)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznClearActions"
-      ]
-    },
-    {
-      "component": "TimePanel",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (2)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznCalendarFooterActions",
-        "MznTimePanelColumn"
-      ]
-    },
-    {
-      "component": "TimePicker",
-      "action": "UPDATE_SELECTOR",
-      "reason": "Selector changed: [mznTimePickerPanel] -> [mznTimePicker]",
-      "priority": "HIGH"
-    },
-    {
-      "component": "TimePicker",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (3)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznIcon",
-        "MznPickerTrigger",
-        "MznTimePickerPanel"
-      ]
-    },
-    {
-      "component": "TimeRangePicker",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (4)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznIcon",
-        "MznPopper",
-        "MznRangePickerTrigger",
-        "MznTimePanel"
-      ]
-    },
-    {
-      "component": "Toggle",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (1)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznTypography"
-      ]
+      "propsAdded": [
+        "fullWidth",
+        "textareaClassName",
+        "textareaId"
+      ],
+      "propsRemoved": []
     },
     {
       "component": "Upload",
-      "action": "UPDATE_SELECTOR",
-      "reason": "Selector changed: [mznUploader] -> [mznUpload]",
-      "priority": "HIGH"
-    },
-    {
-      "component": "Upload",
-      "action": "UPDATE_STANDALONE_IMPORTS",
-      "reason": "Imports added (5)",
-      "priority": "MEDIUM",
-      "imports": [
-        "MznIcon",
-        "MznUploader",
-        "MznUploadItem",
-        "MznUploadMediaPreviewModal",
-        "MznUploadPictureCard"
-      ]
+      "action": "UPDATE_OUTPUTS",
+      "reason": "Undocumented outputs: remove",
+      "priority": "HIGH",
+      "outputsAdded": [
+        "remove"
+      ],
+      "outputsRemoved": []
     }
   ]
 }

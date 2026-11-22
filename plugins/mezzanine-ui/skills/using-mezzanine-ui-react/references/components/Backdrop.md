@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Others/Backdrop`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Backdrop) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Backdrop) · Verified 1.10.2 (2026-11-22)
 
 Backdrop overlay component for creating backgrounds for modals, drawers, and other overlay layers.
 
@@ -34,6 +34,8 @@ import type { BackdropProps } from '@mezzanine-ui/react';
 | `open`                          | `boolean`            | `false` | Whether open                       |
 | `variant`                       | `BackdropVariant`    | `'dark'`| Backdrop variant                   |
 
+> `BackdropProps extends Pick<PortalProps, 'children' | 'container' | 'disablePortal'>, NativeElementPropsWithoutKeyAndRef<'div'>`. `children`, `container`, `disablePortal` are inherited from `PortalProps` via `Pick` and `className` (plus other native `<div>` attributes) from the native div props — they are real props even though they are not declared in the `BackdropProps` body. `disablePortal` has no destructuring default in `Backdrop` (undefined is forwarded to `Portal`, whose documented default is `false`). The component accepts a `ref` (`HTMLDivElement`).
+
 ---
 
 ## BackdropVariant Type
@@ -49,7 +51,7 @@ type BackdropVariant = 'dark' | 'light';
 ### Basic Usage
 
 ```tsx
-import { Backdrop } from '@mezzanine-ui/react';
+import { Backdrop, Button } from '@mezzanine-ui/react';
 import { useState } from 'react';
 
 function BasicExample() {

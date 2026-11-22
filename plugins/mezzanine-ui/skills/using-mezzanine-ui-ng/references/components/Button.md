@@ -1,6 +1,6 @@
 # Button
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/button) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/button) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/foundation-button--docs
 
@@ -76,6 +76,7 @@ import type {
 | `disabled`    | `boolean`                 | `false`        | 子按鈕的預設 disabled 狀態                        |
 | `fullWidth`   | `boolean`                 | `false`        | 是否撐滿容器寬度                                  |
 | `orientation` | `ButtonGroupOrientation`  | `'horizontal'` | `'horizontal' \| 'vertical'` — 按鈕排列方向       |
+| `role`        | `string`                  | `'group'`      | 群組的 ARIA role；`aria-orientation` 僅在支援的 role（`listbox` / `menu` / `menubar` / `radiogroup` / `tablist` / `toolbar`）下才輸出，預設 `group` 不輸出 |
 
 > `MznButtonGroup` 透過 `MZN_BUTTON_GROUP` DI token 向子 `MznButton` 提供預設值；子按鈕若自行指定 `variant`/`size`/`disabled`，則優先使用自身值。
 

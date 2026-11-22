@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Utility/Transition`
 >
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Transition)  · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Transition)  · Verified 1.10.2 (2026-11-22)
 
 Transition animation component group, based on `react-transition-group`. Provides the base `Transition` component and various preset animation effects: `Collapse`, `Fade`, `Rotate`, `Scale`, `Slide`, `Translate`.
 
@@ -103,7 +103,7 @@ Controls fade in/out effect via `opacity`.
 
 Implements collapse/expand effect via height animation. Supports `'auto'` for auto-calculated duration.
 
-> **Note**: This component is currently marked as `@deprecated` (designers have not defined the official specification yet), but it is still used internally in components like `Accordion`.
+> **Note**: This component is currently marked as `@deprecated` (designers have not defined the official specification yet), but it is still used internally by `Accordion` (AccordionContent) and `NavigationOption`.
 
 Extends `TransitionImplementationProps` and `Omit<NativeElementPropsWithoutKeyAndRef<'div'>, 'children'>`.
 
@@ -399,7 +399,7 @@ function KeepMountExample() {
 | Animation Component | Usage Scenario                                 |
 | ------------------- | ---------------------------------------------- |
 | `Fade`              | Accordion content, Modal overlay               |
-| `Collapse`          | AccordionContent height collapse               |
+| `Collapse`          | AccordionContent / NavigationOption height collapse |
 | `Rotate`            | AccordionTitle arrow rotation, Select dropdown arrow |
 | `Scale`             | Modal content popup                            |
 | `Slide`             | Drawer panel slide-in                          |

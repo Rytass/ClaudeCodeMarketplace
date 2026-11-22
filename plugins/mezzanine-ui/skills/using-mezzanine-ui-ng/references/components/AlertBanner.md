@@ -1,6 +1,6 @@
 # AlertBanner
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/alert-banner) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/alert-banner) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/feedback-alert-banner--docs
 
@@ -55,7 +55,7 @@ import type { AlertBannerAction, AlertBannerData } from '@mezzanine-ui/ng/alert-
 | ------------------------- | -------------------------------------------------------------------------- |
 | `MznAlertBanner`          | 單一橫幅通知 component（attribute directive on `<div>`）                    |
 | `MznAlertBannerContainer` | 讀取 `MznNotifierService` signal 並渲染所有 banners；根元件放置一次即可     |
-| `MznAlertBannerService`   | Injectable service，提供 `.info()` / `.warning()` / `.error()` / `.remove(key: string)` |
+| `MznAlertBannerService`   | Injectable service，提供 `.add(data: AlertBannerData): string` / `.info(message, props?)` / `.warning(message, props?)` / `.error(message, props?)`（皆回傳 key）/ `.remove(key: string)` / `.destroy()` |
 | `AlertBannerSeverity`     | 型別別名：`'info' \| 'warning' \| 'error'`                                  |
 | `AlertBannerAction`       | 介面：`{ content?: string; onClick: (event: MouseEvent) => void }`         |
 | `AlertBannerData`         | `MznAlertBannerService.add()` 的完整輸入資料形狀                            |
@@ -128,5 +128,5 @@ export class SomeFeatureComponent {
 - `actions` 最多接受 2 個按鈕；超出部分會被靜默截斷並在 console 輸出警告。
 - `MznAlertBannerContainer` 依非 info 優先、建立時間逆序排列橫幅，對齊 React `sortAlertNotifiers` 演算法。
 - 不同於 React 版使用靜態方法（`AlertBanner.info()`），Angular 版透過 `inject(MznAlertBannerService)` 取得服務實例。
-- `AlertBannerData` 介面有一個選用欄位 `key?: string`。傳入時作為通知的唯一識別鍵；未傳入時由 `MznNotifierService` 自動產生。`MznAlertBannerService.remove(key: string)` 的參數即為此 `key`（`add()` 回傳值，或 `info()`/`warning()`/`error()` 回傳值均為此字串）。
+- `AlertBannerData` 欄位：`severity`、`message`（必填）；`actions?`、`closable?`、`icon?`、`key?`、`onClose?: () => void`（橫幅關閉時由容器呼叫）。其中 `key?: string`：傳入時作為通知的唯一識別鍵；未傳入時由 `MznNotifierService` 自動產生。`MznAlertBannerService.remove(key: string)` 的參數即為此 `key`（`add()` 回傳值，或 `info()`/`warning()`/`error()` 回傳值均為此字串）。
 - 動畫使用 CSS 高度補間；SSR 環境下 `afterNextRender` 確保動畫只在瀏覽器端執行。

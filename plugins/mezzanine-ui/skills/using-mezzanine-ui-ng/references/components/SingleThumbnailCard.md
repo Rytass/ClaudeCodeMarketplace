@@ -1,6 +1,6 @@
 # SingleThumbnailCard
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/single-thumbnail-card) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/single-thumbnail-card) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Attribute directive component that displays a single image thumbnail with optional tag, personal action button, and info section (title/subtitle/filetype/action). The card width is determined by the image child element. Supports three action modes: `'default'`, `'action'`, and `'overflow'`.
 
@@ -10,8 +10,8 @@ Attribute directive component that displays a single image thumbnail with option
 import {
   MznSingleThumbnailCard,
   MznSingleThumbnailCardSkeleton,
-  SingleThumbnailCardType,
 } from '@mezzanine-ui/ng/single-thumbnail-card';
+import type { SingleThumbnailCardType } from '@mezzanine-ui/ng/single-thumbnail-card'; // 'default' | 'action' | 'overflow'
 ```
 
 ## Selector

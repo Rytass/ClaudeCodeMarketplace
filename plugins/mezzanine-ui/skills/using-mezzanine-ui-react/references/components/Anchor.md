@@ -2,9 +2,9 @@
 
 > **Category**: Others
 >
-> **Storybook**: `Others/Anchor`
+> **Storybook**: `Navigation/Anchor`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Anchor) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Anchor) · Verified 1.10.2 (2026-11-22)
 
 Anchor navigation component for in-page section navigation with automatic hash tracking.
 
@@ -17,7 +17,7 @@ import type { AnchorProps, AnchorGroupProps } from '@mezzanine-ui/react';
 
 > **Live Examples**: [View in Storybook](https://storybook.mezzanine-ui.org/react/?path=/docs/navigation-anchor--docs) — 當行為不確定時，Storybook 的互動範例為權威參考。
 
-> **Note**: `AnchorItemData` type is not exported from `@mezzanine-ui/react` main entry, only used internally.
+> **Note**: `AnchorItemData` type is not exported from `@mezzanine-ui/react` main entry, only used internally. The main entry exports exactly `Anchor` (default of `./Anchor`), `AnchorGroup`, and the types `AnchorProps` / `AnchorGroupProps`. The internal `AnchorItem` component (props `level`, `name`, `parentAutoScrollTo`, `parentDisabled`, `subAnchors`, `id`, `className`) is **not** part of the public API; do not pass those props to `Anchor`.
 
 ---
 
@@ -26,11 +26,13 @@ import type { AnchorProps, AnchorGroupProps } from '@mezzanine-ui/react';
 | Property  | Type               | Description        |
 | --------- | ------------------ | ------------------ |
 | `anchors` | `AnchorItemData[]` | Anchor data array  |
+| `children` | `never`           | Not allowed in data mode |
 
 ## Anchor Props (Children Mode)
 
 | Property       | Type                                                          | Description          |
 | -------------- | ------------------------------------------------------------- | -------------------- |
+| `anchors`      | `never`                                                       | Not allowed in children mode |
 | `autoScrollTo` | `boolean`                                                     | Auto-scroll on click |
 | `children`     | `string \| ReactElement<AnchorPropsWithChildren, typeof Anchor> \| Array<string \| ReactElement<AnchorPropsWithChildren, typeof Anchor>>` | Child anchors or text |
 | `disabled`     | `boolean`                                                     | Whether disabled     |
@@ -45,10 +47,10 @@ import type { AnchorProps, AnchorGroupProps } from '@mezzanine-ui/react';
 | Property    | Type                                                              | Description      |
 | ----------- | ----------------------------------------------------------------- | ---------------- |
 | `anchors`   | `AnchorItemData[]`                                                | Anchor data array |
-| `children`  | `ReactElement<AnchorPropsWithChildren> \| ReactElement<...>[]`    | Anchor children  |
+| `children`  | `ReactElement<AnchorPropsWithChildren, typeof Anchor> \| ReactElement<AnchorPropsWithChildren, typeof Anchor>[]` | Anchor children (`<Anchor>` elements only; plain strings are not accepted at the group level) |
 | `className` | `string`                                                          | Custom className |
 
-> `anchors` and `children` are mutually exclusive; use one or the other.
+> `anchors` and `children` are mutually exclusive; use one or the other. `AnchorGroup` accepts a `ref` (`HTMLDivElement`) and renders `<div className={cx('mzn-anchor', className)}>`.
 
 ---
 
@@ -85,9 +87,7 @@ const anchors = [
   ]},
 ];
 
-<AnchorGroup>
-  <Anchor anchors={anchors} />
-</AnchorGroup>
+<AnchorGroup anchors={anchors} />
 ```
 
 ### Using Children Mode
@@ -224,7 +224,7 @@ Structures beyond 3 levels are ignored. Sub-anchors exceeding 3 per level are si
 #### ❌ 父級禁用未預期子級也禁用
 ```tsx
 // 錯誤期望：只禁用父級
-<Anchor disabled>
+<Anchor href="#parent" disabled>
   Parent (disabled)
   <Anchor href="#child">
     Child (also disabled!)  {/* 子級也會被禁用 */}
@@ -239,7 +239,7 @@ Structures beyond 3 levels are ignored. Sub-anchors exceeding 3 per level are si
 <Anchor href="#disabled" disabled>Disabled</Anchor>
 
 // 如果父級禁用，子級自動禁用
-<Anchor disabled>
+<Anchor href="#parent" disabled>
   Parent & Children all disabled
 </Anchor>
 ```

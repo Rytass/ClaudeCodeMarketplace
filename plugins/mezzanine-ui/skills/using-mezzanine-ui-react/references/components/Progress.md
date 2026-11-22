@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Feedback/Progress`
 >
-> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Progress) · Verified 1.5.1 (2026-09-12)
+> **Source**: [GitHub Source Code](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/Progress) · Verified 1.10.2 (2026-11-22)
 
 A progress bar component for displaying operation completion progress.
 
@@ -32,7 +32,7 @@ import type { ProgressProps } from '@mezzanine-ui/react';
 | `percent`      | `number`                                                       | `0`          | Progress percentage (0-100)      |
 | `percentProps` | `Omit<TypographyProps, 'className' \| 'children'>`             | -            | Percentage text props            |
 | `status`       | `ProgressStatus`                                               | Auto-detect  | Force set status; auto-detects from percent if omitted |
-| `tick`         | `number`                                                       | `0`          | Tick mark position (0-100)       |
+| `tick`         | `number`                                                       | -            | Tick mark position; only rendered when `0 < tick < 100` |
 | `type`         | `ProgressType`                                                 | `'progress'` | Display type                     |
 
 ---
@@ -187,8 +187,8 @@ function DownloadProgress() {
 
 - **期望 error 狀態自動檢測**：Error 無法自動檢測，必須明確 `status="error"`。Success 在 `percent >= 100` 時自動轉換，Error 不會
 - **在 `percent < 100` 時設置 `status="success"`**：可行但不符合直覺。應等待 `percent >= 100` 利用自動檢測
-- **使用 `type="percent"` 卻自訂了 `renderValue`**：Type 控制顯示內容類型，自訂 `renderValue` 時應改用 `percentProps`
-- **tick 值超過 100 或為負數**：Tick 應在 0-100 範圍內，超出範圍會導致視覺位置不正確
+- **想自訂 `type="percent"` 的百分比文字樣式**：使用 `percentProps`（轉發給 `Typography`，預設 `variant="input"`）；文字內容固定為 `{percent}%`
+- **tick 值 ≤ 0 或 ≥ 100**：不會渲染 tick；只有 `0 < tick < 100` 才顯示
 
 ## Best Practices
 

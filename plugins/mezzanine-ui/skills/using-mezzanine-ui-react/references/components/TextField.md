@@ -4,7 +4,7 @@
 >
 > **Storybook**: `Data Entry/TextField`
 >
-> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/TextField) | Verified 1.5.1 (2026-09-12)
+> **Source Verification**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/react/src/TextField) | Verified 1.10.2 (2026-11-22)
 
 Text input field container component providing a unified input box appearance. It is the underlying component for Input, Select, and other components.
 
@@ -44,7 +44,7 @@ import type {
 | `fullWidth` | `boolean`                                                   | `true`   | TextFieldBaseProps            | Whether full width     |
 | `onClear`   | `MouseEventHandler`                                         | -        | TextFieldBaseProps            | Clear button callback  |
 | `size`      | `TextFieldSize`                                             | `'main'` | TextFieldBaseProps            | Size                   |
-| `warning`   | `boolean`                                                   | `false`  | TextFieldBaseProps            | Warning state          |
+| `warning`   | `boolean`                                                   | `-`      | TextFieldBaseProps            | Warning state (no destructuring default; falsy unless set) |
 | `prefix`    | `ReactNode`                                                 | -        | TextFieldAffixProps           | Prefix content         |
 | `suffix`    | `ReactNode`                                                 | -        | TextFieldAffixProps           | Suffix content         |
 | `typing`    | `boolean`                                                   | -        | TextFieldInteractiveStateProps | Whether typing         |
@@ -55,7 +55,7 @@ import type {
 
 ## ARIA Role (重要 — keeps ARIA input semantics on the native control)
 
-`TextField` is only a **visual frame** around a native control passed in via `children` (an `<input>`, `<textarea>`, etc.). Since 1.5.0, the host `<div>` derives a fallback ARIA `role` for itself:
+`TextField` is only a **visual frame** around a native control passed in via `children` (an `<input>`, `<textarea>`, etc.). The host `<div>` derives a fallback ARIA `role` for itself:
 
 - `role="button"` when an `onClick` prop is given
 - `role="textbox"` otherwise (the default)
@@ -246,8 +246,9 @@ function Input(props) {
 ## Auto Typing Detection
 
 When `typing` is not explicitly set, the component auto-detects:
-- Listens to internal input/textarea `input` and `mousedown` events to set typing
-- Listens to `blur` event to cancel typing state
+- `input` events bubbling to the host `<div>` (React `onInput`) and the inner input/textarea's native `mousedown` event set typing
+- Listens to the inner control's `blur` event to cancel typing state
+- Auto-detection is disabled when `typing` is provided, or when `disabled`/`readonly` is set (typing is then forced to `false`)
 
 ---
 
@@ -262,7 +263,7 @@ The clear button (clearable) is visible when:
 
 When `hideSuffixWhenClearable` is `true`, the clear icon **overlays the suffix position** instead of being placed separately:
 
-- The standalone clear icon is **not rendered** (no separate `ClearActions`).
+- The standalone clear icon is **not rendered** (no separate `ClearActions`). The clear icon is only rendered inside the suffix container, so **`suffix` must be provided** — without `suffix`, no clear button is rendered at all.
 - The suffix container gets the `mzn-text-field__suffix--overlay` class.
 - Inside the suffix container, the original suffix content is wrapped in `mzn-text-field__suffix-content`, and a `ClearActions` is placed alongside it.
 - When the clear button should be visible (`clearable` + has value + hover/focus/typing), the `mzn-text-field--clearing` class is added to the host, which can be used to hide the suffix content and show the clear icon via CSS.
