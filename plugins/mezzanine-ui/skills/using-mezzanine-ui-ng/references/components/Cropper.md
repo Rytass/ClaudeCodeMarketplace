@@ -1,6 +1,6 @@
 # Cropper
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/cropper) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/cropper) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/media-cropper--docs
 
@@ -28,7 +28,9 @@ import type {
   CropperModalResult,
 } from '@mezzanine-ui/ng/cropper';
 import type { CropperSize } from '@mezzanine-ui/core/cropper';
-// CropperSize: 'main' | 'sub'
+// CropperSize: 'main' | 'sub' | 'minor'  (= GeneralSize)
+import type { ModalSize } from '@mezzanine-ui/core/modal';
+// ModalSize: 'tight' | 'narrow' | 'regular' | 'wide'
 ```
 
 ## Selector
@@ -43,7 +45,7 @@ import type { CropperSize } from '@mezzanine-ui/core/cropper';
 
 | Input  | Type          | Default  | Description                          |
 | ------ | ------------- | -------- | ------------------------------------ |
-| `size` | `CropperSize` | `'main'` | `'main' \| 'sub'` — 元件尺寸        |
+| `size` | `CropperSize` | `'main'` | `'main' \| 'sub' \| 'minor'` — 元件尺寸 |
 
 ## Inputs — MznCropperElement
 
@@ -95,7 +97,7 @@ const canvas = this.cropperEl.getCanvas();
 | `dialogStyle`                   | `Record<string, string> \| undefined` | —          | 套用在 Modal dialog 節點上的 inline style（可鎖定固定寬度）       |
 | `showModalFooter`               | `boolean`                          | `true`        | 是否顯示底部操作列                                               |
 | `showModalHeader`               | `boolean`                          | `true`        | 是否顯示標題列                                                   |
-| `size`                          | `ModalSize`                        | `'wide'`      | Modal 尺寸：`'regular' \| 'large' \| 'wide'`                    |
+| `size`                          | `ModalSize`                        | `'wide'`      | Modal 尺寸：`'tight' \| 'narrow' \| 'regular' \| 'wide'`                    |
 | `supportingText`                | `string \| undefined`              | —             | 輔助說明文字                                                     |
 | `disableCloseOnBackdropClick`   | `boolean`                          | `false`       | 禁用點擊遮罩關閉                                                 |
 | `disableCloseOnEscapeKeyDown`   | `boolean`                          | `false`       | 禁用 Escape 鍵關閉                                               |
@@ -114,6 +116,19 @@ const canvas = this.cropperEl.getCanvas();
 | `imageLoad`   | `output<void>()`                              | 圖片載入成功時透傳                                      |
 | `imageError`  | `output<Error>()`                             | 圖片載入失敗時透傳                                      |
 | `scaleChange` | `output<number>()`                            | 縮放倍率變更時透傳                                      |
+
+## CropperPropsBase 介面
+
+`MznCropperModal.cropperProps` 與 `MznCropperModalService.open()` 的 `cropperProps` 使用（全部為 optional、readonly）：
+
+| 欄位              | Type                     | Description                    |
+| ----------------- | ------------------------ | ------------------------------ |
+| `aspectRatio`     | `number`                 | 對應 `MznCropperElement.aspectRatio` |
+| `imageSrc`        | `string \| File \| Blob` | 對應 `imageSrc`                |
+| `initialCropArea` | `CropArea`               | 對應 `initialCropArea`         |
+| `minHeight`       | `number`                 | 對應 `minHeight`               |
+| `minWidth`        | `number`                 | 對應 `minWidth`                |
+| `size`            | `CropperSize`            | 對應 `size`                    |
 
 ## CropArea 介面
 

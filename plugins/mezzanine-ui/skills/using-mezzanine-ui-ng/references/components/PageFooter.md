@@ -1,6 +1,6 @@
 # PageFooter
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/page-footer) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/page-footer) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/layout-page-footer--docs
 
@@ -31,6 +31,7 @@ import type { ButtonVariant } from '@mezzanine-ui/core/button';
 | `supportingActionVariant`   | `ButtonVariant`                   | `'base-ghost'` | 支援操作按鈕的 variant（僅在 `type="standard"` 時生效）          |
 | `warningMessage`            | `string`                          | —              | 中間區域的警示訊息文字                                           |
 | `hostClass`                 | `string`                          | `''`           | 附加到 host element 的額外 CSS class                             |
+| `dropdownTriggerAriaLabel`  | `string`                          | `'More actions'` | `type="overflow"` 時 icon-only 觸發按鈕的可及名稱（`aria-label`）；請與介面其餘文案一起翻譯 |
 
 > Inputs declared with signal API (`input()`) accept both static and reactive values.
 
@@ -122,12 +123,12 @@ export class EditPageComponent {
 
 - 三種 `type` 的左側內容互斥：`standard` 顯示按鈕、`overflow` 顯示圖示按鈕、`information` 顯示純文字。`warningMessage` 中間區域在三種類型下均可設定。
 - `supportingActionIcon` 在 input 層面沒有預設值。`DotHorizontalIcon` 的 fallback 僅在 `overflow` 渲染時由內部的 `resolvedSupportingActionIcon` computed 補上，不會透過 signal 傳遞。在 `standard` 模式下，若設定了 `supportingActionIcon`，圖示會渲染在按鈕文字左側（leading icon）。
-- `overflow` 模式通常搭配下拉選單使用，下拉選單需自行在 `(click)` 事件中開啟。
+- `overflow` 模式的圖示按鈕不發出任何 output（`supportingActionClick` 僅 `standard` 發出）；要搭配下拉選單時，需自行處理（例如在 host 上監聽冒泡的 `(click)`）。
 - 右側 `[actions]` 插槽不受 `type` 影響，三種類型均可投射操作按鈕。
 
 ## 版面 padding 契約 (重要)
 
-`MznPageFooter` 內建 `padding: vertical-base horizontal-spacious`（預設 `8px / 16px`、compact `4px / 14px`）、`width: 100%`、`border-top` 與底色。因此：
+`MznPageFooter` 內建 `padding: vertical-base horizontal-spacious`、`width: 100%`、`border-top` 與底色。因此：
 
 - **必須與 `mznPageHeader` 同層**，放在頁面最外層 column，才能讓 `border-top` 與底色滿版。
 - **不可放進套了 `padding-inline` 的 body wrapper**，否則兩側各縮一個 gutter，分隔線會浮在半空中。

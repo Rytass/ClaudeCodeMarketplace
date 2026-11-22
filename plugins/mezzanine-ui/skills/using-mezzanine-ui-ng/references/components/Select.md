@@ -1,6 +1,6 @@
 # Select
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/select) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/select) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-select--docs
 
@@ -45,8 +45,9 @@ import { SelectInputSize, SelectMode } from '@mezzanine-ui/core/select';
 | `suffixActionIcon`  | `IconDefinition`              | `ChevronDownIcon` | Suffix icon in trigger                                       |
 | `required`          | `boolean`                     | `false`      | Required field marker                                             |
 | `overflowStrategy`  | `'counter' \| 'wrap'`         | `'counter'`  | Multiple mode tag overflow strategy                               |
-| `type`              | `DropdownType`                | `'default'`  | `'default' \| 'tree'` — overridden automatically in multiple mode with children |
+| `type`              | `DropdownType`                | `'default'`  | `'default' \| 'tree' \| 'grouped'` — overridden automatically in multiple mode with children |
 | `className`         | `string`                      | —            | Extra host CSS class                                              |
+| `aria-label`        | `string`                      | —            | Accessible name forwarded to the inner combobox `<input>` (class field `ariaLabel`, template alias `aria-label`; bind as `aria-label="..."` or `[aria-label]="..."`) |
 
 ### rc.8 / rc.9 新增的 Inputs
 
@@ -97,7 +98,7 @@ rc.9 為對齊 React 版 API 補了一批 input，先前文件未涵蓋：
 | `(onReachBottom)`   | `(reachBottom)` |
 | `(onLeaveBottom)`   | `(leaveBottom)` |
 
-> 核對自 `packages/ng/select/select.component.ts:339-360`（`@mezzanine-ui/ng` `1.0.0-rc.9`），
+> 核對自 `packages/ng/select/select.component.ts:343-365`（`@mezzanine-ui/ng` `1.0.0-rc.9`），
 > 並對照 `packages/ng/CHANGELOG.md` 的 rc.9 BREAKING CHANGES 條目。
 
 ## ControlValueAccessor
@@ -190,6 +191,11 @@ The clickable trigger area of a select. Renders prefix text, the display value (
 | `readOnly`         | `boolean`                     | `false`            | Read-only state; blocks click events                      |
 | `size`             | `SelectInputSize`             | `'main'`           | `'main' \| 'sub'`                                         |
 | `suffixActionIcon` | `typeof ChevronDownIcon`      | `ChevronDownIcon`  | Custom suffix icon                                        |
+| `ariaLabel`        | `string \| undefined`         | —                  | Accessible name forwarded to the native combobox `<input>` |
+| `warning`          | `boolean`                     | `false`            | Warning state styling                                     |
+| `forceHideSuffixActionIcon` | `boolean`            | `false`            | Force-hide the suffix action icon                         |
+| `isForceClearable` | `boolean`                     | `false`            | Enable clearing regardless of whether a value exists      |
+| `forceShowClearable` | `boolean`                   | `false`            | Force-show the clear button                               |
 
 | Output           | Type                        | Description                                       |
 | ---------------- | --------------------------- | ------------------------------------------------- |

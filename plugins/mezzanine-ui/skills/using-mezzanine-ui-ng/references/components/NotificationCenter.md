@@ -1,6 +1,6 @@
 # NotificationCenter
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/notification-center) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/notification-center) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Per-item notification component (`MznNotificationCenter`) and drawer container (`MznNotificationCenterDrawer`). The item component supports two rendering modes: `type='notification'` (floating toast with slide-in animation) and `type='drawer'` (list item in a notification drawer with timestamp and dropdown actions).
 
@@ -35,9 +35,9 @@ import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 | `type`                | `NotificationType`            | `'notification'`  | `'notification'` (floating) or `'drawer'` (list item)     |
 | `from`                | `'right' \| 'top'`            | `'top'`           | Slide-in direction (notification mode only)               |
 | `duration`            | `number \| false`             | `false`           | Auto-close delay; `false` = persistent                    |
-| `showConfirmButton`   | `boolean`                     | `false`           | Show confirm/action button                                |
+| `showConfirmButton`   | `boolean`                     | `false`           | Show confirm/action button（僅 `type='notification'` 生效；需同時有非空 `confirmButtonText`） |
 | `confirmButtonText`   | `string`                      | `'Confirm'`       | Confirm button label                                      |
-| `showCancelButton`    | `boolean`                     | `false`           | Show cancel button                                        |
+| `showCancelButton`    | `boolean`                     | `false`           | Show cancel button（僅 `type='notification'` 生效；需同時有非空 `cancelButtonText`） |
 | `cancelButtonText`    | `string`                      | `'Cancel'`        | Cancel button label                                       |
 | `timeStamp`           | `string \| number \| Date`    | `new Date()`      | Notification timestamp                                    |
 | `timeStampLocale`     | `string`                      | `'zh-TW'`         | Locale for timestamp formatting                           |
@@ -47,7 +47,7 @@ import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 | `prependTips`         | `string \| undefined`         | —                 | Prepended tip text in footer                              |
 | `reference`           | `string \| number \| undefined` | —               | Unique identifier emitted in `closed`                     |
 
-> Inputs declared with signal API (`input()`, `model()`) accept both static and reactive values.
+> Inputs declared with signal API (`input()`) accept both static and reactive values.
 
 ## MznNotificationCenter — Outputs
 
@@ -115,7 +115,7 @@ Renders a fixed-position toast stack. When `items.length > maxVisibleNotificatio
 | `filterBarReadRadioLabel`       | `string \| undefined`                    | —                          | Label for "Read" radio option                           |
 | `filterBarUnreadRadioLabel`     | `string \| undefined`                    | —                          | Label for "Unread" radio option                         |
 | `filterBarShowUnreadButton`     | `boolean`                                | `false`                    | Show the custom unread action button                    |
-| `filterBarCustomButtonLabel`    | `string \| undefined`                    | —                          | Label for the custom action button (e.g. "全部已讀")   |
+| `filterBarCustomButtonLabel`    | `string \| undefined`                    | `'全部已讀'`（未傳入時的 fallback） | Label for the custom action button |
 | `filterBarOptions`              | `ReadonlyArray<DropdownOption> \| undefined` | —                       | Extra dropdown options in the filter bar                |
 
 ## MznNotificationCenterDrawer — Outputs
@@ -134,15 +134,15 @@ Renders a fixed-position toast stack. When `items.length > maxVisibleNotificatio
 | Field                  | Type                               | Notes                                                                 |
 | ---------------------- | ---------------------------------- | --------------------------------------------------------------------- |
 | `key`                  | `string \| number \| undefined`    | Unique identifier; preferred over deprecated `id`                    |
-| `type`                 | `NotificationType \| undefined`    | `'drawer' \| 'notification'`; default `'drawer'`                     |
+| `type`                 | `NotificationType \| undefined`    | `'drawer' \| 'notification'`; 經 `[notificationList]` 渲染時不會轉傳（一律 `type='drawer'`） |
 | `severity`             | `NotificationSeverity \| undefined` | `'info' \| 'success' \| 'warning' \| 'error'`; default `'info'`    |
 | `title`                | `string \| undefined`              | Notification heading                                                  |
 | `description`          | `string \| undefined`              | Body text                                                             |
-| `confirmButtonText`    | `string \| undefined`              | Confirm button label (shown when `showConfirmButton` is set on item)  |
-| `cancelButtonText`     | `string \| undefined`              | Cancel button label                                                   |
+| `confirmButtonText`    | `string \| undefined`              | 型別保留欄位；Drawer 以 `[notificationList]` 渲染時不會轉傳，也不顯示操作按鈕 |
+| `cancelButtonText`     | `string \| undefined`              | 同 `confirmButtonText`，Drawer 列表模式不轉傳                          |
 | `timeStamp`            | `string \| number \| Date \| undefined` | Timestamp for grouping and display                               |
 | `timeStampLocale`      | `string \| undefined`              | Locale for formatting `timeStamp`; default `'zh-TW'`                 |
-| `prependTips`          | `string \| undefined`              | Group label injected above the first item in each time group         |
+| `prependTips`          | `string \| undefined`              | Drawer 列表模式會被時間分組標籤（`todayLabel` 等）取代，item 自身的值不會轉傳 |
 | `appendTips`           | `string \| undefined`              | Footnote text below the item                                         |
 | `showBadge`            | `boolean \| undefined`             | Show badge dot on the drawer item's action button                    |
 | `options`              | `ReadonlyArray<DropdownOption> \| undefined` | Per-item dropdown menu options                             |
@@ -185,7 +185,7 @@ No.
       [title]="notif.title"
       [description]="notif.description"
       [severity]="notif.severity"
-      [timeStamp]="notif.timestamp"
+      [timeStamp]="notif.timeStamp"
       [showConfirmButton]="true"
       confirmButtonText="查看"
       [reference]="notif.key"
@@ -197,20 +197,34 @@ No.
 ```
 
 ```ts
-import { MznNotificationCenter, MznNotificationCenterDrawer } from '@mezzanine-ui/ng/notification-center';
+import { Component } from '@angular/core';
+import {
+  MznNotificationCenter,
+  MznNotificationCenterDrawer,
+} from '@mezzanine-ui/ng/notification-center';
+import type { NotificationItem } from '@mezzanine-ui/ng/notification-center';
 
-notifications: readonly Notification[] = [];
-isDrawerOpen = false;
+@Component({
+  selector: 'app-notifications',
+  imports: [MznNotificationCenter, MznNotificationCenterDrawer],
+  templateUrl: './notifications.component.html',
+})
+export class NotificationsComponent {
+  notifications: readonly NotificationItem[] = [];
+  isDrawerOpen = false;
 
-dismissNotification(key: string | number | undefined): void {
-  if (key == null) return;
-  this.notifications = this.notifications.filter((n) => n.key !== String(key));
+  dismissNotification(key: string | number | undefined): void {
+    if (key == null) return;
+    this.notifications = this.notifications.filter((n) => n.key !== key);
+  }
 }
 ```
 
 ## Notes
 
 - `type='notification'` uses a slide + fade animation driven by an internal state machine (similar to `MznAccordion`). When `duration` is a number, the item auto-dismisses after that delay.
-- Timestamp hover shows a popper with full date/time formatted by `timeStampLocale`.
+- 僅 `type='drawer'` 且時間為「今天」時，hover 時間戳會顯示 popper（內容為 `timeStampLocale` 格式化的完整日期時間）；今天內以相對時間顯示。
+- `showConfirmButton` / `showCancelButton` 的操作按鈕只在 `type='notification'` 渲染；confirm / cancel 點擊後會 emit 並觸發淡出。
+- `type='drawer'` 時，右側點點按鈕本身點擊會 emit `closed`（帶 `reference`）；內部圖示點擊才 emit `badgeClicked` 並於 `options` 非空時開啟下拉選單。
 - The drawer mode shows an overflow `mznDropdown` when `options` is non-empty, useful for per-item actions like "Mark as read" or "Delete".
 - Unlike React's `NotificationCenter` which has a companion service/context, Angular manages the notification list externally. Use a signal-based store or service to maintain the list.

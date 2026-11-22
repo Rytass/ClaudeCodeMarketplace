@@ -1,10 +1,10 @@
 # Textarea
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/textarea) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/textarea) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-textarea--docs
 
-A multi-line text input component that wraps a native `<textarea>` inside `MznTextField`. Supports `default`, `warning`, and `error` visual states via the `type` input, and configurable resize behavior. Implements `ControlValueAccessor` for Angular Forms integration.
+A multi-line text input component whose host element is itself the text-field frame (`mzn-text-field mzn-textarea`) and renders a native `<textarea>` inside. Supports `default`, `warning`, and `error` visual states via the `type` input, and configurable resize behavior. Implements `ControlValueAccessor` for Angular Forms integration.
 
 ## Import
 
@@ -22,10 +22,13 @@ import type { TextareaType, TextareaResize } from '@mezzanine-ui/ng/textarea';
 | Input         | Type             | Default     | Description                                             |
 | ------------- | ---------------- | ----------- | ------------------------------------------------------- |
 | `disabled`    | `boolean`        | `false`     | Disabled state (only effective when `type === 'default'`) |
+| `fullWidth`   | `boolean`        | `true`      | Whether the textarea takes the full width of its container |
 | `placeholder` | `string`         | —           | Placeholder text                                        |
 | `readonly`    | `boolean`        | `false`     | Read-only state (only effective when `type === 'default'`) |
 | `resize`      | `TextareaResize` | `'none'`    | CSS resize: `'none' \| 'both' \| 'horizontal' \| 'vertical'` |
 | `rows`        | `number`         | —           | Native `<textarea rows>`                                |
+| `textareaClassName` | `string`   | —           | Extra class applied to the native `<textarea>` element  |
+| `textareaId`  | `string`         | —           | `id` of the native `<textarea>` (e.g. for `<label for>`); forwarded explicitly because the Angular host is the frame `<div>` |
 | `type`        | `TextareaType`   | `'default'` | Visual state: `'default' \| 'warning' \| 'error'`      |
 
 > `disabled` and `readonly` are only applied when `type === 'default'`. Warning and error states bypass them.
@@ -81,7 +84,7 @@ import type { TextareaType, TextareaResize } from '@mezzanine-ui/ng/textarea';
 ```ts
 import { MznTextarea } from '@mezzanine-ui/ng/textarea';
 import { MznFormField } from '@mezzanine-ui/ng/form';
-import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   imports: [MznTextarea, MznFormField, ReactiveFormsModule],
@@ -95,7 +98,8 @@ export class FeedbackFormComponent {
 
 ## Notes
 
-- Unlike `MznInput` which has a `variant` prop, `MznTextarea` uses `type` for visual state. The `type` mapping: `'error'` → `MznTextField [error]="true"`, `'warning'` → `MznTextField [warning]="true"`.
+- Unlike `MznInput` which has a `variant` prop, `MznTextarea` uses `type` for visual state. The `type` mapping: `'error'` → host class `mzn-text-field--error`, `'warning'` → host class `mzn-text-field--warning`.
+- `MznTextarea` does not implement `setDisabledState`; `FormControl.disable()` does not disable it. Bind `[disabled]` explicitly.
 - When `type` is `'warning'` or `'error'`, the `disabled` and `readonly` inputs have no effect (they are only applied in `'default'` mode via computed signals).
 - When `resize` is not `'none'`, a `ResizeHandleIcon` is rendered in the bottom-right corner for visual affordance.
 - React's `<Textarea>` maps to this component. The `onChange` React prop maps to the `(valueChange)` output event — note that unlike React, you do not need a separate `onChange` handler when using CVA (`formControlName` / `[(ngModel)]`).

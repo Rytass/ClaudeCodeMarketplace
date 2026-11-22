@@ -1,6 +1,6 @@
 # SelectionCard
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/selection-card) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/selection-card) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-selection-card--docs
 
@@ -21,7 +21,7 @@ import {
 
 ## Selector
 
-`<label mznSelectionCard ...>` — attribute-directive component
+`[mznSelectionCard]` — attribute-directive component（內部模板自行渲染 `<label>` 與原生 `<input>`，host 建議用 `<div>`）
 
 ## Inputs
 
@@ -58,31 +58,31 @@ import {
 ```html
 <!-- Checkbox mode with formControlName -->
 <form [formGroup]="form">
-  <label mznSelectionCard
+  <div mznSelectionCard
     selector="checkbox"
     formControlName="hasNewsletterSub"
     text="Newsletter"
     supportingText="Weekly updates">
-  </label>
+  </div>
 </form>
 
 <!-- Radio group using name for native sync + ngModel per card -->
-<label mznSelectionCard
+<div mznSelectionCard
   selector="radio"
   name="plan"
   value="free"
   [(ngModel)]="isPlanFree"
   text="Free Plan"
   supportingText="Basic features">
-</label>
-<label mznSelectionCard
+</div>
+<div mznSelectionCard
   selector="radio"
   name="plan"
   value="pro"
   [(ngModel)]="isPlanPro"
   text="Pro Plan"
   supportingText="All features">
-</label>
+</div>
 ```
 
 `writeValue(boolean)` sets `internalChecked`. The component also listens to document-level `change` events for `selector === 'radio'` to detect when sibling radio buttons in the same `name` group are selected, keeping `internalChecked` in sync across radio instances.
@@ -91,7 +91,7 @@ import {
 
 ```html
 <!-- Vertical image cards for product selection -->
-<label mznSelectionCard
+<div mznSelectionCard
   selector="checkbox"
   direction="vertical"
   [(ngModel)]="planA"
@@ -99,11 +99,11 @@ import {
   text="Starter Plan"
   supportingText="Up to 5 users"
   imageObjectFit="contain">
-</label>
+</div>
 
 <!-- Horizontal icon cards in a group -->
 <div style="display: flex; gap: 12px;">
-  <label mznSelectionCard
+  <div mznSelectionCard
     selector="radio"
     name="delivery"
     value="standard"
@@ -111,8 +111,8 @@ import {
     [customIcon]="truckIcon"
     text="Standard"
     supportingText="3-5 days">
-  </label>
-  <label mznSelectionCard
+  </div>
+  <div mznSelectionCard
     selector="radio"
     name="delivery"
     value="express"
@@ -120,7 +120,7 @@ import {
     [customIcon]="rocketIcon"
     text="Express"
     supportingText="1-2 days">
-  </label>
+  </div>
 </div>
 ```
 

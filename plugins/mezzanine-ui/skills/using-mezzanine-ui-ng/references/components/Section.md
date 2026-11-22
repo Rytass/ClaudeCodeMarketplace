@@ -1,6 +1,6 @@
 # Section
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/section) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/section) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Layout container that composes a `MznContentHeader`, an optional `MznFilterArea`, optional tabs, and the main content area. Uses named `ng-content` selectors to position each child in the correct slot.
 
@@ -14,15 +14,16 @@ import { MznSection, MznSectionGroup } from '@mezzanine-ui/ng/section';
 import type { SectionGroupDirection }  from '@mezzanine-ui/ng/section';
 // Usually paired with:
 import { MznContentHeader } from '@mezzanine-ui/ng/content-header';
-import { MznFilterArea }    from '@mezzanine-ui/ng/filter-area';
+import { MznFilterArea, MznFilterLine, MznFilter } from '@mezzanine-ui/ng/filter-area';
+import { MznTabs, MznTabItem } from '@mezzanine-ui/ng/tab';
 ```
 
 ## Selectors
 
 | Selector              | Role                                               |
 | --------------------- | -------------------------------------------------- |
-| `[mznSection]`        | Root section container                             |
-| `[mznSectionGroup]`   | Wrapper for multiple side-by-side `MznSection`s    |
+| `[mznSection]`        | Root section container（無 `exportAs`）            |
+| `[mznSectionGroup]`   | Wrapper for multiple side-by-side `MznSection`s（無 `exportAs`） |
 
 ## MznSection — Inputs
 
@@ -46,10 +47,56 @@ No.
 
 | Slot selector                     | Projected component                    |
 | --------------------------------- | -------------------------------------- |
-| `[mznContentHeader]`              | `MznContentHeader`                     |
-| `[mznFilterArea]`                 | `MznFilterArea`                        |
-| `[mznTabs], [sectionTab]`         | `MznTabs` or a custom tab component    |
+| `[mznContentHeader]`              | `MznContentHeader`（`<header mznContentHeader size="sub">`） |
+| `[mznFilterArea]`                 | `MznFilterArea`（`<div mznFilterArea>`） |
+| `[mznTabs], [sectionTab]`         | `MznTabs`（`<div mznTabs>`）或帶 `sectionTab` 屬性的自訂 tab 元素 |
 | *(default)*                       | Main content area (wrapped in `__content` div) |
+
+插槽以**直接子元素自身的屬性**比對（`ng-content select`），與書寫順序無關，渲染順序固定為 contentHeader → filterArea → tabs → content。把 `mznContentHeader` / `mznFilterArea` / `mznTabs` 包在另一層 `<div>` 內不會進入對應插槽，只會落入預設內容區。
+
+## 組合方式（contentHeader + filterArea + tabs）
+
+三個子元件各自獨立、皆為選用，直接放在 `mznSection` 下即可：
+
+- `MznContentHeader`：標題列（`title` 必填；`description`、`size: 'main' | 'sub'`、`showBackButton`、`backButtonLabel`、`titleComponent`；output `backClick`）。內部插槽屬性為 `contentHeaderBackButton`、`contentHeaderFilter`、`contentHeaderActions`、`contentHeaderUtilities`。Section 內通常用 `size="sub"`。
+- `MznFilterArea`（含 `MznFilterLine`、`MznFilter`）：篩選列，inputs `actionsAlign`（`'end'`）、`isDirty`（`true`）、`loading`、`resetButtonProps`、`resetText`（`'Reset'`）、`rowAlign`（`'center'`）、`size`（`'main'`）、`submitButtonProps`、`submitText`（`'Search'`）、`resetButtonType`／`submitButtonType`（`'button'`）；outputs `filterSubmit`、`filterReset`。Section 內通常用 `size="sub"`。
+- `MznTabs`（含 `MznTabItem`）：inputs `activeKey`、`defaultActiveKey`（`0`）、`direction`（`'horizontal'`）、`size`（`'main'`）；output `activeKeyChange`。`MznTabItem` 的 `key` 必填。
+
+```html
+<div mznSection>
+  <header mznContentHeader title="訂單管理" description="依條件篩選訂單" size="sub">
+    <div mznButtonGroup contentHeaderActions>
+      <button mznButton size="sub" type="button">新增</button>
+    </div>
+  </header>
+
+  <div mznFilterArea size="sub" (filterSubmit)="search()" (filterReset)="reset()">
+    <div mznFilterLine>
+      <div mznFilter [span]="2">
+        <div mznFormField label="訂單編號" name="orderNo">
+          <div mznInput size="sub"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div mznTabs [(activeKey)]="tab">
+    <button mznTabItem key="all" type="button">全部</button>
+    <button mznTabItem key="pending" type="button">待處理</button>
+  </div>
+
+  <div><!-- 主要內容（進入 __content 容器） --></div>
+</div>
+```
+
+```ts
+@Component({
+  imports: [
+    MznSection, MznContentHeader, MznFilterArea, MznFilterLine, MznFilter,
+    MznTabs, MznTabItem, MznButton, MznButtonGroup, MznFormField, MznInput,
+  ],
+})
+```
 
 ## Usage
 

@@ -1,6 +1,6 @@
 # Autocomplete
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/autocomplete) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/autocomplete) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-autocomplete--docs
 
@@ -40,7 +40,7 @@ import { AutoCompleteMode, AutoCompleteInputSize } from '@mezzanine-ui/core/auto
 | `error`                     | `boolean`                                         | `false`             | Error state                                                        |
 | `readOnly`                  | `boolean`                                         | `false`             | Read-only state                                                    |
 | `required`                  | `boolean`                                         | `false`             | Required attribute on `<input>`                                    |
-| `size`                      | `AutoCompleteInputSize`                           | `'main'`            | `'main' \| 'sub'`                                                  |
+| `size`                      | `AutoCompleteInputSize`                           | `'main'`            | `'main' \| 'sub' \| 'minor'` (`GeneralSize`; only `main` / `sub` have trigger styles) |
 | `clearable`                 | `boolean`                                         | `false`             | Show clear button                                                  |
 | `clearSearchText`           | `boolean`                                         | `true`              | Clear search text on blur/close                                    |
 | `loading`                   | `boolean`                                         | `false`             | External loading state                                             |
@@ -55,8 +55,8 @@ import { AutoCompleteMode, AutoCompleteInputSize } from '@mezzanine-ui/core/auto
 | `inputPosition`             | `'outside' \| 'inside'`                           | `'outside'`         | Outside: input in trigger area; inside: input in the panel         |
 | `open`                      | `boolean`                                         | —                   | Controlled open state                                              |
 | `active`                    | `boolean`                                         | `false`             | Force active styling                                               |
-| `addable`                   | `boolean`                                         | `false`             | Enable creating new options                                        |
-| `onInsert`                  | `(text: string, currentOptions: ReadonlyArray<DropdownOption>) => ReadonlyArray<DropdownOption>` | — | Callback input for adding new options; required when `addable` |
+| `addable`                   | `boolean`                                         | `false`             | Enable creating new options; requires `onInsert` (without it the create action never shows and Enter / paste do nothing) |
+| `onInsert`                  | `(text: string, currentOptions: ReadonlyArray<DropdownOption>) => ReadonlyArray<DropdownOption>` | — | Callback input that returns the updated options (the last item is treated as the new option); required for `addable`. The `inserted` output is emitted alongside it for each created text |
 | `onRemoveCreated`           | `(cleanedOptions) => void`                        | —                   | Callback when unselected created options are cleaned up            |
 | `createActionText`          | `(text: string) => string`                        | —                   | Custom create button text function                                 |
 | `createActionTextTemplate`  | `string`                                          | `'建立 "{text}"'`    | Create button text template                                        |
@@ -66,7 +66,7 @@ import { AutoCompleteMode, AutoCompleteInputSize } from '@mezzanine-ui/core/auto
 | `id`                        | `string`                                          | —                   | Native `<input id>`                                                |
 | `name`                      | `string`                                          | —                   | Native `<input name>`                                              |
 | `dropdownZIndex`            | `number`                                          | —                   | Dropdown z-index                                                   |
-| `caseSensitive`             | `boolean`                                         | `false`             | 選項比對是否區分大小寫（**`1.0.0-rc.10` 新增**，對應 React 1.4.2）|
+| `caseSensitive`             | `boolean`                                         | `false`             | 選項比對是否區分大小寫；同時套用於選項過濾與 `addable` 重複檢查（`false` 時輸入 `colorado` 可比對 `Colorado`） |
 
 > Inputs declared with signal API (`input()`) accept both static and reactive values.
 
@@ -114,7 +114,7 @@ import { AutoCompleteMode, AutoCompleteInputSize } from '@mezzanine-ui/core/auto
 <div mznAutocomplete [(ngModel)]="selectedUser" [options]="users" placeholder="Select user"></div>
 ```
 
-`writeValue` accepts `string | string[] | null`. A plain `string` is normalised to `[string]`. `null`/`undefined` clears the selection. In `single` mode, the component also sets `searchText` to the selected option's name on `writeValue`.
+`writeValue` accepts `string | string[] | null`. A plain `string` is normalised to `[string]`. `null`/`undefined` clears the selection. In `single` mode the input displays the selected option's name, but the name never leaks into the search text (`searchText` stays empty until the user types; filtering only applies to what the user typed). While the user is searching, the selected name is shown as the placeholder; on blur / close (or after selecting an option) the input shows the selected name again. Search mode is entered on trigger click, focus, IME composition start or a printable keystroke.
 
 ## Usage
 
@@ -143,10 +143,12 @@ import { AutoCompleteMode, AutoCompleteInputSize } from '@mezzanine-ui/core/auto
 
 ```ts
 import { MznAutocomplete, MznAutocompletePrefix } from '@mezzanine-ui/ng/autocomplete';
+import { MznIcon } from '@mezzanine-ui/ng/icon';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 
 @Component({
-  imports: [MznAutocomplete, MznAutocompletePrefix, ReactiveFormsModule],
+  imports: [MznAutocomplete, MznAutocompletePrefix, MznIcon, FormsModule, ReactiveFormsModule],
 })
 export class ProductSearchComponent {
   filteredProducts: ReadonlyArray<DropdownOption> = [];
@@ -193,6 +195,8 @@ prefillSearch(text: string): void {
 
 - Set `[disabledOptionsFilter]="true"` when filtering externally (e.g. server-side). Otherwise, the component applies its own substring filter to `options`.
 - `asyncData: true` shows a loading indicator from the moment the user types until `options` changes — no need to manually manage `loading` state.
-- In `inputPosition: 'inside'` mode, the search input is rendered inside the dropdown panel. The trigger area is a minimal button. This is useful for modal-style pickers.
-- `addable` requires `[onInsert]` callback input. The output `inserted` fires as a secondary signal; prefer `[onInsert]` for synchronous creation.
+- In `inputPosition: 'inside'` mode, the search input is rendered in the dropdown panel header (`[mznDropdownHeader]`). The trigger area only renders the projected `[mznAutocompletePrefix]` content (no chevron, tags or clear button). This is useful for modal-style pickers.
+- `addable` only works when the `[onInsert]` callback input is provided; it is applied synchronously and the `inserted` output is emitted as a notification (it cannot create options by itself). Pasting text that contains a `createSeparators` entry bulk-creates only in `multiple` mode.
+- `caseSensitive` (default `false`) applies to option filtering, the `addable` duplicate check and bulk-create de-duplication.
+- `readOnly` blocks trigger click, focus-open, keyboard handling, search input, paste, tag removal and clear (the clear button is hidden); multiple-mode tags render as static.
 - Unlike the React version where `onChange` is passed as a prop, Angular uses CVA — bind `formControlName` or `[(ngModel)]` on the host element to receive the selected value.

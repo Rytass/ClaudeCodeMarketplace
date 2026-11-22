@@ -1,6 +1,6 @@
 # Input
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/input) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/input) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-input--docs
 
@@ -39,7 +39,7 @@ import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 > <div mznInput [(ngModel)]="keyword"></div>
 > ```
 >
-> 核對自 `packages/ng/input/input.component.ts:290-300`。
+> 核對自 `packages/ng/input/input.component.ts:296-310`。
 
 ## Inputs
 
@@ -70,13 +70,16 @@ import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 | `formatter`                   | `(value: string) => string`                             | —              | Custom display formatter                                              |
 | `parser`                      | `(value: string) => string`                             | —              | Custom value parser                                                   |
 | `showPasswordStrengthIndicator` | `boolean`                                             | `false`        | Show password strength indicator (password variant)                   |
-| `passwordStrengthIndicator`   | `{ strength?, strengthText?, strengthTextPrefix?, hintTexts? }` | — | Strength indicator config (password variant)             |
-| `actionButton`                | `{ position?, icon?, label?, disabled?, onClick? }`     | —              | Action button config (action variant); `position` must be `'prefix'` or `'suffix'` — when omitted the button is not rendered |
-| `selectButton`                | `{ position?, disabled?, value? }`                      | —              | Select button config (select variant); listen to `(selectOptionSelected)` output for selection events |
+| `passwordStrengthIndicator`   | `{ strength?: 'weak' \| 'medium' \| 'strong'; strengthText?: string; strengthTextPrefix?: string; hintTexts?: readonly { severity: 'error' \| 'info' \| 'success' \| 'warning'; hint: string }[] }` | — | Strength indicator config (password variant)             |
+| `actionButton`                | `{ position?: 'prefix' \| 'suffix'; icon?; label?; disabled?; onClick? }` | —              | Action button config (action variant); `position` must be `'prefix'` or `'suffix'` — when omitted the button is not rendered |
+| `selectButton`                | `{ position?: 'prefix' \| 'suffix' \| 'both'; disabled?; value?; onClick? }` | — | Select button config (select variant); listen to `(selectOptionSelected)` output for selection events |
 | `selectOptions`               | `ReadonlyArray<DropdownOption>`                         | —              | Dropdown options (select variant)                                     |
 | `dropdownWidth`               | `number \| string`                                      | `120`          | Dropdown width (select variant)                                       |
 | `dropdownMaxHeight`           | `number \| string`                                      | `114`          | Dropdown max height (select variant)                                  |
 | `dropdownPlacement`           | `Placement`                                             | `'bottom-start'` | Dropdown placement (select variant)                                 |
+| `aria-label`                  | `string`                                                | —              | Accessible name forwarded to the inner native `<input>` (class field `ariaLabel`, template alias `aria-label`) |
+| `aria-labelledby`             | `string`                                                | —              | Id reference(s) naming the inner `<input>` (field `ariaLabelledby`, alias `aria-labelledby`) |
+| `aria-describedby`            | `string`                                                | —              | Id reference(s) describing the inner `<input>` (field `ariaDescribedby`, alias `aria-describedby`) |
 
 > Inputs declared with signal API (`input()`) accept both static and reactive values.
 
@@ -152,6 +155,17 @@ export class SearchComponent {
   readonly emailCtrl = new FormControl('', [Validators.required, Validators.email]);
 }
 ```
+
+## Internal sub-components
+
+`MznInput` imports `MznIcon`, `MznTextField` and four internal directives (`decorator.standaloneImports`). Only `MznInput` and the `InputVariant` type are exported from `@mezzanine-ui/ng/input`, so importing `MznInput` alone is enough. The sub-components are driven by the `MznInput` inputs above (`actionButton`, `selectButton`, `showSpinner`, `passwordStrengthIndicator`) — do not use them directly.
+
+| Directive                         | Inputs                                                                                         | Outputs                          |
+| --------------------------------- | ---------------------------------------------------------------------------------------------- | -------------------------------- |
+| `[mznInputActionButton]`          | `disabled` (`false`), `icon`, `label` (`'Copy'`), `size` (`'main' \| 'sub'`)                    | `clicked`                        |
+| `[mznInputSelectButton]`          | `disabled`, `dropdownMaxHeight` (`114`), `dropdownPlacement` (`'bottom-start'`), `dropdownWidth` (`120`), `options`, `size`, `value` | `clicked`, `selected` (`DropdownOption`) |
+| `[mznInputSpinnerButton]`         | `disabled`, `size`, `type` (required, `'up' \| 'down'`)                                         | `clicked`                        |
+| `[mznPasswordStrengthIndicator]`  | `hintTexts`, `strength` (`'weak'` default), `strengthText`, `strengthTextPrefix` (`'密碼強度：'`) | —                                |
 
 ## Notes
 

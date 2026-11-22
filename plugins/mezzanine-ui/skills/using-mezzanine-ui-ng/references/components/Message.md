@@ -1,6 +1,6 @@
 # Message
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/message) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/message) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Global toast notification system. The primary API is `MznMessageService` (injectable singleton) which corresponds to React's `Message.success()` / `Message.error()` static methods. `MznMessage` is the individual toast component rendered by the notifier system.
 
@@ -64,6 +64,7 @@ interface MessageData {
 | `icon`       | `IconDefinition \| undefined`   | —        | Custom icon (overrides severity icon)                                     |
 | `duration`   | `number \| false`               | `3000`   | Auto-close delay (ms); `false` = no auto-close                            |
 | `reference`  | `string \| number \| undefined` | —        | Unique reference for identification (corresponds to React's `reference` prop) |
+| `keepMount`  | `boolean` (host directive `MznTranslate`) | — | Forwarded from the `MznTranslate` host directive (only `keepMount` is exposed; `duration` / `delay` / `easing` are intentionally not) |
 
 ## MznMessage Component — Outputs
 
@@ -74,6 +75,8 @@ interface MessageData {
 ## Selector
 
 `[mznMessage]` — internal rendering component.
+
+`MznMessage` applies `MznTranslate` as a `hostDirectives` entry (slides in from `'bottom'`) and sets `role="status"`. The auto-close timer pauses on hover / focus and resumes on mouse leave / blur (`MessageTimerController`).
 
 ## ControlValueAccessor
 

@@ -1,6 +1,6 @@
 # 元件選用指引（UI 概念 → directive）
 
-> 對照版本：`@mezzanine-ui/ng` `1.0.0-rc.4` · `@mezzanine-ui/core` `1.0.4`。Last verified: 2026-08-14。
+> 對照版本：`@mezzanine-ui/ng` `1.0.0-rc.26` · `@mezzanine-ui/core` `1.3.3`。Last verified: 2026-11-22。
 >
 > 這份文件回答的問題是：**「我知道我要做的 UI 長什麼樣，但不知道它在 Mezzanine 叫什麼。」**
 > 速查表在 [SKILL.md → 元件選用](../SKILL.md#元件選用必讀--先用ui-概念反查-directive-名)，這裡是完整版與理由。

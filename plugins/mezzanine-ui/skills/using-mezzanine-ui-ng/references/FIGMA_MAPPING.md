@@ -8,7 +8,7 @@ Canonical source: ../../../using-mezzanine-ui-react/references/FIGMA_MAPPING.md
 
 Maps Figma design file components to React code.
 
-> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.0.4`, icons/system `1.0.2`). Last verified: 2026-04-24.
+> Baseline: `@mezzanine-ui/*` `1.x` (react/core `1.0.4`, icons/system `1.0.2`). Last verified: 2026-11-22.
 
 ## Table of Contents
 
@@ -499,7 +499,7 @@ Named by usage context, automatically supporting light/dark mode switching.
 | `Spacing/Size/Element/{tone}`             | `--mzn-spacing-size-element-{tone}`               |
 | `Spacing/Size/Container/{tone}`           | `--mzn-spacing-size-container-{tone}`             |
 
-**Gap Tones** (15): `none`, `micro`, `tiny`, `tight`, `compact`, `base`, `base-fixed`, `comfortable`, `roomy`, `spacious`, `relaxed`, `airy`, `generous`, `breath`, `wide`
+**Gap Tones** (12, 以 SCSS 實際產生的 CSS 變數為準): `none`, `tiny`, `tight`, `tight-fixed`, `slim`, `base`, `calm`, `comfort`, `roomy`, `spacious`, `relaxed`, `loose`（TS `GapTone` 的 `comfortable` 等舊名沒有對應的 CSS 變數）
 
 **Padding Horizontal Tones** (18): `none`, `micro`, `tiny`, `tiny-fixed`, `tight`, `tight-fixed`, `base`, `base-fixed`, `calm`, `comfort`, `comfort-fixed`, `roomy`, `spacious`, `relaxed`, `airy`, `breath`, `wide`, `max`
 

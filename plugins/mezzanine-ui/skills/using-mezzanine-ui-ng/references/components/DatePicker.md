@@ -1,10 +1,10 @@
 # DatePicker
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/date-picker) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/date-picker) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-date-picker--docs
 
-A single-date picker that opens a calendar popover on input focus. Supports `day`, `week`, `month`, `year`, `quarter`, and `half-year` calendar modes. The typed input accepts formatted date strings (character-by-character mask). Implements `ControlValueAccessor` binding `DateType` (a string ISO date or the library's internal date representation). Requires `MZN_CALENDAR_CONFIG` to be provided via `MznCalendarConfigProvider`.
+A single-date picker that opens a calendar popover on input focus. Supports `day`, `week`, `month`, `year`, `quarter`, and `half-year` calendar modes. The typed input accepts formatted date strings (character-by-character mask). Implements `ControlValueAccessor` binding `DateType` (a string ISO date or the library's internal date representation). Requires `MZN_CALENDAR_CONFIG` to be provided (via an `MZN_CALENDAR_CONFIG` provider in `ApplicationConfig`, or an ancestor `[mznCalendarConfigProvider]` directive).
 
 ## Import
 
@@ -12,11 +12,12 @@ A single-date picker that opens a calendar popover on input focus. Supports `day
 import {
   MznDatePicker,
   MznDatePickerCalendar,
+  type MznDatePickerCalendarProps,
 } from '@mezzanine-ui/ng/date-picker';
 import type { DateType, CalendarMode } from '@mezzanine-ui/core/calendar';
 
-// Required provider (in ApplicationConfig or component providers):
-import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
+// Required config (ApplicationConfig provider, or ancestor [mznCalendarConfigProvider] directive):
+import { MZN_CALENDAR_CONFIG, createCalendarConfig, MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 ```
 
 ## Selector
@@ -27,7 +28,7 @@ import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 
 | Input                   | Type                                | Default    | Description                                                  |
 | ----------------------- | ----------------------------------- | ---------- | ------------------------------------------------------------ |
-| `value`                 | `DateType`                          | —          | Controlled date value                                        |
+| `value`                 | `DateType \| undefined`             | —          | Input-driven date value (only applied when not `undefined`; use the form control or `(dateChanged)` to clear) |
 | `mode`                  | `CalendarMode`                      | `'day'`    | Calendar mode: `'day' \| 'week' \| 'month' \| 'year' \| 'quarter' \| 'half-year'` |
 | `format`                | `string`                            | —          | Display format; defaults to mode's default (e.g. `'YYYY-MM-DD'` for `day`) |
 | `placeholder`           | `string`                            | `''`       | Placeholder text                                             |
@@ -52,10 +53,13 @@ import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 | `isWeekDisabled`        | `(date: DateType) => boolean`       | —          | Predicate to disable weeks                                   |
 | `isQuarterDisabled`     | `(date: DateType) => boolean`       | —          | Predicate to disable quarters                                |
 | `isHalfYearDisabled`    | `(date: DateType) => boolean`       | —          | Predicate to disable half-years                              |
-| `quickSelect`           | `{ activeId?: string, options: CalendarQuickSelectOption[] }` | — | Quick select shortcut options |
+| `quickSelect`           | `{ activeId?: string; options: ReadonlyArray<CalendarQuickSelectOption> }` | — | Quick select shortcut options |
 | `renderAnnotations`     | `(date: DateType) => CalendarDayAnnotation` | —  | Per-date annotation render function                          |
+| `calendarProps`         | `MznDatePickerCalendarProps`        | —          | Calendar-only settings bundle (see below); flat inputs of the same name take priority. Hoist to a class field or signal — an inline object literal changes on every change detection |
 
 > Inputs declared with signal API (`input()`) accept both static and reactive values.
+
+`MznDatePickerCalendarProps` (all fields optional): `calendarDaysProps`, `calendarWeeksProps`, `calendarMonthsProps`, `calendarQuartersProps`, `calendarHalfYearsProps`, `calendarYearsProps` (each `MznCalendarBoardProps`), `calendarFooterControlProps` (`MznCalendarFooterControlProps`, e.g. `{ children: { day: '今天', month: '本月' } }` — prefer a per-mode label map because the footer follows the panel the user drilled down to), `disabledFooterControl` (`boolean`, hides the footer control), `displayWeekDayLocale` (`string`), `quickSelect` (`{ activeId?, options }`), `renderAnnotations` (`(date: DateType) => CalendarDayAnnotation`).
 
 ## Outputs
 
@@ -90,17 +94,22 @@ All date/time components require `MZN_CALENDAR_CONFIG`. Provide it once in `Appl
 ```ts
 // app.config.ts
 import { ApplicationConfig } from '@angular/core';
-import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
+import { MZN_CALENDAR_CONFIG, createCalendarConfig, CalendarLocale } from '@mezzanine-ui/ng/calendar';
+import CalendarMethodsDayjs from '@mezzanine-ui/core/calendarMethodsDayjs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    MznCalendarConfigProvider({
-      firstDayOfWeek: 0, // 0 = Sunday, 1 = Monday
-      locale: 'zh-TW',  // locale string for date formatting
-    }),
+    {
+      provide: MZN_CALENDAR_CONFIG,
+      useValue: createCalendarConfig(CalendarMethodsDayjs, {
+        locale: CalendarLocale.ZH_TW,
+      }),
+    },
   ],
 };
 ```
+
+(`MznCalendarConfigProvider` is an attribute directive `[mznCalendarConfigProvider]`, not a provider function; see `Calendar.md`.)
 
 ## Usage
 
@@ -133,7 +142,7 @@ import type { DateType } from '@mezzanine-ui/core/calendar';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-  imports: [MznDatePicker, MznFormField, ReactiveFormsModule],
+  imports: [MznDatePicker, MznFormField, ReactiveFormsModule],  // MznFormField from '@mezzanine-ui/ng/form'
 })
 export class BookingFormComponent {
   readonly form = new FormGroup({
@@ -151,7 +160,7 @@ export class BookingFormComponent {
 
 `ClickAwayService` is injected in `ngAfterViewInit` and registers a click-outside listener on the host element. When the calendar is open and the user clicks outside, it closes the calendar and calls `onTouched()` to mark the control as touched.
 
-`MZN_CALENDAR_CONFIG` is also injected (required) to supply the locale and date-formatting helpers. Provide it once at the application root via `MznCalendarConfigProvider`.
+`MZN_CALENDAR_CONFIG` is also injected (required) to supply the locale and date-formatting helpers. Provide it once at the application root via an `MZN_CALENDAR_CONFIG` provider (see Required Provider), or per-subtree via the `[mznCalendarConfigProvider]` directive.
 
 `DestroyRef` and `ElementRef<HTMLElement>` are also injected internally for cleanup wiring and host-element access — these are Angular platform primitives, not Mezzanine-specific.
 
@@ -170,6 +179,7 @@ export class BookingFormComponent {
 | `mode`                    | `CalendarMode`                                              | `'day'`              | Calendar mode                                             |
 | `referenceDate`           | `DateType`                                                  | `''`                 | Reference date driving the displayed month/year           |
 | `value`                   | `DateType \| undefined`                                     | `undefined`          | Currently-selected date                                   |
+| `calendarProps`           | `MznDatePickerCalendarProps \| undefined`                   | `undefined`          | Calendar-only settings bundle (same shape as the `MznDatePicker` input) |
 | `disableOnDoubleNext`     | `boolean`                                                   | `false`              | Disable the calendar "jump forward 2" control             |
 | `disableOnDoublePrev`     | `boolean`                                                   | `false`              | Disable the calendar "jump back 2" control                |
 | `disableOnNext`           | `boolean`                                                   | `false`              | Disable the calendar "next" control                       |
@@ -201,7 +211,10 @@ export class BookingFormComponent {
 
 ## Notes
 
-- `MZN_CALENDAR_CONFIG` must be provided — without it the component throws. Use `MznCalendarConfigProvider` in `ApplicationConfig` providers array.
+- `MznDatePicker` standalone `imports`: `MznDatePickerCalendar`, `MznIcon`, `MznPickerTrigger` (internal; consumers only import `MznDatePicker`).
+- `MznDatePicker` does not implement `setDisabledState`; use the `[disabled]` / `[readOnly]` inputs rather than `control.disable()` to disable the field.
+- `Enter` / `Escape` in the input close the calendar; selecting a date in the calendar closes it and emits `dateChanged`.
+- `MZN_CALENDAR_CONFIG` must be provided — without it the component throws. Provide it in the `ApplicationConfig` providers array via `createCalendarConfig(...)`, or wrap with `[mznCalendarConfigProvider]`.
 - The `format` input falls back to `getDefaultModeFormat(mode)` if not provided (e.g. `'YYYY-MM-DD'` for `day`, `'YYYY-MM'` for `month`).
 - Typed input validation combines `isDateDisabled`, `isMonthDisabled`, etc. into a single `validateFn` predicate. Typing a disabled date in the input is silently rejected.
 - Unlike React's `onChange?: (date) => void`, Angular uses CVA — no explicit handler needed when using `formControlName` / `[(ngModel)]`.

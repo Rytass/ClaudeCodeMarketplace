@@ -1,6 +1,6 @@
 # Badge
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/badge) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/badge) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-display-badge--docs
 
@@ -75,7 +75,7 @@ import type {
 | `variant`       | `BadgeVariant` (required) | —    | 視覺變體，見下方 BadgeVariant 說明                                                           |
 | `count`         | `number`               | —       | 計數型徽章的數字（`count-*` 型 variant）                                                    |
 | `overflowCount` | `number`               | —       | 計數上限；超過時顯示 `{overflowCount}+`                                                      |
-| `size`          | `BadgeTextSize`        | —       | 文字型/圓點帶文字徽章的尺寸（`text-*` 和部分 `dot-*` 型）                                    |
+| `size`          | `BadgeTextSize`（`'main' \| 'sub'`） | —       | 文字型/圓點帶文字徽章的尺寸（`text-*` 和部分 `dot-*` 型）                                    |
 | `text`          | `string`               | —       | 文字型徽章的顯示文字（`text-*` 型）                                                          |
 | `className`     | `string`               | —       | 附加到內層 badge `<span>` 的自訂 CSS class                                                   |
 
@@ -100,7 +100,7 @@ import type {
 | Export              | Purpose                                                                        |
 | ------------------- | ------------------------------------------------------------------------------ |
 | `MznBadge`          | 主要徽章元件                                                                    |
-| `MznBadgeContainer` | **已棄用**（`@deprecated`）；請改用 `MznBadge` 的 content projection 模式取代  |
+| `MznBadgeContainer` | **已棄用**（`@deprecated`），selector 為 `[mznBadgeContainer]`（無 input／output）；請改用 `MznBadge` 的 content projection 模式取代  |
 
 ## Usage
 
@@ -113,7 +113,7 @@ import type {
 
 <!-- 圓點型徽章覆蓋在圖示上（content projection） -->
 <div mznBadge variant="dot-error">
-  <i mznIcon [icon]="BellIcon"></i>
+  <i mznIcon [icon]="NotificationIcon"></i>
 </div>
 
 <!-- 狀態標籤：圓點 + 文字（表格狀態欄的正解） -->
@@ -132,7 +132,7 @@ import type {
 ```ts
 import { Component, signal } from '@angular/core';
 import { MznBadge } from '@mezzanine-ui/ng/badge';
-import { BellIcon } from '@mezzanine-ui/icons';
+import { NotificationIcon } from '@mezzanine-ui/icons';
 
 @Component({
   selector: 'app-notification',
@@ -145,7 +145,7 @@ import { BellIcon } from '@mezzanine-ui/icons';
   `,
 })
 export class NotificationComponent {
-  readonly bellIcon = BellIcon;
+  readonly bellIcon = NotificationIcon;
   readonly unreadCount = signal(3);
 }
 ```

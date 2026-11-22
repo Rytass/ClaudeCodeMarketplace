@@ -1,6 +1,6 @@
 # Portal
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/portal) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/portal) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Teleports projected content to a global container outside the component tree. Backed by `MznPortalRegistry` which manages two stacking layers (`default` and `alert`) mounted on `document.body`. Used internally by modals, drawers, and other overlay components.
 
@@ -23,7 +23,7 @@ import type { PortalLayer } from '@mezzanine-ui/ng/portal';
 | `layer`         | `PortalLayer`             | `'default'` | Target layer: `'default'` or `'alert'` (higher stacking)      |
 | `container`     | `HTMLElement \| undefined` | —          | Custom portal target; overrides `layer` when set              |
 
-> Inputs declared with signal API (`input()`, `model()`) accept both static and reactive values.
+> Inputs declared with signal API (`input()`) accept both static and reactive values.
 
 ## Outputs
 

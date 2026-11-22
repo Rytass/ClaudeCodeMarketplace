@@ -1,6 +1,6 @@
 # PageHeader
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/page-header) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/page-header) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/layout-page-header--docs
 
@@ -12,12 +12,12 @@
 import { MznPageHeader } from '@mezzanine-ui/ng/page-header';
 // 通常配合以下元件一起使用：
 import { MznBreadcrumb } from '@mezzanine-ui/ng/breadcrumb';
-// MznContentHeader 來自 content-header 套件（若有使用）
+import { MznContentHeader } from '@mezzanine-ui/ng/content-header'; // 若有使用
 ```
 
 ## Selector
 
-`<header mznPageHeader>` — attribute-directive component，建議 host element 為 `<header>`
+`[mznPageHeader]` — attribute-selector component（無 exportAs），建議 host element 為 `<header>`：`<header mznPageHeader>`
 
 ## Inputs
 
@@ -41,7 +41,7 @@ import { MznBreadcrumb } from '@mezzanine-ui/ng/breadcrumb';
     title="商品管理"
     description="管理系統中的所有商品資料"
   >
-    <div actions>
+    <div contentHeaderActions>
       <button mznButton variant="base-primary" (click)="createProduct()">
         新增商品
       </button>

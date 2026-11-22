@@ -1,6 +1,6 @@
 # FourThumbnailCard
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/four-thumbnail-card) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/four-thumbnail-card) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Attribute directive component that displays a 2x2 grid of image thumbnails with optional tag, personal action button, and info section. Children must be `MznThumbnail` components; if fewer than 4 are provided, empty slots are rendered to fill the grid. Supports three action modes: `'default'`, `'action'`, and `'overflow'`.
 
@@ -10,8 +10,8 @@ Attribute directive component that displays a 2x2 grid of image thumbnails with 
 import {
   MznFourThumbnailCard,
   MznFourThumbnailCardSkeleton,
-  FourThumbnailCardType,
 } from '@mezzanine-ui/ng/four-thumbnail-card';
+import type { FourThumbnailCardType } from '@mezzanine-ui/ng/four-thumbnail-card'; // 'default' | 'action' | 'overflow'
 import { MznThumbnail } from '@mezzanine-ui/ng/thumbnail';
 ```
 

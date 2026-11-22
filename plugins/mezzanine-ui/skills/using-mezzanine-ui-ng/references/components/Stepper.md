@@ -1,6 +1,6 @@
 # Stepper
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/stepper) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/stepper) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/navigation-stepper--docs
 
@@ -23,9 +23,9 @@ import type {
 
 ## Selector
 
-`<div mznStepper [currentStep]="1">` — stepper container
+`[mznStepper]` — stepper container（如 `<div mznStepper [currentStep]="1">`）
 
-`<div mznStep title="...">` — 單一步驟，必須是 `mznStepper` 的直接子元素
+`[mznStep]` — 單一步驟（如 `<div mznStep title="...">`），必須是 `mznStepper` 的直接子元素
 
 ## Inputs — MznStepper
 
@@ -50,7 +50,7 @@ import type {
 | `title`       | `string` (required) | — | 步驟標題文字                                                          |
 | `description` | `string`       | —       | 步驟描述文字（顯示在標題下方）                                             |
 | `disabled`    | `boolean`      | `false` | 是否禁用此步驟（僅在非 processing 狀態時生效）                             |
-| `error`       | `boolean`      | `false` | 是否為錯誤狀態                                                             |
+| `error`       | `boolean`      | `false` | 是否為錯誤狀態（processing 時套用 processing-error 樣式，否則為 error 樣式）  |
 | `interactive` | `boolean`      | `false` | 是否可互動（加入 `role="button"`、`tabindex="0"`，Enter/Space 觸發 click）  |
 | `status`      | `StepStatus`   | auto    | 手動覆蓋步驟狀態；未設定時由父 Stepper 依 `currentStep` 自動計算           |
 | `index`       | `number`       | auto    | 手動指定步驟索引；通常由 Stepper 自動注入                                  |
@@ -66,7 +66,7 @@ import type {
 | ------------------ | ------------------------------------------------------------------------- |
 | `MznStepper`       | 步驟容器，管理 `currentStep`、連接線計算、DI 提供                          |
 | `MznStep`          | 單一步驟項目，顯示指示器、標題、描述                                       |
-| `MznStepperState`  | signal-based 狀態管理 class，對應 React `useStepper` hook 的 Angular 替代品 |
+| `MznStepperState`  | signal-based 狀態管理 class（`@Injectable()`，可 `new` 或經 DI 提供），對應 React `useStepper` hook 的 Angular 替代品 |
 
 ## MznStepperState 使用
 

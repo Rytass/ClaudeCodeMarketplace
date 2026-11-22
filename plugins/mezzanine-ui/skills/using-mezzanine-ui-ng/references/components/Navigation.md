@@ -1,6 +1,6 @@
 # Navigation
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/navigation) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/navigation) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Side navigation bar with collapsible state, multi-level options, category groups, and icon-only collapsed mode. Sub-components communicate via `MZN_NAVIGATION_ACTIVATED` and `MZN_NAVIGATION_OPTION_LEVEL` injection tokens.
 
@@ -43,11 +43,11 @@ import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 | `collapsed`          | `boolean \| undefined`            | —            | Controlled collapse state                                |
 | `activatedPath`      | `readonly string[]`               | —            | Array of active option IDs (path to active item)         |
 | `filter`             | `boolean`                         | `false`      | Show search/filter input inside the nav                  |
-| `items`              | `ReadonlyArray<NavItem>` *(see shape below)* | —  | Declarative config-based option list                     |
+| `items`              | `readonly NavigationItemConfig[]` *(internal union of option / category config; see shape below)* | —  | Declarative config-based option list; when provided it replaces projected `<mzn-navigation-option>` children |
 | `exactActivatedMatch`| `boolean`                         | `false`      | Match active path exactly (vs prefix match)              |
 | `collapsedPlacement` | `'right' \| 'left' \| 'top' \| 'bottom'` | `'right'` | Tooltip placement for icon-only mode          |
 
-> Inputs declared with signal API (`input()`, `model()`) accept both static and reactive values.
+> Inputs declared with signal API (`input()`) accept both static and reactive values.
 
 ## MznNavigation — Outputs
 
@@ -60,7 +60,8 @@ import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 
 | Input    | Type                  | Default | Description              |
 | -------- | --------------------- | ------- | ------------------------ |
-| `title`  | `string \| undefined` | —       | Brand/app title text     |
+| `title`  | `string \| undefined` | —       | Brand/app title text (when collapsed only the first character is shown) |
+| `collapseToggleLabel` | `string` | `'Toggle navigation'` | Accessible name (`aria-label`) of the collapse/expand toggle button, which renders an icon only — translate it together with the rest of the UI copy |
 
 ## MznNavigationHeader — Outputs
 
@@ -160,7 +161,7 @@ The `[items]` input accepts an array of option nodes and/or category nodes.
 ```ts
 import { MznNavigation } from '@mezzanine-ui/ng/navigation';
 import type { IconDefinition } from '@mezzanine-ui/icons';
-import { HomeIcon, UsersIcon } from '@mezzanine-ui/icons';
+import { HomeIcon, UserIcon } from '@mezzanine-ui/icons';
 
 // Local shape that matches what the [items] input expects.
 // Option node (no `type`) OR category node (`type: 'category'`).
@@ -187,7 +188,7 @@ readonly navItems: ReadonlyArray<NavItem> = [
   {
     title: '使用者管理',
     id: 'users',
-    icon: UsersIcon,
+    icon: UserIcon,
     children: [
       { title: '使用者清單', id: 'users-list', href: '/users' },
       { title: '角色管理', id: 'roles', href: '/users/roles' },

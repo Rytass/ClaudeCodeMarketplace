@@ -1,6 +1,6 @@
 # Layout
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/layout) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/layout) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Application shell layout container. Slots a `MznNavigation`, optional left/right side panels, and the main content area. Uses named `ng-content` projections to position each zone.
 
@@ -72,7 +72,7 @@ import {
 | ------------- | ----------------- | ---------------------------------------------------- |
 | `widthChange` | `output<number>()` | Emitted on divider drag and on keyboard resize steps |
 
-> Inputs declared with signal API (`input()`, `model()`) accept both static and reactive values.
+> Inputs declared with signal API (`input()`) accept both static and reactive values.
 
 ## Content Projection Slots
 

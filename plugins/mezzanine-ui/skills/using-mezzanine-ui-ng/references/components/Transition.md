@@ -1,6 +1,6 @@
 # Transition
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/transition) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/transition) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Collection of transition directives that animate CSS properties on their host element. All directives apply styles directly to the host — no wrapper element is introduced. Also exports Angular animation triggers (for use with `@trigger` syntax) and utility functions.
 
@@ -58,18 +58,29 @@ import {
 } from '@mezzanine-ui/ng/transition';
 ```
 
-## Common Inputs (MznFade, MznScale, MznSlide)
+## Selectors
+
+| Class          | Selector         | Kind      |
+| -------------- | ---------------- | --------- |
+| `MznFade`      | `[mznFade]`      | Directive |
+| `MznScale`     | `[mznScale]`     | Directive |
+| `MznSlide`     | `[mznSlide]`     | Directive |
+| `MznTranslate` | `[mznTranslate]` | Directive |
+| `MznRotate`    | `[mznRotate]`    | Directive |
+| `MznCollapse`  | `[mznCollapse]`  | Component |
+
+## Common Inputs (MznFade, MznScale, MznSlide, MznTranslate)
 
 | Input       | Type                 | Default          | Description                                     |
 | ----------- | -------------------- | ---------------- | ----------------------------------------------- |
 | `in`        | `input<boolean>()`   | `false`          | Whether to transition to the "entered" state     |
-| `appear`    | `boolean`            | `true`           | Animate on first mount if `in=true`              |
-| `duration`  | `TransitionDuration` | design-token based | `{ enter: number, exit: number }` in ms        |
-| `easing`    | `TransitionEasing`   | design-token based | `{ enter: string, exit: string }` CSS easing  |
+| `appear`    | `boolean`            | `true`           | Animate on first mount if `in=true` (**MznFade / MznScale only**; MznSlide and MznTranslate have no `appear`, their lifecycle events always report `isAppearing: false`) |
+| `duration`  | `TransitionDuration` | design-token based | `number` or `{ enter?: number, exit?: number }` in ms (`'auto'` is only meaningful on MznCollapse; other directives fall back to the default) |
+| `easing`    | `TransitionEasing`   | design-token based | `string` or `{ enter?: string, exit?: string }` CSS easing |
 | `delay`     | `TransitionDelay`    | `0`              | `{ enter?: number, exit?: number }` or `number` |
 | `keepMount` | `boolean`            | `false`          | When `true`, DOM stays mounted when exited       |
 
-> **Note:** `MznFade` and `MznScale` declare `in` as `model<boolean>()` (two-way bindable with `[(in)]`). `MznSlide` declares `in` as plain `input(false)` — one-way only. `MznCollapse` also declares `in` as plain `input(false)`.
+> **Note:** `MznFade` and `MznScale` declare `in` as `model<boolean>()` (two-way bindable with `[(in)]`). `MznSlide` declares `in` as plain `input(false)` — one-way only. `MznTranslate` declares `in` and `from` as `model()`. `MznCollapse` also declares `in` as plain `input(false)`.
 
 ## Common Outputs (MznFade, MznScale, MznCollapse, MznSlide)
 
@@ -88,8 +99,8 @@ import {
 | ---------------- | ------------------- | ---------- | ---------------------------------------------------------- |
 | `in`             | `input<boolean>()`  | `false`    | Plain one-way input; use `[in]="expr"` (no `[(in)]`)      |
 | `collapsedHeight`| `string \| number`  | `0`        | Container height when collapsed (e.g. `'48px'` or `0`)    |
-| `duration`       | `TransitionDuration`| `'auto'`   | `'auto'` derives duration from content height              |
-| `easing`         | `TransitionEasing`  | design-token based | `{ enter: string, exit: string }` CSS easing       |
+| `duration`       | `TransitionDuration`| `'auto'`   | `'auto'`, `number`, or `{ enter?, exit? }`; `'auto'` derives duration from content height |
+| `easing`         | `TransitionEasing`  | design-token based | `string` or `{ enter?: string, exit?: string }` CSS easing |
 | `delay`          | `TransitionDelay`   | `0`        | Transition delay                                           |
 | `keepMount`      | `boolean`           | `false`    | Keep DOM when exited (forced `true` when `collapsedHeight ≠ '0px'`) |
 
@@ -123,7 +134,7 @@ In addition to the common outputs (`onEnter`, `onEntered`, `onExit`, `onExited`)
 
 | Input    | Type        | Default   | Description                  |
 | -------- | ----------- | --------- | ---------------------------- |
-| `from`   | `SlideFrom` | `'right'` | `'right' \| 'top'`           |
+| `from`   | `SlideFrom` | `'right'` | `'right' \| 'top'` (plain `input`) |
 | + common inputs (see above) |   |           |                              |
 
 > `SlideFrom` is `'right' | 'top'` only — `'left'` and `'bottom'` are not supported.
@@ -136,8 +147,8 @@ In addition to the common outputs (`onEnter`, `onEntered`, `onExit`, `onExited`)
 | ----------- | ---------------- | ---------- | --------------------------------------------------------------------- |
 | `from`      | `model<TranslateFrom>()` | `'top'` | Entry direction; `'top' \| 'bottom' \| 'left' \| 'right'`; **two-way bindable** |
 | `in`        | `model<boolean>()`| `false`   | Two-way bindable trigger                                              |
-| `duration`  | `TransitionDuration` | design-token based | `{ enter: number, exit: number }` in ms                   |
-| `easing`    | `TransitionEasing` | design-token based | `{ enter: string, exit: string }` CSS easing             |
+| `duration`  | `TransitionDuration` | design-token based | `number` or `{ enter?: number, exit?: number }` in ms     |
+| `easing`    | `TransitionEasing` | design-token based | `string` or `{ enter?: string, exit?: string }` CSS easing |
 | `delay`     | `TransitionDelay`| `0`        | Transition delay                                                      |
 | `keepMount` | `boolean`        | `false`    | Keep DOM when exited                                                  |
 

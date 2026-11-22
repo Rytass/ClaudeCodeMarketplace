@@ -14,7 +14,7 @@
 > - `four-thumbnail-card/` — `MznFourThumbnailCard`
 > - `thumbnail-card-info/` — `MznThumbnailCardInfo`
 >
-> **Verified** 1.0.0-rc.3 (2026-04-21) · **Deprecated** in 1.0.0-rc.4 (2026-04-24)
+> **Verified** 1.0.0-rc.3 (2026-04-21) · **Deprecated** in 1.0.0-rc.4 (2026-04-24) · **Re-checked** at 1.0.0-rc.26 (2026-11-22): the `thumbnail-cards` entry point is absent from source; the three child components remain exported from their own sub-paths.
 
 Three companion components for displaying media/file cards with thumbnail previews. `MznSingleThumbnailCard` shows one image alongside file info. `MznFourThumbnailCard` renders a 2×2 thumbnail grid. `MznThumbnailCardInfo` is the shared info section used by both.
 

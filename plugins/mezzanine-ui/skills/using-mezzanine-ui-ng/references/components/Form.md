@@ -1,6 +1,6 @@
 # Form
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/form) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/form) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-form--docs
 
@@ -55,8 +55,8 @@ const isDisabled = ctrl?.disabled ?? false;
 | --------------------------- | --------------------------------------- | ------------------------------- | ----------------------------------------------------- |
 | `name`                      | `string` (required)                     | —                               | Field name, also used as `htmlFor` on the label       |
 | `label`                     | `string`                                | —                               | Label text                                            |
-| `layout`                    | `FormFieldLayout`                       | `'horizontal'`                  | `'horizontal' \| 'vertical' \| 'extended'`            |
-| `density`                   | `FormFieldDensity`                      | —                               | Compact density; only applies when layout ≠ vertical  |
+| `layout`                    | `FormFieldLayout`                       | `'horizontal'`                  | `'horizontal' \| 'vertical' \| 'stretch'`             |
+| `density`                   | `FormFieldDensity`                      | —                               | `'base' \| 'tight' \| 'narrow' \| 'wide'`; only when layout ≠ vertical |
 | `disabled`                  | `boolean`                               | `false`                         | Propagates `disabled` to children via DI              |
 | `required`                  | `boolean`                               | `false`                         | Shows required marker on label; propagates via DI     |
 | `severity`                  | `SeverityWithInfo`                      | `'info'`                        | Controls hint text icon & color                       |
@@ -65,8 +65,8 @@ const isDisabled = ctrl?.disabled ?? false;
 | `hintTextIcon`              | `IconDefinition`                        | —                               | Custom icon before hint text                          |
 | `showHintTextIcon`          | `boolean`                               | `true`                          | Show/hide the hint icon                               |
 | `counter`                   | `string`                                | —                               | Character counter text (e.g. `'12/100'`)              |
-| `counterColor`              | `FormFieldCounterColor`                 | `'info'`                        | Counter text color                                    |
-| `labelSpacing`              | `FormFieldLabelSpacing`                 | `'main'`                        | Label-to-input gap spacing                            |
+| `counterColor`              | `FormFieldCounterColor`                 | `'info'`                        | `'info' \| 'warning' \| 'error'`                         |
+| `labelSpacing`              | `FormFieldLabelSpacing`                 | `'main'`                        | `'main' \| 'sub'`; ignored when layout is vertical   |
 | `labelInformationIcon`      | `IconDefinition`                        | —                               | Tooltip trigger icon next to label                    |
 | `labelInformationText`      | `string`                                | —                               | Tooltip content for the information icon              |
 | `labelOptionalMarker`       | `string`                                | —                               | Optional marker text, e.g. `'(Optional)'`             |
@@ -158,5 +158,5 @@ export class MyFormComponent {
 
 - `MznFormField` uses `MZN_FORM_CONTROL` to push `disabled`, `required`, `severity`, and `fullWidth` state into child inputs. Child inputs that inject this token (e.g. `MznFormLabel`) react automatically — you do not need to pass `required` to the label manually.
 - Unlike the React `<Form>` component where severity is read from a React Context, the Angular version uses Angular DI via an `InjectionToken`.
-- The `layout` default is `'horizontal'` (label left, input right). Use `'vertical'` for stacked layouts. `'extended'` is similar to horizontal but the label area is wider.
+- The `layout` default is `'horizontal'` (label left, input right). Use `'vertical'` for stacked layouts. `'stretch'` is a third layout variant (FormFieldLayout.STRETCH).
 - `MznFormGroup` and `MznFormField` are standalone and do not need to be added to an `NgModule`.

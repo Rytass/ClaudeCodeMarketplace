@@ -1,6 +1,6 @@
 # Checkbox
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/checkbox) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/checkbox) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-checkbox--docs
 
@@ -13,7 +13,13 @@ A checkbox input component supporting `default` and `chip` display modes. Can be
 ```ts
 import { MznCheckAll, MznCheckbox, MznCheckboxGroup } from '@mezzanine-ui/ng/checkbox';
 import type { CheckboxEditableInput, CheckboxGroupLevelConfig } from '@mezzanine-ui/ng/checkbox';
-import { CheckboxMode, CheckboxSize, CheckboxSeverity, CheckboxGroupLayout } from '@mezzanine-ui/core/checkbox';
+import type {
+  CheckboxGroupLayout,
+  CheckboxGroupOption,
+  CheckboxMode,
+  CheckboxSeverity,
+  CheckboxSize,
+} from '@mezzanine-ui/core/checkbox';
 ```
 
 ## Selector
@@ -63,8 +69,8 @@ import { MznCheckAll, MznCheckbox, MznCheckboxGroup } from '@mezzanine-ui/ng/che
 | `description`     | `string`              | —           | Secondary description (not shown in chip mode)         |
 | `mode`            | `CheckboxMode`        | `'default'` | `'default' \| 'chip'`                                  |
 | `name`            | `string`              | —           | Input name attribute                                   |
-| `severity`        | `CheckboxSeverity`    | —           | Visual severity modifier                               |
-| `size`            | `CheckboxSize`        | `'main'`    | `'main' \| 'minor'`                                    |
+| `severity`        | `CheckboxSeverity`    | —           | `'info' \| 'error'` — visual severity modifier         |
+| `size`            | `CheckboxSize`        | `'main'`    | `'main' \| 'sub' \| 'minor'`（`'minor'` 僅 chip 模式）  |
 | `value`           | `string`              | `''`        | Value used by `MznCheckboxGroup`                       |
 | `id`              | `string`              | auto        | Native `<input id>`; defaults to `mzn-checkbox-{n}`   |
 | `withEditInput`   | `boolean`             | `false`     | Show inline text input when checked                    |
@@ -72,6 +78,29 @@ import { MznCheckAll, MznCheckbox, MznCheckboxGroup } from '@mezzanine-ui/ng/che
 | `detached`        | `boolean`             | `false`     | Internal — detach from group context (used by level checkbox) |
 
 > Inputs declared with signal API (`input()`) accept both static and reactive values.
+
+### CheckboxEditableInput / CheckboxGroupLevelConfig
+
+```ts
+interface CheckboxEditableInput {
+  active?: boolean; clearable?: boolean; defaultValue?: string; disabled?: boolean;
+  error?: boolean; fullWidth?: boolean; id?: string; inputType?: string; name?: string;
+  placeholder?: string; prefixIcon?: IconDefinition; prefixText?: string; readonly?: boolean;
+  size?: 'main' | 'sub'; suffixText?: string; typing?: boolean; value?: string;
+}
+
+interface CheckboxGroupLevelConfig {
+  readonly active: boolean;
+  readonly disabled?: boolean;
+  readonly label?: string;
+  readonly mode?: CheckboxMode;
+  readonly onChange?: (checked: boolean) => void; // takes over the default select-all / clear-all
+}
+
+interface CheckboxGroupOption { // @mezzanine-ui/core/checkbox, used by MznCheckAll.options
+  disabled?: boolean; mode?: CheckboxMode; label: string | number; value: string;
+}
+```
 
 ## Inputs — MznCheckboxGroup
 
@@ -82,7 +111,7 @@ import { MznCheckAll, MznCheckbox, MznCheckboxGroup } from '@mezzanine-ui/ng/che
 | `level`    | `CheckboxGroupLevelConfig` | —              | "Select all" checkbox configuration bundle         |
 | `mode`     | `CheckboxMode`             | `'default'`    | `'default' \| 'chip'` — propagated to children     |
 | `name`     | `string`                   | `''`           | Input name propagated to all child checkboxes      |
-| `size`     | `CheckboxSize`             | `'main'`       | Size propagated to all child checkboxes            |
+| `size`     | `CheckboxSize`             | `'main'`       | `'main' \| 'sub' \| 'minor'` — propagated to all child checkboxes |
 
 ## Outputs
 

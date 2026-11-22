@@ -2,9 +2,9 @@
 
 > ⚠️ **Public but low-level** — `MznDropdown` and `MznDropdownItemCard` are exported from `@mezzanine-ui/ng/dropdown` and used internally by `MznSelect`, `MznAutocomplete`, `MznNavigation`, and other components. `MznDropdownItem`, `MznDropdownAction`, and `MznDropdownStatus` are **internal** building blocks (not exported from `index.ts`) — do not import them directly.
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/dropdown) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/dropdown) · Verified 1.0.0-rc.26 (2026-11-22)
 
-Floating dropdown list positioned relative to an anchor element. Uses `MznPopper` internally. Supports single and multiple selection modes.
+Floating dropdown list positioned relative to an anchor element. Rendered through a CDK Overlay (internal `MznDropdownPopper` directive; not `MznPopper`). Supports single and multiple selection modes.
 
 ## Import
 
@@ -31,7 +31,8 @@ import type { IconDefinition } from '@mezzanine-ui/icons';
 
 | Input       | Type                                          | Default          | Description                                                |
 | ----------- | --------------------------------------------- | ---------------- | ---------------------------------------------------------- |
-| `anchor`    | `HTMLElement \| ElementRef \| null`           | `null`           | Reference element for popper positioning (required in popper mode) |
+| `anchor`    | `HTMLElement \| ElementRef<HTMLElement> \| null` | `null`        | Reference element for popper positioning (required in popper mode) |
+| `id`        | `string \| undefined`                         | —                | DOM id applied to the dropdown root element (host `[attr.id]`) |
 | `open`      | `boolean`                                     | `false`          | Controls visibility                                        |
 | `options`   | `ReadonlyArray<DropdownOption>`               | `[]`             | Option list                                                |
 | `mode`      | `DropdownMode`                                | `'single'`       | `'single' \| 'multiple'`                                   |
@@ -40,12 +41,13 @@ import type { IconDefinition } from '@mezzanine-ui/icons';
 | `disabled`  | `boolean`                                     | `false`          | Disable all options                                        |
 | `type`      | `DropdownType`                                | `'default'`      | `'default' \| 'tree' \| 'grouped'`                        |
 
-### rc.8 / rc.9 新增的 Inputs
+### Positioning / custom action Inputs
 
 | Input                     | Type                                     | Default | Description                                                                 |
 | ------------------------- | ---------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `flip`                    | `boolean`                                | `false` | **rc.8 新增。** 視窗底部空間不足時讓選單沿主軸翻轉（對應 React 的 `flip`）。 |
-| `actionCustomButtonProps` | `DropdownActionButtonProps \| undefined` | —       | **rc.9 新增。** 自訂動作按鈕的 props，取代已移除的 `actionConfig`。          |
+| `flip`                    | `boolean`                                | `false` | 視窗底部空間不足時讓選單沿主軸翻轉（對應 React 的 `flip`）。 |
+| `actionCustomButtonProps` | `DropdownActionButtonProps \| undefined` | —       | 自訂動作按鈕的 props，取代已移除的 `actionConfig`。          |
+| `shift`                   | `boolean`                                | `true`  | 啟用 floating-ui `shift` middleware，選單沿交叉軸推移以留在視窗內（`flip` 只在主軸翻面，anchor 貼近視窗邊緣——例如表格最右欄列動作——時仍會被裁切）。傳 `false` 保留原始定位。對應 React `Dropdown` 的 `shift`。 |
 
 > ⚠️ `DropdownActionButtonProps` 定義在 internal 的 `dropdown-action.component`，**未從 `index.ts` 匯出**，
 > 所以消費端無法 `import type` 取得它。傳值時只能仰賴結構相容（或自行宣告等價型別）。
@@ -73,7 +75,7 @@ import type { IconDefinition } from '@mezzanine-ui/icons';
 | `maxHeight`      | `number \| string \| undefined` | —  | Max height of the list (px or CSS string); enables scroll when exceeded  |
 | `minWidth`       | `number \| string \| undefined` | —  | Min width of the dropdown (px or CSS string)                             |
 | `sameWidth`      | `boolean`                 | `false`  | Match dropdown width to anchor width (popper mode, no `customWidth`)     |
-| `globalPortal`   | `boolean`                 | `true`   | Render popper via portal to `document.body` (avoids overflow clipping)   |
+| `globalPortal`   | `boolean`                 | `true`   | Kept for API compatibility; CDK Overlay always portals popper mode, so this currently has no effect on placement (it only toggles a portal modifier class). No effect in `inputPosition='inside'` |
 | `loadingPosition`| `'full' \| 'bottom'`      | `'full'` | Loading indicator position                                               |
 | `loadingText`    | `string \| undefined`     | —        | Loading state text                                                       |
 | `status`         | `DropdownStatusType \| undefined` | —  | `'loading'` or `'empty'` state indicator                            |
@@ -84,7 +86,7 @@ import type { IconDefinition } from '@mezzanine-ui/icons';
 | ------------------- | ---------------------------- | ------------ | ---------------------------------------------------------------- |
 | `followText`        | `string \| undefined`        | —            | Highlight keyword passed down to each item card                  |
 | `inputPosition`     | `DropdownInputPosition`      | `'outside'`  | `'outside'` = popper mode; `'inside'` = inline in-flow mode     |
-| `isMatchInputValue` | `boolean`                    | `false`      | Reserved: auto-derive `followText` from header input value       |
+| `isMatchInputValue` | `boolean`                    | `false`      | Reserved: no value bridge yet, pass `followText` explicitly (only adds `aria-autocomplete="list"` on the header input) |
 | `activeIndex`       | `number \| null`             | `null`       | Hover-active option index (0-indexed)                            |
 | `keyboardActiveIndex` | `number \| null`           | `null`       | Keyboard-active option index; merged with internal nav state     |
 | `toggleCheckedOnClick` | `boolean \| undefined`   | `undefined`  | Override toggle-on-click in multiple mode                        |
@@ -120,7 +122,7 @@ import type { IconDefinition } from '@mezzanine-ui/icons';
 | `actionCustom`     | `OutputEmitterRef<void>`                                        | 點擊自訂動作鈕（**rc.9 前叫 `actionCustomClicked`**）        |
 | `opened`           | `OutputEmitterRef<void>`                                        | 選單開啟（未改名）                                           |
 | `visibilityChange` | `OutputEmitterRef<boolean>`                                     | 開關統一事件；開啟送 `true`、關閉送 `false`（未改名）        |
-| `scroll`           | `OutputEmitterRef<{ scrollTop: number; maxScrollTop: number }>` | 選單捲動事件（rc.9 新增）                                    |
+| `scroll`           | `OutputEmitterRef<{ scrollTop: number; maxScrollTop: number }>` | 選單捲動事件                                              |
 | `reachBottom`      | `OutputEmitterRef<void>`                                        | 捲動到底（未改名）                                           |
 | `leaveBottom`      | `OutputEmitterRef<void>`                                        | 捲離底部（未改名）                                           |
 
@@ -139,8 +141,16 @@ import type { IconDefinition } from '@mezzanine-ui/icons';
 同時 rc.9 移除了 `MznDropdown` 的 `actionConfig` / `name` / `showCheckIcon` / `showHeader` /
 `disableClickAway` 等 input（`showHeader` 與 `disableClickAway` 已完全不存在於原始碼）。
 
-> 核對自 `packages/ng/dropdown/dropdown.component.ts:460-510`（`@mezzanine-ui/ng` `1.0.0-rc.9`），
-> 並對照 `packages/ng/CHANGELOG.md` 的 rc.9 BREAKING CHANGES 條目。
+## Injected Services / DI
+
+`MznDropdown` injects `ClickAwayService` (click-outside handling), plus the Angular platform primitives `DestroyRef` and `ElementRef`. It provides no `MZN_*` token and has no `exportAs`.
+
+## Content projection
+
+| Slot                 | Description                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------- |
+| `[mznDropdownHeader]`| Header content (e.g. a text field in `inputPosition="inside"` mode), rendered as the first `<li>` of the list card |
+| default (no `select`)| Trigger element in outside (popper) mode; projected into the host                              |
 
 ## ControlValueAccessor
 
@@ -197,8 +207,8 @@ Renders a single option row inside the dropdown list. Exported from `@mezzanine-
   [open]="isOpen"
   [options]="options"
   mode="single"
-  (selected)="onSelect($event)"
-  (closed)="isOpen = false"
+  (select)="onSelect($event)"
+  (close)="isOpen = false"
 ></div>
 ```
 
@@ -209,8 +219,8 @@ import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 isOpen = false;
 
 readonly options: ReadonlyArray<DropdownOption> = [
-  { id: 'edit', label: '編輯' },
-  { id: 'delete', label: '刪除' },
+  { id: 'edit', name: '編輯' },
+  { id: 'delete', name: '刪除' },
 ];
 
 onSelect(option: DropdownOption): void {
@@ -222,6 +232,6 @@ onSelect(option: DropdownOption): void {
 ## Notes
 
 - For form-integrated select, use `MznSelect` (from `@mezzanine-ui/ng/select`) which wraps `MznDropdown` with `ControlValueAccessor`.
-- `MznDropdown` does not manage its own open/close state — the parent must toggle `open` in response to the trigger and handle `(closed)` to reset it.
+- `MznDropdown` does not manage its own open/close state — the parent must toggle `open` in response to the trigger and handle `(close)` to reset it.
 - The `mode='multiple'` allows multiple selections; `value` should be an array of option IDs in this mode.
 - `MznDropdownItem`, `MznDropdownAction`, and `MznDropdownStatus` are **internal** (not in `index.ts`). Only `MznDropdown` and `MznDropdownItemCard` are public exports.

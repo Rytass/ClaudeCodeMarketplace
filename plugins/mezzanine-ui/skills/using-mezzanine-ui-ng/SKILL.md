@@ -1,68 +1,74 @@
 ---
 name: using-mezzanine-ui-ng
-description: Angular 21+ Mezzanine-UI skill — create, edit, or style standalone Angular components with @mezzanine-ui/ng (1.0.0-rc.10, RC tier) directives. Covers directive-based selectors (mznButton, mznInput, mznSelect, mznTextField, mznFormField, mznModal, mznTable, mznNavigation), ControlValueAccessor + ReactiveFormsModule integration, DI services (ClickAwayService, EscapeKeyService, MZN_CALENDAR_CONFIG), sub-path imports, design tokens. Defines the component-selection contract (a UI-concept-to-directive reverse index — status chips are MznBadge not MznTag, segmented controls are MznRadio type="segment" not buttons — plus the rule that needing a class or ::ng-deep override of background/color/border means the wrong directive was chosen) and the page layout padding contract (mznPageHeader / mznPageFooter / mznSection ship their own padding — page containers must not add horizontal padding). Use when working on *.component.ts, *.component.html, *.component.scss files that import from @mezzanine-ui/ng/*, building Angular reactive forms with mznFormField + formControlName, laying out a page skeleton, picking which directive to use, wiring Mezzanine directives into standalone components, or configuring Angular global SCSS. Trigger — Angular, standalone component, mzn directive, ControlValueAccessor, ReactiveForms, mezzanine-ui/ng, ng form, ng select, ng table, ng modal, page layout, container padding, 版面對不齊, 雙層 padding, 該用哪個元件, 選元件, tag vs badge, chip, status chip, 狀態標籤, 狀態晶片, segmented control, 分段切換, 排序切換, 覆寫元件樣式, ng-deep. For React / Next.js projects use the sibling using-mezzanine-ui-react skill instead.
+description: Angular 21+ Mezzanine-UI skill for @mezzanine-ui/ng (1.0.0-rc.26, RC tier) standalone directives. Covers directive selectors (mznButton, mznInput, mznSelect, mznFormField, mznModal, mznTable, mznNavigation), ControlValueAccessor + ReactiveFormsModule, DI services (MznMessageService, MznNotifierService, MZN_CALENDAR_CONFIG), sub-path imports and design tokens. Defines the component-selection contract (status chips are MznBadge not MznTag; segmented controls are MznRadio type="segment"; needing a class or ::ng-deep override of background/color/border means the wrong directive), the page layout padding contract, and admin-page implementation conventions (list page order, Section projection, filter bar, table, buttons, forms, drawers). Use when working on *.component.ts/html/scss importing @mezzanine-ui/ng/*, building reactive forms with mznFormField, laying out pages, or picking a directive. Trigger — Angular, mzn directive, mezzanine-ui/ng, ng form, ng table, ng modal, page layout, 版面對不齊, 雙層 padding, 間距不一致, 列表頁, 篩選列, 該用哪個元件, tag vs badge, 狀態標籤, 分段切換, 覆寫元件樣式, ng-deep. For React / Next.js use using-mezzanine-ui-react.
 ---
 
 # Mezzanine-UI Angular (`@mezzanine-ui/ng`)
 
 **Core principle: For Angular 21+ standalone projects, prefer `@mezzanine-ui/ng` directives over custom Angular implementations.**
 
-> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.10` · `@mezzanine-ui/core` `1.0.4` · `@mezzanine-ui/system` `1.0.2` · `@mezzanine-ui/icons` `1.0.2`。
-> rc.5–rc.10 的 **changelog 與原始碼變更**已於 2026-08-14 逐版核對（見下方〈What's New〉）；
-> 各元件文件的 `Verified` 標記仍為 `1.0.0-rc.4` —— 那是最後一次逐份重寫的版本，不是本頁的 baseline。
-> selector 與 CVA 已對 rc.10 原始碼全數核對無差異；inputs／型別／預設值的殘差見 [RECONCILIATION.md](../../RECONCILIATION.md)。
+> Baseline: `@mezzanine-ui/ng` `1.0.0-rc.26` · `@mezzanine-ui/core` `1.3.3` · `@mezzanine-ui/system` `1.0.2` · `@mezzanine-ui/icons` `1.0.2`。
+> **Last verified**: 2026-11-22
+> 各元件文件已於 2026-11-22 逐份對照 rc.26 原始碼（`Verified 1.0.0-rc.26`）。
+> inputs／型別／預設值的殘差見 [RECONCILIATION.md](../../RECONCILIATION.md)。
 >
 > **⚠️ RC tier** — `@mezzanine-ui/ng` is in Release Candidate. API may still shift minor details before `1.0.0` stable. Check `npm view @mezzanine-ui/ng versions` for the latest.
 
 > **For React (Next.js) projects** see the companion skill [`using-mezzanine-ui-react`](../using-mezzanine-ui-react/SKILL.md). Design tokens, icons, and Figma mappings are shared.
 
-## What's New in 1.0.0-rc.10
+## What's New in 1.0.0-rc.26
 
-> 涵蓋 rc.5 – rc.10（6 個 release）。核對自 `packages/ng/CHANGELOG.md` 與原始碼。
+> 涵蓋 rc.11 – rc.26（16 個 release）。以 `packages/ng` 各版 release notes 為準，只列會影響使用者寫法的變更；純內部修正與無 Angular 原始碼變更的相容性版本（rc.14、rc.16、rc.26）不列。
+> 需搭配 `@mezzanine-ui/core` ≥ 1.3.3、`@mezzanine-ui/system` ≥ 1.0.2、`@mezzanine-ui/icons` ≥ 1.0.2、`@angular/cdk` ≥ 21.0.0。
 
-### ⚠️ Breaking — output 全面改名（rc.9）
+### ⚠️ Breaking
 
-`MznSelect` 與 `MznDropdown` 的 output 大量改名。**Angular template 綁一個不存在的 output 不會有編譯錯誤，只會靜默不觸發**，升級後務必全域搜尋替換：
+| 元件 | 變更（rc） | 升級寫法 |
+| ---- | ---------- | -------- |
+| `MznCalendarFooterControl` | label 改為內容投影（rc.23），不再有 `label` input | `<div mznCalendarFooterControl label="Today">` → `<div mznCalendarFooterControl>Today</div>` |
 
-| Directive     | 舊名                                                                                              | 新名                                                                        |
-| ------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `MznSelect`   | `selectionChange` `onScroll` `onReachBottom` `onLeaveBottom`                                      | `change` `scroll` `reachBottom` `leaveBottom`                               |
-| `MznDropdown` | `selected` `closed` `itemHovered` `actionCancelled` `actionCleared` `actionConfirmed` `actionCustomClicked` | `select` `close` `itemHover` `actionCancel` `actionClear` `actionConfirm` `actionCustom` |
+> `MznCalendarFooterControl` 只影響直接使用它的 template；一般透過 `MznCalendar` / `MznDatePicker` 使用者不受影響。
 
-> **只有主元件改名。** `MznDropdownItem` / `MznDropdownAction` / `MznDropdownItemCard` 維持舊名 —— 不要做全域無差別取代。
+### ⚠️ 行為改變（不改就會悄悄變樣）
 
-`MznDropdown` 同時移除 `actionConfig` / `name` / `showCheckIcon` / `showHeader` / `disableClickAway`，並改用 CDK Overlay 重寫 popover。
+- **`MznTextarea`（rc.24）** — 預設改為**撐滿容器**（新 `fullWidth` 預設 `true`）；要維持舊的內容寬度請寫 `[fullWidth]="false"`。`[mznTextarea]` host 現在**本身就是** text-field frame，不再包一層 `mznTextField`，若樣式或測試選取內層元素，請改指向 host。frame 狀態 class 對齊 React：`disabled` 優先於 `readonly`，`error` / `warning` 來自 `type`。
+- **`MznDateRangePicker`（rc.18）** — 手打輸入改以新的 `validateFrom` / `validateTo` 驗證，**不再**套用 `isXDisabled` predicates（那些只作用於日曆，同 React）。原本靠 `isDateDisabled` 擋手打日期的，請把檢查搬進 `validateFrom` / `validateTo`。
+- **`MznDateRangePicker`（rc.23）** — manual 模式的主按鈕文字由 **Ok** 改為 **Confirm**。
+- **`MznDropdown`（rc.21）** — `shift` 預設改為開啟，貼近視窗邊緣的選單會被拉回可視範圍；要維持原始 placement 請寫 `[shift]="false"`。
+- **Pickers 手打（rc.18）** — 手打會**覆蓋**已填欄位（同原生 date input），重打已提交的值不再觸發 change；`MznTimePicker` / `MznTimeRangePicker` 點擊外部會取消 pending 值並關閉面板，手打時間也會對 step options 驗證。
+- **`MznAutocomplete`（rc.21）** — 已選項目名稱不再滲入搜尋字串；focus、click、輸入或組字時回到搜尋模式，blur 後顯示選取值。
 
-### 其他變更
+### 新增 input / output
 
-- **`MznInput`（rc.7）** — 掛在原生 `<input>` / `<textarea>` 上時改為**初始化即 throw**。先前這樣寫會讓 CVA 脫鉤、`ngModel` 靜默失效，現在變成一眼可見的錯誤。見 [Input.md](references/components/Input.md#selector)。
-- **`MznDropdown` / `MznSelect`（rc.8）** — 新增 `flip` input，視窗底部空間不足時翻轉選單。
-- **`MznSelect`（rc.9）** — 補上一批對齊 React 的 input：`value` / `defaultValue` / `warning` / `searchText` / `inputProps` / `suffixAction` / `forceXxx` 等，並新增 `blur` / `clear` / `focus` / `tagClose` output。
-- **`MznAutocomplete`（rc.10）** — 新增 `caseSensitive` input（預設 `false`），對應 React 1.4.2。
-- **`MznTable`（rc.6）** — 欄寬調整改為優先向最右欄借用空間，與 React 對齊。
-- **`MznCalendar`（rc.5）** — 僅新增 Temporal adapter 的 story，無 API 變更。
+- **`MznTable`** — `columnWidths` input + `columnWidthsChange` output（rc.17）：受控欄寬（以 column key 為鍵，優先於 `column.width`，傳 `{}` 重設）；每次拖曳於 pointerup 發出**一次**，可用來持久化欄寬。`scrollbarOptions` input（rc.15）轉發 OverlayScrollbars 選項。row action 新增選用 `listboxLabel`（rc.25）命名下拉 listbox。
+  ```html
+  <div mznTable [columnWidths]="widths()" (columnWidthsChange)="widths.set($event); saveWidths($event)" …></div>
+  ```
+- **`MznTextarea`**（rc.24）— `fullWidth`（預設 `true`）、`textareaClassName`、`textareaId`。
+- **`MznCalendar`**（rc.23）— `calendarFooterControlProps`（`children` 可為字串或依 mode 的 map）；另有 `calendarDaysProps` / `calendarWeeksProps` / `calendarMonthsProps` / `calendarYearsProps` / `calendarQuartersProps` / `calendarHalfYearsProps`（僅 `className`、`style`）。
+- **`MznDatePicker` / `MznDateTimePicker`**（rc.23）— `calendarProps` input（含 footer）；扁平 input 優先。物件請放 class field 或 signal，不要寫 inline literal。
+- **`MznDateRangePicker`**（rc.18 / rc.23）— `validateFrom` / `validateTo`；`actions` input 可改寫 footer 按鈕文字，提供後改為「暫存選取、不立即提交關閉」（同 React），manual 模式下會覆蓋自動產生的 Confirm / Cancel（含 handler）。
+- **`MznFilterArea`**（rc.19）— `loading`（submit 按鈕 loading）、`submitButtonProps` / `resetButtonProps`（`disabled` / `loading` / `variant`）；扁平 `loading` 優先。
+- **`MznModal` / `MznMediaPreviewModal`**（rc.21）— `disableScrollLock`。
+- **`MznPageFooter`**（rc.21）— `dropdownTriggerAriaLabel`（預設 `'More actions'`）。
+- **`MznInlineMessage`**（rc.13）— `role` / `aria-live` 變成可綁定的 typed input（預設 `status` / `polite`），破壞性操作失敗請用 `aria-live="assertive"`。
+- **`MznDrawer`**（rc.21）— 實作 dialog focus model：開啟時 focus 進面板、Tab 在面板內循環、關閉時回到 trigger。`MznModal`（rc.13）同樣有 `FocusTrapService` focus model，並標示 `aria-modal`、以 header title 作為 label（rc.21）。
+
+### 其他會被看見的修正
+
+- **`MznRadio`**（rc.12）— 預設 `type="radio"` 現在會顯示投影的 label（先前只有 `segment` 有）。
+- **`MznBackdrop`**（rc.13）— 關閉後**卸載**內容（先前只加 `aria-hidden`），關閉的 `MznModal` / `MznDrawer` 不再殘留 DOM。
+- **`MznNavigation`**（rc.13）— 帶 `href` 的 leaf option 渲染為真正的 `<a>`（可中鍵、新分頁開啟）。
+- **`MznTable`** — loading 時 `rowState` 不再被傳入佔位列（rc.12）；resize 後的欄寬以純 column key 為鍵（rc.17）；寬表格不再撐開外層 grid / flex（rc.15）；bulk action 分隔線只在前面有群組時出現、`mainActions` 改為選用（rc.21）。
+- **`MznScrollbar`**（rc.15）— 呼叫端傳入的 `options.overflow` 會依 key 合併進 `{ x: 'scroll', y: 'scroll' }` 預設值，不再被丟棄。
+- **Pickers**（rc.18 / rc.22）— 手打值現在會正確送出 change（先前被嚴格 adapter 如 Moment、Day.js `customParseFormat` 靜默丟棄）；快速輸入不再掉字或誤提交日期。
+- **IME 組字**（rc.11）— `MznAutocomplete` / `MznDropdown` / `MznPagination` / `MznDatePicker` / `MznTimePicker` 在輸入法組字中按 Enter 確認候選字時，不再觸發選取、送出或確認。
+- **a11y**（rc.21）— `MznSelect` 具 combobox ARIA 並接受 `aria-label`；`MznInput` 轉發 `aria-label` 至原生 input；`MznClearActions` / `MznUpload` 的 `aria-label` 可覆寫預設 "Close"；`MznNotificationCenter` 時間標示本地化並每 30 秒更新。
+- **`MznAutocomplete`**（rc.22）— `readOnly` 模式下 multiple 的搜尋 input 取得 `readonly` 屬性，輸入、Backspace / Delete 移除 tag、清除與貼上皆被擋下。
+
+rc.10 以前的歷代變更見 [references/CHANGELOG_NOTES.md](references/CHANGELOG_NOTES.md)。
 
 ---
-
-## What's New in 1.0.0-rc.4
-
-**純版本對齊（No Angular source changes）**
-
-`@mezzanine-ui/ng@1.0.0-rc.4` is a compatibility bump paired with `@mezzanine-ui/core@1.0.4`. Zero Angular source files changed in this cycle.
-
-- **Pair with `@mezzanine-ui/core@1.0.4`** — the core release fixed React-side picker positioning (globalPortal + flip). Angular was already correct: `MznInputTriggerPopper` ships with `globalPortal=true` and `MznPopper` enables `flip()` by default, so no behaviour change on the Angular side.
-- **No prop changes** — 0 component APIs modified.
-- **Deprecation: `ThumbnailCards`** — the `thumbnail-cards` package is removed. Use the individual replacement components instead:
-  - `MznSingleThumbnailCard` (`@mezzanine-ui/ng/single-thumbnail-card`)
-  - `MznFourThumbnailCard` (`@mezzanine-ui/ng/four-thumbnail-card`)
-  - `MznSingleThumbnailCardSkeleton` / `MznFourThumbnailCardSkeleton`
-  - `MznQuickActionCard` (`@mezzanine-ui/ng/quick-action-card`)
-
-**升級方式 (upgrade)**:
-
-```bash
-yarn add @mezzanine-ui/ng@1.0.0-rc.4 @mezzanine-ui/core@1.0.4
-```
 
 ## Resource Overview
 
@@ -480,6 +486,20 @@ Mezzanine **沒有**提供負責頁面 gutter 的容器 — `mznLayout` / `mznLa
 
 ---
 
+## 後台實作慣例（寫列表頁、表單、Drawer 前必讀）
+
+使用者在多個後台專案反覆糾正的問題整理在 [references/IMPLEMENTATION_CONVENTIONS.md](references/IMPLEMENTATION_CONVENTIONS.md)。目標是整個平台像同一個人做的；新頁面先找專案裡已確認做對的頁面當範本。交付前逐項確認：
+
+- [ ] 列表頁順序是 `mznPageHeader` → `mznTabs` → `mznFilterArea` → body wrapper 內的 `mznSection`；第二層分頁投影進 Section，並改 `size="sub"`？
+- [ ] 篩選、表格、列操作的 input 與按鈕都明確寫 `size="sub"`（FilterArea 不會把 size 傳給內部 input），並排元素之間有 gap、底部對齊？
+- [ ] Table：每欄有 `minWidth`、只用 `column.fixed` 釘頭尾欄（`pinnable` 是釘列）、排序用 `sortOrder` + `(sortChange)`、分頁／批次操作／空狀態都用原生功能？
+- [ ] 破壞性操作用 `destructive-*`；送出 API 的按鈕有 `[loading]`？
+- [ ] 每個 input／select 都有 placeholder；沒有說明性文字、副標或引導橫幅？
+- [ ] 同類頁面的元件、尺寸、位置和既有頁面一致？
+- [ ] 改完在瀏覽器 1280 寬實際看過畫面？
+
+---
+
 ## Architecture Overview
 
 ### Directive-based selectors
@@ -546,77 +566,14 @@ See [references/PATTERNS.md → Utilities](references/PATTERNS.md#utilities).
 
 ## Content Projection Pitfalls (重要 — 寫了但畫面不顯示)
 
-Angular 端與 React 端類似，多個容器元件透過 **named `ng-content` slot** 或 **directive selector 比對**決定哪些子元素會被渲染。如果寫了 host element 但 **selector / 父子關係不正確**，內容會被靜默吃掉。
+容器元件靠 `ng-content select` 或 `contentChildren` 決定子元素放哪裡；多包一層 `<div>` 或 selector 寫錯，內容會被靜默吃掉或失去互動。
 
-> 任何時候 `mznTabs` / `mznLayout` / `mznSection` / `mznPageHeader` / `mznNavigation` / `mznAccordion` 等容器「HTML 寫了但畫面沒東西」，先檢查：(1) 子元素 selector 是否正確 (2) 是否多包了一層 `<div>` 把 selector 從父層斷開。
+- `[mznLayout]` 只投影直接子代的 `[mznNavigation]` / `[mznLayoutLeftPanel]` / `[mznLayoutMain]`，包 wrapper 就不顯示。
+- `[mznTabs]` 的 `[mznTabItem]` 必須是直接子代，否則選取狀態失效。
+- `[mznSection]` 依直接子代屬性分配 `[mznContentHeader]` / `[mznFilterArea]` / `[mznTabs]`；`[mznContentHeader]` actions 只接受 `base-primary` / `base-secondary` / `destructive-secondary` 的 `mznButton`。
+- standalone 元件漏了 `imports` 會讓 selector 直接無效。
 
-### 常見靜默過濾來源
-
-| 容器 | 接受的子元素 | 失敗模式 |
-| --- | --- | --- |
-| `[mznTabs]` | `<button mznTabItem>` 直接子代 | 包一層 `<div>` 或不是 `<button>` → 不渲染 |
-| `[mznLayout]` | `[mznLayoutMain]` / `[mznLayoutLeftPanel]` / `[mznLayoutRightPanel]` / `[mznNavigation]` 直接子代 | 包 wrapper 後 `ng-content` slot 找不到 → 不渲染 |
-| `[mznPageHeader]` | `[mznBreadcrumb]` 與 `[mznContentHeader]`（透過 ng-content） | host 元素若不是 directive 預期的元素則樣式錯亂 |
-| `[mznSection]` | named slot：contentHeader / filterArea / tab / 主內容 | slot selector 不對 → 對應區塊空白 |
-| `[mznNavigation]` | `[mznNavigationHeader]` / `[mznNavigationFooter]` / `<mzn-navigation-option>` / `<mzn-navigation-option-category>` | 用原生 `<a>` / `<li>` → 不被識別、不渲染 |
-| `[mznAccordion]` | `[mznAccordionTitle]` / `[mznAccordionContent]` / `[mznAccordionActions]` | 缺少 directive selector → 內容區或 actions 不出現 |
-| `[mznContentHeader]` 內 actions slot | 只接受 `<button mznButton>` 且 variant ∈ `base-primary` / `base-secondary` / `destructive-secondary` | 自訂 `<div>` wrapper / 其他 variant 不渲染 |
-
-### 常見錯誤
-
-```html
-<!-- ❌ 包一層 div：mznTabItem 找不到 mznTabs context -->
-<div mznTabs>
-  <div class="tabs-wrapper">
-    <button mznTabItem [key]="'a'">A</button>
-    <button mznTabItem [key]="'b'">B</button>
-  </div>
-</div>
-
-<!-- ✅ 直接放 host element -->
-<div mznTabs>
-  <button mznTabItem [key]="'a'">A</button>
-  <button mznTabItem [key]="'b'">B</button>
-</div>
-```
-
-```html
-<!-- ❌ Layout slot 被外層 div 切斷 -->
-<div mznLayout>
-  <div class="shell">
-    <aside mznLayoutLeftPanel>...</aside>
-    <main mznLayoutMain>...</main>
-  </div>
-</div>
-
-<!-- ✅ slot directive 必須是 mznLayout 直接子代 -->
-<div mznLayout>
-  <nav mznNavigation>...</nav>
-  <aside mznLayoutLeftPanel [open]="leftOpen()">...</aside>
-  <main mznLayoutMain>...</main>
-</div>
-```
-
-```html
-<!-- ❌ 直接寫原生 a：Navigation 不認得 -->
-<nav mznNavigation>
-  <a routerLink="/x">外部連結</a>
-</nav>
-
-<!-- ✅ 用 mzn-navigation-option，搭配 router 元件透過 anchorComponent / 自身 routerLink 處理 -->
-<nav mznNavigation>
-  <mzn-navigation-option title="X" routerLink="/x"></mzn-navigation-option>
-</nav>
-```
-
-### 排查流程
-
-1. 子元素的 selector 是否與父層期望的 directive 一致？
-2. 是否包了 `<div>` 或其他 host element 把 ng-content / DI token context 切斷？
-3. 是否在 `standalone: true` 元件裡缺少 `imports` 對應 directive？（會讓 selector 直接無效）
-4. host element tag 是否符合 directive 限制（如 `mznTabItem` 必為 `<button>`）？
-
-詳細個別約束請見 [references/components/](references/components/) 內 `Selectors` / `Content Projection Slots` 章節。
+完整對照表、反例與排查流程見 [references/CONTENT_PROJECTION.md](references/CONTENT_PROJECTION.md)。
 
 ---
 
@@ -755,9 +712,9 @@ Components that exist in `@mezzanine-ui/ng` but **not** `@mezzanine-ui/react`:
 | Directive / Component | Import path | Reference |
 | --------------------- | ----------- | --------- |
 | `MznThumbnail`             | `@mezzanine-ui/ng/thumbnail`                | [Thumbnail.md](references/components/Thumbnail.md) |
-| `MznSingleThumbnailCard` *(已廢棄 v1.0.0-rc.4)*   | `@mezzanine-ui/ng/single-thumbnail-card`    | [SingleThumbnailCard.md](references/components/SingleThumbnailCard.md) |
-| `MznFourThumbnailCard` *(已廢棄 v1.0.0-rc.4)*     | `@mezzanine-ui/ng/four-thumbnail-card`      | [FourThumbnailCard.md](references/components/FourThumbnailCard.md) |
-| `MznThumbnailCardInfo` *(已廢棄 v1.0.0-rc.4)*     | `@mezzanine-ui/ng/thumbnail-card-info`      | [ThumbnailCardInfo.md](references/components/ThumbnailCardInfo.md) |
+| `MznSingleThumbnailCard`   | `@mezzanine-ui/ng/single-thumbnail-card`    | [SingleThumbnailCard.md](references/components/SingleThumbnailCard.md) |
+| `MznFourThumbnailCard`     | `@mezzanine-ui/ng/four-thumbnail-card`      | [FourThumbnailCard.md](references/components/FourThumbnailCard.md) |
+| `MznThumbnailCardInfo`     | `@mezzanine-ui/ng/thumbnail-card-info`      | [ThumbnailCardInfo.md](references/components/ThumbnailCardInfo.md) |
 | `MznMediaPreviewModal`     | `@mezzanine-ui/ng/media-preview-modal`      | [MediaPreviewModal.md](references/components/MediaPreviewModal.md) |
 
 ### Utility
@@ -802,6 +759,9 @@ Design tokens, icon catalog, and Figma mappings are identical across React and A
 | [references/PATTERNS.md](references/PATTERNS.md)    | Angular pattern cookbook — page scaffolds, forms, layouts |
 | [references/SERVICES.md](references/SERVICES.md)    | DI services exported from `@mezzanine-ui/ng/services` |
 | [references/COMPONENTS.md](references/COMPONENTS.md)| Consolidated Angular component index with full API |
+| [references/IMPLEMENTATION_CONVENTIONS.md](references/IMPLEMENTATION_CONVENTIONS.md) | 後台實作慣例：頁面骨架、篩選列、Table、按鈕、表單、Modal／Drawer、跨頁一致性 |
+| [references/CONTENT_PROJECTION.md](references/CONTENT_PROJECTION.md) | 容器元件的投影規則、靜默失效反例與排查流程 |
+| [references/CHANGELOG_NOTES.md](references/CHANGELOG_NOTES.md) | rc.10 以前的歷代 What's New |
 
 ---
 
@@ -812,7 +772,7 @@ Design tokens, icon catalog, and Figma mappings are identical across React and A
 When `@mezzanine-ui/ng` releases a new version, run the sync orchestrator:
 
 ```
-/sync-mezzanine-ui ng 1.0.0-rc.10
+/sync-mezzanine-ui ng 1.0.0-rc.26
 ```
 
 The orchestrator shares infrastructure with the React sync: fetches TypeScript from GitHub, regenerates cache JSON, refreshes shared design-token / icon / figma-mapping docs.

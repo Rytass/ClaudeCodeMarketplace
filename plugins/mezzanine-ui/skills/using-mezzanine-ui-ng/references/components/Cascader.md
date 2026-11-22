@@ -1,6 +1,6 @@
 # Cascader
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/cascader) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/cascader) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-cascader--docs
 
@@ -35,8 +35,8 @@ import { CascaderSize } from '@mezzanine-ui/core/cascader';
 | `size`          | `CascaderSize`           | `'main'` | `'main' \| 'sub'`                                                    |
 | `menuMaxHeight` | `string \| number`       | —        | Max height of cascader panels (px)                                   |
 | `required`      | `boolean`                | `false`  | Required state                                                       |
-| `dropdownZIndex`| `number \| string`       | —        | z-index for the panel                                                |
-| `globalPortal`  | `boolean`                | —        | Render panel in a body-level portal                                  |
+| `dropdownZIndex`| `number \| string \| undefined` | `undefined` | z-index for the panel（已宣告為 input，但目前 template 未使用） |
+| `globalPortal`  | `boolean`                | —        | Render panel in a body-level portal（已宣告為 input，但目前 template 未使用；面板定位由 `MznInputTriggerPopper` 處理） |
 
 > Inputs declared with signal API (`input()`) accept both static and reactive values.
 
@@ -150,5 +150,6 @@ A single-column option panel that renders one level of a cascader hierarchy. Use
 - `MznCascader` is **not** a CVA — this is a notable difference from `MznSelect` and `MznAutocomplete`. To use with `ReactiveFormsModule`, bridge it manually: listen to `(valueChange)` and call `formControl.setValue(...)`.
 - The `value` input accepts the full path array (not just the leaf id), matching the React counterpart's API where `value: string[]` holds ids of the selected path.
 - The overflow collapse (showing `A / ... / C`) uses a hidden `<span>` measurement element and `ResizeObserver` to detect when the full path text exceeds the trigger width.
-- When `globalPortal` is not set, the panel may be clipped by ancestor `overflow: hidden` containers. Set `[globalPortal]="true"` (or rely on the `MznInputTriggerPopper` default) in such cases.
+- `globalPortal` 與 `dropdownZIndex` 雖為公開 input，但目前 `MznCascader` 的 template 並未讀取，設定後不會改變面板行為；面板渲染位置完全由內部 `MznInputTriggerPopper` 決定。
+- Standalone `imports` of `MznCascader`（內部）：`MznCascaderPanel`、`MznInputTriggerPopper`、`MznSelectTrigger`、`MznTranslate`；使用端只需匯入 `MznCascader`。
 - Overlay positioning and panel close-on-outside-click are handled by `MznInputTriggerPopper` inside `MznCascader`, not by `ClickAwayService` directly.

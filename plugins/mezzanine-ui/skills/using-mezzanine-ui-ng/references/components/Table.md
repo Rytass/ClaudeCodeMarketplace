@@ -1,6 +1,6 @@
 # Table
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/table) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/table) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Full-featured data table with sortable columns, sticky headers, pinnable columns, row selection (checkbox / radio), drag-and-drop row reordering, row expansion, collectable (star/pin) rows, toggle rows, bulk actions, pagination, and optional column resizing. Built on CDK DragDrop for row reordering.
 
@@ -106,11 +106,22 @@ import type {
 | `pinnable`          | `TablePinnable \| undefined`                                                      | —            | Pin-to-top column config                                                 |
 | `rowHeightPreset`   | `RowHeightPreset`                                                                 | `'base'`     | `'base' \| 'condensed' \| 'detailed' \| 'roomy'`                        |
 | `rowSelection`      | `TableRowSelection \| boolean`                                                    | `false`      | Checkbox or radio row selection config; `false` disables selection       |
-| `rowState`          | `((record: TableDataSource) => TableRowState \| undefined) \| undefined`          | —            | Per-row state: `'added' \| 'deleted' \| 'disabled'`                     |
+| `rowState`          | `TableRowState \| ((rowData: TableDataSource) => TableRowState \| undefined) \| undefined` | — | Per-row state, a fixed value or a function of the row: `'added' \| 'deleted' \| 'disabled'` |
 | `scroll`            | `TableScroll \| undefined`                                                        | —            | Set max-height for vertical scrolling (only `y` is supported)            |
 | `toggleable`        | `TableToggleable \| undefined`                                                    | —            | Toggle-per-row column config                                             |
+| `columnWidths`      | `Readonly<Record<string, number>> \| undefined`                                   | `undefined`  | Controlled column widths in px keyed by column key (use with `resizable`). Takes precedence over `column.width`; the table then only reports drags via `columnWidthsChange`. Pass `{}` to reset to `column.width`. Hoist to a class field or signal |
+| `scrollbarOptions`  | `PartialOptions` (OverlayScrollbars, from `overlayscrollbars`)                    | `undefined`  | Options forwarded to the inner `MznScrollbar`, merged key-by-key over its defaults. No effect when `nested` is `true`. Setting `overflow` to `'visible'` defeats the scroll container, so avoid it together with `scroll.y` |
 
 > Inputs declared with signal API (`input()`, `input.required()`) accept both static and reactive values.
+
+## Outputs
+
+| Output                   | Type                                                          | Description                                                                                         |
+| ------------------------ | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `columnWidthsChange`     | `OutputEmitterRef<Record<string, number>>`                    | Emitted once when a column resize drag ends, with the widths of every column resized so far; not emitted when the drag changed no width. Works in controlled and uncontrolled mode |
+| `expandedRowKeysChange`  | `OutputEmitterRef<readonly string[]>`                         | Expanded row keys changed                                                                           |
+| `selectedRowKeysChange`  | `OutputEmitterRef<readonly string[]>`                         | Selected row keys changed                                                                           |
+| `sortChange`             | `OutputEmitterRef<{ readonly key: string; readonly order: SortOrder }>` | Sort changed                                                                             |
 
 ## ControlValueAccessor
 
@@ -171,11 +182,11 @@ readonly columns: readonly TableColumn[] = [
 | `sortOrder`  | `SortOrder`                  | `'ascend' \| 'descend' \| null \| undefined`   |
 | `onSort`     | `(key, order) => void`       | Sort callback                                   |
 | `titleHelp`  | `string`                     | Tooltip shown next to header text               |
-| `titleMenu`  | `{ options: DropdownOption[]; ... }` *(inline)* | Dropdown menu in header cell (shape is internal; not separately exported) |
+| `titleMenu`  | `{ options: readonly DropdownOption[]; onSelect?: (option) => void; maxHeight?: number \| string; placement?: Placement }` | Dropdown menu in header cell (`TableColumnTitleMenu`, not separately exported) |
 
 ## TableScroll
 
-Only `y` (max-height) is supported:
+Only `y` (max-height, `number | string`) is supported:
 
 ```ts
 import type { TableScroll } from '@mezzanine-ui/ng/table';
@@ -313,6 +324,17 @@ Enable with `[resizable]="true"`. Each resizable column **must** specify `minWid
 <div mznTable [columns]="columns" [dataSource]="rows" [resizable]="true"></div>
 ```
 
+Persist widths with the controlled `columnWidths` input:
+
+```html
+<div mznTable
+  [columns]="columns"
+  [dataSource]="rows"
+  [resizable]="true"
+  [columnWidths]="columnWidths()"
+  (columnWidthsChange)="columnWidths.set($event)"></div>
+```
+
 ## Usage
 
 ```html
@@ -384,7 +406,7 @@ readonly actions: TableActions = {
 - `TableScroll` only has a `y` field (max-height). There is no `x` field — horizontal scrolling is not controlled via `scroll`.
 - `HighlightMode` values are `'cell' | 'column' | 'row' | 'cross'`. There is no `'none'` mode.
 - `rowSelection` uses `mode` field (not `type`) to distinguish `'checkbox'` from `'radio'`. The input type is `TableRowSelection | boolean` — `false` disables selection entirely.
-- Data records should have `key` or `id` fields. `getRowKey(record)` is exported and returns `record.key ?? record.id ?? ''`.
+- Data records should have `key` or `id` fields. `getRowKey(record)` is exported and returns `String(record.key)` when set, else `String(record.id)`, else `''`.
 - `TableExpandable.template` uses `$implicit` binding — declare `let-record` in your `ng-template`.
 - `draggable.fixedRowKeys` pins specific rows to prevent reordering (e.g., totals rows).
 - `actions.render` receives `(record, index)` and must return `readonly TableActionItem[]`.

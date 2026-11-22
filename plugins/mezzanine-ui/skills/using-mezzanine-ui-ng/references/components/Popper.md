@@ -1,6 +1,6 @@
 # Popper
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/popper) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/popper) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Low-level floating positioning component backed by `@floating-ui/dom`. Used internally by `MznDropdown`, `MznOverflowTooltip`, and other overlay components. You would typically use `MznPopper` only when building custom overlay components.
 
@@ -19,7 +19,7 @@ import type { Middleware, Placement } from '@floating-ui/dom';
 
 ## Selector
 
-`[mznPopper]` — component applied to an overlay container element.
+`[mznPopper]` — component applied to an overlay container element（無 `exportAs`）。
 
 ## Inputs
 
@@ -88,6 +88,7 @@ readonly extraMiddleware: ReadonlyArray<Middleware> = [flip(), shift()];
 
 ## Notes
 
+- Middleware 套用順序：`offset`（有 `offsetOptions` 時）→ `flip`（除非 `disableFlip`）→ `arrow`（`arrowOptions.enabled` 時）→ `hide`（固定套用）→ 自訂 `middleware`。`open` 為 `false` 時 host 為 `display: none`。
 - `MznPopper` uses `autoUpdate` from `@floating-ui/dom` to recalculate position on scroll, resize, and reference mutations while `open` is `true`.
 - The component sets `position: absolute` (or `fixed`) and `top`/`left` via host styles. The host element must not be inside an ancestor with `overflow: hidden` unless `strategy='fixed'`.
 - For most use cases, prefer higher-level components (`MznDropdown`, `MznTooltip`, `MznOverflowTooltip`) which configure `MznPopper` internally.

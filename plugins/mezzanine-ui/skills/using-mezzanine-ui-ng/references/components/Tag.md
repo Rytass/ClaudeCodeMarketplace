@@ -1,10 +1,10 @@
 # Tag
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/tag) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/tag) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-display-tag--docs
 
-標籤元件，用於分類、篩選或標記內容。支援五種模式：`static`（純標籤）、`counter`（帶計數徽章）、`dismissable`（可關閉）、`addable`（可點擊新增）及 `overflow-counter`（溢出計數）。`MznTagGroup` 可包裹多個標籤，並支援 `fade` 過場動畫。
+標籤元件，用於分類、篩選或標記內容。支援五種模式：`static`（純標籤）、`counter`（帶計數徽章）、`dismissable`（可關閉）、`addable`（可點擊新增）及 `overflow-counter`（溢出計數）。`MznTagGroup` 為標籤群組容器（`transition` input 目前尚未實際生效，見 Notes）。
 
 > **Aliases** — mat-chip (Angular Material) · Chip (MUI) · Tag (Ant Design) · Label · Pill · 標籤 · 分類標籤 · Figma `Tag / *`
 > **Not for** — 狀態呈現（已核准 / 失敗 / 停用）。`MznTag` **沒有語意顏色**，狀態請用 [`MznBadge variant="dot-*"`](Badge.md)，見下一節。
@@ -64,14 +64,14 @@
 import { MznTag, MznTagGroup } from '@mezzanine-ui/ng/tag';
 import type { TagType, TagSize } from '@mezzanine-ui/core/tag';
 // TagType: 'static' | 'counter' | 'dismissable' | 'addable' | 'overflow-counter'
-// TagSize: 'main' | 'sub'
+// TagSize: 'main' | 'sub' | 'minor'
 ```
 
 ## Selector
 
-`<span mznTag type="static" label="標籤文字">` — attribute-directive component，建議 host element 為 `<span>`
+`[mznTag]` — attribute-directive component，一般 host 為 `<span>`；`addable` / `overflow-counter` 型可直接放在 `<button>` 上（host 即按鈕）
 
-`<div mznTagGroup>` — 標籤群組容器
+`[mznTagGroup]` — 標籤群組容器，例如 `<div mznTagGroup>`
 
 ## Inputs — MznTag
 
@@ -79,7 +79,7 @@ import type { TagType, TagSize } from '@mezzanine-ui/core/tag';
 | ---------- | ---------- | ---------- | -------------------------------------------------------------------------------------------------------- |
 | `type`     | `TagType`  | `'static'` | 標籤模式：`'static'` / `'counter'` / `'dismissable'` / `'addable'` / `'overflow-counter'`                |
 | `label`    | `string`   | —          | 標籤顯示文字（`static`、`counter`、`dismissable`、`addable` 型）                                          |
-| `size`     | `TagSize`  | `'main'`   | `'main' \| 'sub'` — 標籤尺寸                                                                             |
+| `size`     | `TagSize`  | `'main'`   | `'main' \| 'sub' \| 'minor'` — 標籤尺寸                                                                    |
 | `count`    | `number`   | —          | 計數器數字（`counter` 和 `overflow-counter` 型）                                                          |
 | `disabled` | `boolean`  | `false`    | 是否禁用（`dismissable`、`addable`、`overflow-counter` 型）                                               |
 | `active`   | `boolean`  | `false`    | 是否啟用中（套用 active 樣式）                                                                            |
@@ -98,7 +98,7 @@ import type { TagType, TagSize } from '@mezzanine-ui/core/tag';
 
 | Input        | Type               | Default  | Description                             |
 | ------------ | ------------------ | -------- | --------------------------------------- |
-| `transition` | `'fade' \| 'none'` | `'none'` | 過場動畫；`'fade'` 在標籤增刪時以漸變呈現 |
+| `transition` | `'fade' \| 'none'` | `'none'` | 過場動畫選項（目前 source 未讀取，無實際效果，見 Notes） |
 
 ## Usage
 
@@ -114,12 +114,12 @@ import type { TagType, TagSize } from '@mezzanine-ui/core/tag';
 <span mznTag type="dismissable" label="React" (close)="removeTag('React')"></span>
 
 <!-- 可新增標籤 -->
-<span mznTag type="addable" label="新增標籤" (tagClick)="openTagInput()"></span>
+<button mznTag type="addable" label="新增標籤" (tagClick)="openTagInput()"></button>
 
 <!-- 溢出計數標籤 -->
-<span mznTag type="overflow-counter" [count]="extraTagCount()" (tagClick)="showAllTags()"></span>
+<button mznTag type="overflow-counter" [count]="extraTagCount()" (tagClick)="showAllTags()"></button>
 
-<!-- 標籤群組（帶 fade 動畫） -->
+<!-- 標籤群組 -->
 <div mznTagGroup transition="fade">
   @for (tag of tags(); track tag.id) {
     <span
@@ -129,7 +129,7 @@ import type { TagType, TagSize } from '@mezzanine-ui/core/tag';
       (close)="removeTag(tag.id)"
     ></span>
   }
-  <span mznTag type="addable" label="新增" (tagClick)="openAddTag()"></span>
+  <button mznTag type="addable" label="新增" (tagClick)="openAddTag()"></button>
 </div>
 ```
 
@@ -157,7 +157,7 @@ interface TagItem {
         ></span>
       }
       @if (!isReadOnly()) {
-        <span mznTag type="addable" label="新增標籤" (tagClick)="addTag()"></span>
+        <button mznTag type="addable" label="新增標籤" (tagClick)="addTag()"></button>
       }
     </div>
   `,
@@ -179,7 +179,8 @@ export class TagEditorComponent {
 
 ## Notes
 
-- `addable` 和 `overflow-counter` 型的 host element 為透明（`display: contents`），實際的標籤樣式套用在內部 `<button>` 上；這是為了讓 CSS selector（如 `:disabled`、hover）正確匹配。
+- `addable` 和 `overflow-counter` 型：host 為 `<button mznTag ...>` 時，host 本身即按鈕並承載所有標籤樣式與 `disabled`（與 React 的 `<button>` root 對齊）；host 為 `<span>` 時則為 fallback，host 以 `display: contents` 透明化，內部渲染 `<button>` 承載樣式。
 - `close` output 僅在 `type="dismissable"` 時有效；`tagClick` output 僅在 `type="addable"` 或 `type="overflow-counter"` 時有效。
 - `active` input 可用於表示「已選取」的篩選標籤（如篩選條件面板）。
-- `MznTagGroup` 的 `transition="fade"` 僅控制標籤容器的動畫，標籤增刪的 CSS transition 由 SCSS 定義。
+- `MznTagGroup` 的 `transition` input 目前在 source 中僅宣告、未被模板或 host binding 讀取（host 只套用 group class），設為 `'fade'` 不會產生額外效果。
+- `counter` 型內部以 `MznBadge variant="count-info"` 渲染計數；元件內部 standalone `imports` 為 `MznIcon`、`MznBadge`，消費端只需 import `MznTag`／`MznTagGroup`。

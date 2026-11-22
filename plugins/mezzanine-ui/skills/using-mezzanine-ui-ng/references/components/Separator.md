@@ -1,6 +1,6 @@
 # Separator
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/separator) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/separator) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/layout-separator--docs
 
@@ -11,12 +11,12 @@
 ```ts
 import { MznSeparator } from '@mezzanine-ui/ng/separator';
 import type { SeparatorOrientation } from '@mezzanine-ui/core/separator';
-// SeparatorOrientation: 'horizontal' | 'vertical'
+// SeparatorOrientation: 'horizontal' | 'vertical'（`@mezzanine-ui/ng/separator` 的 index.ts 僅匯出 `MznSeparator`，型別需從 core 匯入）
 ```
 
 ## Selector
 
-`<hr mznSeparator>` — attribute-directive component，建議 host element 為 `<hr>` 以符合語意
+`[mznSeparator]` — attribute-selector component（無 `exportAs`），建議 host element 為 `<hr>` 以符合語意
 
 ## Inputs
 

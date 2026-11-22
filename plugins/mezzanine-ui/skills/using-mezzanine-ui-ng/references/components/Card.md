@@ -1,6 +1,6 @@
 # Card
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/card) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/card) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Card family for content containers. Includes `MznBaseCard` (titled card with optional action / overflow / toggle in the header), `MznQuickActionCard` (icon + title entry point), and `MznCardGroup` (CSS Grid layout wrapper with built-in skeleton loading).
 
@@ -74,7 +74,7 @@ import { MznFourThumbnailCard }   from '@mezzanine-ui/ng/four-thumbnail-card';
 
 ## MznBaseCardSkeleton
 
-Skeleton placeholder that mimics the `MznBaseCard` layout (header title + description rows, and optionally a content area). Use inside `MznCardGroup` when `[loading]="true"` or standalone.
+Skeleton placeholder that mimics the `MznBaseCard` layout (header title + description rows, and optionally a content area). Use standalone; `MznCardGroup` with `cardType='base'` renders its own inline skeleton markup rather than this component.
 
 **Selector**: `[mznBaseCardSkeleton]`
 
@@ -113,8 +113,8 @@ Skeleton placeholder that mimics the `MznQuickActionCard` layout (circle icon + 
 | `cardType`                  | `CardGroupType`       | `'base'` | Layout variant: `base \| quick-action \| single-thumbnail \| four-thumbnail` |
 | `loading`                   | `boolean`             | `false`  | Show skeleton placeholders                               |
 | `loadingCount`              | `number`              | `3`      | Number of skeleton items                                 |
-| `loadingThumbnailAspectRatio` | `string \| undefined` | —      | Thumbnail skeleton aspect ratio (thumbnail card types)   |
-| `loadingThumbnailWidth`     | `number \| string \| undefined` | — | Thumbnail skeleton width (thumbnail card types)      |
+| `loadingThumbnailAspectRatio` | `string \| undefined` | —      | Thumbnail skeleton aspect ratio (`single-thumbnail` only; falls back to `'16/9'`) |
+| `loadingThumbnailWidth`     | `number \| string \| undefined` | — | Thumbnail skeleton width (falls back to `var(--mzn-spacing-size-container-slim)` for `single-thumbnail`, `200` for `four-thumbnail`) |
 
 ## ControlValueAccessor
 
@@ -150,18 +150,27 @@ No — Card components are display/interaction components with no form binding.
 ```
 
 ```ts
-import { MznBaseCard, MznCardGroup } from '@mezzanine-ui/ng/card';
+import { Component } from '@angular/core';
+import { MznBaseCard, MznCardGroup, MznQuickActionCard } from '@mezzanine-ui/ng/card';
 import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 
-readonly menuOptions: ReadonlyArray<DropdownOption> = [
-  { id: 'edit', label: '編輯' },
-  { id: 'delete', label: '刪除' },
-];
+@Component({
+  imports: [MznBaseCard, MznCardGroup, MznQuickActionCard],
+  // ...
+})
+export class CardDemoComponent {
+  readonly menuOptions: ReadonlyArray<DropdownOption> = [
+    { id: 'edit', name: '編輯' },
+    { id: 'delete', name: '刪除' },
+  ];
+}
 ```
 
 ## Notes
 
+- The header (title / description / action / overflow / toggle) is only rendered when `title` or `description` is set; `type='action' | 'overflow' | 'toggle'` has no visible control without one of them. `type='action'` additionally requires `actionName`.
 - `type='overflow'` renders a `[mznDropdown]` with `mode='single'`. The dropdown's open state is managed internally via a `signal`.
 - The `defaultChecked` input follows React `useState(defaultValue)` semantics: it is read once at `ngOnInit` and subsequent input changes do not reset state. Use `[checked]` for controlled mode.
 - The Angular `MznBaseCard` template has a single unnamed `<ng-content />` inside the content wrapper. There is no named `[header-action]` slot — custom header elements are not content-projected; use `type="action"`, `type="overflow"`, or `type="toggle"` inputs to add header controls.
+- `MznCardGroup`'s `quick-action` skeleton always uses the default horizontal layout (the group does not pass `mode`).
 - `MznCardGroup` with `cardType='single-thumbnail'` or `'four-thumbnail'` automatically renders the corresponding skeleton component. Import the matching card component separately from its own package.

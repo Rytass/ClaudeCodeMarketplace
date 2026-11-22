@@ -1,6 +1,6 @@
 # MultipleDatePicker
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/multiple-date-picker) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/multiple-date-picker) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/data-entry-multiple-date-picker--docs
 
@@ -16,8 +16,8 @@ import {
 import type { MultipleDatePickerDateValue } from '@mezzanine-ui/ng/multiple-date-picker';
 import type { DateType, CalendarMode } from '@mezzanine-ui/core/calendar';
 
-// Required provider:
-import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
+// Required config: MZN_CALENDAR_CONFIG (via ApplicationConfig provider) or an ancestor [mznCalendarConfigProvider] directive
+import { MZN_CALENDAR_CONFIG, createCalendarConfig, MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 ```
 
 ## Selector
@@ -29,7 +29,7 @@ import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 | Input              | Type                                | Default       | Description                                                              |
 | ------------------ | ----------------------------------- | ------------- | ------------------------------------------------------------------------ |
 | `value`            | `ReadonlyArray<DateType>`           | —             | Controlled date array (use CVA in forms instead)                         |
-| `active`           | `boolean`                           | `false`       | Override trigger active/open styling                                     |
+| `active`           | `boolean`                           | `false`       | Declared but currently unused by the picker (trigger active styling follows the internal open state) |
 | `cancelText`       | `string`                            | `'Cancel'`    | Footer cancel button label                                               |
 | `clearable`        | `boolean`                           | `true`        | Show clear button                                                        |
 | `confirmText`      | `string`                            | `'Ok'`        | Footer confirm button label                                              |
@@ -83,7 +83,7 @@ import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
 </div>
 ```
 
-`writeValue(ReadonlyArray<DateType> | undefined)` sets both `committedValue` and `pendingValue` signals. `null`/`undefined` resets both to `[]`. CVA's `onChange` is called only after the user confirms via the footer button.
+`writeValue(ReadonlyArray<DateType> | undefined)` sets both `committedValue` and `pendingValue` signals. `null`/`undefined` resets both to `[]`. CVA's `onChange` is called after the user confirms via the footer button, and also (with `[]`) when the clear button is used. `setDisabledState` is not implemented, so `FormControl.disable()` does not disable the picker; bind the `disabled` input instead.
 
 ## Two-Phase Commit
 
@@ -98,14 +98,20 @@ The component uses a `committedValue` / `pendingValue` signal pair:
 
 ```ts
 // app.config.ts
-import { MznCalendarConfigProvider } from '@mezzanine-ui/ng/calendar';
+import { MZN_CALENDAR_CONFIG, createCalendarConfig, CalendarLocale } from '@mezzanine-ui/ng/calendar';
+import CalendarMethodsDayjs from '@mezzanine-ui/core/calendarMethodsDayjs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    MznCalendarConfigProvider({ firstDayOfWeek: 1, locale: 'zh-TW' }),
+    {
+      provide: MZN_CALENDAR_CONFIG,
+      useValue: createCalendarConfig(CalendarMethodsDayjs, { locale: CalendarLocale.ZH_TW }),
+    },
   ],
 };
 ```
+
+Or scope it with the attribute directive (not a provider function): `<div mznCalendarConfigProvider [methods]="dayjsMethods" locale="zh-TW"> ... </div>`.
 
 ## Usage
 

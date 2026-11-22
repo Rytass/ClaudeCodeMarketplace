@@ -1,8 +1,8 @@
 # Drawer
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/drawer) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/drawer) · Verified 1.0.0-rc.26 (2026-11-22)
 
-Slide-in panel from the right side of the screen. All header, footer, and filter-area features are flat props — no sub-component nesting required. Escape-key handling uses `EscapeKeyService` + `TopStackService` identical to `MznModal`.
+Slide-in panel from the right side of the screen. All header, footer, and filter-area features are flat props — no sub-component nesting required. Escape-key handling uses `EscapeKeyService` + `TopStackService`; focus is trapped via `FocusTrapService` identical to `MznModal`.
 
 ## Import
 
@@ -22,7 +22,7 @@ import type { DrawerSize } from '@mezzanine-ui/core/drawer';
 | Input                          | Type           | Default    | Description                                    |
 | ------------------------------ | -------------- | ---------- | ---------------------------------------------- |
 | `open`                         | `boolean`      | `false`    | Controls drawer visibility                     |
-| `size`                         | `DrawerSize`   | `'medium'` | `'small' \| 'medium' \| 'large'`              |
+| `size`                         | `DrawerSize`   | `'medium'` | `'narrow' \| 'medium' \| 'wide'`              |
 | `isHeaderDisplay`              | `boolean`      | `false`    | Show header section                            |
 | `headerTitle`                  | `string \| undefined` | —   | Header title text                              |
 | `isBottomDisplay`              | `boolean`      | `false`    | Show bottom action buttons                     |
@@ -76,7 +76,7 @@ Each action slot (primary, secondary, ghost) shares the same set of inputs:
 | `filterAreaCustomButtonLabel` | `string`                          | `'全部已讀'`  | "Mark all read" button label             |
 | `filterAreaShowUnreadButton`  | `boolean`                         | `false`       | Show the unread-filter button            |
 
-> Inputs declared with signal API (`input()`, `model()`) accept both static and reactive values.
+> Inputs declared with signal API (`input()`) accept both static and reactive values.
 
 ## Outputs
 
@@ -99,6 +99,7 @@ Each action slot (primary, secondary, ghost) shares the same set of inputs:
 | ------------------ | ---------------------------------------------------- |
 | `EscapeKeyService` | Tracks Escape keydown globally (singleton)           |
 | `TopStackService`  | Ensures only the topmost overlay closes on Escape    |
+| `FocusTrapService` | Traps focus inside the panel while open (released on close) |
 
 ## ControlValueAccessor
 

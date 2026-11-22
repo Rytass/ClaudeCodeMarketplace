@@ -1,6 +1,6 @@
 # ThumbnailCardInfo
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/thumbnail-card-info) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/thumbnail-card-info) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Attribute directive component that renders the info section (filetype badge, title, subtitle, and optional action) shared by `MznSingleThumbnailCard` and `MznFourThumbnailCard`. Supports three interaction modes: `'default'` (no action), `'action'` (text-link button), and `'overflow'` (dot-horizontal menu with dropdown).
 
@@ -9,11 +9,12 @@ Most consumers do not use this component directly — prefer `MznSingleThumbnail
 ## Import
 
 ```ts
-import {
-  MznThumbnailCardInfo,
+import { MznThumbnailCardInfo } from '@mezzanine-ui/ng/thumbnail-card-info';
+import type {
   ThumbnailCardInfoActionVariant,
   ThumbnailCardInfoType,
 } from '@mezzanine-ui/ng/thumbnail-card-info';
+import type { DropdownOption } from '@mezzanine-ui/core/dropdown';
 ```
 
 ## Selector
@@ -27,7 +28,7 @@ import {
 | `actionName`     | `string \| undefined`               | —                 | Label text for the action button. Only relevant when `type="action"`.                        |
 | `actionVariant`  | `ThumbnailCardInfoActionVariant`    | `'base-text-link'`| Button variant for the action button — `'base-text-link'` or `'destructive-text-link'`.      |
 | `disabled`       | `boolean`                           | `false`           | Whether the action button or overflow button is disabled.                                    |
-| `filetype`       | `string \| undefined`               | —                 | File extension for the filetype badge (e.g., `'pdf'`). Renders a category-specific colour.   |
+| `filetype`       | `string \| undefined`               | —                 | File extension for the filetype badge (e.g., `'pdf'`). Rendered upper-case, with a category-specific colour.   |
 | `options`        | `ReadonlyArray<DropdownOption>`     | `[]`              | Dropdown options for the overflow menu. Only relevant when `type="overflow"`.                |
 | `subtitle`       | `string \| undefined`               | —                 | Card subtitle text.                                                                          |
 | `title`          | `string \| undefined`               | —                 | Card title text.                                                                             |

@@ -1,6 +1,6 @@
 # Accordion
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/accordion) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/accordion) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Collapsible content block with animated expand/collapse. Supports controlled (`expanded`) and uncontrolled (`defaultExpanded`) modes. Sub-components communicate via injection tokens: `MZN_ACCORDION_CONTROL` (accordion internals), `MZN_ACCORDION_GROUP` (provided by `MznAccordionGroup`, which manages mutual exclusion), and `MZN_BUTTON_GROUP` (provided by `MznAccordionActions` for its button row). All three are internal wiring — consumers never provide them.
 
@@ -42,7 +42,7 @@ import {
 
 | Output           | Type                     | Description                            |
 | ---------------- | ------------------------ | -------------------------------------- |
-| `expandedChange` | `EventEmitter<boolean>`  | Fires when the accordion is toggled    |
+| `expandedChange` | `OutputEmitterRef<boolean>` | Fires when the accordion is toggled    |
 
 ## MznAccordionGroup — Inputs
 
@@ -87,7 +87,7 @@ No — Accordion is a display/interaction component with no form binding.
   <div mznAccordionTitle>
     進階設定
     <div actions mznAccordionActions>
-      <button mznButton variant="outlined" size="sub">編輯</button>
+      <button mznButton variant="base-secondary" size="sub">編輯</button>
     </div>
   </div>
   <div mznAccordionContent>內容</div>

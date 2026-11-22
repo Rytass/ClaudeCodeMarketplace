@@ -1,8 +1,8 @@
 # ContentHeader
 
-> ⚠️ Internal helper — `MznContentHeader` is used internally by `MznSection` and `MznPageHeader` to render a titled header row. You can use it directly when composing a `mznSection`, but avoid using it as a standalone component outside that context.
+> ⚠️ Internal helper — `MznContentHeader` is projected into `MznSection` (via `[mznContentHeader]`) or composed inside `MznPageHeader` to render a titled header row. You can use it directly when composing a `mznSection`, but avoid using it as a standalone component outside that context.
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/content-header) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/content-header) · Verified 1.0.0-rc.26 (2026-11-22)
 
 Section/page header with title, optional description, and content projection slots for actions and breadcrumbs.
 
@@ -36,6 +36,7 @@ type ContentHeaderTitleComponent = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
 | `description`      | `string \| undefined`         | —           | Optional description below the title                                  |
 | `size`             | `ContentHeaderSize`           | `'main'`    | `'main' \| 'sub'` — controls text size                               |
 | `showBackButton`   | `boolean`                     | `false`     | Auto-renders a back icon button; emits `backClick` when clicked       |
+| `backButtonLabel`  | `string`                      | `'Back'`    | Accessible name (`aria-label`) of the auto-rendered back button; translate it together with the rest of the UI copy |
 | `titleComponent`   | `ContentHeaderTitleComponent \| undefined` | — | Override the heading HTML tag; defaults to `'h1'` for `main`, `'h2'` for `sub` |
 
 > Inputs declared with signal API (`input()`, `model()`) accept both static and reactive values.
@@ -71,7 +72,7 @@ type ContentHeaderTitleComponent = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
     <button mznButton variant="base-primary">儲存</button>
   </div>
   <div contentHeaderUtilities>
-    <button mznButton iconType="icon-only"><i mznIcon [icon]="MoreIcon"></i></button>
+    <button mznButton iconType="icon-only"><i mznIcon [icon]="DotHorizontalIcon"></i></button>
   </div>
 </header>
 
@@ -97,4 +98,4 @@ type ContentHeaderTitleComponent = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
 - `title` is `input.required<string>()` — omitting it throws a runtime error.
 - `showBackButton` causes the component to render its own icon button. When `[contentHeaderBackButton]` slot content is also projected, the auto-rendered button takes precedence (slot is hidden).
 - `MznSection` projects `[mznContentHeader]` into the first slot automatically; no additional wrapping is needed.
-- `MznContentHeaderResponsive` (same package) provides a responsive variant for mobile-adaptive layouts.
+- `MznContentHeaderResponsive` (`content-header-responsive.component.ts`) （selector `[mznContentHeaderResponsive]`，`@experimental`；required input `breakpoint: ResponsiveBreakpoint` = `'above1080px' | 'above680px' | 'below1080px' | 'below680px' | 'between680and1080px'`，包住子內容依斷點顯示/隱藏）provides a responsive variant for mobile-adaptive layouts; it is **not** re-exported from the sub-path `index.ts` (only `MznContentHeader`, `ContentHeaderSize`, `ContentHeaderTitleComponent` are public).

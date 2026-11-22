@@ -1,6 +1,6 @@
 # InlineMessage
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/inline-message) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/inline-message) · Verified 1.0.0-rc.26 (2026-11-22)
 >
 > **Storybook**: https://storybook-ng.mezzanine-ui.org/?path=/docs/feedback-inline-message--docs
 
@@ -30,6 +30,8 @@ import type { InlineMessageGroupItem } from '@mezzanine-ui/ng/inline-message';
 | `severity` | `InlineMessageSeverity` (required) | — | `'info' \| 'warning' \| 'error'` — 決定圖示與色彩 |
 | `content`  | `string` (required)        | —       | 訊息文字                                                |
 | `icon`     | `IconDefinition`           | auto    | 自訂圖示；未設定時依 severity 自動選擇                   |
+| `role`     | `string`                   | `'status'` | 根元素的 ARIA role（可覆寫的預設值）                  |
+| `aria-live` | `'polite' \| 'assertive' \| 'off'` | `'polite'` | live region 播報方式（signal input，property 名稱為 `ariaLive`，template 以 alias `aria-live` 綁定）；破壞性操作的失敗訊息需插播時傳 `assertive` |
 
 > Inputs declared with signal API (`input()`, `input.required()`) accept both static and reactive values.
 
@@ -146,6 +148,6 @@ export class FormComponent {
 ## Notes
 
 - `MznInlineMessage` 的 `closed` output 僅在 `severity="info"` 時有效；`warning` 和 `error` 不渲染關閉按鈕。
-- `MznInlineMessage` 帶有 `role="status"` 和 `aria-live="polite"`；`MznInlineMessageGroup` 帶有 `role="region"` 和 `aria-live="polite"`。兩者的 ARIA role 不同。
+- `MznInlineMessage` 預設帶有 `role="status"` 和 `aria-live="polite"`（可由 `role` / `aria-live` input 覆寫）；`MznInlineMessageGroup` 帶有 `role="region"` 和 `aria-live="polite"`。兩者的 ARIA role 不同。
 - `MznInlineMessage` 的 `closed` output 觸發後，元件內部的 `visible` signal 會設為 `false`，元件自行隱藏。不需要在模板中搭配 `*ngIf` 控制可見性。
 - 不同於 React 版直接在 `<FormField>` 中傳入 `hintText`，Angular 版的 `MznInlineMessage` 作為獨立元件，通常搭配 `MznFormField` 的 `hintText` input 使用（`MznFormField` 會渲染 `MznFormHintText`），兩種都是合法使用方式。

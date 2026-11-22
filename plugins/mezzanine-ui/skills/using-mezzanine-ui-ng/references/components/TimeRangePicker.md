@@ -1,8 +1,8 @@
 # TimeRangePicker
 
-> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/time-range-picker) · Verified 1.0.0-rc.4 (2026-04-24)
+> **Source**: [GitHub Source](https://github.com/Mezzanine-UI/mezzanine/tree/main/packages/ng/time-range-picker) · Verified 1.0.0-rc.26 (2026-11-22)
 
-Time-only range picker that lets users select start and end times. Implements `ControlValueAccessor` for form integration. Backed by `MznTimePanel` internally. Requires `MZN_CALENDAR_CONFIG`.
+Time-only range picker that lets users select start and end times. Implements `ControlValueAccessor` for form integration. Renders `MznRangePickerTrigger` (dual inputs with arrow separator) and a single `MznTimePanel` in an `MznPopper` for whichever side (start/end) is focused. Requires `MZN_CALENDAR_CONFIG`.
 
 ## Import
 
@@ -22,15 +22,15 @@ import type { TextFieldSize }    from '@mezzanine-ui/core/text-field';
 | Input         | Type                              | Default     | Description                                         |
 | ------------- | --------------------------------- | ----------- | --------------------------------------------------- |
 | `value`       | `RangePickerValue \| undefined`   | —           | Controlled range tuple — `[DateType \| undefined, DateType \| undefined]`; either slot may be `undefined` |
-| `placeholder` | `string`                          | `''`        | Placeholder text shown in the input field           |
+| `placeholder` | `string`                          | `''`        | Placeholder for both inputs; falls back to `'HH:mm:ss'` when empty |
 | `disabled`    | `boolean`                         | `false`     | Disable the picker                                  |
 | `readOnly`    | `boolean`                         | `false`     | Read-only mode                                      |
 | `clearable`   | `boolean`                         | `true`      | Show clear button                                   |
 | `error`       | `boolean`                         | `false`     | Error state styling                                 |
-| `required`    | `boolean`                         | `false`     | Required field flag                                 |
+| `required`    | `boolean`                         | `false`     | Declared but not applied to the rendered inputs     |
 | `size`        | `TextFieldSize`                   | `'main'`    | Input field size                                    |
 | `fullWidth`   | `boolean`                         | `false`     | Stretch to container width                          |
-| `format`      | `string \| undefined`             | —           | Time display format (e.g. `'HH:mm'`)               |
+| `format`      | `string \| undefined`             | —           | Time display format (e.g. `'HH:mm'`); default `'HH:mm'` when `hideSecond`, otherwise `defaultTimeFormat` from `MZN_CALENDAR_CONFIG` |
 | `hideHour`    | `boolean`                         | `false`     | Hide hour column                                    |
 | `hideMinute`  | `boolean`                         | `false`     | Hide minute column                                  |
 | `hideSecond`  | `boolean`                         | `false`     | Hide second column                                  |
@@ -38,7 +38,7 @@ import type { TextFieldSize }    from '@mezzanine-ui/core/text-field';
 | `minuteStep`  | `number`                          | `1`         | Minute increment step                               |
 | `secondStep`  | `number`                          | `1`         | Second increment step                               |
 
-> Inputs declared with signal API (`input()`, `model()`) accept both static and reactive values.
+> Inputs declared with signal API (`input()`) accept both static and reactive values.
 
 ## Outputs
 
@@ -89,7 +89,8 @@ readonly timeRangeCtrl = new FormControl<RangePickerValue | null>(null);
 ## Notes
 
 - Requires `MZN_CALENDAR_CONFIG` — see [Calendar](./Calendar.md) for setup.
-- Unlike `DateTimeRangePicker` which renders two separate picker inputs, `TimeRangePicker` renders a single combined input that opens a panel with two time columns (start/end).
-- `format` controls the display string in the text field; defaults to the `defaultTimeFormat` from `MZN_CALENDAR_CONFIG`.
+- `TimeRangePicker` renders two inputs (start/end) via `MznRangePickerTrigger`; focusing either input opens one time panel bound to that side. Confirm (OK) commits the focused side only; click-away cancels without committing.
+- `format` controls the display string in the text fields; defaults to `'HH:mm'` when `hideSecond` is true, otherwise `defaultTimeFormat` from `MZN_CALENDAR_CONFIG`.
+- `MznTimeRangePicker` does not implement `setDisabledState`; `FormControl.disable()` does not disable it. Bind `[disabled]` explicitly.
 - Steps control which values appear in columns — a `minuteStep` of `30` shows only 00 and 30.
-- `rangeChanged` fires with `[undefined, undefined]` when the user clears the value, not only when both times are confirmed. Always guard against `undefined` when reading either slot of the emitted tuple.
+- `rangeChanged` (and the CVA `onChange`) fires only when both start and end are set, or with `[undefined, undefined]` when the user clears the value. Always guard against `undefined` when reading either slot of the emitted tuple.
